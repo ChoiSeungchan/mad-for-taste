@@ -42,6 +42,10 @@ public class LevelTable {
 						new LevelInfo(level, currentLevelExp, requiredExp, nextLevelExp, expDemandBlock, expPercentage);
 				member.setLevelInfo(levelInfo);
 				break;
+			} else {
+				LevelInfo levelInfo = 
+						new LevelInfo(99, 684901, 684901, 684901, 30000, 100);
+				member.setLevelInfo(levelInfo);
 			}
 		}
 		return member;
@@ -73,6 +77,8 @@ public class LevelTable {
 				exp += 20000;
 			} else if (level <= 100) {
 				exp += 30000;
+			} else {
+				
 			}
 			levelMap.put(level, exp);
 		}

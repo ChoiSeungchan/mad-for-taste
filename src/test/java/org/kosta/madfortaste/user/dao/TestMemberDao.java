@@ -8,12 +8,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Random;
 
 import javax.annotation.Resource;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.madfortaste.common.lib.Page;
@@ -31,9 +31,9 @@ public class TestMemberDao {
 
 	private Logger log = LoggerFactory.getLogger(getClass());
 	@Resource
-	MemberDaoImpl memberDao;
+	MemberDao memberDao;
 
-	@Test
+	@Before
 	public void setUp() {
 		assertNotNull(memberDao);
 	}
@@ -45,7 +45,10 @@ public class TestMemberDao {
 		log.info(page.toString());
 		page.preview();
 	}
-
+	
+	@Resource
+	LevelTable levelTable;
+	
 	@Test
 	public void testInsertMemberTest() {
 		Member member = new Member("hs9923", "1234", "정현승", "성남시 분당구 서현동", "남", "1989-02-04", "01089909923");
@@ -69,7 +72,7 @@ public class TestMemberDao {
 		List<Member> memberList = memberDao.selectMemberList(new Page(totalCount));
 		Member member = memberList.get(totalCount-1);
 		int beforeExp = member.getExp();
-		member.setExp(member.getExp()+50);
+		member.setExp(329900);
 		memberDao.updateMember(member);
 		Member afterMember = memberList.get(totalCount-1);
 		int afterExp = afterMember.getExp();
@@ -111,6 +114,55 @@ public class TestMemberDao {
 			for (Member member : memberList) {
 				log.info(member.toString());
 			}
+		}
+	}
+	
+	@Transactional
+	@Test
+	public void testUpExp() {
+		int totalCount = memberDao.selectTotalCount();
+		assertThat(totalCount, greaterThan(0));
+		List<Member> memberList = memberDao.selectMemberList(new Page(totalCount));
+		Member member = memberList.get(totalCount-1);
+		String id = member.getId();
+		int exp = member.getExp();
+		int acquiredExp = new Random().nextInt(1000);
+		memberDao.upExp(id, acquiredExp);
+		Member afterMember = memberDao.selectMemberById(id);
+		log.info("id = "+ id +" // 경험치 " + acquiredExp +"획득 후 "+ exp +"에서 "  +afterMember.getExp()+"로 변경되었습니다.");
+	}
+	
+	@Transactional
+	@Test
+	public void testUpPoint() {
+		int totalCount = memberDao.selectTotalCount();
+		assertThat(totalCount, greaterThan(0));
+		List<Member> memberList = memberDao.selectMemberList(new Page(totalCount));
+		Member member = memberList.get(totalCount-1);
+		String id = member.getId();
+		int beforePoint = member.getPoint();
+		int acquiredPoint = new Random().nextInt(1000);
+		memberDao.upPoint(id, acquiredPoint);
+		Member afterMember = memberDao.selectMemberById(id);
+		log.info("id = "+ id +" // 포인트 " + acquiredPoint +"획득 후 "+ beforePoint +"에서 "  +afterMember.getPoint() +"로 변경되었습니다.");
+	}
+	
+	@Transactional
+	@Test
+	public void testDownPoint() {
+		int totalCount = memberDao.selectTotalCount();
+		assertThat(totalCount, greaterThan(0));
+		List<Member> memberList = memberDao.selectMemberList(new Page(totalCount));
+		Member member = memberList.get(totalCount-1);
+		String id = member.getId();
+		int beforePoint = member.getPoint();
+		int lostPoint = new Random().nextInt(1000);
+		if(beforePoint > lostPoint) {
+			memberDao.downPoint(id, lostPoint);
+			Member afterMember = memberDao.selectMemberById(id);
+			log.info("id = "+ id +" // 포인트 " + lostPoint +"잃은 후 "+ beforePoint +"에서 "  +afterMember.getPoint() +"로 변경되었습니다.");
+		} else {
+			log.info("잔여 포인트가 없어 명령을 수행하지 못하였습니다.");
 		}
 	}
 }
