@@ -1,3 +1,6 @@
+
+----- Member -----
+
 drop table member
 create table member(
 	id varchar2(20) primary key,
@@ -14,3 +17,4 @@ create table member(
 )
 
 select * from member
+
