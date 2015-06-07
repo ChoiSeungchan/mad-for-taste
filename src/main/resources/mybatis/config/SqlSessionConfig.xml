@@ -9,6 +9,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>	
 	<!-- 사용할 클래스에 대한 별칭을 명시한다.  -->
 	<typeAliases>
+		<typeAlias type="org.kosta.madfortaste.user.domain.Member" alias="member"/>
 	</typeAliases>
 	
 	<mappers>

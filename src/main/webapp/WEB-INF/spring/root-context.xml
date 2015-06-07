@@ -25,7 +25,7 @@
 		<property name="configLocation" value="classpath:mybatis/config/SqlSessionConfig.xml"></property>
 	</bean>
 	
-	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
 		<constructor-arg ref="sqlSessionFactory"></constructor-arg>
 	</bean>	
 	

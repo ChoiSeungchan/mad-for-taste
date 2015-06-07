@@ -3,9 +3,42 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="member">
- 	
- </mapper>
+<mapper namespace="member">
+	
+	<resultMap type="member" id="memberRM">
+		<result property="joinDate" column="join_date"/>
+		<result property="profileImg" column="profile_img"/>
+	</resultMap>
+	<sql id="selectMember">
+		select id,password,name,address,gender,birth,tel,exp,point,join_date,profile_img from member
+	</sql>
+	<insert id="insertMember">
+		insert into member(id,password,name,address,gender,birth,tel,profile_img)
+		values (#{id},#{password},#{name},#{address},#{gender},#{birth},#{tel},#{profileImg})
+	</insert>
+	<select id="selectMemberById" resultMap="memberRM">
+		<include refid="selectMember"></include>
+		where id=#{id}
+	</select>
+	<select id="selectTotalCount" resultType="int">
+		select count(*) from member
+	</select>
+	<select id="selectMemberList" resultMap="memberRM">
+		<![CDATA[
+			select * from
+			(select rownum, m.* from member m order by rownum desc)
+			where rownum between #{beginRow} and #{endRow}		
+		]]>
+	</select>
+	<update id="updateMember">
+		update member set password=#{password}, name=#{name}, address=#{address}, gender=#{gender},
+		birth=#{birth}, tel=#{tel}, exp=#{exp}, point=#{point}, join_date=#{joinDate}, profile_img=#{profileImg}
+		where id=#{id}
+	</update>
+	<delete id="deleteMember">
+		delete from member where id=#{id}
+	</delete>
+</mapper>
  
  
  

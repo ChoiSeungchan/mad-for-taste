@@ -273,6 +273,7 @@ public class Page {
 		} else {
 			str.append("	Empty!");
 		}
+		System.out.println(str);
 		return str;
 	}
 
