@@ -8,8 +8,8 @@ KOSTA 94기 6조(나꿍꼬또개발꿍꼬또) Final Project.
 * oracle 11g express edition
 * springframework 4.1.6 RELEASE
 
-
 #### Branch
 * master
 * develop
-* develop-feature
+* develop-닉네임
+* https://github.com/hs9923/mad-for-teste/network
