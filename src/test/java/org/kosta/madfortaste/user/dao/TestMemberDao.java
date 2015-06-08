@@ -1,8 +1,7 @@
 package org.kosta.madfortaste.user.dao;
 
 
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -72,7 +71,7 @@ public class TestMemberDao {
 		List<Member> memberList = memberDao.selectMemberList(new Page(totalCount));
 		Member member = memberList.get(totalCount-1);
 		int beforeExp = member.getExp();
-		member.setExp(329900);
+		member.setExp(beforeExp+50);
 		memberDao.updateMember(member);
 		Member afterMember = memberList.get(totalCount-1);
 		int afterExp = afterMember.getExp();
@@ -89,8 +88,9 @@ public class TestMemberDao {
 		int expectedListSize = page.getEndRow()-page.getBeginRow() + 1;
 		assertThat(memberList.size(), is(expectedListSize));
 		Member beforeMember = memberList.get(expectedListSize -1);
+		String beforeMemberId = beforeMember.getId();
 		memberDao.deleteMember(beforeMember.getId());
-		Member afterMember = memberDao.selectMemberById(beforeMember.getId());
+		Member afterMember = memberDao.selectMemberById(beforeMemberId);
 		assertNull(afterMember);
 		log.info("아이디가 {}인 회원이 성공적으로 삭제되었습니다.", beforeMember.getId());
 	}

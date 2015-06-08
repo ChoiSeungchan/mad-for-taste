@@ -23,11 +23,6 @@ public class MemberDaoImpl implements MemberDao {
 	LevelTable levelTable;
 	
 	@Override
-	public void insertExpTable(Map<String, Integer> expInfo) {
-		sqlSessionTemplate.insert("insertExpTable", expInfo);
-	}
-
-	@Override
 	public Member insertMember(Member member) {
 		sqlSessionTemplate.insert("insertMember", member);
 		return member;
@@ -36,7 +31,7 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public Member selectMemberById(String id) {
 		Member member = sqlSessionTemplate.selectOne("selectMemberById", id);
-		levelTable.calculateLevelInfo(member);
+		if(member!=null) levelTable.calculateLevelInfo(member);
 		return member;
 	}
 
@@ -49,7 +44,7 @@ public class MemberDaoImpl implements MemberDao {
 	public List<Member> selectMemberList(Page page) {
 		List<Member> memberList = sqlSessionTemplate.selectList("selectMemberList", page);
 		for (Member member : memberList) {
-			levelTable.calculateLevelInfo(member);
+			if(member!=null) levelTable.calculateLevelInfo(member);
 		}
 		return memberList;
 	}

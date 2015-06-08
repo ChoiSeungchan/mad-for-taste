@@ -31,7 +31,7 @@ public class LevelTable {
 	public Member calculateLevelInfo(Member member){
 		int memberExp = member.getExp();
 		for(int i=1; i<100; i++) {
-			if(memberExp < levelMap.get(i)) {
+			if(memberExp < levelMap.get(i)) {	// 레벨 99 미만
 				int level = i-1;
 				int currentLevelExp = levelMap.get(level);
 				int nextLevelExp = levelMap.get(level+1);
@@ -42,7 +42,7 @@ public class LevelTable {
 						new LevelInfo(level, currentLevelExp, requiredExp, nextLevelExp, expDemandBlock, expPercentage);
 				member.setLevelInfo(levelInfo);
 				break;
-			} else {
+			} else {	// 레벨 99일때
 				LevelInfo levelInfo = 
 						new LevelInfo(99, 684901, 684901, 684901, 30000, 100);
 				member.setLevelInfo(levelInfo);
