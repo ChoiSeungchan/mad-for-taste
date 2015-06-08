@@ -7,9 +7,11 @@ KOSTA 94기 6조(나꿍꼬또개발꿍꼬또) Final Project.
 * tomcat 8
 * oracle 11g express edition
 * springframework 4.1.6 RELEASE
-
+* Maven
+* Spring Tool Suite
 
 #### Branch
 * master
 * develop
-* develop-feature
+* develop-닉네임
+* https://github.com/hs9923/mad-for-teste/network
