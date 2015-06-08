@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-엠창인생 여기서 쫑내자
+나도 여자친구 사귀고싶다
 </body>
 </html>
