@@ -1,14 +1,11 @@
 package org.kosta.madfortaste.user.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.user.domain.Member;
 
 public interface MemberDao {
-
-	public abstract void insertExpTable(Map<String, Integer> expInfo);
 
 	public abstract Member insertMember(Member member);
 

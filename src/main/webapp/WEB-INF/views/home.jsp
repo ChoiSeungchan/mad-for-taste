@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-엠창인생 여기서 쫑내자
+
 </body>
 </html>
