@@ -12,9 +12,6 @@
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
-<!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
@@ -36,17 +33,31 @@
 		
 	});
 </script>
+<style type="text/css">
+body {
+	margin-top: 60px;	
+}
+#right {
+	margin-top: 15px;	
+}
+</style>
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
+<div id="nav" class="col-md-12">
+	<tiles:insertAttribute name="nav"></tiles:insertAttribute>
+</div>
 <div id="header" class="col-md-12">
 	<tiles:insertAttribute name="header"></tiles:insertAttribute>
 </div>
-<div id="left" class="col-md-3">
+<div id="left" class="col-md-2">
 	<tiles:insertAttribute name="left"></tiles:insertAttribute>
 </div>
-<div id="main" class="col-md-9">
+<div id="main" class="col-md-8">
 	<tiles:insertAttribute name="main"></tiles:insertAttribute>
+</div>
+<div id="right" class="col-md-2">
+	<tiles:insertAttribute name="right"></tiles:insertAttribute>
 </div>
 <div id="footer" class="col-md-12">
 	<tiles:insertAttribute name="footer"></tiles:insertAttribute>
