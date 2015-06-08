@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-나도 여자친구 사귀고싶다
+
 </body>
 </html>
