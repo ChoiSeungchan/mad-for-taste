@@ -35,7 +35,7 @@
 </script>
 <style type="text/css">
 body {
-	margin-top: 60px;	
+	margin-top: 60px;
 }
 #right {
 	margin-top: 15px;	

@@ -10,7 +10,7 @@
 	명시하면 아래의 페이지들이 조합된(include) 결과 화면을 제공한다	
  -->
 <tiles-definitions>
-	<definition name="home-t" template="/WEB-INF/views/templates/layout.jsp">
+	<definition name="home" template="/WEB-INF/views/templates/layout.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/templates/nav.jsp"/>
 		<put-attribute name="header" value="/WEB-INF/views/templates/header.jsp"/>
 		<put-attribute name="left" value="/WEB-INF/views/templates/left.jsp"/>
@@ -19,10 +19,3 @@
 		<put-attribute name="footer" value="/WEB-INF/views/templates/footer.jsp"/>
 	</definition>
 </tiles-definitions>
-
-
-
-
-
-
-

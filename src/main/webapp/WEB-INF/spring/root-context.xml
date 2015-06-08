@@ -42,4 +42,7 @@
 	
 	<!-- 어노테이션 기반 AOP 설정 -->
 	<aop:aspectj-autoproxy/>
+	
+	<!-- 분할된 xml 설정파일 리소스에 추가  -->
+	<import resource="appServlet/fileupload_config.xml"/>
 </beans>
