@@ -14,8 +14,6 @@
 		});
 	})
 </script>
-
-
 <ul class="list-group">
 	<li class="list-group-item">
 		<form id="loginForm" role="form">
@@ -36,10 +34,9 @@
 					<input type="radio" name="userCategory" id="owner" value="owner">업주 회원
 					</label>
 				</div>
+				<button type="submit" class="btn btn-primary">로그인</button>
+				<button type="button" id="registerBtn" class="btn btn-info">회원가입</button>
 			</div>
-			<button type="submit" class="btn btn-primary">로그인</button>
-			&nbsp&nbsp&nbsp&nbsp
-			<button type="button" id="registerBtn" class="btn btn-info">회원가입</button>
 		</form>
 	</li>
 </ul>
