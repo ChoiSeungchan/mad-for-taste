@@ -17,20 +17,9 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('#header').css('background','lime');
-		$('#main').css('background','pink');
 		$('#footer').css('background','orange');
-		$('#left').css('background','yellow');
 		
-		$('#left').height(500);
-		
-		
-		// left div와 main div의 높이를 동기화
-		var leftHeight = $('#left').height();
-		var mainHeight = $('#main').height();
-		if(leftHeight > mainHeight) { $('#main').height(leftHeight); }
-		else { $('#left').height(mainHeight); }
-		
+	
 	});
 </script>
 <style type="text/css">
@@ -39,6 +28,9 @@ body {
 }
 #right {
 	margin-top: 15px;	
+}
+#left {
+	margin-top: 15px;
 }
 </style>
 </head>
