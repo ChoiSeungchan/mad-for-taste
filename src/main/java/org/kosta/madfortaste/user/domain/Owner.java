@@ -9,9 +9,15 @@ public class Owner implements User{
 	private String tel;
 	private String email;
 	private String joinDate;
-	private MultipartFile profileImg;
+	private MultipartFile imgFile;
+	private String profileImg;
+	public Owner() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Owner(String ownerId, String password, String name, String tel,
-			String email, String joinDate, MultipartFile profileImg) {
+			String email, String joinDate, MultipartFile imgFile,
+			String profileImg) {
 		super();
 		this.ownerId = ownerId;
 		this.password = password;
@@ -19,17 +25,15 @@ public class Owner implements User{
 		this.tel = tel;
 		this.email = email;
 		this.joinDate = joinDate;
+		this.imgFile = imgFile;
 		this.profileImg = profileImg;
-	}
-	public Owner() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public String toString() {
 		return "Owner [ownerId=" + ownerId + ", password=" + password
 				+ ", name=" + name + ", tel=" + tel + ", email=" + email
-				+ ", joinDate=" + joinDate + ", profileImg=" + profileImg + "]";
+				+ ", joinDate=" + joinDate + ", imgFile=" + imgFile
+				+ ", profileImg=" + profileImg + "]";
 	}
 	public String getOwnerId() {
 		return ownerId;
@@ -67,11 +71,17 @@ public class Owner implements User{
 	public void setJoinDate(String joinDate) {
 		this.joinDate = joinDate;
 	}
-	public MultipartFile getProfileImg() {
+	public MultipartFile getImgFile() {
+		return imgFile;
+	}
+	public void setImgFile(MultipartFile imgFile) {
+		this.imgFile = imgFile;
+	}
+	public String getProfileImg() {
 		return profileImg;
 	}
-	public void setProfileImg(MultipartFile profileImg) {
+	public void setProfileImg(String profileImg) {
 		this.profileImg = profileImg;
 	}
-	
+
 }

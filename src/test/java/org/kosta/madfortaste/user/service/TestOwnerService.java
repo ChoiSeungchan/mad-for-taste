@@ -20,7 +20,7 @@ public class TestOwnerService {
 	@Transactional
 	@Test
 	public void insertOwner() {
-		Owner owner=new Owner("java", "1234", "강동원", "01033832281", "tgoo@yahoo.com",null,null);
+		Owner owner=new Owner("java", "1234", "강동원", "01033832281", "tgoo@yahoo.com",null,null,null);
 		assertThat(owner, is(ownerDao.insertOwner(owner)));
 	}
 

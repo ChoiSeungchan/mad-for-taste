@@ -21,13 +21,15 @@ create table owner(
 	name varchar2(20)not null,
 	tel varchar2(20)not null,
 	email varchar2(50)not null,
-	join_date date not null
+	join_date date not null,
+	profile_img varchar2(30)
 )
-
+drop table member
+drop table owner
 create sequence 
 drop table tasty_place
 select *from owner
 select *from tasty_place
 select * from member
-
+delete from tasty_place
 delete from owner
