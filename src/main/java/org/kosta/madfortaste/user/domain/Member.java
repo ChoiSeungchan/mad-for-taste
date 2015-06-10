@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.MultipartFile;
 
 public class Member implements User{
 	
@@ -26,7 +27,8 @@ public class Member implements User{
 	private LevelInfo levelInfo;
 	private int point;
 	private Date joinDate;
-	private String profileImg = "default";
+	private String profileImg = "default.jpg";
+	private MultipartFile imgFile;
 
 	public Member() {
 		super();
@@ -45,7 +47,7 @@ public class Member implements User{
 	}
 	
 	public Member(String id, String password, String name, String address,
-			String gender, String birth, String tel, String profileImg) {
+			String gender, String birth, String tel, MultipartFile imgFile) {
 		super();
 		this.id = id;
 		this.password = password;
@@ -54,12 +56,12 @@ public class Member implements User{
 		this.gender = gender;
 		this.birth = birth;
 		this.tel = tel;
-		this.profileImg = profileImg;
+		this.imgFile = imgFile;
 	}
-
+	
 	public Member(String id, String password, String name, String address,
-			String gender, String birth, String tel, int exp, LevelInfo levelInfo,
-			int point, Date joinDate, String profileImg) {
+			String gender, String birth, String tel, int exp,
+			LevelInfo levelInfo, int point, Date joinDate, String profileImg) {
 		super();
 		this.id = id;
 		this.password = password;
@@ -139,6 +141,14 @@ public class Member implements User{
 		this.exp = exp;
 	}
 
+	public LevelInfo getLevelInfo() {
+		return levelInfo;
+	}
+
+	public void setLevelInfo(LevelInfo levelInfo) {
+		this.levelInfo = levelInfo;
+	}
+
 	public int getPoint() {
 		return point;
 	}
@@ -163,12 +173,12 @@ public class Member implements User{
 		this.profileImg = profileImg;
 	}
 
-	public LevelInfo getLevelInfo() {
-		return levelInfo;
+	public MultipartFile getImgFile() {
+		return imgFile;
 	}
 
-	public void setLevelInfo(LevelInfo levelInfo) {
-		this.levelInfo = levelInfo;
+	public void setImgFile(MultipartFile imgFile) {
+		this.imgFile = imgFile;
 	}
 
 	@Override
@@ -177,8 +187,10 @@ public class Member implements User{
 				+ ", address=" + address + ", gender=" + gender + ", birth="
 				+ birth + ", tel=" + tel + ", exp=" + exp + ", levelInfo="
 				+ levelInfo + ", point=" + point + ", joinDate=" + joinDate
-				+ ", profileImg=" + profileImg + "]";
+				+ ", profileImg=" + profileImg + ", imgFile=" + imgFile + "]";
 	}
+	
+	
 	
 
 }

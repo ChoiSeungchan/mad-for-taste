@@ -11,7 +11,7 @@
 		</ol>
 		<div class="carousel-inner">
 			<div class="item active">
-				<a href="testForm"><img alt="" src="resources/images/test1.jpg" /></a>
+				<a href="testForm"><img alt="" src="${initParam.root}resources/images/test1.jpg" /></a>
 				<div class="carousel-caption">
 					<h4>First Thumbnail label</h4>
 					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.
@@ -20,7 +20,7 @@
 				</div>
 			</div>
 			<div class="item">
-				<img alt="" src="resources/images/test2.jpg" />
+				<img alt="" src="${initParam.root}resources/images/test2.jpg" />
 				<div class="carousel-caption">
 					<h4>Second Thumbnail label</h4>
 					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.
@@ -29,7 +29,7 @@
 				</div>
 			</div>
 			<div class="item">
-				<img alt="" src="resources/images/test3.jpg" />
+				<img alt="" src="${initParam.root}resources/images/test3.jpg" />
 				<div class="carousel-caption">
 					<h4>Third Thumbnail label</h4>
 					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.
