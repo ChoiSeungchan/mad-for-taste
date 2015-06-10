@@ -48,7 +48,7 @@
   </div>
   <div class="form-group">
     <label for="imgFile">프로필 사진</label>
-    <input type="file" name="imgFile" id="imgFile">
+    <input type="file" name="imgFile" id="imgFile" accept="image/gif,image/jpeg,image/bmp, image/png">
   </div>
   <button type="submit" class="btn btn-default">회원가입</button>
 </form:form>

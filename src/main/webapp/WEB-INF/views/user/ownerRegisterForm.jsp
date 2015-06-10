@@ -65,7 +65,7 @@
     </div>
      <div class="form-group"> 
     <label for="email">프로필 사진</label>
-	<input type="file" name=imgFile value="프로필사진">
+	<input type="file" name=imgFile value="프로필사진" accept="image/gif,image/jpeg,image/bmp, image/png">
     </div>  
     <div class="form-group"> 
     <label for="brNo">사업자 등록 번호</label>
