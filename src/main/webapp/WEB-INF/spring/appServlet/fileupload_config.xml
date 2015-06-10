@@ -19,4 +19,11 @@
 			<value>C:\\file-upload-test\\</value>
 		</constructor-arg>
 	</bean>
+	<!-- upload path -->
+		<bean id="uploadPath" class="java.lang.String" >
+		<!-- C:\java-kosta\servers\apache-tomcat-7.0.59\webapps\springmvc28-fileupload-inst\upload 운영업로드 경로 -->
+		<constructor-arg>
+			<value>C:\\madfortaste\\user\\owner\\</value>
+		</constructor-arg>
+</bean>
 </beans>

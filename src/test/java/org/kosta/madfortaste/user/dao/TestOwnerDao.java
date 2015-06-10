@@ -26,7 +26,7 @@ public class TestOwnerDao {
 	@Transactional
 	@Test
 	public void testInsertOwner() {
-		Owner owner=new Owner("java", "1234", "강동원", "01033832281", "tgoo@yahoo.com",null,null);
+		Owner owner=new Owner("java", "1234", "강동원", "01033832281", "tgoo@yahoo.com",null,null,null);
 		assertThat(owner, is(ownerDao.insertOwner(owner)));
 		TastyPlace tastyPlace=new TastyPlace(null, "홍콩반점", "경기도 일산시", "1566-7777", null,"java");
 		assertEquals(1, tastyPlaceDao.insertTastyPlace(tastyPlace));

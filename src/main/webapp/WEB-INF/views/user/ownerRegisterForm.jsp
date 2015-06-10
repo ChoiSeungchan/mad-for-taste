@@ -7,6 +7,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.1.0.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		alert("dd");
+	});
+</script>
 </head>
 <body>
 
@@ -41,7 +48,7 @@
     </div>
      <div class="form-group"> 
     <label for="email">프로필 사진</label>
-	<input type="file" name=profileImg value="프로필사진">
+	<input type="file" name=imgFile value="프로필사진">
     </div>  
     <div class="form-group"> 
     <label for="brNo">사업자 등록 번호</label>
