@@ -31,9 +31,13 @@ public class MemberController {
 		return "user/memberRegisterForm";
 	}
 	
-	@RequestMapping(value="registerMember")
+	@RequestMapping(value="/registerMember")
 	public String registerMember(@Valid Member member, BindingResult result) {
-		System.out.println(member.getImgFile().getSize());
+		
+		if(result.hasErrors()){
+			return "user/memberRegisterForm"; // 유효성 검사에 에러가 있으면 가입폼으로 다시 보낸다. 
+		}
+		
 		try {
 			memberService.insertMember(member);
 		} catch (IllegalStateException e) {

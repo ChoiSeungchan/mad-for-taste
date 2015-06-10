@@ -10,34 +10,41 @@
 </head>
 <body>
 <div class="col-md-4 col-md-offset-4">
-<form:form action="registerMember" method="post" enctype="multipart/form-data">
+<form:form action="registerMember" method="post" enctype="multipart/form-data" commandName="member">
   <div class="form-group">
     <label for="id">아이디</label>
-    <input type="text" class="form-control" name="id" id="id" placeholder="아이디를 입력하세요">
+    <form:input type="text" class="form-control" path="id" name="id" id="id" placeholder="아이디를 입력하세요"/>
+  	<font color="red"><form:errors path="id"/></font>
   </div>
   <div class="form-group">
     <label for="password">비밀번호</label>
-    <input type=text class="form-control" name="password" id="password" placeholder="비밀번호를 입력하세요">
+    <form:input type="password" class="form-control" path="password" name="password" id="password" placeholder="비밀번호를 입력하세요"/>
+  	<font color="red"><form:errors path="password"/></font>
   </div>
   <div class="form-group">
     <label for="name">이름</label>
-    <input type="text" class="form-control" name="name" id="name" placeholder="이름을 입력하세요">
+    <form:input type="text" class="form-control" path="name" name="name" id="name" placeholder="이름을 입력하세요"/>
+  	<font color="red"><form:errors path="name"/></font>
   </div>
-  <div class="form-group">
+   <div class="form-group">
     <label for="address">주소</label>
-    <input type="text" class="form-control" name="address" id="address" placeholder="주소를 입력하세요">
+    <form:input type="text" class="form-control" path="address" name="address" id="address" placeholder="주소를 입력하세요"/>
+  	<font color="red"><form:errors path="address"/></font>
   </div>
   <div class="form-group">
     <label for="gender">성별</label>
-    <input type="text" class="form-control" name="gender" id="gender" placeholder="성별을 입력하세요">
+    <form:input type="text" class="form-control" path="gender" name="gender" id="gender" placeholder="성별을 입력하세요"/>
+  	<font color="red"><form:errors path="gender"/></font>
   </div>
   <div class="form-group">
     <label for="birth">생년월일</label>
-    <input type="text" class="form-control" name="birth" id="birth" placeholder="생년월일을 입력하세요">
+    <form:input type="text" class="form-control" path="birth" name="birth" id="birth" placeholder="생년월일을 입력하세요"/>
+  	<font color="red"><form:errors path="birth"/></font>
   </div>
   <div class="form-group">
     <label for="tel">전화번호</label>
-    <input type="text" class="form-control" name="tel" id="tel" placeholder="전화번호를 입력하세요">
+    <form:input type="text" class="form-control" path="tel" name="tel" id="tel" placeholder="전화번호를 입력하세요"/>
+  	<font color="red"><form:errors path="tel"/></font>
   </div>
   <div class="form-group">
     <label for="imgFile">프로필 사진</label>
