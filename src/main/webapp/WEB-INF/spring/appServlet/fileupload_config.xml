@@ -19,4 +19,10 @@
 			<value>C:\\file-upload-test\\</value>
 		</constructor-arg>
 	</bean>
+	
+	<bean id="memberImg" class="java.lang.String" >
+		<constructor-arg>
+			<value>C:\\madfortaste\\images\\user\\member\\</value>
+		</constructor-arg>
+	</bean>
 </beans>
