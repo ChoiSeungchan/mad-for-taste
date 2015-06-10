@@ -1,5 +1,7 @@
 package org.kosta.madfortaste.taste.dao;
 
-public interface TastyPlaceDao {
+import org.kosta.madfortaste.taste.domain.TastyPlace;
 
+public interface TastyPlaceDao {
+	public int insertTastyPlace(TastyPlace tastyPlace);
 }
