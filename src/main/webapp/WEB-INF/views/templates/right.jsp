@@ -17,7 +17,10 @@
 			location.href='logout';
 		});
 		
-		var percentage = $('#flag').val();
+		/*
+			경험치 20%, 50%, 90% 분기마다 경험치 바 색깔이 바뀌는 코드
+		*/
+		var percentage = $('#expPercentage').val();
 		if(percentage!='') {
 			if (percentage>90) {
 				$('#levelInfo').attr('color','red');
@@ -71,15 +74,19 @@
 					</tr>
 					</tbody>
 				</table>
-				<input type="button" id="logoutBtn" class="btn btn-primary" value="로그아웃">
-				<input type="button" id="updateBtn" class="btn btn-info" value="내 정보 수정">
-				<input type="button" id="deleteBtn" class="btn btn-warning" value="회원 탈퇴">
+				<div align="center">
+				<input type="button" id="logoutBtn" class="btn btn-primary btn-xs" value="로그아웃">
+				<input type="button" id="updateBtn" class="btn btn-info btn-xs" value="내 정보 수정">
+				<input type="button" id="deleteBtn" class="btn btn-warning btn-xs" value="회원 탈퇴">
+				</div>
 			</c:when>
 			<c:when test="${sessionScope.owner!=null}">
 				점주회원 : ${owner.name}(${owner.ownerId})님 접속중
-				<input type="button" id="logoutBtn" class="btn btn-primary" value="로그아웃">
-				<input type="button" id="updateBtn" class="btn btn-info" value="내 정보 수정">
-				<input type="button" id="deleteBtn" class="btn btn-warning" value="회원 탈퇴">
+				<div align="center">
+				<input type="button" id="logoutBtn" class="btn btn-primary btn-xs" value="로그아웃">
+				<input type="button" id="updateBtn" class="btn btn-info btn-xs" value="내 정보 수정">
+				<input type="button" id="deleteBtn" class="btn btn-warning btn-xs" value="회원 탈퇴">
+				</div>
 			</c:when>
 			<c:otherwise>
 				<form action="login" method="post" id="loginForm" role="form">
@@ -106,7 +113,7 @@
 				</form>
 			</c:otherwise>
 		</c:choose>
-		<input type="hidden" id="flag" value="${member.levelInfo.expPercentage}">
+		<input type="hidden" id="expPercentage" value="${member.levelInfo.expPercentage}">
 	</li> <!-- 박스 끝 -->
 </ul>
 
