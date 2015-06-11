@@ -1,9 +1,9 @@
 package org.kosta.madfortaste.user.dao;
 
-import java.security.acl.Owner;
 
 import org.kosta.madfortaste.user.domain.LevelTable;
 import org.kosta.madfortaste.user.domain.Member;
+import org.kosta.madfortaste.user.domain.Owner;
 import org.kosta.madfortaste.user.domain.User;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -38,6 +38,7 @@ public class LevelTable {
 				int requiredExp = (int) (nextLevelExp - memberExp);
 				int expDemandBlock = nextLevelExp - currentLevelExp;
 				double expPercentage = (double)(memberExp - currentLevelExp) / (double)expDemandBlock * 100;
+				expPercentage = Math.round(expPercentage * 100d) /100d;
 				LevelInfo levelInfo = 
 						new LevelInfo(level, currentLevelExp, requiredExp, nextLevelExp, expDemandBlock, expPercentage);
 				member.setLevelInfo(levelInfo);

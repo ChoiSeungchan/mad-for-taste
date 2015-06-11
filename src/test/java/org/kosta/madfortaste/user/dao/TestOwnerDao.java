@@ -24,7 +24,6 @@ public class TestOwnerDao {
 	@Autowired
 	private TastyPlaceDao tastyPlaceDao;
 
-	@Transactional
 	@Test
 	public void testInsertOwner() {
 		Owner owner=new Owner("java", "1234", "강동원", "01033832281", "tgoo@yahoo.com",null,null,"a.jpg");

@@ -2,12 +2,11 @@ package org.kosta.madfortaste.user.dao;
 
 import static org.junit.Assert.assertNotNull;
 
-import java.security.acl.Owner;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.madfortaste.user.domain.Member;
+import org.kosta.madfortaste.user.domain.Owner;
 import org.kosta.madfortaste.user.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

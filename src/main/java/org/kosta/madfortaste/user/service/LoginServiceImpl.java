@@ -24,12 +24,14 @@ public class LoginServiceImpl implements LoginService {
 			if (user instanceof Member) { // 회원일때
 				Member member = (Member) user;
 				if (password.equals(member.getPassword())) {
+					member = loginDao.getMemberInfo(userId);
 					session.setAttribute("member", member);
 				}
 
 			} else if (user instanceof Owner) { // 업주일때
 				Owner owner = (Owner) user;
 				if (password.equals(owner.getPassword())) {
+					owner = loginDao.getOwnerInfo(userId);
 					session.setAttribute("owner", owner);
 				}
 			}
