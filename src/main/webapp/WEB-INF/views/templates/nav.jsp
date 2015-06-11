@@ -51,11 +51,13 @@
 		</form>
 		<!-- Small modal -->
 		<div class="modal fade loginModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-		  <div class="modal-dialog modal-sm">
-		    <div class="modal-content">
-		      <ul class="list-group">
-				<li class="list-group-item">
-					<form role="form">
+		  <div class="modal-dialog">
+		    <div class="modal-content"><br>
+				<form role="form">
+				<div class="modal-header">
+					<h4>로그인</h4>
+				</div>
+				<div class="modal-body">
 						<div class="form-group">
 							<label class="control-label">ID</label> <input class="form-control"
 								placeholder="Enter ID" type="text">
@@ -75,10 +77,11 @@
 								</label>
 							</div>
 						</div>
+				</div>
+				<div class="modal-footer">
 						<button type="submit" class="btn btn-default">로그인</button>
-					</form>
-				</li>
-			</ul>
+				</div>	
+				</form>
 		    </div>
 		  </div>
 		</div>
