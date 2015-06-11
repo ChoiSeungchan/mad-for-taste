@@ -9,7 +9,7 @@
 			if(userCategory=='member') {
 				location.href='memberRegisterForm';
 			} else if(userCategory=='owner') {
-				location.href='owner_ownerRegisterForm';
+				location.href='owner_ownerRegisterForm';				
 			}
 		});
 	})

@@ -25,7 +25,6 @@ public class MemberController {
 		return "user/"+path1+"/"+path2;
 	}
 	
-	
 	@RequestMapping(value="/memberRegisterForm")
 	public String memberRegisterForm(@ModelAttribute Member member) {
 		return "user/memberRegisterForm";
