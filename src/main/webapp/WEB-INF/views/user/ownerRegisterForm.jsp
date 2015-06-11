@@ -11,11 +11,13 @@
 <script src="http://code.jquery.com/jquery-migrate-1.1.0.js"></script>
 <script type="text/javascript">
 //<![CDATA[
+           var idCheckFlag=false;
+           var tastyIdCheckFlag=false;
 	$(function(){
 		$("#ownerId").keyup(function(){
 				$.getJSON("idCheckAjax?id="+$("#ownerId").val(),function(data){
 					if(data=="사용불가"){
-						$("#id").html(data);
+						$("#id").html("아이디 중복사용 불가/다른 아이디를 입력해 주세요");
 						idCheckFlag=true;
 					}
 					else{
@@ -24,9 +26,26 @@
 					}
 			}); 
 		});
+		$("#brNo").keyup(function(){
+			$.ajax({
+				type:"get",
+				url:"tastyIdCheckAjax?id="+$("#brNo").val(),
+				dataType:"json",
+				success:function(data){		
+					if(data=="사용불가"){
+						$("#tastyId").html("등록된 사업자 번호/다른 사업자 번호를 입력해 주세요");
+						tastyIdCheckFlag=true;
+					}
+					else{
+						$("#tastyId").html("");
+						tastyIdCheckFlag=false;
+					}
+				}
+			});
+		});
 	});
 	function duplicationCheck(){
-		if(idCheckFlag)
+		if(tastyIdCheckFlag||idCheckFlag)
 			return false;
 	}
 	//]]>
@@ -70,7 +89,7 @@
     <div class="form-group"> 
     <label for="brNo">사업자 등록 번호</label>
     <form:input class="form-control" id="brNo" path="brNo" placeholder="사업자 등록번호를 입력하세요"/>
-    <font color="red"><form:errors path="brNo"></form:errors></font>
+    <font color="red"><form:errors path="brNo"></form:errors><div id="tastyId"></div></font>
     </div> 
     <div class="form-group"> 
     <label for="businessName">가게 이름</label>

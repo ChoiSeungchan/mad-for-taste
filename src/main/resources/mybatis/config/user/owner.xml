@@ -7,6 +7,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<insert id="insertOwner">
  		insert into owner values(#{ownerId},#{password},#{name},#{tel},#{email},sysdate,#{profileImg})
  	</insert>
+ 	<select id="selectOwnerById" resultType="owner">
+ 		select owner_id as ownerId,password,name,tel,email,join_date as joinDate,profile_img as profileImg from owner where owner_id=#{value}
+ 	</select>
+ 	<delete id="deleteOwnerById">
+ 		delete from owner where owner_id=#{value}
+ 	</delete>
 </mapper>
  
  
