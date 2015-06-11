@@ -15,6 +15,9 @@ public class LoginServiceImpl implements LoginService {
 
 	@Autowired
 	private LoginDao loginDao;
+	
+	@Autowired
+	private MemberService memberService;
 
 	@Override
 	public void login(String userId, String password, HttpServletRequest req) {
@@ -24,6 +27,7 @@ public class LoginServiceImpl implements LoginService {
 			if (user instanceof Member) { // 회원일때
 				Member member = (Member) user;
 				if (password.equals(member.getPassword())) {
+					memberService.upExp(userId, 50);
 					member = loginDao.getMemberInfo(userId);
 					session.setAttribute("member", member);
 				}

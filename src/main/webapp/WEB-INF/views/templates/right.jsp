@@ -16,6 +16,23 @@
 		$('#logoutBtn').click(function(){
 			location.href='logout';
 		});
+		
+		var percentage = $('#flag').val();
+		if(percentage!='') {
+			if (percentage>90) {
+				$('#levelInfo').attr('color','red');
+				$('#progress').attr('class','progress-bar progress-bar-striped active');
+			} else if (percentage>50) {
+				$('#levelInfo').attr('color','#886A08');
+				$('#progress').attr('class','progress-bar progress-bar-danger progress-bar-striped active');
+			} else if (percentage>20) {
+				$('#levelInfo').attr('color','#0489B1');
+				$('#progress').attr('class','progress-bar progress-bar-info progress-bar-striped active');
+			} else {
+				$('#levelInfo').attr('color','green');
+				$('#progress').attr('class','progress-bar progress-bar-success progress-bar-striped active');
+			}
+		}
 	})
 </script>
 <ul class="list-group">
@@ -33,20 +50,21 @@
 					<tbody>
 					<tr>
 						<td>
+							<font id="levelInfo" color="#0489B1">
+							<b>Lv.${member.levelInfo.level}</b><br>
+							${member.levelInfo.currentLevelExp}/${member.levelInfo.nextLevelExp}
+							(${member.levelInfo.expPercentage}%)
+							</font>
 							<div class="progress">
-								<div
-									class="progress-bar progress-bar-striped"
+								<div id="progress"
+									class="progress-bar progress-bar-info progress-bar-striped active"
 									role="progressbar" aria-valuenow="60" aria-valuemin="0"
 									aria-valuemax="100"
 									style="width: ${member.levelInfo.expPercentage}%">
-									${member.levelInfo.currentLevelExp}/${member.levelInfo.nextLevelExp}
-									(${member.levelInfo.expPercentage}%)
 								</div>
 							</div>
+							<h4><b>${member.name}(${member.id})</b></h4>
 						</td>
-					</tr>
-					<tr>
-						<td><b>Lv.${member.levelInfo.level}</b> ${member.name}(${member.id})님 로그인중</td>
 					</tr>
 					<tr>
 						<td>포인트 : ${member.point}P</td>
@@ -54,13 +72,17 @@
 					</tbody>
 				</table>
 				<input type="button" id="logoutBtn" class="btn btn-primary" value="로그아웃">
+				<input type="button" id="updateBtn" class="btn btn-info" value="내 정보 수정">
+				<input type="button" id="deleteBtn" class="btn btn-warning" value="회원 탈퇴">
 			</c:when>
 			<c:when test="${sessionScope.owner!=null}">
 				점주회원 : ${owner.name}(${owner.ownerId})님 접속중
 				<input type="button" id="logoutBtn" class="btn btn-primary" value="로그아웃">
+				<input type="button" id="updateBtn" class="btn btn-info" value="내 정보 수정">
+				<input type="button" id="deleteBtn" class="btn btn-warning" value="회원 탈퇴">
 			</c:when>
 			<c:otherwise>
-				<form action="login" id="loginForm" role="form">
+				<form action="login" method="post" id="loginForm" role="form">
 					<div class="form-group">
 						<label class="control-label">ID</label> <input class="form-control"
 							placeholder="Enter ID" type="text" name="id">
@@ -84,6 +106,7 @@
 				</form>
 			</c:otherwise>
 		</c:choose>
+		<input type="hidden" id="flag" value="${member.levelInfo.expPercentage}">
 	</li> <!-- 박스 끝 -->
 </ul>
 
