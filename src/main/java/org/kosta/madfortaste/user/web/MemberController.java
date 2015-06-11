@@ -33,7 +33,7 @@ public class MemberController {
 	@RequestMapping(value="registerMember")
 	public String registerMember(@Valid Member member, BindingResult result) {
 		if(result.hasErrors()){
-			return "user/memberRegisterForm"; // 유효성 검사에 에러가 있으면 가입폼으로 다시 보낸다. 
+			return "user/memberRegisterForm";
 		}
 		try {
 			memberService.insertMember(member);
