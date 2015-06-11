@@ -37,11 +37,11 @@ public class OwnerController {
 	private TastyPlaceService tastyPlaceService;
 	@Inject
 	private MemberDao memberDao;
-	@RequestMapping(value="/{path}")
+	@RequestMapping("owner_{path}")
 	public String ownerRegisterForm(@ModelAttribute OwnerForm ownerForm,@PathVariable String path) {
 		return "user/"+path;
 	}
-	@RequestMapping("/register_access")
+	@RequestMapping("register_access")
 	public String ownerRegisterAccess(@Valid OwnerForm ownerForm,BindingResult result,Owner owner,TastyPlace tastyPlace){
 		if(result.hasErrors()){
 			return "user/ownerRegisterForm"; // 유효성 검사에 에러가 있으면 가입폼으로 다시 보낸다. 
@@ -50,12 +50,12 @@ public class OwnerController {
 		tastyPlaceService.insertTastyPlace(tastyPlace);//가게등록
 		return "user/result/owner_register_result";
 	}
-	@RequestMapping("/idCheckAjax")
+	@RequestMapping("idCheckAjax")
 	@ResponseBody
 	public List idCheckAjax(String id){
 		Member member=null;
 		Owner owner=null;
-		List list=new ArrayList();
+		List<String> list=new ArrayList<String>();
 		String str="사용가능";
 		member=memberDao.selectMemberById(id);
 		if(member!=null)
