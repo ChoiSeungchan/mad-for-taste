@@ -14,4 +14,10 @@ public class OwnerDaoImpl implements OwnerDao {
 		sqlSessionTemplate.insert("owner.insertOwner",owner);
 		return owner;
 	}
+	public Owner selectOwnerById(String id){
+		return sqlSessionTemplate.selectOne("owner.selectOwnerById",id);
+	}
+	public int deleteOwnerById(String id){
+		return sqlSessionTemplate.delete("owner.deleteOwnerById",id);
+	}
 }

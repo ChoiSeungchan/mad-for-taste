@@ -24,6 +24,7 @@ create table owner(
 	join_date date not null,
 	profile_img varchar2(30)
 )
+select owner_id as ownerId,password,name,tel,email,join_date as joinDate,profile_img as profileImg from owner
 drop table member
 drop table owner
 create sequence 

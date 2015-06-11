@@ -7,6 +7,7 @@ create table tasty_place(
 	owner_id varchar2(20) not null,
 	constraint owner_id_fk foreign key (owner_id) references owner(owner_id) on delete cascade
 )
+select t.br_no as brNo,t.business_name as businessName,t.address,t.tel as tastyTel,t.contract_flag as contractFlag,o.name as ownerId from owner o,tasty_place t where o.owner_id=t.owner_id and t.br_no='7777777'
 delete from owner
 delete from tasty_place
 select *from tasty_place

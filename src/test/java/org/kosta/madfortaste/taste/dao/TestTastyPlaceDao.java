@@ -17,8 +17,13 @@ public class TestTastyPlaceDao {
 	@Transactional
 	@Test
 	public void testInsertTastyPlace() {
-		TastyPlace tastyPlace=new TastyPlace(null, "홍콩반점", "경기도 일산시", "1566-7777", null,"java");
+		TastyPlace tastyPlace=new TastyPlace("3235325", "홍콩반점", "경기도 일산시", "1566-7777", null,"kostajjang");
 		assertEquals(1, tastyPlaceDao.insertTastyPlace(tastyPlace));
 	}
-
+	@Test
+	public void testSelectTastyPlaceById(){
+		TastyPlace tastyPlace=null;
+		tastyPlace=tastyPlaceDao.selectTastyPlaceById("7777777");
+		assertNotNull(tastyPlace);
+	}
 }

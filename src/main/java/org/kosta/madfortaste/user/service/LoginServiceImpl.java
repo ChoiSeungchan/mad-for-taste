@@ -29,7 +29,9 @@ public class LoginServiceImpl implements LoginService {
 
 			} else if (user instanceof Owner) { // 업주일때
 				Owner owner = (Owner) user;
-
+				if (password.equals(owner.getPassword())) {
+					session.setAttribute("owner", owner);
+				}
 			}
 		}
 	}

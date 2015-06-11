@@ -50,13 +50,26 @@ public class OwnerController {
 
 	@RequestMapping("idCheckAjax")
 	@ResponseBody
-	public List idCheckAjax(String id) {
+	public List<String> ownerIdCheckAjax(String id) {
 		Member member = null;
 		Owner owner = null;
 		List<String> list = new ArrayList<String>();
 		String str = "사용가능";
 		member = memberDao.selectMemberById(id);
-		if (member != null)
+		owner = ownerService.selectOwnerById(id);
+		if (member != null||owner!=null)
+			str = "사용불가";
+		list.add(str);
+		return list;
+	}
+	@RequestMapping("tastyIdCheckAjax")
+	@ResponseBody
+	public List<String> tastyIdCheckAjax(String id) {
+		TastyPlace tastyPlace=null;
+		List<String> list = new ArrayList<String>();
+		String str = "사용가능";
+		tastyPlace = tastyPlaceService.selectTastyPlaceById(id);
+		if (tastyPlace != null)
 			str = "사용불가";
 		list.add(str);
 		return list;

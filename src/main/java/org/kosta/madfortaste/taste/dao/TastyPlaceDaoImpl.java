@@ -13,4 +13,7 @@ public class TastyPlaceDaoImpl implements TastyPlaceDao{
 	public int insertTastyPlace(TastyPlace tastyPlace){
 		return sqlSessionTemplate.insert("tastyPlace.insertTastyPlace",tastyPlace);
 	}
+	public TastyPlace selectTastyPlaceById(String id){
+		return sqlSessionTemplate.selectOne("tastyPlace.selectTastyPlaceById",id);
+	}
 }

@@ -3,6 +3,7 @@ package org.kosta.madfortaste.user.service;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.madfortaste.user.dao.OwnerDao;
@@ -23,5 +24,15 @@ public class TestOwnerService {
 		Owner owner=new Owner("java", "1234", "강동원", "01033832281", "tgoo@yahoo.com",null,null,null);
 		assertThat(owner, is(ownerDao.insertOwner(owner)));
 	}
-
+	@Test
+	public void testSelectOwner(){
+		Owner owner=null;
+		owner=ownerDao.selectOwnerById("kostajjang");
+		Assert.assertNotNull(owner);
+	}
+	@Transactional
+	@Test
+	public void testDeleteOwner(){
+		assertEquals(1, ownerDao.deleteOwnerById("kostajjang"));
+	}
 }

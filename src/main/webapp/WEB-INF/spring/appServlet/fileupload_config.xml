@@ -25,9 +25,9 @@
 			<value>C:\\madfortaste\\images\\user\\member\\</value>
 		</constructor-arg>
 	</bean>
-	<bean id="uploadPath" class="java.lang.String">
+	<bean id="ownerImg" class="java.lang.String">
 		<constructor-arg>
-			<value>C:\\madfortaste\\user\\owner\\</value>
+			<value>C:\\madfortaste\\images\\user\\owner\\</value>
 		</constructor-arg>
 	</bean>
 </beans>

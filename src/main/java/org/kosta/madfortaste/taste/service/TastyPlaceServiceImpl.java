@@ -13,5 +13,9 @@ public class TastyPlaceServiceImpl implements TastyPlaceService {
 	public int insertTastyPlace(TastyPlace tastyPlace) {
 		return tastyPlaceDao.insertTastyPlace(tastyPlace);
 	}
+	@Override
+	public TastyPlace selectTastyPlaceById(String id) {
+		return tastyPlaceDao.selectTastyPlaceById(id);
+	}
 
 }
