@@ -10,6 +10,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<!-- 사용할 클래스에 대한 별칭을 명시한다.  -->
 	<typeAliases>
 		<typeAlias type="org.kosta.madfortaste.user.domain.Member" alias="member"/>
+		<typeAlias type="org.kosta.madfortaste.user.domain.Owner" alias="owner"/>
 	</typeAliases>
 	
 	<mappers>
@@ -28,6 +29,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<!-- 회원 -->
 		<mapper resource="mybatis/config/user/member.xml"/>
 		<mapper resource="mybatis/config/user/owner.xml"/>
+		<mapper resource="mybatis/config/user/auth.xml"/>
 	</mappers>
 </configuration>
 
