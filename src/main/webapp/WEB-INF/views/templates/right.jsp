@@ -87,7 +87,7 @@
 					</tr>
 					<tr>
 						<td align="center">
-							<img src="${sessionScope.member.profileImg}" style="width: 150px; height: 150px">
+							<img class="img-responsive" src="${sessionScope.member.profileImg}" style="width: 180px; height: 180px">
 						</td>
 					</tr>
 					<tr>
@@ -113,7 +113,7 @@
 					<tbody>
 						<tr>
 							<td align="center">
-								<img src="${sessionScope.owner.profileImg}" style="width: 150px; height: 150px">
+								<img src="${sessionScope.owner.profileImg}" style="width: 180px; height: 180px">
 							</td>
 						</tr>
 						<tr>

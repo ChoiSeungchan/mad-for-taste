@@ -22,6 +22,9 @@ public class MemberDaoImpl implements MemberDao {
 	@Resource
 	LevelTable levelTable;
 	
+	@Resource(name="memberImg")
+	private String memberImgPath;
+	
 	@Override
 	public Member insertMember(Member member) {
 		sqlSessionTemplate.insert("insertMember", member);
@@ -32,6 +35,7 @@ public class MemberDaoImpl implements MemberDao {
 	public Member selectMemberById(String id) {
 		Member member = sqlSessionTemplate.selectOne("selectMemberById", id);
 		if(member!=null) levelTable.calculateLevelInfo(member);
+		member.setProfileImg(memberImgPath + member.getProfileImg());
 		return member;
 	}
 
@@ -45,6 +49,7 @@ public class MemberDaoImpl implements MemberDao {
 		List<Member> memberList = sqlSessionTemplate.selectList("selectMemberList", page);
 		for (Member member : memberList) {
 			if(member!=null) levelTable.calculateLevelInfo(member);
+			member.setProfileImg(memberImgPath + member.getProfileImg());
 		}
 		return memberList;
 	}
