@@ -1,12 +1,13 @@
 package org.kosta.madfortaste.user.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.kosta.madfortaste.user.domain.Member;
 
 public interface MemberService {
 	
-	public abstract Member insertMember(Member member);
+	public abstract Member insertMember(Member member) throws IllegalStateException, IOException;
 
 	public abstract Member selectMemberById(String id);
 

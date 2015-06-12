@@ -3,6 +3,7 @@ package org.kosta.madfortaste.user.service;
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
@@ -41,8 +42,15 @@ public class TestMemberService {
 	@Test
 	public void testInsertMemberTest() {
 		Member member = new Member("hs9923", "1234", "정현승", "성남시 분당구 서현동", "남", "1989-02-04", "01089909923");
-		Member insertedMember = memberService.insertMember(member);
-		assertThat(insertedMember.getId(), is(member.getId()));
+		Member insertedMember;
+		try {
+			insertedMember = memberService.insertMember(member);
+			assertThat(insertedMember.getId(), is(member.getId()));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Test
