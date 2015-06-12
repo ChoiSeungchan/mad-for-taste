@@ -3,6 +3,7 @@ package org.kosta.madfortaste.user.web;
 import java.io.IOException;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -14,10 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 public class MemberController {
@@ -42,12 +41,12 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="registerMember", method=RequestMethod.POST)
-	public String registerMember(@Valid Member member, BindingResult result) {
+	public String registerMember(@Valid Member member, BindingResult result,  HttpServletRequest req) {
 		if(result.hasErrors()){
 			return "user/memberRegisterForm";
 		}
 		try {
-			memberService.insertMember(member);
+			memberService.insertMember(member, req);
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -57,12 +56,17 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="updateMember", method=RequestMethod.POST)
-	public String updateMember(@Valid Member member, BindingResult result, Model model) {
+	public String updateMember(@Valid Member member, BindingResult result, Model model, HttpServletRequest req) {
 		if(result.hasErrors()){
 			return "user/memberRegisterForm";
 		}
-		memberService.updateMember(member);
-		
+		try {
+			memberService.updateMember(member, req);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return "redirect:reLogin";
 	}
 	

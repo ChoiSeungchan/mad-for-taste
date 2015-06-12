@@ -1,6 +1,8 @@
 package org.kosta.madfortaste.user.dao;
 
 
+import javax.annotation.Resource;
+
 import org.kosta.madfortaste.user.domain.LevelTable;
 import org.kosta.madfortaste.user.domain.Member;
 import org.kosta.madfortaste.user.domain.Owner;
@@ -18,6 +20,13 @@ public class LoginDaoImpl implements LoginDao{
 	
 	@Autowired
 	private LevelTable levelTable;
+	
+	@Resource(name="memberImg")
+	private String memberImgPath;
+	
+	@Resource(name="ownerImg")
+	private String ownerImgPath;
+	
 
 	/**
 	 * 아이디랑 패스워드만 가지고나오기 떄문에 다른 변수들은 null이다.	
@@ -36,11 +45,14 @@ public class LoginDaoImpl implements LoginDao{
 	public Member getMemberInfo(String userId) {
 		Member member = sqlSessionTemplate.selectOne("auth.getMemberInfo", userId);
 		if(member!=null) levelTable.calculateLevelInfo(member);
+		member.setProfileImg(memberImgPath + member.getProfileImg());
 		return member;
 	}
 
 	@Override
 	public Owner getOwnerInfo(String userId) {
-		return sqlSessionTemplate.selectOne("auth.getOwnerInfo", userId);
+		Owner owner = sqlSessionTemplate.selectOne("auth.getOwnerInfo", userId);
+		owner.setProfileImg(ownerImgPath + owner.getProfileImg());
+		return owner;
 	}
 }

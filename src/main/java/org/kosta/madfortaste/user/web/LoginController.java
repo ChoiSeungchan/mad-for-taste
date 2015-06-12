@@ -7,6 +7,7 @@ import org.kosta.madfortaste.user.domain.User;
 import org.kosta.madfortaste.user.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -37,5 +38,15 @@ public class LoginController {
 		if(user!=null)
 			loginService.reLogin(user, session, req);
 		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "reLogin/{path}")
+	public String reLoginByPath(@PathVariable String path, HttpSession session, HttpServletRequest req) {
+		User user = (User) session.getAttribute("member");
+		if(user==null)
+			user = (User) session.getAttribute("owner");
+		if(user!=null)
+			loginService.reLogin(user, session, req);
+		return "redirect:/" + path;
 	}
 }

@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.user.dao.MemberDao;
@@ -23,23 +25,23 @@ public class MemberServiceImpl implements MemberService{
 	private String path;
 	
 	@Override
-	public Member insertMember(Member member) throws IllegalStateException, IOException {
+	public Member insertMember(Member member, HttpServletRequest req) throws IllegalStateException, IOException {
+		String realPath = new HttpServletRequestWrapper(req).getRealPath("/") + path;
 		MultipartFile imgFile = member.getImgFile();
-		if(imgFile != null) {
-			File dir = new File(path);	
-			if(!dir.exists()) dir.mkdirs();
-			if(imgFile.getSize()!=0) {
-			String extension = "." + imgFile.getOriginalFilename().split("\\.")[1];
-			imgFile.transferTo(new File(path + member.getId() + extension));
-			member.setProfileImg(member.getId()+extension);
-			}
+		File dir = new File(path);	
+		if(!dir.exists()) dir.mkdirs();
+		if(imgFile.getSize()!=0) {
+		String extension = "." + imgFile.getOriginalFilename().split("\\.")[1];
+		imgFile.transferTo(new File(realPath + member.getId() + extension));
+		member.setProfileImg(member.getId()+extension);
 		}
 		return memberDao.insertMember(member);
 	}
 
 	@Override
 	public Member selectMemberById(String id) {
-		return memberDao.selectMemberById(id);
+		Member member = memberDao.selectMemberById(id);
+		return member;
 	}
 
 	@Override
@@ -57,7 +59,16 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void updateMember(Member member) {
+	public void updateMember(Member member, HttpServletRequest req) throws IllegalStateException, IOException {
+		String realPath = new HttpServletRequestWrapper(req).getRealPath("/") + path;
+		MultipartFile imgFile = member.getImgFile();
+		File dir = new File(path);	
+		if(!dir.exists()) dir.mkdirs();
+		if(imgFile.getSize()!=0) {
+		String extension = "." + imgFile.getOriginalFilename().split("\\.")[1];
+		imgFile.transferTo(new File(realPath + member.getId() + extension));
+		member.setProfileImg(member.getId()+extension);
+		}
 		memberDao.updateMember(member);
 	}
 

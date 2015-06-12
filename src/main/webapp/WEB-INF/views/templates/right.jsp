@@ -82,7 +82,12 @@
 									style="width: ${sessionScope.member.levelInfo.expPercentage}%">
 								</div>
 							</div>
-							<h4><b>${sessionScope.member.name}(${sessionScope.member.id})</b></h4>
+							<center><h4><b>${sessionScope.member.name}(${sessionScope.member.id})</b></h4></center>
+						</td>
+					</tr>
+					<tr>
+						<td align="center">
+							<img src="${sessionScope.member.profileImg}" style="width: 150px; height: 150px">
 						</td>
 					</tr>
 					<tr>
@@ -97,12 +102,39 @@
 				</div>
 			</c:when>
 			<c:when test="${sessionScope.owner!=null}">
-				점주회원 : ${owner.name}(${owner.ownerId})님 접속중
-				<div align="center">
-				<input type="button" id="logoutBtn" class="btn btn-primary btn-xs" value="로그아웃">
-				<input type="button" id="ownerUpdateBtn" class="btn btn-info btn-xs" value="내 정보 수정">
-				<input type="button" id="deleteBtn" class="btn btn-warning btn-xs" value="회원 탈퇴">
-				</div>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>
+								<center>${sessionScope.owner.name}(${sessionScope.owner.ownerId})</center>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td align="center">
+								<img src="${sessionScope.owner.profileImg}" style="width: 150px; height: 150px">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div align="center">
+								<input type="button" id="logoutBtn" class="btn btn-primary btn-xs" value="로그아웃">
+								<input type="button" id="ownerUpdateBtn" class="btn btn-info btn-xs" value="내 정보 수정">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div align="center">
+								<input type="button" id="registerTpBtn" class="btn btn-default btn-xs" value="맛집 등록">
+								<input type="button" id="updateTpBtn" class="btn btn-default btn-xs" value="맛집 수정">
+								<input type="button" id="deleteTpBtn" class="btn btn-default btn-xs" value="맛집 삭제">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</c:when>
 			<c:otherwise>
 				<form action="${initParam.root}login" method="post" id="rightLoginForm" role="form">
