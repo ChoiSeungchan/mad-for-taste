@@ -3,7 +3,7 @@ package org.kosta.madfortaste.user.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.kosta.madfortaste.user.dao.MemberDao;
+import org.kosta.madfortaste.user.domain.User;
 import org.kosta.madfortaste.user.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,12 +20,22 @@ public class LoginController {
 		if (!(id == null || id.equals("")) 	&& !(password == null || password.equals(""))) {
 			loginService.login(id, password, req);
 		}
-		return "home";
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value = "logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "home";
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "reLogin")
+	public String reLogin(HttpSession session, HttpServletRequest req) {
+		User user = (User) session.getAttribute("member");
+		if(user==null)
+			user = (User) session.getAttribute("owner");
+		if(user!=null)
+			loginService.reLogin(user, session, req);
+		return "redirect:/";
 	}
 }

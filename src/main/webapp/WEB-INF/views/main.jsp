@@ -1,6 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<script>
+	$(function(){
+		$('#upExpBtn').click(function(){
+			location.href = '${initParam.root}upExp';
+		});
+
+		$('#upPointBtn').click(function(){
+			location.href = '${initParam.root}upPoint';
+		});
+		
+		$('#downPointBtn').click(function(){
+			location.href = '${initParam.root}downPoint';
+		});
+	});
+</script>
 <div class="col-md-12">
 	<div class="carousel slide" id="carousel-507091">
 		<ol class="carousel-indicators">
@@ -45,6 +60,15 @@
 	</div>
 </div>
 <div class="col-md.12">
+	<div class="col-md-4">
+		<button class="btn btn-info btn-block" id = "upExpBtn">EXP 증가</button>
+	</div>
+	<div class="col-md-4">
+		<button class="btn btn-danger btn-block" id = "upPointBtn">Point 증가</button>
+	</div>
+	<div class="col-md-4">
+		<button class="btn btn-warning btn-block" id = "downPointBtn">Point 감소</button>
+	</div>
 	<table class="table table-hover">
 		<thead>
 			<tr>

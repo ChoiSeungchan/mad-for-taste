@@ -27,7 +27,7 @@ public class LoginServiceImpl implements LoginService {
 			if (user instanceof Member) { // 회원일때
 				Member member = (Member) user;
 				if (password.equals(member.getPassword())) {
-					memberService.upExp(userId, 50);
+					memberService.upExp(userId, 30);
 					member = loginDao.getMemberInfo(userId);
 					session.setAttribute("member", member);
 				}
@@ -39,6 +39,19 @@ public class LoginServiceImpl implements LoginService {
 					session.setAttribute("owner", owner);
 				}
 			}
+		}
+	}
+
+	@Override
+	public void reLogin(User user, HttpSession session, HttpServletRequest req) {
+		if(user instanceof Member) {
+			Member member = (Member) user;
+			member = loginDao.getMemberInfo(member.getId());
+			session.setAttribute("member", member);
+		} else if (user instanceof Owner) {
+			Owner owner = (Owner) user;
+			owner = loginDao.getOwnerInfo(owner.getOwnerId());
+			session.setAttribute("owner", owner);
 		}
 	}
 }

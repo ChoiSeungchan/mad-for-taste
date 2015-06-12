@@ -14,7 +14,23 @@
 		});
 		
 		$('#logoutBtn').click(function(){
-			location.href='logout';
+			location.href='${initParam.root}logout';
+		});
+		
+		$('#memberUpdateBtn').click(function(){
+			location.href='${initParam.root}memberUpdateForm';
+		});
+		
+		$('#rightLoginForm').submit(function(){
+			var id = $('#rightId').val();
+			var password = $('#rightPass').val();
+			if(id=='') {
+				alert('아이디를 입력하세요');
+				return false;
+			} else if (password=='') {
+				alert('비밀번호를 입력하세요');
+				return false;
+			} 
 		});
 		
 		/*
@@ -54,29 +70,29 @@
 					<tr>
 						<td>
 							<font id="levelInfo" color="#0489B1">
-							<b>Lv.${member.levelInfo.level}</b><br>
-							${member.levelInfo.currentLevelExp}/${member.levelInfo.nextLevelExp}
-							(${member.levelInfo.expPercentage}%)
+							<b>Lv.${sessionScope.member.levelInfo.level}</b><br>
+							${sessionScope.member.exp}/${sessionScope.member.levelInfo.nextLevelExp}
+							(${sessionScope.member.levelInfo.expPercentage}%)
 							</font>
 							<div class="progress">
 								<div id="progress"
 									class="progress-bar progress-bar-info progress-bar-striped active"
 									role="progressbar" aria-valuenow="60" aria-valuemin="0"
 									aria-valuemax="100"
-									style="width: ${member.levelInfo.expPercentage}%">
+									style="width: ${sessionScope.member.levelInfo.expPercentage}%">
 								</div>
 							</div>
-							<h4><b>${member.name}(${member.id})</b></h4>
+							<h4><b>${sessionScope.member.name}(${sessionScope.member.id})</b></h4>
 						</td>
 					</tr>
 					<tr>
-						<td>포인트 : ${member.point}P</td>
+						<td>포인트 : ${sessionScope.member.point}P</td>
 					</tr>
 					</tbody>
 				</table>
 				<div align="center">
 				<input type="button" id="logoutBtn" class="btn btn-primary btn-xs" value="로그아웃">
-				<input type="button" id="updateBtn" class="btn btn-info btn-xs" value="내 정보 수정">
+				<input type="button" id="memberUpdateBtn" class="btn btn-info btn-xs" value="내 정보 수정">
 				<input type="button" id="deleteBtn" class="btn btn-warning btn-xs" value="회원 탈퇴">
 				</div>
 			</c:when>
@@ -84,19 +100,19 @@
 				점주회원 : ${owner.name}(${owner.ownerId})님 접속중
 				<div align="center">
 				<input type="button" id="logoutBtn" class="btn btn-primary btn-xs" value="로그아웃">
-				<input type="button" id="updateBtn" class="btn btn-info btn-xs" value="내 정보 수정">
+				<input type="button" id="ownerUpdateBtn" class="btn btn-info btn-xs" value="내 정보 수정">
 				<input type="button" id="deleteBtn" class="btn btn-warning btn-xs" value="회원 탈퇴">
 				</div>
 			</c:when>
 			<c:otherwise>
-				<form action="login" method="post" id="loginForm" role="form">
+				<form action="${initParam.root}login" method="post" id="rightLoginForm" role="form">
 					<div class="form-group">
 						<label class="control-label">ID</label> <input class="form-control"
-							placeholder="Enter ID" type="text" name="id">
+							placeholder="Enter ID" type="text" id="rightId" name="id">
 					</div>
 					<div class="form-group">
 						<label class="control-label">Password</label> <input
-							class="form-control" placeholder="Password" type="password" name="password">
+							class="form-control" placeholder="Password" type="password" id="rightPass" name="password">
 					</div>
 					<div class="form-group">
 						<div class="radio">
@@ -113,7 +129,7 @@
 				</form>
 			</c:otherwise>
 		</c:choose>
-		<input type="hidden" id="expPercentage" value="${member.levelInfo.expPercentage}">
+		<input type="hidden" id="expPercentage" value="${sessionScope.member.levelInfo.expPercentage}">
 	</li> <!-- 박스 끝 -->
 </ul>
 

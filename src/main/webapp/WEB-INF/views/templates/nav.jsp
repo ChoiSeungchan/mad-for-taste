@@ -54,18 +54,18 @@
 		<div class="modal fade loginModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class="modal-content"><br>
-				<form action="login" method="post" role="form">
+				<form id="loginForm" action="login" method="post" role="form">
 				<div class="modal-header">
 					<h4>로그인</h4>
 				</div>
 				<div class="modal-body">
 						<div class="form-group">
 							<label class="control-label">ID</label> <input class="form-control"
-								placeholder="Enter ID" type="text" name="id">
+								placeholder="Enter ID" type="text" id="id" name="id">
 						</div>
 						<div class="form-group">
 							<label class="control-label">Password</label> <input
-								class="form-control" placeholder="Password" type="password" name="password">
+								class="form-control" placeholder="Password" type="password" id="password" name="password">
 						</div>
 				</div>
 				<div class="modal-footer">
