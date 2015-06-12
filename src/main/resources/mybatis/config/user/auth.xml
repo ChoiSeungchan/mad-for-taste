@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="auth">
+	
+	<resultMap type="member" id="memberRM">
+		<result property="joinDate" column="join_date"/>
+		<result property="profileImg" column="profile_img"/>
+	</resultMap>
+	<resultMap type="owner" id="ownerRM">
+		<result property="ownerId" column="owner_id"/>
+		<result property="joinDate" column="join_date"/>
+		<result property="profileImg" column="profile_img"/>
+	</resultMap>
+
+	<select id="findMember" resultMap="memberRM">
+		select id,password from member where id=#{userId}
+	</select>
+	
+	<select id="findOwner" resultMap="ownerRM">
+		select owner_id,password from owner where owner_id=#{userId} 
+	</select>
+	
+	<select id="getMemberInfo" resultMap="memberRM">
+		select * from member where id=#{userId} 
+	</select>
+	
+	<select id="getOwnerInfo" resultMap="ownerRM">
+		select * from owner where owner_id=#{userId} 
+	</select>
+</mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

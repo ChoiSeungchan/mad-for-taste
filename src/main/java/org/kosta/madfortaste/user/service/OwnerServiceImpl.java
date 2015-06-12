@@ -14,25 +14,37 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class OwnerServiceImpl implements OwnerService{
 	@Inject
-	private OwnerDao dao;
-	@Resource(name="uploadPath")
+	private OwnerDao ownerDao;
+	@Resource(name="ownerImg")
 	private String path;
 	
 	@Override
 	public Owner insertOwner(Owner owner) {	
 		MultipartFile file=owner.getImgFile();
 		String fileName=file.getOriginalFilename();
-		owner.setProfileImg(fileName);
-		try {
-			file.transferTo(new File(path+owner.getOwnerId()+"_"+fileName));
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(fileName.trim().length()==0)
+			owner.setProfileImg("default.jpg");
+		else{
+			owner.setProfileImg(fileName);
+			try {
+				file.transferTo(new File(path+owner.getOwnerId()+"_"+fileName));
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		return dao.insertOwner(owner);
+		return ownerDao.insertOwner(owner);
+	}
+
+	@Override
+	public Owner selectOwnerById(String id) {
+		return ownerDao.selectOwnerById(id);
+	}
+
+	@Override
+	public int deleteOwnerById(String id) {
+		return ownerDao.deleteOwnerById(id);
 	}
 	
 }

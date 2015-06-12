@@ -10,12 +10,12 @@
 <script src="http://code.jquery.com/jquery-1.11.3.js"></script>
 
 <!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="${initParam.root}resources/bootstrap/css/bootstrap.min.css">
 
-<link rel="stylesheet" href="${initParam.root}resources/bootstrap/simplex.css">
+<link rel="stylesheet" href="${initParam.root}resources/bootstrap/theme/simplex.css">
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="${initParam.root}resources/bootstrap/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function(){
