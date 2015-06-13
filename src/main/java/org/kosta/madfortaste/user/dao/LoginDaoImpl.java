@@ -50,7 +50,10 @@ public class LoginDaoImpl implements LoginDao{
 	@Override
 	public Owner getOwnerInfo(String userId) {
 		Owner owner = sqlSessionTemplate.selectOne("auth.getOwnerInfo", userId);
-		owner.setProfileImg(ownerImgPath+owner.getOwnerId()+"_"+owner.getProfileImg());
+		if(owner.getProfileImg().equals("default.jpg"))
+			owner.setProfileImg(ownerImgPath+owner.getProfileImg());
+		else
+			owner.setProfileImg(ownerImgPath+owner.getOwnerId()+"_"+owner.getProfileImg());
 		return owner;
 	}
 }

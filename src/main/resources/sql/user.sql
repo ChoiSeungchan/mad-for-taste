@@ -28,5 +28,5 @@ update owner set password='123123' where owner_id='kostajjang'
 select owner_id as ownerId,password,name,tel,email,join_date as joinDate,profile_img as profileImg from owner
 drop table tasty_place
 select * from member
-select *from owner where owner_id='kostajjang77'
+select *from owner where owner_id='kostajjang111'
 delete  from owner
