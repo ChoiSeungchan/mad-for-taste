@@ -43,4 +43,11 @@ public class TestOwnerDao {
 	public void testDeleteOwner(){
 		assertEquals(1, ownerDao.deleteOwnerById("kostajjang"));
 	}
+	
+	@Transactional
+	@Test
+	public void testUpdateOwner(){
+		Owner owner=new Owner("kostajjang", "12341234", "테스트용", "5555", "3333", null, null, "s.gif");
+		assertEquals(1, ownerDao.updateOwnerById(owner));
+	}
 }

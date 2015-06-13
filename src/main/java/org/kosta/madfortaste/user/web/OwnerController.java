@@ -1,10 +1,12 @@
 package org.kosta.madfortaste.user.web;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.kosta.madfortaste.taste.domain.TastyPlace;
@@ -36,18 +38,25 @@ public class OwnerController {
 			@PathVariable String path) {
 		return "user/" + path;
 	}
-
+	@RequestMapping(value="owner/{viewName1}/{viewName2}")
+	public String test(@PathVariable String viewName1, @PathVariable String viewName2) {
+		return "user/" + viewName1 + "/" +viewName2;
+	}
 	@RequestMapping("register_access")
 	public String ownerRegisterAccess(@Valid OwnerForm ownerForm,
-			BindingResult result, Owner owner, TastyPlace tastyPlace) {
+			BindingResult result, Owner owner, TastyPlace tastyPlace,HttpServletRequest req) {
 		if (result.hasErrors()) {
 			return "user/ownerRegisterForm"; // 유효성 검사에 에러가 있으면 가입폼으로 다시 보낸다.
 		}
-		ownerService.insertOwner(owner);// 업주등록
+		ownerService.insertOwner(owner,req);// 업주등록
 		tastyPlaceService.insertTastyPlace(tastyPlace);// 가게등록
-		return "user/result/owner_register_result";
+		return "redirect:owner/result/owner_register_result?id="+owner.getOwnerId()+"&password="+owner.getPassword();
 	}
-
+	@RequestMapping("update_access")
+	public String ownerUpdateAccess(Owner owner,HttpServletRequest req){
+		ownerService.updateOwnerById(owner,req);
+		return "redirect:login?id="+owner.getOwnerId()+"&password="+owner.getPassword();
+	}
 	@RequestMapping("idCheckAjax")
 	@ResponseBody
 	public List<String> ownerIdCheckAjax(String id) {

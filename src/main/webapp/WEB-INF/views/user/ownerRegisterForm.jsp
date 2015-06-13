@@ -17,11 +17,11 @@
 		$("#ownerId").keyup(function(){
 				$.getJSON("idCheckAjax?id="+$("#ownerId").val(),function(data){
 					if(data=="사용불가"){
-						$("#id").html("아이디 중복사용 불가/다른 아이디를 입력해 주세요");
+						$("#ownersId").html("아이디 중복사용 불가/다른 아이디를 입력해 주세요");
 						idCheckFlag=true;
 					}
 					else{
-						$("#id").html("");
+						$("#ownersId").html("");
 						idCheckFlag=false;
 					}
 			}); 
@@ -47,6 +47,10 @@
 	function duplicationCheck(){
 		if(tastyIdCheckFlag||idCheckFlag)
 			return false;
+		if(isNaN($("#brNo").val())){
+			$("#tastyId").html("문자열 형태의 번호는 등록하실 수 없습니다");
+			return false;
+		}
 	}
 	//]]>
 </script>
@@ -60,7 +64,7 @@
 	<div class="form-group"> 
 	 <label for="ownerId">아이디</label>
     <form:input id="ownerId" path="ownerId" placeholder="아이디를 입력하세요" class="form-control"/>
-    <font color="red"><form:errors path="ownerId"></form:errors><div id="id"></div></font>
+    <font color="red"><form:errors path="ownerId"></form:errors><div id="ownersId"></div></font>
  </div>
   	<div class="form-group"> 
     <label for="password">패스워드</label>
@@ -108,7 +112,6 @@
     </div> 
   <input type="submit" class="btn btn-default" value="회원가입">
 </form:form>
-	<input type="button" id="b1" value="테스트">
 </div> 
 </body>
 </html>

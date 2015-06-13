@@ -27,7 +27,7 @@
 	</bean>
 	<bean id="ownerImg" class="java.lang.String">
 		<constructor-arg>
-			<value>resources\\images\\user\\owner</value>
+			<value>resources\\images\\user\\owner\\profile\\</value>
 		</constructor-arg>
 	</bean>
 </beans>

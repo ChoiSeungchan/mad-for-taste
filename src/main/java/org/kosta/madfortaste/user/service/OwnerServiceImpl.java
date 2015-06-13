@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 
 import org.kosta.madfortaste.user.dao.OwnerDao;
 import org.kosta.madfortaste.user.domain.Owner;
@@ -19,15 +21,16 @@ public class OwnerServiceImpl implements OwnerService{
 	private String path;
 	
 	@Override
-	public Owner insertOwner(Owner owner) {	
+	public Owner insertOwner(Owner owner,HttpServletRequest req) {	
 		MultipartFile file=owner.getImgFile();
 		String fileName=file.getOriginalFilename();
+		String realPath=new HttpServletRequestWrapper(req).getRealPath("/");
 		if(fileName.trim().length()==0)
 			owner.setProfileImg("default.jpg");
 		else{
 			owner.setProfileImg(fileName);
 			try {
-				file.transferTo(new File(path+owner.getOwnerId()+"_"+fileName));
+				file.transferTo(new File(realPath+path+owner.getOwnerId()+"_"+fileName));
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -45,6 +48,41 @@ public class OwnerServiceImpl implements OwnerService{
 	@Override
 	public int deleteOwnerById(String id) {
 		return ownerDao.deleteOwnerById(id);
+	}
+
+	@Override
+	public void updateOwnerById(Owner owner,HttpServletRequest req) {
+		MultipartFile file=owner.getImgFile();
+		String fileName=file.getOriginalFilename();
+		String realPath=new HttpServletRequestWrapper(req).getRealPath("/");
+		if(fileName.trim().length()!=0){
+			owner.setProfileImg(fileName);
+			File []files=new File(realPath+path).listFiles();
+			String filesName="";
+			for(int i=0; i<files.length; i++){
+				String []arr=files[i].getName().split("_");
+				for(int j=0; j<arr.length; j++){
+					if(j>0)
+						break;
+					filesName=arr[j];
+				}
+				if(filesName.equals(owner.getOwnerId())){
+					if(!(files[i].toString().contains(owner.getProfileImg())))
+						files[i].delete();
+				}
+			}
+			try {
+				file.transferTo(new File(realPath+path+owner.getOwnerId()+"_"+fileName));
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		String profileImg=owner.getProfileImg();
+		int startIndex=profileImg.lastIndexOf("_")+1;
+		owner.setProfileImg(profileImg.substring(startIndex));
+		ownerDao.updateOwnerById(owner);
 	}
 	
 }

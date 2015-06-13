@@ -26,8 +26,6 @@ public class LoginDaoImpl implements LoginDao{
 	
 	@Resource(name="ownerImg")
 	private String ownerImgPath;
-	
-
 	/**
 	 * 아이디랑 패스워드만 가지고나오기 떄문에 다른 변수들은 null이다.	
 	 */
@@ -52,7 +50,7 @@ public class LoginDaoImpl implements LoginDao{
 	@Override
 	public Owner getOwnerInfo(String userId) {
 		Owner owner = sqlSessionTemplate.selectOne("auth.getOwnerInfo", userId);
-		owner.setProfileImg(ownerImgPath + owner.getProfileImg());
+		owner.setProfileImg(ownerImgPath+owner.getOwnerId()+"_"+owner.getProfileImg());
 		return owner;
 	}
 }

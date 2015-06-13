@@ -20,4 +20,7 @@ public class OwnerDaoImpl implements OwnerDao {
 	public int deleteOwnerById(String id){
 		return sqlSessionTemplate.delete("owner.deleteOwnerById",id);
 	}
+	public int updateOwnerById(Owner owner){
+		return sqlSessionTemplate.update("owner.updateOwnerById",owner);
+	}
 }

@@ -1,3 +1,4 @@
+<%@page import="org.kosta.madfortaste.user.domain.Owner"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -20,7 +21,9 @@
 		$('#memberUpdateBtn').click(function(){
 			location.href='${initParam.root}memberUpdateForm';
 		});
-		
+		$("#ownerUpdateBtn").click(function(){
+			location.href="${initParam.root}owner_ownerUpdateForm";
+		});
 		$('#rightLoginForm').submit(function(){
 			var id = $('#rightId').val();
 			var password = $('#rightPass').val();
@@ -112,8 +115,8 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td align="center">
-								<img src="${sessionScope.owner.profileImg}" style="width: 180px; height: 180px">
+							<td align="center">			
+								<img src="${owner.profileImg}" style="width: 180px; height: 180px">
 							</td>
 						</tr>
 						<tr>

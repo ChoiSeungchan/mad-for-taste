@@ -34,8 +34,10 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public Member selectMemberById(String id) {
 		Member member = sqlSessionTemplate.selectOne("selectMemberById", id);
-		if(member!=null) levelTable.calculateLevelInfo(member);
-		member.setProfileImg(memberImgPath + member.getProfileImg());
+		if (member != null) {
+			levelTable.calculateLevelInfo(member);
+			member.setProfileImg(memberImgPath + member.getProfileImg());
+		}
 		return member;
 	}
 

@@ -24,8 +24,9 @@ create table owner(
 	join_date date not null,
 	profile_img varchar2(30)
 )
+update owner set password='123123' where owner_id='kostajjang'
 select owner_id as ownerId,password,name,tel,email,join_date as joinDate,profile_img as profileImg from owner
 drop table tasty_place
 select * from member
-select *from owner
+select *from owner where owner_id='kostajjang77'
 delete  from owner
