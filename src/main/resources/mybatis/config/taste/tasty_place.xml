@@ -10,6 +10,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="selectTastyPlaceById" resultType="tastyPlace">
  		select t.br_no as brNo,t.business_name as businessName,t.address,t.tel as tastyTel,t.contract_flag as contractFlag,o.name as ownerId from owner o,tasty_place t where o.owner_id=t.owner_id and t.br_no=#{value}
  	</select>
+ 	<select id="selectTastyPlaceGetAllList" resultType="tastyPlace">
+ 		select br_no as brNo,business_name as businessName,address,tel as tastyTel,contract_flag as contractFlag from tasty_place where owner_id=#{value}
+ 	</select>
+ 	<delete id="deleteTastyPlace">
+ 		delete from tasty_place where br_no=#{value}
+ 	</delete>
+ 	<update id="updateTastyPlace">
+ 		update tasty_place set business_name=#{businessName},address=#{address},tel=#{tastyTel} where br_no=#{brNo}
+ 	</update>
  </mapper>
  
  

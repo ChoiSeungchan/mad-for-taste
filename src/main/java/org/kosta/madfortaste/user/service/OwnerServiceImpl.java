@@ -78,10 +78,13 @@ public class OwnerServiceImpl implements OwnerService{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}else{
+			Owner owners=(Owner)req.getSession(false).getAttribute("owner");
+			owner.setProfileImg(owners.getProfileImg());
 		}
 		String profileImg=owner.getProfileImg();
-		int startIndex=profileImg.lastIndexOf("_")+1;
-		owner.setProfileImg(profileImg.substring(startIndex));
+	    int startIndex=profileImg.lastIndexOf("_")+1;
+	    owner.setProfileImg(profileImg.substring(startIndex));
 		ownerDao.updateOwnerById(owner);
 	}
 	
