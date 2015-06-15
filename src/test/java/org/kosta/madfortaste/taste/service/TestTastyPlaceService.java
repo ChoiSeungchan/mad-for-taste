@@ -22,5 +22,10 @@ public class TestTastyPlaceService {
 		TastyPlace tastyPlace=new TastyPlace(null, "홍콩반점", "경기도 일산시", "1566-7777", null,"java");
 		assertEquals(1, tastyPlaceDao.insertTastyPlace(tastyPlace));
 	}
-
+	
+	@Transactional
+	@Test
+	public void testDeleteTastyPlace(){
+		assertEquals(1, tastyPlaceDao.deleteTastyPlace("777"));
+	}
 }

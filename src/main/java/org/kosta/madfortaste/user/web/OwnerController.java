@@ -55,7 +55,7 @@ public class OwnerController {
 	@RequestMapping("update_access")
 	public String ownerUpdateAccess(Owner owner,HttpServletRequest req){
 		ownerService.updateOwnerById(owner,req);
-		return "redirect:login?id="+owner.getOwnerId()+"&password="+owner.getPassword();
+		return "redirect:reLogin";
 	}
 	@RequestMapping("idCheckAjax")
 	@ResponseBody

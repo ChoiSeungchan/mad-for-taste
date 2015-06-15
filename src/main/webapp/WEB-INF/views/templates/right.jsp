@@ -24,6 +24,15 @@
 		$("#ownerUpdateBtn").click(function(){
 			location.href="${initParam.root}owner_ownerUpdateForm";
 		});
+		$("#registerTpBtn").click(function(){
+			location.href="${initParam.root}owner_tastyRegisterForm";
+		});
+		$("#deleteTpBtn").click(function(){
+			location.href="${initParam.root}ownerDeleteForm";
+		});
+		$("#updateTpBtn").click(function(){
+			location.href="${initParam.root}tastyUpdateForm?id=${owner.ownerId}";
+		});
 		$('#rightLoginForm').submit(function(){
 			var id = $('#rightId').val();
 			var password = $('#rightPass').val();

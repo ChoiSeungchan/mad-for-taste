@@ -26,4 +26,16 @@ public class TestTastyPlaceDao {
 		tastyPlace=tastyPlaceDao.selectTastyPlaceById("7777777");
 		assertNotNull(tastyPlace);
 	}
+	
+	@Transactional
+	@Test
+	public void testDeleteTastyPlace(){
+		assertEquals(1, tastyPlaceDao.deleteTastyPlace("777"));
+	}
+	
+	@Transactional
+	@Test
+	public void testUpdateTastyPlace(){
+		assertEquals(1, tastyPlaceDao.updateTastyPlace(new TastyPlace("777", "냠냠냠", "호호호", "555", null, null)));
+	}
 }
