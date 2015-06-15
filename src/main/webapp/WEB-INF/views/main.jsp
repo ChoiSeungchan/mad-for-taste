@@ -4,6 +4,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <script>
 	$(function(){
+		$('blockquote').hover(function(){
+			$(this).attr('style','background-color:#4F5151;color:white');
+		}, function (){
+			$(this).attr('style','background-color:none');
+		})
+		
+		$('#regTasteBoardBtn').hover(function(){
+			$(this).attr('class','btn btn-success btn-lg btn-block')
+		}, function(){
+			$(this).attr('class','btn btn-default btn-lg btn-block')
+		})
 	});
 </script>
 <div class="col-md-12">
@@ -48,9 +59,16 @@
 		<a class="right carousel-control" href="#carousel-507091"
 			data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 	</div>
-	<div class="tasteBoard" style="margin-top: 30px">
+	<div class="tasteBoard" style="margin-top: 10px">
+	<c:choose>
+		<c:when test="${member!=null && member.levelInfo.level>=10}">
+			<button id="regTasteBoardBtn" class="btn btn-default btn-lg btn-block" style="margin-bottom: 10px">나만의 맛집 소개하기</button>
+		</c:when>
+		<c:otherwise>
+		</c:otherwise>
+	</c:choose>
 	<c:forEach var="article" items="${tasteBoard}">
-		 <blockquote id="tasteBoardBQ">
+		 <blockquote>
 			<div class="row" style="height: 50px; font-size: 16px">
 				<span class="col-md-1">
 					#${article.articleNo}<br>
@@ -64,22 +82,39 @@
 					${article.title}
 				</span>
 				<span class="col-md-5" style="padding-top:12px; text-align: right">
-					<span class="glyphicon glyphicon-thumbs-up"></span> ${article.good} &nbsp&nbsp&nbsp&nbsp
-					<span class="glyphicon glyphicon-thumbs-down"></span> ${article.bad} &nbsp&nbsp&nbsp&nbsp
+					<span class="glyphicon glyphicon-thumbs-up" style="color:#045FB4"></span> ${article.good} &nbsp&nbsp&nbsp&nbsp
+					<span class="glyphicon glyphicon-thumbs-down" style="color:#D9230F"></span> ${article.bad} &nbsp&nbsp&nbsp&nbsp
 					<span class="glyphicon glyphicon-eye-open"></span> ${article.hits} &nbsp&nbsp&nbsp&nbsp
-					<span class="glyphicon glyphicon-time"></span> ${article.regDate }
+					<span class="glyphicon glyphicon-time"></span> ${article.calDate }
 				</span>
 			</div>
          </blockquote>
 	</c:forEach>
 	</div>
-			<%-- <td>#${article.articleNo}</td>
-			<td>${article.location}</td>
-			<td>${article.title }</td>
-			<td>${article.writer }</td>
-			<td>${article.good}</td>
-			<td>${article.bad}</td>
-			<td>${article.hits}</td>
-			<td>${article.regDate}</td> --%>
+	<div style="margin-bottom: 30px" align="center">
+		<ul class="pagination">
+      <li>
+        <a href="#">Prev</a>
+      </li>
+      <li>
+        <a href="#">1</a>
+      </li>
+      <li>
+        <a href="#">2</a>
+      </li>
+      <li>
+        <a href="#">3</a>
+      </li>
+      <li>
+        <a href="#">4</a>
+      </li>
+      <li>
+        <a href="#">5</a>
+      </li>
+      <li>
+        <a href="#">Next</a>
+      </li>
+    </ul>
+	</div>
 </div>
 

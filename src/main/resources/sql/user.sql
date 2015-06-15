@@ -15,6 +15,13 @@ create table member(
 	join_date date default sysdate,
 	profile_img varchar2(30)
 )
+
+--- admin 계정 생성 ---
+
+insert into member(id,password,name,address,gender,birth,tel,exp) 
+values('admin','1234','관리자','none','none','none','none',10000000)
+delete from member where id='admin'
+
 create table owner(
 	owner_id varchar2(20) primary key,
 	password varchar2(20)not null,

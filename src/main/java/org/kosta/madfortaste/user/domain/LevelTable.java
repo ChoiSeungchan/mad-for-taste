@@ -43,9 +43,14 @@ public class LevelTable {
 						new LevelInfo(level, currentLevelExp, requiredExp, nextLevelExp, expDemandBlock, expPercentage);
 				member.setLevelInfo(levelInfo);
 				break;
-			} else {	// 레벨 99일때
+			} else if (memberExp >= levelMap.get(i) && memberExp <= 9999999) {	// 레벨 99일때
+				int maxExp = 684901;
 				LevelInfo levelInfo = 
-						new LevelInfo(99, 684901, 684901, 684901, 30000, 100);
+						new LevelInfo(99, maxExp, maxExp, maxExp, 30000, 100);
+				member.setLevelInfo(levelInfo);
+			} else if (memberExp > 9999999) {
+				LevelInfo levelInfo = 
+						new LevelInfo(100, 9999999, 9999999, 9999999, 9999999, 100);
 				member.setLevelInfo(levelInfo);
 			}
 		}

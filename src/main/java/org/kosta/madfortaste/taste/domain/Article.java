@@ -13,6 +13,7 @@ public class Article {
 	private String title;
 	private String contents;
 	private Date regDate;
+	private String calDate;
 	private int good;
 	private int bad;
 	private int hits;
@@ -47,6 +48,7 @@ public class Article {
 		this.bad = bad;
 		this.hits = hits;
 		this.fileNameList = fileNameList;
+		this.setCalDate();
 	}
 
 	public int getArticleNo() {
@@ -95,6 +97,33 @@ public class Article {
 
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
+		this.setCalDate();
+	}
+
+	public String getCalDate() {
+		return calDate;
+	}
+	
+	public void setCalDate() {
+		long currentD = System.currentTimeMillis();
+		long createD = regDate.getTime();
+		long resultS = ((currentD - createD) / 1000);
+		String result = null;
+		
+		if (resultS >= 60*60*24*365) {
+			result = resultS/(60*60*24*365) + "년 전";
+		} else if (resultS >= 60*60*24*30) {
+			result = resultS/(60*60*24*30) + "개월 전";
+		} else if (resultS >= 60*60*24) {
+			result = resultS/(60*60*24) + "일 전";
+		} else if (resultS >= 60*60) {
+			result = resultS/(60*60) + "시간 전";
+		} else if (resultS >= 60) {
+			result = resultS/(60) + "분 전";
+		} else {
+			result = resultS + "초 전";
+		}
+		this.calDate = result;
 	}
 
 	public int getGood() {

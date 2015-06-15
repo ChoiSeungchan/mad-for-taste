@@ -179,15 +179,56 @@
 
 <div class="panel panel-primary">
 	<div class="panel-heading">
+		<h3 class="panel-title">회원 랭킹</h3>
+	</div>
+	<div class="panel-body"><br>
+		<table class="table">
+			<tr>
+				<td>asdf</td>
+			</tr>
+			<tr>
+				<td>asdf</td>
+			</tr>
+			<tr>
+				<td>asdf</td>
+			</tr>
+			<tr>
+				<td>asdf</td>
+			</tr>
+			<tr>
+				<td>asdf</td>
+			</tr>
+			<tr>
+				<td>asdf</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<div class="panel panel-primary">
+	<div class="panel-heading">
 		<h3 class="panel-title">실시간 검색어</h3>
 	</div>
-	<div class="panel-body">
-		<ul class="list-group">
-			<li class="list-group-item">Cras justo odio</li>
-			<li class="list-group-item">Dapibus ac facilisis in</li>
-			<li class="list-group-item">Morbi leo risus</li>
-			<li class="list-group-item">Porta ac consectetur ac</li>
-			<li class="list-group-item">Vestibulum at eros</li>
-		</ul>
+	<div class="panel-body"><br>
+		<table class="table">
+			<tr>
+				<td>asdf</td>
+			</tr>
+			<tr>
+				<td>asdf</td>
+			</tr>
+			<tr>
+				<td>asdf</td>
+			</tr>
+			<tr>
+				<td>asdf</td>
+			</tr>
+			<tr>
+				<td>asdf</td>
+			</tr>
+			<tr>
+				<td>asdf</td>
+			</tr>
+		</table>
 	</div>
 </div>
