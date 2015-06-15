@@ -33,8 +33,18 @@ public class TasteBoardDaoImpl implements TasteBoardDao {
 	}
 
 	@Override
-	public Article getArticleById(int articleNo) {
-		return sqlSessionTemplate.selectOne("getArticleById", articleNo);
+	public void updateArticle(Article article) {
+		sqlSessionTemplate.update("updateArticle", article);
+	}
+
+	@Override
+	public void deleteArticle(int articleNo) {
+		sqlSessionTemplate.delete("deleteArticle", articleNo);
+	}
+	
+	@Override
+	public Article getArticleByNo(int articleNo) {
+		return sqlSessionTemplate.selectOne("getArticleByNo", articleNo);
 	}
 
 	@Override
@@ -49,4 +59,38 @@ public class TasteBoardDaoImpl implements TasteBoardDao {
 		map.put("location", location);
 		return sqlSessionTemplate.selectList("getArticlesByLocation", map);
 	}
+
+	@Override
+	public List<Article> getArticlesByWriter(Page page, String writer) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("page", page);
+		map.put("writer", writer);
+		return sqlSessionTemplate.selectList("getArticlesByWriter", map);
+	}
+
+	@Override
+	public void upHits(int articleNo) {
+		sqlSessionTemplate.update("upHits", articleNo);
+	}
+
+	@Override
+	public void upGood(int articleNo) {
+		sqlSessionTemplate.update("upGood", articleNo);
+	}
+	
+	@Override
+	public void upBad(int articleNo) {
+		sqlSessionTemplate.update("upBad", articleNo);
+	}
+
+	@Override
+	public List<Article> getArticlesOrderByHits(Page page) {
+		return sqlSessionTemplate.selectList("getArticlesOrderByHits", page);
+	}
+
+	@Override
+	public List<Article> getArticlesOredrByRank(Page page) {
+		return sqlSessionTemplate.selectList("testGetArticlesOredrByRank", page);
+	}
+
 }

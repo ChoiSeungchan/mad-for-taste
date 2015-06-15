@@ -1,19 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <script>
 	$(function(){
-		$('#upExpBtn').click(function(){
-			location.href = '${initParam.root}upExp';
-		});
-
-		$('#upPointBtn').click(function(){
-			location.href = '${initParam.root}upPoint';
-		});
-		
-		$('#downPointBtn').click(function(){
-			location.href = '${initParam.root}downPoint';
-		});
 	});
 </script>
 <div class="col-md-12">
@@ -58,100 +48,38 @@
 		<a class="right carousel-control" href="#carousel-507091"
 			data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 	</div>
+	<div class="tasteBoard" style="margin-top: 30px">
+	<c:forEach var="article" items="${tasteBoard}">
+		 <blockquote id="tasteBoardBQ">
+			<div class="row" style="height: 50px; font-size: 16px">
+				<span class="col-md-1">
+					#${article.articleNo}<br>
+					<b>${article.location}</b>
+				</span>
+				<span class="col-md-3">
+					<img style="width:50px;height: 50px" src="${initParam.root}resources/images/user/member/default.jpg">
+					${article.writer}
+				</span>
+				<span class="col-md-3" style="padding-top:12px">
+					${article.title}
+				</span>
+				<span class="col-md-5" style="padding-top:12px; text-align: right">
+					<span class="glyphicon glyphicon-thumbs-up"></span> ${article.good} &nbsp&nbsp&nbsp&nbsp
+					<span class="glyphicon glyphicon-thumbs-down"></span> ${article.bad} &nbsp&nbsp&nbsp&nbsp
+					<span class="glyphicon glyphicon-eye-open"></span> ${article.hits} &nbsp&nbsp&nbsp&nbsp
+					<span class="glyphicon glyphicon-time"></span> ${article.regDate }
+				</span>
+			</div>
+         </blockquote>
+	</c:forEach>
+	</div>
+			<%-- <td>#${article.articleNo}</td>
+			<td>${article.location}</td>
+			<td>${article.title }</td>
+			<td>${article.writer }</td>
+			<td>${article.good}</td>
+			<td>${article.bad}</td>
+			<td>${article.hits}</td>
+			<td>${article.regDate}</td> --%>
 </div>
-<div class="col-md.12">
-	<div class="col-md-4">
-		<button class="btn btn-info btn-block" id = "upExpBtn">EXP 증가</button>
-	</div>
-	<div class="col-md-4">
-		<button class="btn btn-danger btn-block" id = "upPointBtn">Point 증가</button>
-	</div>
-	<div class="col-md-4">
-		<button class="btn btn-warning btn-block" id = "downPointBtn">Point 감소</button>
-	</div>
-	<table class="table table-hover">
-		<thead>
-			<tr>
-				<th>#</th>
-				<th>First Name</th>
-				<th>Last Name</th>
-				<th>Username</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr class="info">
-				<td>1</td>
-				<td>Mark</td>
-				<td>Otto</td>
-				<td>@mdo</td>
-			</tr>
-			<tr class="danger">
-				<td>2</td>
-				<td>Jacob</td>
-				<td>Thornton</td>
-				<td>@fat</td>
-			</tr>
-			<tr class="warning">
-				<td>3</td>
-				<td>Larry</td>
-				<td>the Bird</td>
-				<td>@twitter</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>Mark</td>
-				<td>Otto</td>
-				<td>@mdo</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>Mark</td>
-				<td>Otto</td>
-				<td>@mdo</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>Mark</td>
-				<td>Otto</td>
-				<td>@mdo</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>Mark</td>
-				<td>Otto</td>
-				<td>@mdo</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>Mark</td>
-				<td>Otto</td>
-				<td>@mdo</td>
-			</tr><tr>
-				<td>1</td>
-				<td>Mark</td>
-				<td>Otto</td>
-				<td>@mdo</td>
-			</tr><tr>
-				<td>1</td>
-				<td>Mark</td>
-				<td>Otto</td>
-				<td>@mdo</td>
-			</tr><tr>
-				<td>1</td>
-				<td>Mark</td>
-				<td>Otto</td>
-				<td>@mdo</td>
-			</tr><tr>
-				<td>1</td>
-				<td>Mark</td>
-				<td>Otto</td>
-				<td>@mdo</td>
-			</tr><tr>
-				<td>1</td>
-				<td>Mark</td>
-				<td>Otto</td>
-				<td>@mdo</td>
-			</tr>
-		</tbody>
-	</table>
-</div>
+

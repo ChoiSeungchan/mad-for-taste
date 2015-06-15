@@ -19,9 +19,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getDynamicTotalCount" resultType="int">
 		select count(*) from taste_board
 		<where>
-			<if test="location!=null and location!=''">
-				location=#{location}
-			</if>
+			<choose>
+				<when test="location!=null and location!=''">
+					location=#{location}
+				</when>
+				<when test="writer!=null and writer!=''">
+					writer=#{writer}
+				</when>
+				<otherwise>
+					article_no=-1
+				</otherwise>
+			</choose>
 		</where>
 	</select>
 	<insert id="insertArticle">
@@ -31,7 +39,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into taste_board(article_no,location,writer,title,contents)
 		values(taste_board_sequence.currval,#{location},#{writer},#{title},#{contents})
 	</insert>
-	<select id="getArticleById" resultMap="articleRM">
+	<update id="updateArticle">
+		update taste_board set location=#{location},title=#{title},contents=#{contents}
+		where article_no=#{articleNo}
+	</update>
+	<delete id="deleteArticle">
+		delete from taste_board where article_no=#{articleNo}
+	</delete>
+	<select id="getArticleByNo" resultMap="articleRM">
 		<include refid="getArticle"/> where article_no=#{articleNo}
 	</select>
 	<select id="getArticles" resultMap="articleRM">
@@ -39,11 +54,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(select rownum,t.* from taste_board t order by article_no desc) 
 		where rownum between #{beginRow} and #{endRow}
 	</select>
+	<select id="getArticlesOrderByHits" resultMap="articleRM">
+		select * from 
+		(select rownum,t.* from taste_board t order by hits desc, article_no desc) 
+		where rownum between #{beginRow} and #{endRow}
+	</select>
+	<select id="testGetArticlesOredrByRank" resultMap="articleRM">
+		select * from 
+		(select rownum,t.good-t.bad as rank,t.* from taste_board t order by rank desc, article_no desc) 
+		where rownum between #{beginRow} and #{endRow}
+	</select>
 	<select id="getArticlesByLocation" resultMap="articleRM">
 		select * from 
 		(select rownum,t.* from taste_board t where location=#{location} order by article_no desc) 
-		where rownum between #{beginRow} and #{endRow}
+		where rownum between #{page.beginRow} and #{page.endRow}
 	</select>
+	<select id="getArticlesByWriter" resultMap="articleRM">
+		select * from 
+		(select rownum,t.* from taste_board t where writer=#{writer} order by article_no desc) 
+		where rownum between #{page.beginRow} and #{page.endRow}
+	</select>
+	<update id="upHits">
+		update taste_board set hits=hits+1 where article_no=#{articleNo}
+	</update>
+	<update id="upGood">
+		update taste_board set good=good+1 where article_no=#{articleNo}
+	</update>
+	<update id="upBad">
+		update taste_board set bad=bad+1 where article_no=#{articleNo}
+	</update>
 </mapper>
  
  

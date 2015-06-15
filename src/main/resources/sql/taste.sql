@@ -18,7 +18,6 @@ drop sequence tp_seq
 
 
 -- 맛집게시판 --
-
 select * from taste_board
 
 select * from taste_board_reply
