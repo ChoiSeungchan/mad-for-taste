@@ -5,6 +5,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="notice">
  	
+ <resultMap type="noticevo" id="noticeRM">		
+		<result property="articleNo" column="article_no" />			
+		<result property="writer" column="writer" /> 		
+		<result property="title" column="title" /> 		
+		<result property="content" column="content" /> 		
+		<result property="viewCount" column="hits" /> 		
+		<result property="regDate" column="reg_date" /> 		
+	</resultMap>	
+	
+<select id="totalContentCount" resultType="int">
+	select count(*) from notice_board
+</select>
+
+<select id="loadNoticeList" resultMap="noticeRM">
+ select * from(select rownum,n.* from notice_board n order by article_no desc) where rownum between #{beginRow} and #{endRow}
+</select>
+	
+<select id="getContents" resultMap="noticeRM">
+	select * from notice_board where article_no=#{value}
+</select>
  </mapper>
  
  

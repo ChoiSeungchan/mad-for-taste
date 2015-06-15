@@ -12,6 +12,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="org.kosta.madfortaste.user.domain.Member" alias="member"/>
 		<typeAlias type="org.kosta.madfortaste.user.domain.Owner" alias="owner"/>
 		<typeAlias type="org.kosta.madfortaste.taste.domain.TastyPlace" alias="tastyPlace"/>
+		<typeAlias type="org.kosta.madfortaste.help.domain.Notice" alias="noticevo"/>
 	</typeAliases>
 	
 	<mappers>
