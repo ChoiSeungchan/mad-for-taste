@@ -7,8 +7,8 @@ public class Notice {
 	private String content;
 	private int viewCount;
 	private String regDate;
-	public Notice(String articleNo, String writer, String title,
-			String content, int viewCount, String regDate) {
+	public Notice(String articleNo, String writer, String title, String content,
+			int viewCount, String regDate) {
 		super();
 		this.articleNo = articleNo;
 		this.writer = writer;
@@ -17,6 +17,14 @@ public class Notice {
 		this.viewCount = viewCount;
 		this.regDate = regDate;
 	}
+	
+	public Notice(String writer, String title, String content) {
+		super();
+		this.writer = writer;
+		this.title = title;
+		this.content = content;
+	}
+
 	public Notice() {
 		super();
 	}
@@ -50,10 +58,10 @@ public class Notice {
 	public void setViewCount(int viewCount) {
 		this.viewCount = viewCount;
 	}
-	public String getregDate() {
+	public String getRegDate() {
 		return regDate;
 	}
-	public void setregDate(String regDate) {
+	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
 	@Override
@@ -62,7 +70,6 @@ public class Notice {
 				+ ", title=" + title + ", content=" + content + ", viewCount="
 				+ viewCount + ", regDate=" + regDate + "]";
 	}
-	
 	
 	
 }

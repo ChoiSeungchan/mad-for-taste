@@ -7,6 +7,10 @@ import org.kosta.madfortaste.help.domain.Notice;
 
 public interface NoticeDao {
 	public int totalContentCount();
-	public List<Notice> loadNoticeList(Page page);
-	public Notice getContents(String no);
+	public List<Notice> loadNoticeList(Page pageNo);
+	public Notice getContents(String pageNo);
+	public int insert(Notice notice);//잘되면 1 안되면 0
+	public void update(Notice notice);
+	public void delete(String pageNo);
+	
 }

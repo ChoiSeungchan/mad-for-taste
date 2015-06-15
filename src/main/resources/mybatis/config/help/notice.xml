@@ -22,9 +22,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  select * from(select rownum,n.* from notice_board n order by article_no desc) where rownum between #{beginRow} and #{endRow}
 </select>
 	
-<select id="getContents" resultMap="noticeRM">
+<select id="getContents" resultMap="noticeRM" resultType="noticevo">
 	select * from notice_board where article_no=#{value}
 </select>
+
+<insert id="insert">
+ 	 <selectKey keyProperty="articleNo" resultType="String" order="BEFORE">
+		select notice_no_seq.nextval from dual
+	</selectKey>  
+  insert into notice_board(article_no,writer, title, content) values(#{articleNo},#{writer},#{title},#{content})
+  </insert>
+
+<update id="update" parameterType="noticevo">
+	update notice_board set title=#{title}, content=#{content} where article_no=#{articleNo}
+</update>
+
+<delete id="delete">
+	delete from notice_board where article_no=#{value}
+</delete>
+
  </mapper>
  
  

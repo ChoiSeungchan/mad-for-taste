@@ -13,6 +13,7 @@ public class NoticeDaoImpl implements NoticeDao{
 	
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
+	
 	@Override
 	public List<Notice> loadNoticeList(Page page) {
 		List<Notice> list =sqlSessionTemplate.selectList("notice.loadNoticeList",page); 
@@ -30,4 +31,27 @@ public class NoticeDaoImpl implements NoticeDao{
 	public int totalContentCount() {
 		return sqlSessionTemplate.selectOne("notice.totalContentCount");
 	}
+
+	@Override
+	public int insert(Notice notice) {
+		return sqlSessionTemplate.insert("notice.insert",notice);
+	}
+
+	@Override
+	public void update(Notice notice) {
+		sqlSessionTemplate.update("notice.update",notice);
+		
+	}
+
+	@Override
+	public void delete(String no) {
+		sqlSessionTemplate.delete("notice.delete",no);
+		
+	}
+	
+	
+	
+	
+	
+	
 }
