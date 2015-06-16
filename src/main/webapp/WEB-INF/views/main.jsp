@@ -65,7 +65,7 @@
 	</div>
 	<div class="tasteBoard" style="margin-top: 10px">
 	<c:choose>
-		<c:when test="${member!=null && member.levelInfo.level>=10}">
+		<c:when test="${member!=null && member.levelInfo.level>=1}">
 			<button id="regArticleBtn" class="btn btn-default btn-lg btn-block" style="margin-bottom: 10px">나만의 맛집 소개하기</button>
 		</c:when>
 		<c:otherwise>
