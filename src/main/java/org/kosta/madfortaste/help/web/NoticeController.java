@@ -7,12 +7,14 @@ import org.kosta.madfortaste.help.domain.Notice;
 import org.kosta.madfortaste.help.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
+	
 	
 	public ModelAndView loadNoticeList(String pageNo,Page page){
 		ModelAndView mv = new ModelAndView("layout");
@@ -22,4 +24,41 @@ public class NoticeController {
 		return mv;
 		
 	}
+	
+	public ModelAndView insert(Notice notice){
+		noticeService.insert(notice);
+		return null;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
