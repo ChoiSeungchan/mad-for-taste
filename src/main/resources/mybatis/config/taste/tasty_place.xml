@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<insert id="insertTastyPlace">
  		insert into tasty_place(br_no,business_name,address,tel,owner_id) values(#{brNo},#{businessName},#{address},#{tastyTel},#{ownerId})
  	</insert>
- 	<select id="selectTastyPlaceById" resultType="tastyPlace">
+ 	<select id="selectTastyPlaceByNo" resultType="tastyPlace">
  		select t.br_no as brNo,t.business_name as businessName,t.address,t.tel as tastyTel,t.contract_flag as contractFlag,o.name as ownerId from owner o,tasty_place t where o.owner_id=t.owner_id and t.br_no=#{value}
  	</select>
  	<select id="selectTastyPlaceGetAllList" resultType="tastyPlace">

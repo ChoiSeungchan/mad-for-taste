@@ -57,7 +57,9 @@ public class TastyPlaceController {
 	@ResponseBody
 	public TastyPlace selectBrNoById(String brNo){
 		System.out.println(brNo);
-		return tastyPlaceService.selectTastyPlaceById(brNo);
+		TastyPlace tastyPlace=tastyPlaceService.selectTastyPlaceById(brNo);
+		System.out.println(tastyPlace);
+		return tastyPlace;
 	}
 	
 	@RequestMapping("deleteTastyPlace")
