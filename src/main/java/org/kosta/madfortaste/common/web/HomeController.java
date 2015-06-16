@@ -1,13 +1,22 @@
 package org.kosta.madfortaste.common.web;
 
+import org.kosta.madfortaste.common.lib.Page;
+import org.kosta.madfortaste.taste.service.TasteBoardService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class HomeController {
-	
-	@RequestMapping(value="/")
-	public String home() {
+
+	@Autowired
+	private TasteBoardService tasteBoardService;
+
+	@RequestMapping(value = "/")
+	public String home(Model model) {
+		model.addAttribute("tasteBoard", tasteBoardService
+				.getArticlesOredrByRank(new Page(tasteBoardService.getTotalCount())));
 		return "home";
 	}
 }

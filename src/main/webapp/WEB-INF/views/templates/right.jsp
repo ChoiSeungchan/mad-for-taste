@@ -24,6 +24,15 @@
 		$("#ownerUpdateBtn").click(function(){
 			location.href="${initParam.root}owner_ownerUpdateForm";
 		});
+		$("#registerTpBtn").click(function(){
+			location.href="${initParam.root}owner_tastyRegisterForm";
+		});
+		$("#deleteTpBtn").click(function(){
+			location.href="${initParam.root}ownerDeleteForm";
+		});
+		$("#updateTpBtn").click(function(){
+			location.href="${initParam.root}tastyUpdateForm?id=${owner.ownerId}";
+		});
 		$('#rightLoginForm').submit(function(){
 			var id = $('#rightId').val();
 			var password = $('#rightPass').val();
@@ -170,15 +179,56 @@
 
 <div class="panel panel-primary">
 	<div class="panel-heading">
+		<h3 class="panel-title">회원 랭킹</h3>
+	</div>
+	<div class="panel-body"><br>
+		<table class="table">
+			<tr>
+				<td>asdf</td>
+			</tr>
+			<tr>
+				<td>asdf</td>
+			</tr>
+			<tr>
+				<td>asdf</td>
+			</tr>
+			<tr>
+				<td>asdf</td>
+			</tr>
+			<tr>
+				<td>asdf</td>
+			</tr>
+			<tr>
+				<td>asdf</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<div class="panel panel-primary">
+	<div class="panel-heading">
 		<h3 class="panel-title">실시간 검색어</h3>
 	</div>
-	<div class="panel-body">
-		<ul class="list-group">
-			<li class="list-group-item">Cras justo odio</li>
-			<li class="list-group-item">Dapibus ac facilisis in</li>
-			<li class="list-group-item">Morbi leo risus</li>
-			<li class="list-group-item">Porta ac consectetur ac</li>
-			<li class="list-group-item">Vestibulum at eros</li>
-		</ul>
+	<div class="panel-body"><br>
+		<table class="table">
+			<tr>
+				<td>asdf</td>
+			</tr>
+			<tr>
+				<td>asdf</td>
+			</tr>
+			<tr>
+				<td>asdf</td>
+			</tr>
+			<tr>
+				<td>asdf</td>
+			</tr>
+			<tr>
+				<td>asdf</td>
+			</tr>
+			<tr>
+				<td>asdf</td>
+			</tr>
+		</table>
 	</div>
 </div>

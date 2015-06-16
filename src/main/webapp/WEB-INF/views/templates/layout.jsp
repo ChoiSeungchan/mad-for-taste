@@ -10,7 +10,7 @@
 <script src="http://code.jquery.com/jquery-1.11.3.js"></script>
 
 <!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="${initParam.root}resources/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="${initParam.root}resources/bootstrap/css/bootstrap.css">
 
 <link rel="stylesheet" href="${initParam.root}resources/bootstrap/theme/simplex.css">
 

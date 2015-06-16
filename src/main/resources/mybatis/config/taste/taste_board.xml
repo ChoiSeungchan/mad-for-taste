@@ -3,9 +3,87 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="tasteBoard">
- 	
- </mapper>
+<mapper namespace="tasteBoard">
+	<resultMap type="article" id="articleRM">
+		<result property="articleNo" column="article_no"/>
+		<result property="regDate" column="reg_date"/>
+	</resultMap>
+	<sql id="getArticle">
+		select article_no,location,writer,title,contents,
+		to_char(reg_date,'YYYY-MM-DD HH24:MI:SS')as reg_date,
+		good,bad,hits from taste_board
+	</sql>
+	<select id="getTotalCount" resultType="int">
+		select count(*) from taste_board
+	</select>
+	<select id="getDynamicTotalCount" resultType="int">
+		select count(*) from taste_board
+		<where>
+			<choose>
+				<when test="location!=null and location!=''">
+					location=#{location}
+				</when>
+				<when test="writer!=null and writer!=''">
+					writer=#{writer}
+				</when>
+				<otherwise>
+					article_no=-1
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+	<insert id="insertArticle">
+		<selectKey keyProperty="articleNo" keyColumn="article_no" resultType="int" order="BEFORE">
+			select taste_board_sequence.nextval from dual
+		</selectKey>
+		insert into taste_board(article_no,location,writer,title,contents)
+		values(taste_board_sequence.currval,#{location},#{writer},#{title},#{contents})
+	</insert>
+	<update id="updateArticle">
+		update taste_board set location=#{location},title=#{title},contents=#{contents}
+		where article_no=#{articleNo}
+	</update>
+	<delete id="deleteArticle">
+		delete from taste_board where article_no=#{articleNo}
+	</delete>
+	<select id="getArticleByNo" resultMap="articleRM">
+		<include refid="getArticle"/> where article_no=#{articleNo}
+	</select>
+	<select id="getArticles" resultMap="articleRM">
+		select * from 
+		(select rownum,t.* from taste_board t order by article_no desc) 
+		where rownum between #{beginRow} and #{endRow}
+	</select>
+	<select id="getArticlesOrderByHits" resultMap="articleRM">
+		select * from 
+		(select rownum,t.* from taste_board t order by hits desc, article_no desc) 
+		where rownum between #{beginRow} and #{endRow}
+	</select>
+	<select id="testGetArticlesOredrByRank" resultMap="articleRM">
+		select * from 
+		(select rownum,t.good-t.bad as rank,t.* from taste_board t order by rank desc, article_no desc) 
+		where rownum between #{beginRow} and #{endRow}
+	</select>
+	<select id="getArticlesByLocation" resultMap="articleRM">
+		select * from 
+		(select rownum,t.* from taste_board t where location=#{location} order by article_no desc) 
+		where rownum between #{page.beginRow} and #{page.endRow}
+	</select>
+	<select id="getArticlesByWriter" resultMap="articleRM">
+		select * from 
+		(select rownum,t.* from taste_board t where writer=#{writer} order by article_no desc) 
+		where rownum between #{page.beginRow} and #{page.endRow}
+	</select>
+	<update id="upHits">
+		update taste_board set hits=hits+1 where article_no=#{articleNo}
+	</update>
+	<update id="upGood">
+		update taste_board set good=good+1 where article_no=#{articleNo}
+	</update>
+	<update id="upBad">
+		update taste_board set bad=bad+1 where article_no=#{articleNo}
+	</update>
+</mapper>
  
  
  
