@@ -15,11 +15,10 @@ public class Article {
 	private String contents;
 	private Date regDate;
 	private String calDate;
+	private int reply;
 	private int good;
 	private int bad;
 	private int hits;
-	private List<MultipartFile> files;
-	private List<String> fileNameList;
 	private Member member;
 	
 	public Article() {
@@ -27,18 +26,17 @@ public class Article {
 	}
 
 	public Article(String location, String writer, String title,
-			String contents, List<MultipartFile> files) {
+			String contents) {
 		super();
 		this.location = location;
 		this.writer = writer;
 		this.title = title;
 		this.contents = contents;
-		this.files = files;
 	}
 
 	public Article(int articleNo, String location, String writer,
-			String title, String contents, Date regDate, int good, int bad,
-			int hits, List<String> fileNameList) {
+			String title, String contents, Date regDate, int reply, int good, int bad,
+			int hits) {
 		super();
 		this.articleNo = articleNo;
 		this.location = location;
@@ -46,10 +44,10 @@ public class Article {
 		this.title = title;
 		this.contents = contents;
 		this.regDate = regDate;
+		this.reply = reply;
 		this.good = good;
 		this.bad = bad;
 		this.hits = hits;
-		this.fileNameList = fileNameList;
 		this.setCalDate();
 	}
 
@@ -75,14 +73,6 @@ public class Article {
 
 	public void setWriter(String writer) {
 		this.writer = writer;
-	}
-
-	public String gettitle() {
-		return title;
-	}
-
-	public void settitle(String title) {
-		this.title = title;
 	}
 
 	public String getContents() {
@@ -128,6 +118,22 @@ public class Article {
 		this.calDate = result;
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public int getReply() {
+		return reply;
+	}
+
+	public void setReply(int reply) {
+		this.reply = reply;
+	}
+
 	public int getGood() {
 		return good;
 	}
@@ -152,25 +158,10 @@ public class Article {
 		this.hits = hits;
 	}
 
-	public List<MultipartFile> getFiles() {
-		return files;
-	}
-
-	public void setFiles(List<MultipartFile> files) {
-		this.files = files;
-	}
-
-	public List<String> getFileNameList() {
-		return fileNameList;
-	}
-
-	public void setFileNameList(List<String> fileNameList) {
-		this.fileNameList = fileNameList;
-	}
-
 	public Member getMember() {
 		return member;
 	}
+
 
 	public void setMember(Member member) {
 		this.member = member;
@@ -181,9 +172,7 @@ public class Article {
 		return "Article [articleNo=" + articleNo + ", location=" + location
 				+ ", writer=" + writer + ", title=" + title + ", contents="
 				+ contents + ", regDate=" + regDate + ", calDate=" + calDate
-				+ ", good=" + good + ", bad=" + bad + ", hits=" + hits
-				+ ", files=" + files + ", fileNameList=" + fileNameList
-				+ ", member=" + member + "]";
+				+ ", reply=" + reply + ", good=" + good + ", bad=" + bad
+				+ ", hits=" + hits + ", member=" + member + "]";
 	}
-
 }

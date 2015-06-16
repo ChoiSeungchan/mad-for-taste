@@ -61,12 +61,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<select id="getArticles" resultMap="articleRM">
 		select * from 
-		(select rownum,t.* from taste_board t order by article_no desc) 
+		(select rownum,t.*,m.* from taste_board t, member m where t.writer=m.id order by article_no desc) 
 		where rownum between #{beginRow} and #{endRow}
 	</select>
 	<select id="getArticlesOrderByHits" resultMap="articleRM">
 		select * from 
-		(select rownum,t.* from taste_board t order by hits desc, article_no desc) 
+		(select rownum,t.*,m.* from taste_board t, member m where t.writer=m.id order by hits desc, article_no desc) 
 		where rownum between #{beginRow} and #{endRow}
 	</select>
 	<select id="testGetArticlesOredrByRank" resultMap="articleRM">
@@ -76,12 +76,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<select id="getArticlesByLocation" resultMap="articleRM">
 		select * from 
-		(select rownum,t.* from taste_board t where location=#{location} order by article_no desc) 
+		(select rownum,t.*,m.* from taste_board t, member m where t.writer=m.id and t.location=#{location} order by article_no desc) 
 		where rownum between #{page.beginRow} and #{page.endRow}
 	</select>
 	<select id="getArticlesByWriter" resultMap="articleRM">
 		select * from 
-		(select rownum,t.* from taste_board t where writer=#{writer} order by article_no desc) 
+		(select rownum,t.*,m.* from taste_board t, member m where t.writer=m.id and writer=#{writer} order by article_no desc) 
 		where rownum between #{page.beginRow} and #{page.endRow}
 	</select>
 	<update id="upHits">

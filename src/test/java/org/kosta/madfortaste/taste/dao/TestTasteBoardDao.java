@@ -33,7 +33,7 @@ public class TestTasteBoardDao {
 	public void testInsertArticle() {
 		String [] location = {"서울","경기","대전","대구","부산","울산"};
 		for(int i = 0; i<30; i++) {
-		Article article = dao.insertArticle(new Article(location[new Random().nextInt(6)], "hs9923", "testTitle", "testContents", null));
+		Article article = dao.insertArticle(new Article(location[new Random().nextInt(6)], "hs9923", "testTitle", "testContents"));
 		System.out.println(article);
 		}
 	}

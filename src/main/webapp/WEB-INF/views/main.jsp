@@ -2,12 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<script>
+<script type="text/javascript">
 	$(function(){
 		$('blockquote').hover(function(){
 			$(this).attr('style','background-color:#4F5151;color:white');
 		}, function (){
 			$(this).attr('style','background-color:none');
+		})
+		
+		$('blockquote').click(function(){
+			alert((this).id);
 		})
 		
 		$('#regArticleBtn').hover(function(){
@@ -72,7 +76,7 @@
 		</c:otherwise>
 	</c:choose>
 	<c:forEach var="article" items="${tasteBoard}">
-		 <blockquote>
+		 <blockquote id="${article.articleNo}">
 			<div class="row" style="height: 50px;font-size: 15px;">
 				<span class="col-md-1">
 					#${article.articleNo}<br>
@@ -83,13 +87,14 @@
 					<img style="width:20px;height: 20px" src="${initParam.root}resources/images/user/member/level/${article.member.levelInfo.level+1}.gif">
 					${article.member.name}(${article.writer})
 				</span>
-				<span class="col-md-5" style="padding-top:12px;overflow:hidden;text-overflow:ellipsis;">
+				<span class="col-md-4" style="padding-top:12px;overflow:hidden;text-overflow:ellipsis;">
 					<b>${article.title}</b>
 				</span>
-				<span class="col-md-3" style="padding-top:12px; text-align: right">
+				<span class="col-md-4" style="padding-top:12px; text-align: right">
+					<span class="glyphicon glyphicon glyphicon-comment" style="color:#045FB4"></span> ${article.reply} &nbsp&nbsp&nbsp&nbsp
+					<span class="glyphicon glyphicon-eye-open"></span> ${article.hits} &nbsp&nbsp&nbsp&nbsp
 					<span class="glyphicon glyphicon-thumbs-up" style="color:#045FB4"></span> ${article.good} &nbsp&nbsp&nbsp&nbsp
 					<span class="glyphicon glyphicon-thumbs-down" style="color:#D9230F"></span> ${article.bad} &nbsp&nbsp&nbsp&nbsp
-					<span class="glyphicon glyphicon-eye-open"></span> ${article.hits} &nbsp&nbsp&nbsp&nbsp
 					<span class="glyphicon glyphicon-time"></span> ${article.calDate }
 				</span>
 			</div>
