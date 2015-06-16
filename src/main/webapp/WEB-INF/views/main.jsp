@@ -10,10 +10,14 @@
 			$(this).attr('style','background-color:none');
 		})
 		
-		$('#regTasteBoardBtn').hover(function(){
+		$('#regArticleBtn').hover(function(){
 			$(this).attr('class','btn btn-success btn-lg btn-block')
 		}, function(){
 			$(this).attr('class','btn btn-default btn-lg btn-block')
+		})
+		
+		$('#regArticleBtn').click(function(){
+			location.href='registerArticleForm';
 		})
 	});
 </script>
@@ -62,7 +66,7 @@
 	<div class="tasteBoard" style="margin-top: 10px">
 	<c:choose>
 		<c:when test="${member!=null && member.levelInfo.level>=10}">
-			<button id="regTasteBoardBtn" class="btn btn-default btn-lg btn-block" style="margin-bottom: 10px">나만의 맛집 소개하기</button>
+			<button id="regArticleBtn" class="btn btn-default btn-lg btn-block" style="margin-bottom: 10px">나만의 맛집 소개하기</button>
 		</c:when>
 		<c:otherwise>
 		</c:otherwise>

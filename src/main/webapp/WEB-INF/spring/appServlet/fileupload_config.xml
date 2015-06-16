@@ -30,4 +30,10 @@
 			<value>resources\\images\\user\\owner\\profile\\</value>
 		</constructor-arg>
 	</bean>
+	<bean id="tasteBoardImg" class="java.lang.String">
+		<constructor-arg>
+			<value>resources\\images\\taste\\tasteBoard\\</value>
+		</constructor-arg>
+	</bean>
+	
 </beans>
