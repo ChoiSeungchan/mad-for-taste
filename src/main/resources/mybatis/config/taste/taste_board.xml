@@ -7,6 +7,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap type="article" id="articleRM">
 		<result property="articleNo" column="article_no"/>
 		<result property="regDate" column="reg_date"/>
+		<result property="member.id" column="id"/>
+		<result property="member.password" column="password"/>
+		<result property="member.name" column="name"/>
+		<result property="member.address" column="address"/>
+		<result property="member.gender" column="gender"/>
+		<result property="member.birth" column="birth"/>
+		<result property="member.tel" column="tel"/>
+		<result property="member.exp" column="exp"/>
+		<result property="member.point" column="point"/>
+		<result property="member.profileImg" column="profile_Img"/>
 	</resultMap>
 	<sql id="getArticle">
 		select article_no,location,writer,title,contents,
@@ -61,7 +71,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<select id="testGetArticlesOredrByRank" resultMap="articleRM">
 		select * from 
-		(select rownum,t.good-t.bad as rank,t.* from taste_board t order by rank desc, article_no desc) 
+		(select rownum,t.good-t.bad as rank,t.*,m.* from taste_board t, member m where t.writer=m.id order by rank desc, article_no desc) 
 		where rownum between #{beginRow} and #{endRow}
 	</select>
 	<select id="getArticlesByLocation" resultMap="articleRM">

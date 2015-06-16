@@ -3,6 +3,7 @@ package org.kosta.madfortaste.taste.domain;
 import java.util.Date;
 import java.util.List;
 
+import org.kosta.madfortaste.user.domain.Member;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Article {
@@ -19,6 +20,7 @@ public class Article {
 	private int hits;
 	private List<MultipartFile> files;
 	private List<String> fileNameList;
+	private Member member;
 	
 	public Article() {
 		super();
@@ -166,13 +168,22 @@ public class Article {
 		this.fileNameList = fileNameList;
 	}
 
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
 	@Override
 	public String toString() {
 		return "Article [articleNo=" + articleNo + ", location=" + location
 				+ ", writer=" + writer + ", title=" + title + ", contents="
-				+ contents + ", regDate=" + regDate + ", good=" + good
-				+ ", bad=" + bad + ", hits=" + hits + ", files=" + files
-				+ ", fileNameList=" + fileNameList + "]";
+				+ contents + ", regDate=" + regDate + ", calDate=" + calDate
+				+ ", good=" + good + ", bad=" + bad + ", hits=" + hits
+				+ ", files=" + files + ", fileNameList=" + fileNameList
+				+ ", member=" + member + "]";
 	}
-	
+
 }

@@ -69,19 +69,20 @@
 	</c:choose>
 	<c:forEach var="article" items="${tasteBoard}">
 		 <blockquote>
-			<div class="row" style="height: 50px; font-size: 16px">
+			<div class="row" style="height: 50px;font-size: 15px;">
 				<span class="col-md-1">
 					#${article.articleNo}<br>
 					<b>${article.location}</b>
 				</span>
 				<span class="col-md-3">
-					<img style="width:50px;height: 50px" src="${initParam.root}resources/images/user/member/default.jpg">
-					${article.writer}
+					<img style="width:50px;height: 50px" src="${initParam.root}resources/images/user/member/${article.member.profileImg}">
+					<img style="width:20px;height: 20px" src="${initParam.root}resources/images/user/member/level/${article.member.levelInfo.level+1}.gif">
+					${article.member.name}(${article.writer})
 				</span>
-				<span class="col-md-3" style="padding-top:12px">
-					${article.title}
+				<span class="col-md-5" style="padding-top:12px;overflow:hidden;text-overflow:ellipsis;">
+					<b>${article.title}</b>
 				</span>
-				<span class="col-md-5" style="padding-top:12px; text-align: right">
+				<span class="col-md-3" style="padding-top:12px; text-align: right">
 					<span class="glyphicon glyphicon-thumbs-up" style="color:#045FB4"></span> ${article.good} &nbsp&nbsp&nbsp&nbsp
 					<span class="glyphicon glyphicon-thumbs-down" style="color:#D9230F"></span> ${article.bad} &nbsp&nbsp&nbsp&nbsp
 					<span class="glyphicon glyphicon-eye-open"></span> ${article.hits} &nbsp&nbsp&nbsp&nbsp
