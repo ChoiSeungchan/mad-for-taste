@@ -10,14 +10,18 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 
 import org.kosta.madfortaste.taste.domain.Article;
 import org.kosta.madfortaste.taste.domain.TasteBoardImg;
 import org.kosta.madfortaste.taste.service.TasteBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.client.support.HttpRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class TasteBoardController {
@@ -74,30 +78,36 @@ public class TasteBoardController {
 	}
 	
 	//다중파일업로드
-	@RequestMapping("/multiplePhotoUpload")
+	@RequestMapping(value="/multiplePhotoUpload", method=RequestMethod.POST)
 	public void multiplePhotoUpload(HttpServletRequest request, HttpServletResponse response){
 	    try {
 	         //파일정보
-	         String sFileInfo = "";
+	         String sFileInfo = null;
 	         //파일명을 받는다 - 일반 원본파일명
 	         String filename = request.getHeader("file-name");
+	         System.out.println("finename=" +filename); //1
 	         //파일 확장자
 	         String filename_ext = filename.substring(filename.lastIndexOf(".")+1);
+	         System.out.println("filename_ext="+filename_ext); //2
 	         //확장자를소문자로 변경
 	         filename_ext = filename_ext.toLowerCase();
+	         System.out.println("filename_ext="+filename_ext); //3
 	         //파일 기본경로 _ 상세경로
-	         File file = new File(path);
+	         File file = new File(new HttpServletRequestWrapper(request).getRealPath("/")+path);
+	         System.out.println("path =" + path);//4
 	         if(!file.exists()) {
 	            file.mkdirs();
 	         }
-	         String realFileNm = "";
+	         String realFileNm = null;
 	         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 	         String today= formatter.format(new java.util.Date());
 	         realFileNm = today+UUID.randomUUID().toString() + filename.substring(filename.lastIndexOf("."));
-	         String rlFileNm = path + realFileNm;
+	         System.out.println("realFileNm="+realFileNm);//5
+	         String rlFileNm = new HttpServletRequestWrapper(request).getRealPath("/") + path + realFileNm;
 	         ///////////////// 서버에 파일쓰기 ///////////////// 
 	         InputStream is = request.getInputStream();
 	         OutputStream os=new FileOutputStream(rlFileNm);
+	         System.out.println("rlFileNm = " +rlFileNm);
 	         int numRead;
 	         byte b[] = new byte[Integer.parseInt(request.getHeader("file-size"))];
 	         while((numRead = is.read(b,0,b.length)) != -1){
