@@ -85,16 +85,12 @@ public class TasteBoardController {
 	         String sFileInfo = null;
 	         //파일명을 받는다 - 일반 원본파일명
 	         String filename = request.getHeader("file-name");
-	         System.out.println("finename=" +filename); //1
 	         //파일 확장자
 	         String filename_ext = filename.substring(filename.lastIndexOf(".")+1);
-	         System.out.println("filename_ext="+filename_ext); //2
 	         //확장자를소문자로 변경
 	         filename_ext = filename_ext.toLowerCase();
-	         System.out.println("filename_ext="+filename_ext); //3
 	         //파일 기본경로 _ 상세경로
 	         File file = new File(new HttpServletRequestWrapper(request).getRealPath("/")+path);
-	         System.out.println("path =" + path);//4
 	         if(!file.exists()) {
 	            file.mkdirs();
 	         }
@@ -102,7 +98,6 @@ public class TasteBoardController {
 	         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 	         String today= formatter.format(new java.util.Date());
 	         realFileNm = today+UUID.randomUUID().toString() + filename.substring(filename.lastIndexOf("."));
-	         System.out.println("realFileNm="+realFileNm);//5
 	         String rlFileNm = new HttpServletRequestWrapper(request).getRealPath("/") + path + realFileNm;
 	         ///////////////// 서버에 파일쓰기 ///////////////// 
 	         InputStream is = request.getInputStream();
@@ -123,7 +118,8 @@ public class TasteBoardController {
 	         sFileInfo += "&bNewLine=true";
 	         // img 태그의 title 속성을 원본파일명으로 적용시켜주기 위함
 	         sFileInfo += "&sFileName="+ filename;
-	         sFileInfo += "&sFileURL="+path+realFileNm;
+	         System.out.println(realFileNm.length());
+	         sFileInfo += "&sFileURL=/madfortaste/"+path+realFileNm;
 	         PrintWriter print = response.getWriter();
 	         print.print(sFileInfo);
 	         print.flush();

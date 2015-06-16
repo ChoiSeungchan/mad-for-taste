@@ -21,7 +21,7 @@ public class TestController {
 	public String test(HttpServletRequest req) {
 		String realPath = new HttpServletRequestWrapper(req).getRealPath("/");
 		System.out.println(realPath);
-		return "redirect:";
+		return "redirect:test.jsp";
 	}
 	
 	@RequestMapping(value="/testForm")
