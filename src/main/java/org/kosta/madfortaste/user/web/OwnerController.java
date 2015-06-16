@@ -18,6 +18,7 @@ import org.kosta.madfortaste.user.domain.OwnerForm;
 import org.kosta.madfortaste.user.service.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +38,11 @@ public class OwnerController {
 	public String ownerRegisterForm(@ModelAttribute OwnerForm ownerForm,
 			@PathVariable String path) {
 		return "user/" + path;
+	}
+	@RequestMapping("pizzaMaru")
+	public String pizzaMaru(String id,Model model){
+		model.addAttribute("list", tastyPlaceService.selectTastyPlaceGetAllList(id));
+		return "user/ownerBlog/pizzaMaru";
 	}
 	@RequestMapping(value="owner/{viewName1}/{viewName2}")
 	public String test(@PathVariable String viewName1, @PathVariable String viewName2) {
