@@ -45,6 +45,18 @@ public class MemberServiceImpl implements MemberService{
 				String fileBody = fileName.substring(0, fileName.length() - fileExt.length() - 1);
 				if(fileBody.equals(member.getId()) && !fileExt.equals(extension)) file.delete();
 			}
+		} else {
+			for (File file : new File(realPath).listFiles()) {
+				String fileName = file.getName();
+				String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1);
+				String fileBody = fileName.substring(0, fileName.length() - fileExt.length() - 1);
+				if(fileBody.equals(member.getId())){
+					member.setProfileImg(fileBody + "." + fileExt);
+					break;
+				} else {
+					member.setProfileImg("default.jpg");
+				}
+			}
 		}
 		return member;
 	}
@@ -58,6 +70,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void updateMember(Member member, HttpServletRequest req) throws IllegalStateException, IOException {
 		registerMemberImg(member, req);
+		System.out.println(member);
 		memberDao.updateMember(member);
 	}
 	

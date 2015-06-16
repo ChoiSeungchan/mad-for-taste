@@ -33,6 +33,7 @@ create table taste_board (
 	title varchar2(50) not null,
 	contents clob not null,
 	reg_date date default sysdate,
+	reply number default 0,
 	good number default 0,
 	bad number default 0,
 	hits number default 0,

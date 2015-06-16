@@ -15,8 +15,11 @@ public class HomeController {
 
 	@RequestMapping(value = "/")
 	public String home(Model model) {
+		Page page = new Page(tasteBoardService.getTotalCount());
+		System.out.println(page);
 		model.addAttribute("tasteBoard", tasteBoardService
-				.getArticlesOredrByRank(new Page(tasteBoardService.getTotalCount())));
+				.getArticlesOredrByRank(page));
+		model.addAttribute("page", page);
 		return "home";
 	}
 }

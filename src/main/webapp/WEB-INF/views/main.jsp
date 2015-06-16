@@ -92,25 +92,31 @@
 	</c:forEach>
 	</div>
 	<div style="margin-bottom: 30px" align="center">
-		<ul class="pagination">
+	<ul class="pagination">
       <li>
         <a href="#">Prev</a>
       </li>
+      <c:if test="${page.currentPageGroup!=1}">
       <li>
-        <a href="#">1</a>
+      	<a href="#">1</a>
       </li>
       <li>
-        <a href="#">2</a>
+      	<a href="#">...</a>
       </li>
+      </c:if>
+      <c:forEach var="p" begin="${page.beginPage}" end="${page.endPage}">
       <li>
-        <a href="#">3</a>
+        <a href="#">${p}</a>
       </li>
+      </c:forEach>
+      <c:if test="${page.currentPageGroup!=page.pageGroupCount}">
       <li>
-        <a href="#">4</a>
+      	<a href="#">...</a>
       </li>
-      <li>
-        <a href="#">5</a>
+  	  <li>
+      	<a href="#">${page.pageCount}</a>
       </li>
+      </c:if>
       <li>
         <a href="#">Next</a>
       </li>

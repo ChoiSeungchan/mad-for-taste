@@ -27,7 +27,7 @@ public class Member implements User{
 	private LevelInfo levelInfo;
 	private int point;
 	private Date joinDate;
-	private String profileImg = "default.jpg";
+	private String profileImg;
 	private MultipartFile imgFile;
 
 	public Member() {
