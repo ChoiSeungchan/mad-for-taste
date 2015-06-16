@@ -20,6 +20,14 @@ create table member(
 
 insert into member(id,password,name,address,gender,birth,tel,exp) 
 values('admin','1234','관리자','none','none','none','none',10000000)
+
+-- notice fk 로 인한 계정 추가(최승찬)--
+insert into member(id,password,name,address,gender,birth,tel,exp) 
+values('java','1234','최승찬','오산','남성','none','none',10000000)
+
+insert into member(id,password,name,address,gender,birth,tel,exp) 
+values('hs9923','1234','정현승','판교','남성','none','none',10000000)
+
 delete from member where id='admin'
 
 create table owner(

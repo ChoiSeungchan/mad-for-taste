@@ -12,5 +12,5 @@ public interface NoticeDao {
 	public int insert(Notice notice);//잘되면 1 안되면 0
 	public void update(Notice notice);
 	public void delete(String pageNo);
-	
+	public void updateViewCount(String articleNo);
 }

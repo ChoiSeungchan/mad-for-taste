@@ -6,7 +6,7 @@ create table notice_board(
 	content clob not null,
 	hits number default 0,
     reg_date date default sysdate,
-	constraint writer_fk foreign key (writer) references member(id) on delete cascade
+	constraint noticewriter_fk foreign key (writer) references member(id) on delete cascade
 )
 drop table notice_board;
 create sequence notice_no_seq nocache;
