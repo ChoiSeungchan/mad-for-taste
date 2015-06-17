@@ -1,11 +1,14 @@
 package org.kosta.madfortaste.taste.web;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.madfortaste.taste.domain.TastyPlace;
+import org.kosta.madfortaste.taste.domain.TastyPlaceMark;
 import org.kosta.madfortaste.taste.service.TastyPlaceService;
 import org.kosta.madfortaste.user.domain.Owner;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,5 +76,18 @@ public class TastyPlaceController {
 		List<TastyPlace> list=tastyPlaceService.selectTastyPlaceGetAllList(id);
 		model.addAttribute("list", list);
 		return "user/tastyUpdateForm";
+	}
+	
+	@RequestMapping(value="markAjax",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> markAjax(TastyPlaceMark tastyPlaceMark){
+		Map<String, String> map=new HashMap<String, String>();
+	if(tastyPlaceService.selectTastyPlaceMarkByDoublePk(tastyPlaceMark)==1){
+			map.put("fail", "이미 평점을 등록하셨습니다");
+			return map;
+		}
+		tastyPlaceService.insertTastyPlaceMark(tastyPlaceMark);
+		map.put("success", "성공적으로 등록되었습니다");
+		return map;
 	}
 }

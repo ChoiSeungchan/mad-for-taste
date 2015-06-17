@@ -83,3 +83,19 @@ create table taste_board_reply(
 
 drop sequence taste_board_reply_sequence
 create sequence taste_board_reply_sequence nocache
+select *from member
+create table tasty_place_mark(
+	br_no number references tasty_place(br_no) on delete cascade,
+	id varchar2(20) references member(id) on delete cascade,
+	mark number not null,
+	primary key(br_no,id)
+)
+select birth from member where id='java123'
+select *from tasty_place_mark
+select ceil(months_between(sysdate,to_date(birth,'yyyy-mm-dd'))/12) from member where id='java123'
+delete from tasty_place_mark
+select *from member
+select count(*) as totalCnt,sum(mark) as totalMark from tasty_place_mark
+select count(m.birth) from tasty_place_mark t,member m where m.id=t.id and birth between '1987' and '1997'
+select count(m.birth) from tasty_place_mark t,member m where m.id=t.id and birth between '1977' and '1987'
+select count(m.birth) from tasty_place_mark t,member m where m.id=t.id and birth between '1967' and '1977'
