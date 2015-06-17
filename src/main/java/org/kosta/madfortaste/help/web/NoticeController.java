@@ -28,6 +28,12 @@ public class NoticeController {
 		return mv;
 		
 	}
+	@RequestMapping("showContentView")
+	public ModelAndView showContentView(String no){
+		System.out.println(no);
+		Notice notice = noticeService.getContents(no);
+		return new ModelAndView("help/contentView","content",notice);
+	}
 	
 /*	public ModelAndView insert(Notice notice){
 		noticeService.insert(notice);
