@@ -3,7 +3,107 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.1.0.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
 <script>
+			//<![CDATA[	
+			var str="[참여수:"+${map.TOTALCNT}+"명]   [평점:"+${map.TOTALMARK/map.TOTALCNT}+"점]";
+			var i2=0;var i3=0;var i4=0;
+			i2=${map.two};i3=${map.three};i4=${map.four};
+			var two=i2/3*100;
+			var three=i3/3*100;
+			var four=i4/3*100;
+			$(function(){	   			
+			    $('#container').highcharts({
+			        chart: {
+			            plotBackgroundColor: null,
+			            plotBorderWidth: 0,
+			            plotShadow: false
+			        },
+			        title: {
+			            text: str,
+			            align: 'center',
+			            verticalAlign: 'middle',
+			            y: 50
+			        },
+			        tooltip: {
+			            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+			        },
+			        plotOptions: {
+			            pie: {
+			                dataLabels: {
+			                    enabled: true,
+			                    distance: -50,
+			                    style: {
+			                        fontWeight: 'bold',
+			                        color: 'white',
+			                        textShadow: '0px 1px 2px black'
+			                    }
+			                },
+			                startAngle: -90,
+			                endAngle: 90,
+			                center: ['50%', '75%']
+			            }
+			        },
+			        series: [{
+			            type: 'pie',
+			            name: 'Browser share',
+			            innerSize: '50%',
+			            data: [
+			                ['20대',   two],
+			                ['30대',   three],
+			                ['40대',   four],
+			                {
+			                    name: 'Others',
+			                    y: 0.0,
+			                    dataLabels: {
+			                        enabled: false
+			                    }
+			                }
+			            ]
+			        }]
+			    });//this
+				$("#view").html("<img src='${initParam.root }resources/images/user/owner/tasty/mark3.jpg' width='150px'>");
+				$("#one").click(function(){
+					$("#view").html("<img src='${initParam.root }resources/images/user/owner/tasty/mark.jpg' width='150px'>");
+				});
+				$("#two").click(function(){
+					$("#view").html("<img src='${initParam.root }resources/images/user/owner/tasty/mark2.jpg' width='150px'>");
+				});
+				$("#three").click(function(){
+					$("#view").html("<img src='${initParam.root }resources/images/user/owner/tasty/mark3.jpg' width='150px'>");
+				});
+				$("#four").click(function(){
+					$("#view").html("<img src='${initParam.root }resources/images/user/owner/tasty/mark4.jpg' width='150px'>");
+				});
+				$("#five").click(function(){
+					$("#view").html("<img src='${initParam.root }resources/images/user/owner/tasty/mark5.jpg' width='150px'>");
+				});
+				var member="${member}";
+				$("#markBtn").click(function(){
+					if($("input[name=mark]:checked").val()==null){
+						alert("평점 선택을 해주세요!");
+						return;
+					}
+					if(member==""){
+						alert("일반 사용자로 로그인 하셔야 가능합니다");
+						return;
+					}
+					$.ajax({
+						type:"post",
+						url:"markAjax?mark="+$("input[name=mark]:checked").val()+"&id=${member.id}&brNo="+$("#hideBrNo").val(),
+						dateType:"json",
+						success:function(data){
+							if(data.fail!=null)
+								alert(data.fail);
+							else
+								alert(data.success);
+						}
+					}); 
+				});
+			});
+  			 //]]>
+			
 			function changeImg(obj, img) {
    			 obj.src = img;
 			}
@@ -26,15 +126,11 @@
 			  imgwin.document.write("</body><html>");
 			  imgwin.document.title = imgObj.src;
 			}
-	//<![CDATA[
-				$(function(){
-
-				});
-	           //]]>
 </script>
 <div class="alert alert-danger">
 	<c:forEach items="${list }" var="list">
 	<c:if test="${list.contractFlag=='Y'}">
+	<input type="hidden" id="hideBrNo" value="${list.brNo }">
   	<strong><font size="5">${list.businessName }</font></strong><br><br>
     <b>주소: </b>${list.address }<br>
     <b>대표전화: </b>${list.tastyTel }<br>
@@ -60,3 +156,7 @@
 <div class="alert alert-success">
   <strong><font size="3">덧글 공유하기</font></strong>&nbsp; 업주 사장님과 사용자 여러분들의 각자의 의견을 공유하는 공간입니다.
 </div>
+<div id="container" style="min-width: 310px; height: 400px; max-width: 900px; margin: 0 auto"></div>
+<div id="view"></div>
+&nbsp;&nbsp;&nbsp;<input type="radio" name=mark value="1" id="one"> &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name=mark value="2" id="two"> &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name=mark value="3" id="three" checked="checked"> &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name=mark value="4" id="four"> &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name=mark value="5" id="five"><br>
+<button type="button" class="btn btn-info btn-xs" id="markBtn">평점등록하기</button>

@@ -19,6 +19,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<update id="updateTastyPlace">
  		update tasty_place set business_name=#{businessName},address=#{address},tel=#{tastyTel} where br_no=#{brNo}
  	</update>
+ 	<insert id="insertTastyPlaceMark">
+ 		insert into tasty_place_mark values(#{brNo},#{id},#{mark})
+ 	</insert>
+ 	<select id="selectTastyPlaceMarkByDoublePk" resultType="int">
+ 		select count(*) from tasty_place_mark where br_no=#{brNo} and id=#{id}
+ 	</select>
+ 	<select id="selectTastyPlaceMarkTotalPrice" resultType="map">
+ 		select count(*) as totalCnt,sum(mark) as totalMark from tasty_place_mark
+ 	</select>
+ 	<select id="selectTastyPlaceMarkAge20" resultType="String">
+ 		select count(m.birth) from tasty_place_mark t,member m where m.id=t.id and birth between '1987' and '1997'
+ 	</select>
+ 	<select id="selectTastyPlaceMarkAge30" resultType="String">
+ 		select count(m.birth) from tasty_place_mark t,member m where m.id=t.id and birth between '1977' and '1987'
+ 	</select>
+ 	<select id="selectTastyPlaceMarkAge40" resultType="String">
+ 		select count(m.birth) from tasty_place_mark t,member m where m.id=t.id and birth between '1967' and '1977'
+ 	</select>
  </mapper>
  
  

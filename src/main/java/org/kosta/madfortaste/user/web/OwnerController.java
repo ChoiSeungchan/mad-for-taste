@@ -2,7 +2,9 @@ package org.kosta.madfortaste.user.web;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -41,6 +43,12 @@ public class OwnerController {
 	}
 	@RequestMapping("pizzaMaru")
 	public String pizzaMaru(String id,Model model){
+		Map<String, String> map=new HashMap<String, String>();
+		map=tastyPlaceService.selectTastyPlaceMarkTotalPrice();
+		map.put("two", tastyPlaceService.selectTastyPlaceMarkAge20());
+		map.put("three", tastyPlaceService.selectTastyPlaceMarkAge30());
+		map.put("four", tastyPlaceService.selectTastyPlaceMarkAge40());
+		model.addAttribute("map", map);
 		model.addAttribute("list", tastyPlaceService.selectTastyPlaceGetAllList(id));
 		return "user/ownerBlog/pizzaMaru";
 	}
