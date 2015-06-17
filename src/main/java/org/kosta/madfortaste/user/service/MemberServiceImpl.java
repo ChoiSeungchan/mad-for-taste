@@ -40,21 +40,25 @@ public class MemberServiceImpl implements MemberService{
 			 *	java.jpg는 등록되고 java.png를 삭제해준다.
 			 */
 			for (File file : new File(realPath).listFiles()) {
+				if(file.isFile()) {
 				String fileName = file.getName();
 				String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1);
 				String fileBody = fileName.substring(0, fileName.length() - fileExt.length() - 1);
 				if(fileBody.equals(member.getId()) && !fileExt.equals(extension)) file.delete();
+				}
 			}
 		} else {
 			for (File file : new File(realPath).listFiles()) {
-				String fileName = file.getName();
-				String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1);
-				String fileBody = fileName.substring(0, fileName.length() - fileExt.length() - 1);
-				if(fileBody.equals(member.getId())){
-					member.setProfileImg(fileBody + "." + fileExt);
-					break;
-				} else {
-					member.setProfileImg("default.jpg");
+				if(file.isFile()) {
+					String fileName = file.getName();
+					String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1);
+					String fileBody = fileName.substring(0, fileName.length() - fileExt.length() - 1);
+					if(fileBody.equals(member.getId())){
+						member.setProfileImg(fileBody + "." + fileExt);
+						break;
+					} else {
+						member.setProfileImg("default.jpg");
+					}
 				}
 			}
 		}

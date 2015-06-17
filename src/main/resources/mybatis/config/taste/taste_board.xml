@@ -57,7 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from taste_board where article_no=#{articleNo}
 	</delete>
 	<select id="getArticleByNo" resultMap="articleRM">
-		<include refid="getArticle"/> where article_no=#{articleNo}
+		select rownum,t.*,m.* from taste_board t, member m where t.writer=m.id and article_no=#{articleNo}
 	</select>
 	<select id="getArticles" resultMap="articleRM">
 		select * from 

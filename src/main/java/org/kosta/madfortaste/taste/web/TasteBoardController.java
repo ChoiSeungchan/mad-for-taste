@@ -17,11 +17,11 @@ import org.kosta.madfortaste.taste.domain.Article;
 import org.kosta.madfortaste.taste.domain.TasteBoardImg;
 import org.kosta.madfortaste.taste.service.TasteBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.client.support.HttpRequestWrapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class TasteBoardController {
@@ -37,8 +37,15 @@ public class TasteBoardController {
 	@RequestMapping(value="registerArticle")
 	public String registerArticle(Article article) {
 		System.out.println(article);
-		System.out.println(article.getContents());
-		return "redirect:/registerArticleForm";
+		article = tasteBoardService.insertArticle(article);
+		return "redirect:article/"+article.getArticleNo();
+	}
+	
+	@RequestMapping(value="article/{articleNo}")
+	public String getArticle(@PathVariable int articleNo, Model model) {
+		Article article = tasteBoardService.getArticleByNo(articleNo);
+		model.addAttribute("article", article);
+		return "taste/articleView";
 	}
 	
 	

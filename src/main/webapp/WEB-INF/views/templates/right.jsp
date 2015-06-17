@@ -99,7 +99,7 @@
 					</tr>
 					<tr>
 						<td align="center">
-							<img class="img-responsive" src="${sessionScope.member.profileImg}" style="width: 180px; height: 180px">
+							<img class="img-responsive" src="${initParam.root}${sessionScope.member.profileImg}" style="width: 180px; height: 180px">
 						</td>
 					</tr>
 					<tr>

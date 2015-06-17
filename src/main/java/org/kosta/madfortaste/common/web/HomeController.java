@@ -17,7 +17,7 @@ public class HomeController {
 	public String home(Model model) {
 		Page page = new Page(tasteBoardService.getTotalCount());
 		model.addAttribute("tasteBoard", tasteBoardService
-				.getArticlesOredrByRank(page));
+				.getArticles(page));
 		model.addAttribute("page", page);
 		return "home";
 	}

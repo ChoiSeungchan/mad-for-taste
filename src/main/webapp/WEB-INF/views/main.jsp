@@ -11,7 +11,7 @@
 		})
 		
 		$('blockquote').click(function(){
-			alert((this).id);
+			location.href='article/'+(this).id;
 		})
 		
 		$('#regArticleBtn').hover(function(){
@@ -84,7 +84,7 @@
 				</span>
 				<span class="col-md-3">
 					<img style="width:50px;height: 50px" src="${initParam.root}resources/images/user/member/${article.member.profileImg}">
-					<img style="width:20px;height: 20px" src="${initParam.root}resources/images/user/member/level/${article.member.levelInfo.level+1}.gif">
+					<img style="width:20px;height: 20px" src="${initParam.root}resources/images/user/member/level/${article.member.levelInfo.level}.gif">
 					${article.member.name}(${article.writer})
 				</span>
 				<span class="col-md-4" style="padding-top:12px;overflow:hidden;text-overflow:ellipsis;">
