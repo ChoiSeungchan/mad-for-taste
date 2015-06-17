@@ -8,7 +8,7 @@
 	           var RegexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i; 
 	           var curPass = "${owner.password}";
 	           $(function(){
-	        	     		
+	        	     	
 	           });
 	           function checkForm(){
 	        		if ( !RegexEmail.test($.trim($("#email").val())) )

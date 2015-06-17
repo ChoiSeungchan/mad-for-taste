@@ -2,9 +2,12 @@ package org.kosta.madfortaste.taste.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.Map;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.madfortaste.taste.domain.TastyPlace;
+import org.kosta.madfortaste.taste.domain.TastyPlaceMark;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -37,5 +40,44 @@ public class TestTastyPlaceDao {
 	@Test
 	public void testUpdateTastyPlace(){
 		assertEquals(1, tastyPlaceDao.updateTastyPlace(new TastyPlace("777", "냠냠냠", "호호호", "555", null, null)));
+	}
+	
+	@Transactional
+	@Test
+	public void testInsertTastyPlaceMark(){
+		assertEquals(1,	tastyPlaceDao.insertTastyPlaceMark(new TastyPlaceMark("777", "java1234", "3")));
+	}
+	
+	@Test
+	public void testSelectTastyPlaceMarkByDoublePk(){
+		assertEquals(0,	tastyPlaceDao.selectTastyPlaceMarkByDoublePk(new TastyPlaceMark("777", "java1234", "3")));
+	}
+	
+	@Test
+	public void testSelectTastyPlaceMarkTotalPrice(){
+		Map<String, String> map=null;
+		map=tastyPlaceDao.selectTastyPlaceMarkTotalPrice();
+		assertNotNull(map);
+	}
+	
+	@Test
+	public void testSelectTastyPlaceMarkAge20(){
+		String str=null;
+		str=tastyPlaceDao.selectTastyPlaceMarkAge20();
+		assertNotNull(str);
+	}
+	
+	@Test
+	public void testSelectTastyPlaceMarkAge30(){
+		String str=null;
+		str=tastyPlaceDao.selectTastyPlaceMarkAge30();
+		assertNotNull(str);
+	}
+	
+	@Test
+	public void testSelectTastyPlaceMarkAge40(){
+		String str=null;
+		str=tastyPlaceDao.selectTastyPlaceMarkAge40();
+		assertNotNull(str);
 	}
 }

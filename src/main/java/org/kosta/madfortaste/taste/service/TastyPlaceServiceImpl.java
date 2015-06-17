@@ -1,11 +1,13 @@
 package org.kosta.madfortaste.taste.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.kosta.madfortaste.taste.dao.TastyPlaceDao;
 import org.kosta.madfortaste.taste.domain.TastyPlace;
+import org.kosta.madfortaste.taste.domain.TastyPlaceMark;
 import org.springframework.stereotype.Service;
 @Service
 public class TastyPlaceServiceImpl implements TastyPlaceService {
@@ -30,6 +32,30 @@ public class TastyPlaceServiceImpl implements TastyPlaceService {
 	@Override
 	public void updateTastyPlace(TastyPlace tastyPlace) {
 		tastyPlaceDao.updateTastyPlace(tastyPlace);
+	}
+	@Override
+	public void insertTastyPlaceMark(TastyPlaceMark tastyPlaceMark) {
+		tastyPlaceDao.insertTastyPlaceMark(tastyPlaceMark);
+	}
+	@Override
+	public int selectTastyPlaceMarkByDoublePk(TastyPlaceMark tastyPlaceMark) {
+		return tastyPlaceDao.selectTastyPlaceMarkByDoublePk(tastyPlaceMark);
+	}
+	@Override
+	public Map<String, String> selectTastyPlaceMarkTotalPrice() {
+		return tastyPlaceDao.selectTastyPlaceMarkTotalPrice();
+	}
+	@Override
+	public String selectTastyPlaceMarkAge20() {
+		return tastyPlaceDao.selectTastyPlaceMarkAge20();
+	}
+	@Override
+	public String selectTastyPlaceMarkAge30() {
+		return tastyPlaceDao.selectTastyPlaceMarkAge30();
+	}
+	@Override
+	public String selectTastyPlaceMarkAge40() {
+		return tastyPlaceDao.selectTastyPlaceMarkAge40();
 	}
 
 }
