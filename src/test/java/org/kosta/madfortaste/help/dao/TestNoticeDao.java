@@ -2,6 +2,7 @@ package org.kosta.madfortaste.help.dao;
 
 import static org.junit.Assert.assertNotNull;
 
+import org.aspectj.weaver.NewParentTypeMunger;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,11 +25,11 @@ public class TestNoticeDao {
 		assertNotNull(noticeDAO);
 	}
 	
-/*	@Test
+	@Test
 	public void getContents(){
 		Notice notice = noticeDAO.getContents("4");
 		System.out.println(notice);
-	}*/
+	}
 	
 	/*@Test
 	public void testInsertNotice() {
@@ -36,16 +37,20 @@ public class TestNoticeDao {
 		System.out.println(result);
 	}*/
 	
-/*	@Test
-	public void update(){
-		noticeDAO.update(new Notice("4", null, "업데이트", "업데이트테스트", 0, null));
-	}
+//	@Test
+//	public void update(){
+//		noticeDAO.update(new Notice("4", null, "업데이트", "업데이트테스트", 0, null));
+//	}
 	
-	@Test
-	public void delete(){
-		noticeDAO.delete("4");
-	}
-	*/
+//	@Test
+//	public void delete(){
+//		noticeDAO.delete("4");
+//	}
+//	
 	
+//	@Test public void list(){
+//		noticeDAO.loadNoticeList(new Page(1,10,5,1234));
+//	}
+//	
 	
 }

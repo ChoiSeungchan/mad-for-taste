@@ -68,7 +68,7 @@
 				 <a href="#" class="dropdown-toggle" data-toggle="dropdown">고객센터<strong class="caret"></strong></a>
 				<ul class="dropdown-menu">
 					<li>
-						<a href="#">공지사항</a>
+						<a href="${initParam.root }noticelist">공지사항</a>
 					</li>
 					<li>
 						<a href="#">질문과 답변</a>

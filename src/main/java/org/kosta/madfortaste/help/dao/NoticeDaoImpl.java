@@ -48,6 +48,11 @@ public class NoticeDaoImpl implements NoticeDao{
 		sqlSessionTemplate.delete("notice.delete",no);
 		
 	}
+
+	@Override
+	public void updateViewCount(String articleNo) {
+		sqlSessionTemplate.update("notice.updateViewCount", articleNo);
+	}
 	
 	
 	

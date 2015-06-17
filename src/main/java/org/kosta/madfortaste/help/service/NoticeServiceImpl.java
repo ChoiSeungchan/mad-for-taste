@@ -23,26 +23,23 @@ public class NoticeServiceImpl implements NoticeService{
 
 	@Override
 	public Notice getContents(String no) {
-		// TODO Auto-generated method stub
-		return null;
+		noticeDAO.updateViewCount(no);
+		return noticeDAO.getContents(no);
 	}
 
 	@Override
 	public int insert(Notice notice) {
-		// TODO Auto-generated method stub
-		return 0;
+		return noticeDAO.insert(notice);
 	}
 
 	@Override
 	public void update(Notice notice) {
-		// TODO Auto-generated method stub
-		
+		 noticeDAO.update(notice);
 	}
 
 	@Override
 	public void delete(String no) {
-		// TODO Auto-generated method stub
-		
+	     noticeDAO.delete(no);
 	}
 
 }
