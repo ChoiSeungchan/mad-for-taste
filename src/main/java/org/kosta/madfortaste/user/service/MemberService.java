@@ -3,11 +3,13 @@ package org.kosta.madfortaste.user.service;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.kosta.madfortaste.user.domain.Member;
 
 public interface MemberService {
 	
-	public abstract Member insertMember(Member member) throws IllegalStateException, IOException;
+	public abstract Member insertMember(Member member, HttpServletRequest req) throws IllegalStateException, IOException;
 
 	public abstract Member selectMemberById(String id);
 
@@ -15,7 +17,7 @@ public interface MemberService {
 
 	public abstract List<Member> selectMemberList(int currentPage);
 
-	public abstract void updateMember(Member member);
+	public abstract void updateMember(Member member, HttpServletRequest req) throws IllegalStateException, IOException;
 
 	public abstract void deleteMember(String id);
 

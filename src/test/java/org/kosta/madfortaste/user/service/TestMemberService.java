@@ -38,20 +38,6 @@ public class TestMemberService {
 	
 	@Resource
 	LevelTable levelTable;
-	
-	@Test
-	public void testInsertMemberTest() {
-		Member member = new Member("hs9923", "1234", "정현승", "성남시 분당구 서현동", "남", "1989-02-04", "01089909923");
-		Member insertedMember;
-		try {
-			insertedMember = memberService.insertMember(member);
-			assertThat(insertedMember.getId(), is(member.getId()));
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	@Test
 	public void testSelectMemberById() {
@@ -60,24 +46,7 @@ public class TestMemberService {
 		assertThat(member.getId(), is(id));
 		log.info(member.toString());
 	}
-	
-	@Transactional
-	@Test
-	public void testUpdateMember() {
-		int totalCount = memberService.selectTotalCount();
-		assertThat(totalCount, greaterThan(0));
-		List<Member> memberList = memberService.selectMemberList(1);
-		Member member = memberList.get(totalCount-1);
-		int beforeExp = member.getExp();
-		member.setExp(beforeExp+50);
-		memberService.updateMember(member);
-		Member afterMember = memberList.get(totalCount-1);
-		int afterExp = afterMember.getExp();
-		log.info("업데이트 전 EXP: " + beforeExp);
-		log.info("업데이트 후 EXP: " + afterExp);
-		assertNotEquals(beforeExp, afterExp);
-	}
-	
+
 	@Transactional
 	@Test
 	public void testDeleteMember() {

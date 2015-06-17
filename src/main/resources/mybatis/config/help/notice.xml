@@ -5,6 +5,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="notice">
  	
+ <resultMap type="noticevo" id="noticeRM">		
+		<result property="articleNo" column="article_no" />			
+		<result property="writer" column="writer" /> 		
+		<result property="title" column="title" /> 		
+		<result property="content" column="content" /> 		
+		<result property="viewCount" column="hits" /> 		
+		<result property="regDate" column="reg_date" /> 		
+	</resultMap>	
+	
+<select id="totalContentCount" resultType="int">
+	select count(*) from notice_board
+</select>
+
+<select id="loadNoticeList" resultMap="noticeRM">
+ select * from(select rownum,n.* from notice_board n order by article_no desc) where rownum between #{beginRow} and #{endRow}
+</select>
+	
+<select id="getContents" resultMap="noticeRM" resultType="noticevo">
+	select * from notice_board where article_no=#{value}
+</select>
+
+<update id="updateViewCount" parameterType="String">
+	update notice_board set hits=hits+1 where article_no=#{value}
+	</update>
+
+<insert id="insert">
+ 	 <selectKey keyProperty="articleNo" resultType="String" order="BEFORE">
+		select notice_no_seq.nextval from dual
+	</selectKey>  
+  insert into notice_board(article_no,writer, title, content) values(#{articleNo},#{writer},#{title},#{content})
+  </insert>
+
+<update id="update" parameterType="noticevo">
+	update notice_board set title=#{title}, content=#{content} where article_no=#{articleNo}
+</update>
+
+<delete id="delete">
+	delete from notice_board where article_no=#{value}
+</delete>
+
+
  </mapper>
  
  

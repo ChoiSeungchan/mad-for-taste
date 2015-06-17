@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Member implements User{
@@ -27,7 +28,7 @@ public class Member implements User{
 	private LevelInfo levelInfo;
 	private int point;
 	private Date joinDate;
-	private String profileImg = "default.jpg";
+	private String profileImg;
 	private MultipartFile imgFile;
 
 	public Member() {
@@ -139,6 +140,7 @@ public class Member implements User{
 
 	public void setExp(int exp) {
 		this.exp = exp;
+		new LevelTable().calculateLevelInfo(this);
 	}
 
 	public LevelInfo getLevelInfo() {

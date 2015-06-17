@@ -13,6 +13,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<delete id="deleteOwnerById">
  		delete from owner where owner_id=#{value}
  	</delete>
+ 	<update id="updateOwnerById">
+ 		update owner set password=#{password},name=#{name},tel=#{tel},email=#{email},profile_img=#{profileImg} where owner_id=#{ownerId}
+ 	</update>
 </mapper>
  
  

@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.user.dao.MemberDao;
@@ -22,24 +24,64 @@ public class MemberServiceImpl implements MemberService{
 	@Resource(name="memberImg")
 	private String path;
 	
-	@Override
-	public Member insertMember(Member member) throws IllegalStateException, IOException {
+	public Member registerMemberImg(Member member, HttpServletRequest req) throws IllegalStateException, IOException {
+		String realPath = new HttpServletRequestWrapper(req).getRealPath("/") + path;
 		MultipartFile imgFile = member.getImgFile();
-		if(imgFile != null) {
-			File dir = new File(path);	
-			if(!dir.exists()) dir.mkdirs();
-			if(imgFile.getSize()!=0) {
-			String extension = "." + imgFile.getOriginalFilename().split("\\.")[1];
-			imgFile.transferTo(new File(path + member.getId() + extension));
-			member.setProfileImg(member.getId()+extension);
+		if(imgFile.getSize()!=0) {
+			// 확장자 추출
+			String extension = imgFile.getOriginalFilename().substring(imgFile.getOriginalFilename().lastIndexOf(".")+1);
+			// 파일 업로드
+			imgFile.transferTo(new File(realPath + member.getId() + "." + extension));
+			// 데이터베이스에 저장할 이미지 이름 파싱
+			member.setProfileImg(member.getId()+ "." +extension);
+			
+			/*
+			 *	프로필 사진이 java.png로 등록되어 있는데 java.jpg로 새로운 사진이 등록되면
+			 *	java.jpg는 등록되고 java.png를 삭제해준다.
+			 */
+			for (File file : new File(realPath).listFiles()) {
+				if(file.isFile()) {
+				String fileName = file.getName();
+				String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1);
+				String fileBody = fileName.substring(0, fileName.length() - fileExt.length() - 1);
+				if(fileBody.equals(member.getId()) && !fileExt.equals(extension)) file.delete();
+				}
+			}
+		} else {
+			for (File file : new File(realPath).listFiles()) {
+				if(file.isFile()) {
+					String fileName = file.getName();
+					String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1);
+					String fileBody = fileName.substring(0, fileName.length() - fileExt.length() - 1);
+					if(fileBody.equals(member.getId())){
+						member.setProfileImg(fileBody + "." + fileExt);
+						break;
+					} else {
+						member.setProfileImg("default.jpg");
+					}
+				}
 			}
 		}
-		return memberDao.insertMember(member);
+		return member;
 	}
 
 	@Override
+	public Member insertMember(Member member, HttpServletRequest req) throws IllegalStateException, IOException {
+		registerMemberImg(member, req);
+		return memberDao.insertMember(member);
+	}
+	
+	@Override
+	public void updateMember(Member member, HttpServletRequest req) throws IllegalStateException, IOException {
+		registerMemberImg(member, req);
+		System.out.println(member);
+		memberDao.updateMember(member);
+	}
+	
+	@Override
 	public Member selectMemberById(String id) {
-		return memberDao.selectMemberById(id);
+		Member member = memberDao.selectMemberById(id);
+		return member;
 	}
 
 	@Override
@@ -54,11 +96,6 @@ public class MemberServiceImpl implements MemberService{
 		page.setPageSize(10);
 		page.setPageGroupSize(5);
 		return memberDao.selectMemberList(page);
-	}
-
-	@Override
-	public void updateMember(Member member) {
-		memberDao.updateMember(member);
 	}
 
 	@Override

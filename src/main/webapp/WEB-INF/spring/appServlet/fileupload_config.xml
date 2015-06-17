@@ -17,17 +17,23 @@
 	<!-- upload path -->
 	<bean id="testFileUploadPath" class="java.lang.String">
 		<constructor-arg>
-			<value>C:\\file-upload-test\\</value>
+			<value>resources\\images\\test\\</value>
 		</constructor-arg>
 	</bean>
 	<bean id="memberImg" class="java.lang.String">
 		<constructor-arg>
-			<value>C:\\madfortaste\\images\\user\\member\\</value>
+			<value>resources\\images\\user\\member\\</value>
 		</constructor-arg>
 	</bean>
 	<bean id="ownerImg" class="java.lang.String">
 		<constructor-arg>
-			<value>C:\\madfortaste\\images\\user\\owner\\</value>
+			<value>resources\\images\\user\\owner\\profile\\</value>
 		</constructor-arg>
 	</bean>
+	<bean id="tasteBoardImg" class="java.lang.String">
+		<constructor-arg>
+			<value>resources\\images\\taste\\tasteBoard\\</value>
+		</constructor-arg>
+	</bean>
+	
 </beans>
