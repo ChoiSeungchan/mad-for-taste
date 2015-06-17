@@ -146,19 +146,19 @@ public class TestTasteBoardDao {
 	/*
 	 * 테이블에 있는 글중 하나를 무작위로 선정해 조회수, 좋아요, 싫어요를 무작위로 1 올린다. 
 	 */
-//	@Test
-//	public void randomUpdate() {
-//		for (int x = 0; x < 300; x++) {
-//			int articleNo = new Random().nextInt(dao.getTotalCount());
-//			int i = new Random().nextInt(3);
-//			if (i == 0) {
-//				dao.upHits(articleNo);
-//			} else if (i == 1) {
-//				dao.upGood(articleNo);
-//			} else {
-//				dao.upBad(articleNo);
-//			}
-//		}
-//	}
+	@Test
+	public void randomUpdate() {
+		for (int x = 0; x < 300; x++) {
+			int articleNo = new Random().nextInt(dao.getTotalCount());
+			int i = new Random().nextInt(3);
+			if (i == 0) {
+				dao.upHits(articleNo);
+			} else if (i == 1) {
+				dao.upGood(articleNo);
+			} else {
+				dao.upBad(articleNo);
+			}
+		}
+	}
 
 }

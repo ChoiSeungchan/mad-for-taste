@@ -19,6 +19,16 @@ drop sequence tp_seq
 
 
 -- 맛집게시판 --
+
+-- 페이징 쿼리 --
+select * from (
+	select rownum as rnum, t.*, m.*
+	from (select * from taste_board order by good-bad desc) t, member m
+	where t.writer=m.id
+) where rnum between 1 and 30
+
+delete from taste_board
+
 select * from taste_board
 
 select * from taste_board_reply

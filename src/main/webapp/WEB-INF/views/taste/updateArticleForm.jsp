@@ -28,7 +28,7 @@
 	    });
 	     
 	    //전송버튼 클릭이벤트
-	    $("#registerArticleBtn").click(function(){
+	    $("#updateArticleBtn").click(function(){
 	        //id가 smarteditor인 textarea에 에디터에서 대입
 	        editor_object.getById["SE"].exec("UPDATE_CONTENTS_FIELD", []);
 	         
@@ -43,7 +43,8 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<form action="${initParam.root}registerArticle" method="post" role="form" id="articleForm">
+		<form action="${initParam.root}updateArticle" method="post" role="form" id="articleForm">
+			<input type="hidden" name="articleNo" value="${article.articleNo}"> 
 			<input type="hidden" name="writer" value="${sessionScope.member.id}"> 
 			<div class="form-group">
 				<label class="control-label">어느 지역의 맛집인가요?</label>
@@ -63,11 +64,9 @@
 				<input name="title" value="${article.title}" class="form-control" id="title"	placeholder="제목을 입력하세요" type="text">
 			</div>
 			<div class="form-group">
-				<textarea id="SE" name="contents" style="width:100%; height:412px;" rows="20" cols="30" class="form-control">
-				${article.contents}
-				</textarea>
+				<textarea id="SE" name="contents" style="width:100%; height:412px;" rows="20" cols="30" class="form-control">${article.contents}</textarea>
 			</div>
-			<button id="registerArticleBtn" type="button" class="btn btn-default btn-block btn-lg">맛집 소개하기</button>
+			<button id="updateArticleBtn" type="button" class="btn btn-default btn-block btn-lg">수정하기</button>
 		</form>
 	</div>
 </body>

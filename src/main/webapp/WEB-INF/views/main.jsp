@@ -11,7 +11,7 @@
 		})
 		
 		$('blockquote').click(function(){
-			location.href='article/'+(this).id;
+			location.href='${initParam.root}article/'+(this).id;
 		})
 		
 		$('#regArticleBtn').hover(function(){
@@ -21,10 +21,24 @@
 		})
 		
 		$('#regArticleBtn').click(function(){
-			location.href='registerArticleForm';
+			location.href='${initParam.root}registerArticleForm';
 		})
 	});
 </script>
+<style type="text/css">
+.blockquoteContainer {
+	height: 50px;
+	font-size: 15px;
+	margin-top : auto;
+	margin-bottom : auto;	
+}
+
+.blockquoteContainer span {
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+</style>
 <div class="col-md-12">
 	<div class="carousel slide" id="carousel-507091">
 		<ol class="carousel-indicators">
@@ -68,6 +82,7 @@
 			data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 	</div>
 	<div class="tasteBoard" style="margin-top: 10px">
+	
 	<c:choose>
 		<c:when test="${member!=null && member.levelInfo.level>=1}">
 			<button id="regArticleBtn" class="btn btn-default btn-lg btn-block" style="margin-bottom: 10px">나만의 맛집 소개하기</button>
@@ -75,22 +90,48 @@
 		<c:otherwise>
 		</c:otherwise>
 	</c:choose>
+	<!-- Top 3 Rank -->
+	<c:forEach  var="top3" items="${topRankArticle}">
+		<blockquote id="${top3.articleNo}" class="topRank">
+			<div class="blockquoteContainer">
+				<span class="col-md-1">
+					<span class="glyphicon glyphicon glyphicon-star spin" style="color:gold;font-size: 40px"></span>
+				</span>
+				<span class="col-md-4">
+					<img style="width:50px;height: 50px;" src="${initParam.root}resources/images/user/member/${top3.member.profileImg}">
+					<img style="width:20px;height: 20px" src="${initParam.root}resources/images/user/member/level/${top3.member.levelInfo.level}.gif">
+					${top3.member.name}(${top3.writer})
+				</span>
+				<span class="col-md-3" style="margin-top : 12px;">
+					<b>${top3.title}</b>
+				</span>
+				<span class="col-md-4" style="margin-top : 12px;">
+					<span class="glyphicon glyphicon glyphicon-comment" style="color:#045FB4"></span> ${top3.reply} &nbsp&nbsp&nbsp&nbsp
+					<span class="glyphicon glyphicon-eye-open"></span> ${top3.hits} &nbsp&nbsp&nbsp&nbsp
+					<span class="glyphicon glyphicon-thumbs-up" style="color:#045FB4"></span> ${top3.good} &nbsp&nbsp&nbsp&nbsp
+					<span class="glyphicon glyphicon-thumbs-down" style="color:#D9230F"></span> ${top3.bad} &nbsp&nbsp&nbsp&nbsp
+					<span class="glyphicon glyphicon-time"></span> ${top3.calDate }
+				</span>
+			</div>
+         </blockquote>
+	</c:forEach>
+	<!-- TasteBoard -->
 	<c:forEach var="article" items="${tasteBoard}">
-		 <blockquote id="${article.articleNo}">
-			<div class="row" style="height: 50px;font-size: 15px;">
+		 <blockquote class="tasteBoard" id="${article.articleNo}">
+			<div class="blockquoteContainer">
 				<span class="col-md-1">
 					#${article.articleNo}<br>
 					<b>${article.location}</b>
 				</span>
-				<span class="col-md-3">
-					<img style="width:50px;height: 50px" src="${initParam.root}resources/images/user/member/${article.member.profileImg}">
+				<span class="col-md-4">
+					<img style="width:50px;height: 50px;" src="${initParam.root}resources/images/user/member/${article.member.profileImg}">
 					<img style="width:20px;height: 20px" src="${initParam.root}resources/images/user/member/level/${article.member.levelInfo.level}.gif">
 					${article.member.name}(${article.writer})
 				</span>
-				<span class="col-md-4" style="padding-top:12px;overflow:hidden;text-overflow:ellipsis;">
+				<span class="col-md-3" style="margin-top : 12px;">
 					<b>${article.title}</b>
 				</span>
-				<span class="col-md-4" style="padding-top:12px; text-align: right">
+				<span class="col-md-4" style="margin-top : 12px;">
 					<span class="glyphicon glyphicon glyphicon-comment" style="color:#045FB4"></span> ${article.reply} &nbsp&nbsp&nbsp&nbsp
 					<span class="glyphicon glyphicon-eye-open"></span> ${article.hits} &nbsp&nbsp&nbsp&nbsp
 					<span class="glyphicon glyphicon-thumbs-up" style="color:#045FB4"></span> ${article.good} &nbsp&nbsp&nbsp&nbsp
@@ -104,31 +145,40 @@
 	<div style="margin-bottom: 30px" align="center">
 	<ul class="pagination">
       <li>
-        <a href="#">Prev</a>
+        <a href="${initParam.root}getArticles/${page.beginPage-1}">Prev</a>
       </li>
       <c:if test="${page.currentPageGroup!=1}">
       <li>
-      	<a href="#">1</a>
+      	<a href="${initParam.root}getArticles/1">1</a>
       </li>
       <li>
       	<a href="#">...</a>
       </li>
       </c:if>
       <c:forEach var="p" begin="${page.beginPage}" end="${page.endPage}">
-      <li>
-        <a href="#">${p}</a>
-      </li>
+      <c:choose>
+      	<c:when test="${page.currentPage==p}">
+	      <li class="active">
+	        <a href="${initParam.root}getArticles/${p}">${p}</a>
+	      </li>
+      	</c:when>
+      	<c:otherwise>
+	      <li>
+	        <a href="${initParam.root}getArticles/${p}">${p}</a>
+	      </li>
+      	</c:otherwise>
+      </c:choose>
       </c:forEach>
       <c:if test="${page.currentPageGroup!=page.pageGroupCount}">
       <li>
       	<a href="#">...</a>
       </li>
   	  <li>
-      	<a href="#">${page.pageCount}</a>
+      	<a href="${initParam.root}getArticles/${page.pageCount}">${page.pageCount}</a>
       </li>
       </c:if>
       <li>
-        <a href="#">Next</a>
+        <a href="${initParam.root}getArticles/${page.endPage+1}">Next</a>
       </li>
     </ul>
 	</div>

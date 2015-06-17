@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -13,12 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 
+import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.taste.domain.Article;
 import org.kosta.madfortaste.taste.domain.TasteBoardImg;
 import org.kosta.madfortaste.taste.service.TasteBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +32,17 @@ public class TasteBoardController {
 	@Autowired
 	private TasteBoardService tasteBoardService;
 	
+	@RequestMapping(value="getArticles/{currentPage}")
+	public String getArticles(@PathVariable int currentPage, Model model) {
+		Page page = new Page(tasteBoardService.getTotalCount());
+		page.setCurrentPage(currentPage);
+		Page topRankPage = new Page(tasteBoardService.getTotalCount());
+		topRankPage.setPageSize(3);
+		model.addAttribute("topRankArticle", tasteBoardService.getArticlesOredrByRank(topRankPage));
+		model.addAttribute("tasteBoard", tasteBoardService.getArticles(page));
+		model.addAttribute("page", page);
+		return "home";
+	}
 	@RequestMapping(value="registerArticleForm")
 	public String registerArticleForm(Article article) {
 		return "taste/registerArticleForm";
@@ -48,6 +62,25 @@ public class TasteBoardController {
 		return "taste/articleView";
 	}
 	
+	@RequestMapping(value="updateArticleForm/{articleNo}")
+	public String updateArticleForm(@PathVariable int articleNo, Model model) {
+		Article article = tasteBoardService.getArticleByNo(articleNo);
+		model.addAttribute("article", article);
+		return "taste/updateArticleForm";
+	}
+	
+	@RequestMapping(value="updateArticle")
+	public String updateArticle(Article article) {
+		System.out.println(article);
+		tasteBoardService.updateArticle(article);
+		return "redirect:article/"+article.getArticleNo();
+	}
+	
+	@RequestMapping(value="deleteArticle/{articleNo}")
+	public String deleteArticle(@PathVariable int articleNo) {
+		tasteBoardService.deleteArticle(articleNo);
+		return "redirect:/";
+	}
 	
 	@Resource(name="tasteBoardImg")
 	private String path;
