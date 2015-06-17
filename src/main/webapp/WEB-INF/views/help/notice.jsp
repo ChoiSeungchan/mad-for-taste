@@ -8,8 +8,10 @@
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script>
 	$(function(){
-		$(".row").click(function(){
-			location.href="";
+		 
+		$(".content").click(function(){
+			var no = $("#no").text();
+			location.href="showContentView?no="+no
 		})
 		
 		$("blockquote").hover(function(){
@@ -26,55 +28,46 @@
 	});
 </script>
 <div class="col-md-12">
-	<%-- <div class="carousel slide" id="carousel-507091">
-		<ol class="carousel-indicators">
-			<li class="active" data-slide-to="0" data-target="#carousel-507091">
-			</li>
-			<li data-slide-to="1" data-target="#carousel-507091"></li>
-			<li data-slide-to="2" data-target="#carousel-507091"></li>
-		</ol>
-		<div class="carousel-inner">
-			<div class="item active">
-				<a href="testForm"><img alt="" src="${initParam.root}resources/images/test1.jpg" /></a>
-				<div class="carousel-caption">
-					<h4>First Thumbnail label</h4>
-					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-						Donec id elit non mi porta gravida at eget metus. Nullam id dolor
-						id nibh ultricies vehicula ut id elit.</p>
-				</div>
-			</div>
-			<div class="item">
-				<img alt="" src="${initParam.root}resources/images/test2.jpg" />
-				<div class="carousel-caption">
-					<h4>Second Thumbnail label</h4>
-					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-						Donec id elit non mi porta gravida at eget metus. Nullam id dolor
-						id nibh ultricies vehicula ut id elit.</p>
-				</div>
-			</div>
-			<div class="item">
-				<img alt="" src="${initParam.root}resources/images/test3.jpg" />
-				<div class="carousel-caption">
-					<h4>Third Thumbnail label</h4>
-					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-						Donec id elit non mi porta gravida at eget metus. Nullam id dolor
-						id nibh ultricies vehicula ut id elit.</p>
-				</div>
-			</div>
-		</div>
-		<a class="left carousel-control" href="#carousel-507091"
-			data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-		<a class="right carousel-control" href="#carousel-507091"
-			data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-	</div> --%>
-	<div class="noticeBoard" style="margin-top: 10px">
-	<%-- <c:choose>
+	<h2>Notice</h2>
+  <p>각종 이벤트 및 사이트 운영에 관한 공지사항내용들입니다. </p>            
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th><span class="label label-default">No.</span></th>
+        <th><span class="label label-primary">Writer</span></th>
+        <th><span class="label label-success">Title</span></th>
+        <th><span class="label label-info">ViewCount</span></th>
+        <th><span class="label label-warning">Date</span></th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <c:forEach var="notice" items="${boardList}">
+      <tr class="content">
+        <td id="no" align="left">
+					${notice.articleNo}
+			</td>
+        <td><span class="col-md-3">
+					${notice.writer}
+				</span></td>
+        <td>${notice.title}</td>
+       <span class="col-md-5" style="text-align: right">
+					 <td><div class="glyphicon glyphicon-eye-open"></div> ${notice.viewCount} &nbsp&nbsp&nbsp&nbsp</td>
+					<td><div class="glyphicon glyphicon-time"></div> ${notice.regDate }<td>
+				</span>
+      </tr>
+       </c:forEach>
+    </tbody>
+   
+  </table>
+	<%-- <div class="noticeBoard" style="margin-top: 10px">
+	<c:choose>
 		<c:when test="${member!=null && member.levelInfo.level>=10}">
 			<button id="regTasteBoardBtn" class="btn btn-default btn-lg btn-block" style="margin-bottom: 10px">나만의 맛집 소개하기</button>
 		</c:when>
 		<c:otherwise>
 		</c:otherwise>
-	</c:choose> --%>
+	</c:choose>
 	<c:forEach var="notice" items="${boardList}">
 		 <blockquote>
 			<div class="row" style="height: 20px; font-size: 16px">
@@ -82,7 +75,7 @@
 					No.${notice.articleNo}<br>
 				</span>
 				<span class="col-md-3">
-					<%-- <img style="width:50px;height: 50px" src="${initParam.root}resources/images/user/member/default.jpg"> --%>
+					<img style="width:50px;height: 50px" src="${initParam.root}resources/images/user/member/default.jpg">
 					${notice.writer}
 				</span>
 				<span class="col-md-3">
@@ -95,7 +88,10 @@
 			</div>
          </blockquote>
 	</c:forEach>
-	</div>
+	</div> --%>
+	<c:if test="${sessionScope.member.id == 'admin'}">
+	<div><button type="button" class="btn btn-primary btn-block">Button 1</button></div>
+	</c:if>
 	<div style="margin-bottom: 30px" align="center">
 		<ul class="pagination">
       <li>
