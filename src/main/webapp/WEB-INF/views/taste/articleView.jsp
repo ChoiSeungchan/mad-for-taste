@@ -152,7 +152,7 @@
 			<div id="viewWraper">
 				<c:choose>
 					<c:when test="${member!=null}">
-						<form id="replyForm" action="${initParam.root}registerTasteBoardReply" method="post" >
+						<form id="replyForm" action="${initParam.root}registerTasteBoardReply" method="get" >
 							<input type="hidden" name="articleNo" value="${article.articleNo}">
 							<input type="hidden" name="writer" value="${sessionScope.member.id}">
 							<textarea name="contents" class="form-control" rows="3"></textarea>
