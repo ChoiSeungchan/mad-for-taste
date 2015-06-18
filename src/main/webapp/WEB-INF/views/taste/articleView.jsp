@@ -51,6 +51,7 @@
 <style type="text/css">
 #replyList {
 	margin-top:20px;
+	margin-bottom:80px;
 	background-color: #F2F0F0;
 	border: 1px solid #DFD9DA;
 }
@@ -182,21 +183,24 @@
 									<img style="height: 30px;width: 30px; float: left;" src="${initParam.root}resources/images/user/member/${reply.member.profileImg}">
 								</td>
 								<td style="padding-left: 10px">
+									<img style="float: left;" src="${initParam.root}resources/images/user/member/level/${reply.member.levelInfo.level}.gif">
+								</td>
+								<td style="padding-left: 5px">
 									${reply.member.name} (${reply.member.id})<small>${reply.calDate}</small>
 								</td>
 								<c:if test="${reply.member.id==sessionScope.member.id}">
-									<td>
-										&nbsp;&nbsp;&nbsp;&nbsp;
-										<form>
-											<button class="btn btn-xs">댓글 수정</button>
-										</form>
-									</td>
-									<td>
-										&nbsp;
-										<form>
-											<button class="btn btn-xs">댓글 삭제</button>
-										</form>
-									</td>
+								<td>
+									&nbsp;&nbsp;&nbsp;&nbsp;
+									<form>
+										<button class="btn btn-xs">댓글 수정</button>
+									</form>
+								</td>
+								<td>
+									&nbsp;
+									<form>
+										<button class="btn btn-xs">댓글 삭제</button>
+									</form>
+								</td>
 								</c:if>
 							</tr>
 						</table>
