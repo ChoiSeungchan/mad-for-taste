@@ -39,21 +39,21 @@ private Logger log = LoggerFactory.getLogger(getClass());
 	@Transactional
 	@Test
 	public void testIsExistUser() {
-		String userId = "hs9923";
+		String userId = "member";
 		User user = loginDao.isExistUser(userId);
 		log.info(user.toString());
 	}
 	
 	@Test
 	public void testGetMemberInfo() {
-		String userId = "hs9923";
+		String userId = "member";
 		Member member = loginDao.getMemberInfo(userId);
 		System.out.println(member);
 	}
 	
 	@Test
 	public void testGetOwnerInfo() {
-		String userId = "hs9923";
+		String userId = "owner";
 		Owner owner = loginDao.getOwnerInfo(userId);
 		System.out.println(owner);
 	}
