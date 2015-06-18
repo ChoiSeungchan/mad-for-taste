@@ -50,7 +50,7 @@ public class TestMemberDao {
 	
 	@Test
 	public void testInsertMemberTest() {
-		Member member = new Member("java777", "1234", "정현승", "성남시 분당구 서현동", "남", "1989-02-04", "01089909923");
+		Member member = new Member("member", "1234", "정현승", "성남시 분당구 서현동", "남", "1989-02-04", "01089909923");
 		Member insertedMember = memberDao.insertMember(member);
 		assertThat(insertedMember.getId(), is(member.getId()));
 	}

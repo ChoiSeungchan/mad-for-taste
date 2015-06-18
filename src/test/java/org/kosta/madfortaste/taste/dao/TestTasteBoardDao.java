@@ -143,6 +143,19 @@ public class TestTasteBoardDao {
 		System.out.println(dao.getArticleByNo(articleNo));
 	}
 	
+	@Test
+	public void testInsertVote() {
+		dao.insertVote(1, "member");
+	}
+	
+	@Test
+	public void testSelectVotedList() {
+		List<String> list = dao.selectVotedList(1);
+		for (String id : list) {
+			System.out.println(id);
+		}
+	}
+	
 	/*
 	 * 테이블에 있는 글중 하나를 무작위로 선정해 조회수, 좋아요, 싫어요를 무작위로 1 올린다. 
 	 */
@@ -160,5 +173,4 @@ public class TestTasteBoardDao {
 			}
 		}
 	}
-
 }

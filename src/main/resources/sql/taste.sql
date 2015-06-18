@@ -17,7 +17,6 @@ update tasty_place set contract_flag='Y' where br_no='777'
 create sequence tasty_place_seq nocache
 drop sequence tp_seq
 
-
 -- 맛집게시판 --
 
 -- 페이징 쿼리 --
@@ -51,7 +50,7 @@ create table taste_board (
 )
 select *from taste_board
 insert into taste_board(article_no,location,writer,title,contents)
-values(taste_board_sequence.nextval,'서울','hs9923','testTitle','testContents')
+values(taste_board_sequence.nextval,'서울','member','testTitle','testContents')
 
 drop sequence taste_board_sequence
 create sequence taste_board_sequence nocache
@@ -67,7 +66,19 @@ create table taste_board_img (
 drop sequence taste_board_img_sequence
 create sequence taste_board_img_sequence nocache
 
+-- 맛집 게시판 좋아요/싫어요 투표 여부 --
+create table taste_board_vote(
+	article_no varchar(20) not null,
+	member_id varchar(20) not null
+)
+-- 맛집 게시판 댓글 좋아요/싫어요 투표 여부 --
+create table taste_board_vote(
+	reply_no varchar(20) not null,
+	member_id varchar(20) not null
+)
 -- 맛집 게시판 댓글 --
+
+select * from taste_board_reply
 
 drop table taste_board_reply
 create table taste_board_reply(
@@ -84,6 +95,9 @@ create table taste_board_reply(
 
 drop sequence taste_board_reply_sequence
 create sequence taste_board_reply_sequence nocache
+
+
+
 select *from member
 create table tasty_place_mark(
 	br_no number references tasty_place(br_no) on delete cascade,

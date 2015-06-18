@@ -16,7 +16,7 @@ create table member(
 )
 
 --- admin 계정 생성 ---
-
+delete from member
 insert into member(id,password,name,address,gender,birth,tel,exp) 
 values('admin','1234','관리자','none','none','none','none',10000000)
 
@@ -24,8 +24,8 @@ values('admin','1234','관리자','none','none','none','none',10000000)
 insert into member(id,password,name,address,gender,birth,tel,exp) 
 values('java','1234','최승찬','오산','남성','none','none',10000000)
 
-insert into member(id,password,name,address,gender,birth,tel,exp) 
-values('hs9923','1234','정현승','판교','남성','none','none',10000000)
+insert into member(id,password,name,address,gender,birth,tel) 
+values('member','1234','정현승','판교','남성','1989-02-04','01089909923')
 
 delete from member where id='admin'
 
