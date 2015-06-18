@@ -41,7 +41,7 @@ public class OwnerController {
 			@PathVariable String path) {
 		return "user/" + path;
 	}
-	@RequestMapping("pizzaMaru")
+	@RequestMapping("tastyPlaceBlog")
 	public String pizzaMaru(String id,Model model){
 		Map<String, String> map=new HashMap<String, String>();
 		map=tastyPlaceService.selectTastyPlaceMarkTotalPrice();
@@ -50,7 +50,9 @@ public class OwnerController {
 		map.put("four", tastyPlaceService.selectTastyPlaceMarkAge40());
 		model.addAttribute("map", map);
 		model.addAttribute("list", tastyPlaceService.selectTastyPlaceGetAllList(id));
-		return "user/ownerBlog/pizzaMaru";
+		model.addAttribute("memberList", tastyPlaceService.selectTastyPlaceReplyMember("1"));
+		model.addAttribute("ownerList", tastyPlaceService.selectTastyPlaceReplyOwner("1"));
+		return "user/ownerBlog/tastyPlaceBlog";
 	}
 	@RequestMapping(value="owner/{viewName1}/{viewName2}")
 	public String test(@PathVariable String viewName1, @PathVariable String viewName2) {

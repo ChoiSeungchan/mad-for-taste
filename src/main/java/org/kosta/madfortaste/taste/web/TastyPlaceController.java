@@ -6,10 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.kosta.madfortaste.taste.domain.TastyPlace;
+import org.kosta.madfortaste.taste.domain.TastyPlaceBoard;
 import org.kosta.madfortaste.taste.domain.TastyPlaceMark;
 import org.kosta.madfortaste.taste.service.TastyPlaceService;
+import org.kosta.madfortaste.user.domain.Member;
 import org.kosta.madfortaste.user.domain.Owner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -89,5 +92,20 @@ public class TastyPlaceController {
 		tastyPlaceService.insertTastyPlaceMark(tastyPlaceMark);
 		map.put("success", "성공적으로 등록되었습니다");
 		return map;
+	}
+	
+	@RequestMapping("reply_access")
+	public String insertTastyPlaceBoard(String id,TastyPlaceBoard tastyPlaceBoard,HttpServletRequest req){
+		Member member=(Member)req.getSession(false).getAttribute("member");
+		Owner owner=(Owner)req.getSession(false).getAttribute("owner");
+		if(member!=null){
+			tastyPlaceBoard.setUser(member.getId());
+			tastyPlaceService.insertTastyPlaceReplyMember(tastyPlaceBoard);
+		}
+		else{
+			tastyPlaceBoard.setUser(owner.getOwnerId());	
+			tastyPlaceService.insertTastyPlaceReplyOwner(tastyPlaceBoard);
+		}
+		return "redirect:tastyPlaceBlog?id="+id;
 	}
 }

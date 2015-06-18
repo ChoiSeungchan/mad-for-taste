@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.kosta.madfortaste.taste.domain.TastyPlace;
+import org.kosta.madfortaste.taste.domain.TastyPlaceBoard;
 import org.kosta.madfortaste.taste.domain.TastyPlaceMark;
 
 public interface TastyPlaceService {
@@ -18,4 +19,8 @@ public interface TastyPlaceService {
 	public String selectTastyPlaceMarkAge20();
 	public String selectTastyPlaceMarkAge30();
 	public String selectTastyPlaceMarkAge40();
+	public int insertTastyPlaceReplyOwner(TastyPlaceBoard tastyPlaceBoard);
+	public int insertTastyPlaceReplyMember(TastyPlaceBoard tastyPlaceBoard);
+	public List<TastyPlaceBoard> selectTastyPlaceReplyMember(String viewCnt);
+	public List<TastyPlaceBoard> selectTastyPlaceReplyOwner(String viewCnt);
 }

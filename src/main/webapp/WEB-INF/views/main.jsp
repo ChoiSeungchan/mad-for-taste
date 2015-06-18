@@ -49,7 +49,7 @@
 		</ol>
 		<div class="carousel-inner">
 			<div class="item active">
-				<a href="pizzaMaru?id=kostajjang"><img alt="" src="${initParam.root}resources/images/test1.jpg" /></a>
+				<a href="tastyPlaceBlog?id=kostajjang"><img alt="" src="${initParam.root}resources/images/test1.jpg" /></a>
 				<div class="carousel-caption">
 					<h4>First Thumbnail label</h4>
 					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.
