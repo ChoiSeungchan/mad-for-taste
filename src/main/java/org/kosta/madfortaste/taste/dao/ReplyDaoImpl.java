@@ -37,4 +37,20 @@ public class ReplyDaoImpl implements ReplyDao{
 	public void deleteReply(int replyNo) {
 		sqlSessionTemplate.delete("deleteReply", replyNo);
 	}
+
+	@Override
+	public void upGood(int replyNo) {
+		sqlSessionTemplate.update("replyUpGood", replyNo);
+	}
+	
+	@Override
+	public void upBad(int replyNo) {
+		sqlSessionTemplate.update("replyUpBad", replyNo);
+	}
+
+	@Override
+	public int getReplyCount(int articleNo) {
+		return sqlSessionTemplate.selectOne("getReplyCount", articleNo);
+	}
+
 }

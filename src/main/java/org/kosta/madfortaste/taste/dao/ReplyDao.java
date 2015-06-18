@@ -16,4 +16,10 @@ public interface ReplyDao {
 
 	public void deleteReply(int replyNo);
 
+	public void upGood(int replyNo);
+
+	public void upBad(int replyNo);
+
+	public int getReplyCount(int articleNo);
+
 }

@@ -28,9 +28,9 @@ public interface TasteBoardService {
 
 	public void upHits(int articleNo);
 
-	public void upGood(int articleNo);
+	public boolean upGood(int articleNo, String id);
 
-	public void upBad(int articleNo);
+	public boolean upBad(int articleNo, String id);
 
 	public List<Article> getArticlesOrderByHits(Page page);
 

@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,7 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.taste.domain.Article;
+import org.kosta.madfortaste.taste.domain.Reply;
 import org.kosta.madfortaste.taste.domain.TasteBoardImg;
+import org.kosta.madfortaste.taste.service.ReplyService;
 import org.kosta.madfortaste.taste.service.TasteBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,12 +28,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class TasteBoardController {
 
 	@Autowired
 	private TasteBoardService tasteBoardService;
+	
+	@Autowired
+	private ReplyService replyService;
 	
 	@RequestMapping(value="getArticles/{currentPage}")
 	public String getArticles(@PathVariable int currentPage, Model model) {
@@ -50,7 +58,6 @@ public class TasteBoardController {
 	
 	@RequestMapping(value="registerArticle")
 	public String registerArticle(Article article) {
-		System.out.println(article);
 		article = tasteBoardService.insertArticle(article);
 		return "redirect:article/"+article.getArticleNo();
 	}
@@ -58,7 +65,9 @@ public class TasteBoardController {
 	@RequestMapping(value="article/{articleNo}")
 	public String getArticle(@PathVariable int articleNo, Model model) {
 		Article article = tasteBoardService.getArticleByNo(articleNo);
+		List<Reply> replies = replyService.getReplies(articleNo);
 		model.addAttribute("article", article);
+		if(replies.size()!=0)model.addAttribute("replies", replies);
 		return "taste/articleView";
 	}
 	
@@ -80,6 +89,28 @@ public class TasteBoardController {
 	public String deleteArticle(@PathVariable int articleNo) {
 		tasteBoardService.deleteArticle(articleNo);
 		return "redirect:/";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="article/upGood")
+	public List<String> upGood(int articleNo, String id) {
+		boolean flag = false;
+		List<String> list = new ArrayList<String>();
+		flag = tasteBoardService.upGood(articleNo, id);
+		if(flag==false) list.add("success");
+		else list.add("fail");
+		return list;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="article/upBad")
+	public List<String> upBad(int articleNo, String id) {
+		boolean flag = false;
+		List<String> list = new ArrayList<String>();
+		flag = tasteBoardService.upBad(articleNo, id);
+		if(flag==false) list.add("success");
+		else list.add("fail");
+		return list;
 	}
 	
 	@Resource(name="tasteBoardImg")

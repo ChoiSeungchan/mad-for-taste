@@ -13,6 +13,7 @@ public class Reply {
 	private int good;
 	private int bad;
 	private Date regDate;
+	private String calDate;
 	private Member member;
 	
 	public Reply() {
@@ -93,6 +94,7 @@ public class Reply {
 
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
+		this.setCalDate();
 	}
 
 	public Member getMember() {
@@ -103,12 +105,38 @@ public class Reply {
 		this.member = member;
 	}
 
-	@Override
-	public String toString() {
-		return "TasteBoardReply [replyNo=" + replyNo + ", articleNo="
-				+ articleNo + ", writer=" + writer + ", contents=" + contents
-				+ ", good=" + good + ", bad=" + bad + ", regDate=" + regDate
-				+ ", member=" + member + "]";
+	public String getCalDate() {
+		return calDate;
+	}
+	
+	public void setCalDate() {
+		long currentD = System.currentTimeMillis();
+		long createD = regDate.getTime();
+		long resultS = ((currentD - createD) / 1000);
+		String result = null;
+		
+		if (resultS >= 60*60*24*365) {
+			result = resultS/(60*60*24*365) + "년 전";
+		} else if (resultS >= 60*60*24*30) {
+			result = resultS/(60*60*24*30) + "개월 전";
+		} else if (resultS >= 60*60*24) {
+			result = resultS/(60*60*24) + "일 전";
+		} else if (resultS >= 60*60) {
+			result = resultS/(60*60) + "시간 전";
+		} else if (resultS >= 60) {
+			result = resultS/(60) + "분 전";
+		} else {
+			result = resultS + "초 전";
+		}
+		this.calDate = result;
 	}
 
+	@Override
+	public String toString() {
+		return "Reply [replyNo=" + replyNo + ", articleNo=" + articleNo
+				+ ", writer=" + writer + ", contents=" + contents + ", good="
+				+ good + ", bad=" + bad + ", regDate=" + regDate + ", calDate="
+				+ calDate + ", member=" + member + "]";
+	}
+	
 }

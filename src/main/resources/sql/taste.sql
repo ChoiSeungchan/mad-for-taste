@@ -65,6 +65,16 @@ create table taste_board_img (
 drop sequence taste_board_img_sequence
 create sequence taste_board_img_sequence nocache
 
+-- 맛집 게시판 좋아요/싫어요 투표 여부 --
+create table taste_board_vote(
+	article_no varchar(20) not null,
+	member_id varchar(20) not null
+)
+-- 맛집 게시판 댓글 좋아요/싫어요 투표 여부 --
+create table taste_board_vote(
+	reply_no varchar(20) not null,
+	member_id varchar(20) not null
+)
 -- 맛집 게시판 댓글 --
 
 select * from taste_board_reply

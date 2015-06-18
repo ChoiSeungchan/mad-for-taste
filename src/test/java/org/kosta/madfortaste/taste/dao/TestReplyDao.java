@@ -1,17 +1,12 @@
 package org.kosta.madfortaste.taste.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kosta.madfortaste.common.lib.Page;
-import org.kosta.madfortaste.taste.domain.Article;
 import org.kosta.madfortaste.taste.domain.Reply;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -65,5 +60,30 @@ public class TestReplyDao {
 		dao.deleteReply(1);
 		Reply reply = dao.selectReply(1);
 		System.out.println(reply);
+	}
+	
+	@Test
+	public void testReplyUpGood() {
+		Reply reply = dao.selectReply(1);
+		System.out.println(reply);
+		dao.upGood(1);
+		reply = dao.selectReply(1);
+		System.out.println(reply);
+		
+	}
+	
+	@Test
+	public void testReplyUpBad() {
+		Reply reply = dao.selectReply(1);
+		System.out.println(reply);
+		dao.upBad(1);
+		reply = dao.selectReply(1);
+		System.out.println(reply);
+	}
+	
+	@Test
+	public void testGetReplyCount() {
+		int replyCount = dao.getReplyCount(1);
+		System.out.println(replyCount);
 	}
 }
