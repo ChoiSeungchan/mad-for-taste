@@ -89,7 +89,7 @@
          </blockquote>
 	</c:forEach>
 	</div> --%>
-	<c:if test="${sessionScope.member.id == 'admin'}">
+	<c:if test="${sessionScope.member.levelInfo.level >= 100}">
 	<div><button type="button" class="btn btn-primary btn-block">Button 1</button></div>
 	</c:if>
 	<div style="margin-bottom: 30px" align="center">
