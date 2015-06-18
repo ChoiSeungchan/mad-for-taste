@@ -98,9 +98,13 @@ public class TasteBoardController {
 	public List<String> upGood(int articleNo, String id) {
 		boolean flag = false;
 		List<String> list = new ArrayList<String>();
-		flag = tasteBoardService.upGood(articleNo, id);
-		if(flag==false) list.add("success");
-		else list.add("fail");
+		if(!id.trim().equals("")) {
+			flag = tasteBoardService.upGood(articleNo, id);
+			if(flag==false) list.add("success");
+			else list.add("fail");
+		} else {
+			list.add("notLogon");
+		}
 		return list;
 	}
 	
@@ -109,9 +113,13 @@ public class TasteBoardController {
 	public List<String> upBad(int articleNo, String id) {
 		boolean flag = false;
 		List<String> list = new ArrayList<String>();
-		flag = tasteBoardService.upBad(articleNo, id);
-		if(flag==false) list.add("success");
-		else list.add("fail");
+		if(!id.trim().equals("")) {
+			flag = tasteBoardService.upBad(articleNo, id);
+			if(flag==false) list.add("success");
+			else list.add("fail");
+		} else {
+			list.add("notLogon");
+		}
 		return list;
 	}
 	

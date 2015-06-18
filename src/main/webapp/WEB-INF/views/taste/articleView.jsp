@@ -10,15 +10,21 @@
 	$(function(){
 		$("#good").click(function(){
 			$.getJSON("${initParam.root}article/upGood?id=${sessionScope.member.id}+&articleNo=${article.articleNo}",function(data){
-				if(data=="fail") alert('이미 투표 하셨습니다!');
-				else location.reload(true);
+				if (data=="fail") { 
+					alert('이미 투표 하셨습니다!');
+				} else if (data=="notLogon") {
+					alert('로그인 후에 투표 가능합니다!');
+				} else location.reload(true);
 			})
 		})
 		
 		$("#bad").click(function(){
 			$.getJSON("${initParam.root}article/upBad?id=${sessionScope.member.id}+&articleNo=${article.articleNo}",function(data){
-				if(data=="fail") alert('이미 투표 하셨습니다!');
-				else location.reload(true);
+				if (data=="fail") { 
+					alert('이미 투표 하셨습니다!');
+				} else if (data=="notLogon") {
+					alert('로그인 후에 투표 가능합니다!');
+				} else location.reload(true);
 			})
 		})
 		
@@ -188,20 +194,32 @@
 								<td style="padding-left: 5px">
 									${reply.member.name} (${reply.member.id})<small>${reply.calDate}</small>
 								</td>
-								<c:if test="${reply.member.id==sessionScope.member.id}">
-								<td>
-									&nbsp;&nbsp;&nbsp;&nbsp;
-									<form>
-										<button class="btn btn-xs">댓글 수정</button>
-									</form>
-								</td>
-								<td>
-									&nbsp;
-									<form>
-										<button class="btn btn-xs">댓글 삭제</button>
-									</form>
-								</td>
-								</c:if>
+								<c:choose>
+									<c:when test="${reply.member.id==sessionScope.member.id}">
+									<td style="padding-left: 10px">
+										<form>
+											<button class="btn btn-xs">수정</button>
+										</form>
+									</td>
+									<td style="padding-left: 5px">
+										<form>
+											<button class="btn btn-xs">삭제</button>
+										</form>
+									</td>
+									</c:when>
+									<c:otherwise>
+									<td style="padding-left: 10px">
+										<form>
+											<button class="btn btn-info btn-xs">좋아요</button>
+										</form>
+									</td>
+									<td style="padding-left: 5px">
+										<form>
+											<button class="btn btn-primary btn-xs">싫어요</button>
+										</form>
+									</td>
+									</c:otherwise>
+								</c:choose>
 							</tr>
 						</table>
 					</dd>

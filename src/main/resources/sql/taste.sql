@@ -67,14 +67,22 @@ drop sequence taste_board_img_sequence
 create sequence taste_board_img_sequence nocache
 
 -- 맛집 게시판 좋아요/싫어요 투표 여부 --
+select * from taste_board_vote
+
+drop table taste_board_vote
 create table taste_board_vote(
-	article_no varchar(20) not null,
+	article_no number not null,
 	member_id varchar(20) not null
 )
+
+insert into taste_board_vote(article_no,member_id) values(27,'member')
 -- 맛집 게시판 댓글 좋아요/싫어요 투표 여부 --
-create table taste_board_vote(
-	reply_no varchar(20) not null,
-	member_id varchar(20) not null
+drop table taste_board_reply_vote
+create table taste_board_reply_vote(
+	reply_no number not null,
+	member_id varchar(20) not null,
+	constraint reply_vote_no_fk foreign key(reply_no) references taste_board_reply(reply_no),
+	constraint reply_vote_id_fk foreign key(member_id) references member(id)
 )
 -- 맛집 게시판 댓글 --
 
