@@ -71,6 +71,8 @@ public class MemberDaoImpl implements MemberDao {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("exp", acquiredExp);
+		System.out.println("id=" + id);
+		System.out.println("exp=" + acquiredExp);
 		sqlSessionTemplate.update("upExp", map);
 	}
 

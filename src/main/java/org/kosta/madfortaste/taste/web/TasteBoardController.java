@@ -11,19 +11,24 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.kosta.madfortaste.common.config.ExpConfig;
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.taste.domain.Article;
 import org.kosta.madfortaste.taste.domain.Reply;
 import org.kosta.madfortaste.taste.domain.TasteBoardImg;
 import org.kosta.madfortaste.taste.service.ReplyService;
 import org.kosta.madfortaste.taste.service.TasteBoardService;
+import org.kosta.madfortaste.user.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -61,7 +66,11 @@ public class TasteBoardController {
 	}
 	
 	@RequestMapping(value="article/{articleNo}")
-	public String getArticle(@PathVariable int articleNo, Model model) {
+	public String getArticle(
+			@PathVariable int articleNo, Model model,
+			@CookieValue(value = "getArticleLog", required = false) Cookie cookie,
+			HttpServletResponse res) {
+		tasteBoardService.upHits(articleNo, cookie, res);
 		Article article = tasteBoardService.getArticleByNo(articleNo);
 		List<Reply> replies = replyService.getReplies(articleNo);
 		model.addAttribute("article", article);
@@ -96,8 +105,10 @@ public class TasteBoardController {
 		List<String> list = new ArrayList<String>();
 		if(!id.trim().equals("")) {
 			flag = tasteBoardService.upGood(articleNo, id);
-			if(flag==false) list.add("success");
-			else list.add("fail");
+			if(flag==false) {
+				list.add("success");
+				list.add(ExpConfig.GOOD_BAD+"");
+			} else list.add("fail");
 		} else {
 			list.add("notLogon");
 		}
@@ -111,8 +122,10 @@ public class TasteBoardController {
 		List<String> list = new ArrayList<String>();
 		if(!id.trim().equals("")) {
 			flag = tasteBoardService.upBad(articleNo, id);
-			if(flag==false) list.add("success");
-			else list.add("fail");
+			if(flag==false) {
+				list.add("success");
+				list.add(ExpConfig.GOOD_BAD+"");
+			} else list.add("fail");
 		} else {
 			list.add("notLogon");
 		}

@@ -12,7 +12,7 @@
 	
 	<!-- Application Loggers -->
 	<logger name="org.kosta.madfortaste">
-		<level value="info" />
+		<level value="warn" /> <!-- info 에서 warn으로 변경 -->
 	</logger>
 	
 	<!-- 3rdparty Loggers -->

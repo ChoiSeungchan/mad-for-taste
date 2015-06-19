@@ -3,10 +3,16 @@ package org.kosta.madfortaste.taste.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
+import org.kosta.madfortaste.common.config.ExpConfig;
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.taste.dao.ReplyDao;
 import org.kosta.madfortaste.taste.dao.TasteBoardDao;
 import org.kosta.madfortaste.taste.domain.Article;
+import org.kosta.madfortaste.user.dao.MemberDao;
+import org.kosta.madfortaste.user.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +25,9 @@ public class TasteBoardServiceImpl implements TasteBoardService {
 	
 	@Autowired
 	private ReplyDao replyDao;
+	
+	@Autowired
+	private MemberDao memberDao;
 	
 	@Override
 	public Article insertArticle(Article article) {
@@ -80,10 +89,25 @@ public class TasteBoardServiceImpl implements TasteBoardService {
 	}
 
 	@Override
-	public void upHits(int articleNo) {
-		tasteBoardDao.upHits(articleNo);
+	public void upHits(int articleNo, Cookie cookie, HttpServletResponse res) {
+		String getArticleLog = null;
+		if (cookie!=null) {
+			getArticleLog = cookie.getValue();
+			if(getArticleLog.contains("|"+articleNo+"|")==false) {
+				tasteBoardDao.upHits(articleNo);
+				getArticleLog += "|" + articleNo + "|";
+				cookie.setValue(getArticleLog);
+				cookie.setMaxAge(60*60*24);
+			}
+			res.addCookie(cookie);
+		} else {
+			getArticleLog = "|"+articleNo+"|";
+			cookie = new Cookie("getArticleLog", getArticleLog);
+			cookie.setMaxAge(60*60*24);
+			res.addCookie(cookie);
+		}
 	}
-
+	
 	@Transactional
 	@Override
 	public boolean upGood(int articleNo, String id) {
@@ -100,6 +124,7 @@ public class TasteBoardServiceImpl implements TasteBoardService {
 		if(isThisMemberVoted==false) {
 			tasteBoardDao.upGood(articleNo);
 			tasteBoardDao.insertVote(articleNo, id);
+			memberDao.upExp(id.trim(), ExpConfig.GOOD_BAD);
 		}
 		return isThisMemberVoted;
 	}
@@ -120,6 +145,7 @@ public class TasteBoardServiceImpl implements TasteBoardService {
 		if(isThisMemberVoted==false) {
 			tasteBoardDao.upBad(articleNo);
 			tasteBoardDao.insertVote(articleNo, id);
+			memberDao.upExp(id.trim(), ExpConfig.GOOD_BAD);
 		}
 		return isThisMemberVoted;
 	}

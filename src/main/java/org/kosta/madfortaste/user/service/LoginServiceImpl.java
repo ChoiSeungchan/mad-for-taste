@@ -28,7 +28,6 @@ public class LoginServiceImpl implements LoginService {
 			if (user instanceof Member) { // 회원일때
 				Member member = (Member) user;
 				if (password.equals(member.getPassword())) {
-					memberService.upExp(userId, 30);
 					member = loginDao.getMemberInfo(userId);
 					session.setAttribute("member", member);
 					successOrFailure = true;
@@ -58,4 +57,5 @@ public class LoginServiceImpl implements LoginService {
 			session.setAttribute("owner", owner);
 		}
 	}
+
 }

@@ -8,13 +8,32 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	$(function(){
+		
+		var member = '${sessionScope.member.id}';
+		function reLogin() {
+			if(member!=''){
+				$.ajax({
+					type:"post",
+					url:"${initParam.root}maintainAuthSession",
+					dataType:"json",
+					success:function(data){		
+						alert(data);
+					}
+				});
+			}
+		}
+		
 		$("#good").click(function(){
 			$.getJSON("${initParam.root}article/upGood?id=${sessionScope.member.id}+&articleNo=${article.articleNo}",function(data){
 				if (data=="fail") { 
 					alert('이미 투표 하셨습니다!');
 				} else if (data=="notLogon") {
 					alert('로그인 후에 투표 가능합니다!');
-				} else location.reload(true);
+				} else {
+					alert('좋아요/싫어요 투표 결과 : 경험치를 ' + data[1] + ' 획득하였습니다.');
+					reLogin();
+					location.href = location.href;
+				}
 			})
 		})
 		
@@ -24,7 +43,11 @@
 					alert('이미 투표 하셨습니다!');
 				} else if (data=="notLogon") {
 					alert('로그인 후에 투표 가능합니다!');
-				} else location.reload(true);
+				} else {
+					alert('좋아요/싫어요 투표 결과 : 경험치를 ' + data[1] + ' 획득하였습니다.');
+					reLogin();
+					location.href = location.href;
+				}
 			})
 		})
 		
@@ -48,9 +71,12 @@
 		})
 		
 		$('#listBtn').click(function(){
-			location.href='${initParam.root}';
+			history.go(-1);
 		})
 		
+		$('#deleteTasteBoardReplyForm').submit(function(){
+			return confirm('정말 삭제하시겠습니까?');
+		})
 	})
 	
 </script>
@@ -86,6 +112,11 @@
   color: #847473;
   word-break: break-all;
   word-wrap: break-word;
+}
+
+pre{
+	background-color: #F2F0F0;
+	border: 0px;
 }
 </style>
 </head>
@@ -159,7 +190,7 @@
 			<div id="viewWraper">
 				<c:choose>
 					<c:when test="${member!=null}">
-						<form id="replyForm" action="${initParam.root}registerTasteBoardReply" method="get" >
+						<form id="replyForm" action="${initParam.root}registerTasteBoardReply" method="post" >
 							<input type="hidden" name="articleNo" value="${article.articleNo}">
 							<input type="hidden" name="writer" value="${sessionScope.member.id}">
 							<textarea name="contents" class="form-control" rows="3"></textarea>
@@ -196,21 +227,46 @@
 								</td>
 								<c:if test="${reply.member.id==sessionScope.member.id}">
 								<td style="padding-left: 10px">
-									<form>
-										<button class="btn btn-xs">수정</button>
-									</form>
+									<button type="button"  class="btn btn-xs" class="updateReplyBtn" data-toggle="modal" data-target="#myModal">수정</button>
 								</td>
 								<td style="padding-left: 5px">
-									<form>
-										<button class="btn btn-xs">삭제</button>
+									<form id="deleteTasteBoardReplyForm" action="${initParam.root}deleteTasteBoardReply" method="post">
+										<input type="hidden" name="replyNo" value="${reply.replyNo}">
+										<input type="hidden" name="articleNo" value="${reply.articleNo}">
+										<button type="submit" class="btn btn-xs">삭제</button>
 									</form>
 								</td>
+								<!-- Modal -->
+								<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								  <div class="modal-dialog">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								        <h4 class="modal-title" id="myModalLabel">댓글 수정하기</h4>
+								      </div>
+								      <div class="modal-body">
+									    <form id="updateTasteBoardReplyForm" action="${initParam.root}updateTasteBoardReply" method="post" >
+											<input type="hidden" name="replyNo" value="${reply.replyNo}">
+											<input type="hidden" name="articleNo" value="${reply.articleNo}">
+											<input type="hidden" name="writer" value="${reply.member.id}">
+											<textarea name="contents" class="form-control" rows="10">${reply.contents}</textarea>
+											<br>
+											<div align="right">
+												<button type="submit" class="btn btn-success">댓글 수정</button>
+												<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+											</div>
+										</form>
+								      </div>
+								    </div>
+								  </div>
+								</div>
+								
 								</c:if>
 							</tr>
 						</table>
 					</dd>
 					<dd class="contents">
-						${reply.contents }
+						<pre>${reply.contents}</pre>
 					</dd>
 				</dl>
 				</c:forEach>

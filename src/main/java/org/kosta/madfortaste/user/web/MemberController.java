@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.kosta.madfortaste.user.domain.Member;
+import org.kosta.madfortaste.user.service.LoginService;
 import org.kosta.madfortaste.user.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,8 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired
+	private LoginService loginService;
 	
 	@RequestMapping(value="member/{viewName1}/{viewName2}")
 	public String test(@PathVariable String viewName1, @PathVariable String viewName2) {
@@ -47,6 +50,7 @@ public class MemberController {
 		}
 		try {
 			memberService.insertMember(member, req);
+			loginService.login(member.getId(), member.getPassword(), req);
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

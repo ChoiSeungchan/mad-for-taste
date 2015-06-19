@@ -3,6 +3,9 @@ package org.kosta.madfortaste.taste.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.taste.domain.Article;
 
@@ -26,7 +29,7 @@ public interface TasteBoardService {
 
 	public List<Article> getArticlesByWriter(Page page, String writer);
 
-	public void upHits(int articleNo);
+	public void upHits(int articleNo, Cookie cookie, HttpServletResponse res);
 
 	public boolean upGood(int articleNo, String id);
 

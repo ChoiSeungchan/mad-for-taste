@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.kosta.madfortaste.user.domain.Member;
 import org.kosta.madfortaste.user.domain.User;
 import org.kosta.madfortaste.user.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 public class LoginController {
@@ -41,6 +43,17 @@ public class LoginController {
 			list.add("empty");
 		}
 		return list;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "maintainAuthSession", method=RequestMethod.POST)	
+	public void maintainAuthSession (HttpSession session, HttpServletRequest req) {
+		Member member = (Member) session.getAttribute("member");
+		if (!(member.getId() == null || member.getId().equals(""))
+				&& !(member.getPassword() == null || member.getPassword()
+						.equals(""))) {
+		loginService.login(member.getId(), member.getPassword(), req);
+		}
 	}
 	
 	@RequestMapping(value = "logout")

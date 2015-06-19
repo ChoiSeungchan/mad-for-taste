@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<a href="/madfortaste/">
+<img  style="margin:0px auto; " class="img-responsive" src="${initParam.root}resources/images/user/owner/result.jpg">
+</a>
 </body>
 </html>

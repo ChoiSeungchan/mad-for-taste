@@ -51,6 +51,10 @@
 			}
 		});
 		
+		$('#dailyCheckBtn').click(function(){
+			alert('출석체크 버튼임 아직 미구현');
+		})
+		
 		
 		$('#memberUpdateBtn').click(function(){
 			location.href='${initParam.root}memberUpdateForm';
@@ -132,9 +136,14 @@
 					</tbody>
 				</table>
 				<div align="center">
-				<input type="button" id="logoutBtn" class="btn btn-primary btn-xs" value="로그아웃">
-				<input type="button" id="memberUpdateBtn" class="btn btn-info btn-xs" value="내 정보 수정">
-				<input type="button" id="deleteBtn" class="btn btn-warning btn-xs" value="회원 탈퇴">
+					<input type="button" id="logoutBtn" class="btn btn-primary btn-xs" value="로그아웃">
+					<input type="button" id="memberUpdateBtn" class="btn btn-info btn-xs" value="내 정보 수정">
+					<input type="button" id="deleteBtn" class="btn btn-warning btn-xs" value="회원 탈퇴">
+				</div>
+				<div style="width: 100%; padding: 5px">
+					<button id="dailyCheckBtn" class="btn btn-default btn-block">
+						<span style="padding-right: 10px" class="glyphicon glyphicon-ok" aria-hidden="true"></span>출석체크<br>(1~100EXP 획득)
+					</button>
 				</div>
 			</c:when>
 			<c:when test="${sessionScope.owner!=null}">

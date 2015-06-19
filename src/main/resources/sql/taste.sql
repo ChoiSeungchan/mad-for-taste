@@ -68,7 +68,7 @@ create sequence taste_board_img_sequence nocache
 
 -- 맛집 게시판 좋아요/싫어요 투표 여부 --
 select * from taste_board_vote
-
+delete from taste_board_vote
 drop table taste_board_vote
 create table taste_board_vote(
 	article_no number not null,
