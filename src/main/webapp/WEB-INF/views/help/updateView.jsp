@@ -35,7 +35,7 @@
 		</div>
 		<div align="right">
 		<input type="submit" class="btn btn-primary" value="수정">
-		<input type="hidden" name="writer" value="${member.id }">
+		<input type="hidden" name="writer" value="${updateElement.writer }">
 		<input type="hidden" name="articleNo" value="${updateElement.articleNo}">
 		</div>
 	</form>

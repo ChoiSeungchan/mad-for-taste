@@ -2,16 +2,12 @@ package org.kosta.madfortaste.help.web;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.help.domain.Notice;
 import org.kosta.madfortaste.help.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -23,10 +19,13 @@ public class NoticeController {
 	
 	@RequestMapping(value="noticelist")
 	public ModelAndView loadNoticeList(String pageNo){
-		Page page = null;
-		System.out.println(pageNo);
 		ModelAndView mv = new ModelAndView("help/notice");
-		List<Notice> list = noticeService.loadNoticeList(pageNo);
+		Page page = new Page(noticeService.totalContentCount());
+		if(pageNo==null||pageNo==""){
+			pageNo="1";
+		}
+		page.setCurrentPage(Integer.parseInt(pageNo));
+		List<Notice> list = noticeService.loadNoticeList(page);
 		mv.addObject("boardList",list);
 		mv.addObject("pageInfo",page);
 		return mv;
@@ -52,7 +51,7 @@ public class NoticeController {
 	
 	@RequestMapping("updateView")
 	public ModelAndView updateView(Notice notice){
-		System.out.println("updateView Controller : "+notice.getTitle());
+		notice = noticeService.getContents(notice.getArticleNo());
 		return new ModelAndView("help/updateView","updateElement",notice);
 	}
 	
@@ -63,6 +62,13 @@ public class NoticeController {
 		return new ModelAndView("redirect:showContentView?no="+notice.getArticleNo());
 	}
 	
+	@RequestMapping("delete")
+	public String delete(Notice notice){
+		String no = notice.getArticleNo();
+		System.out.println("delete : "+no);
+		noticeService.delete(no);
+		return "redirect:noticelist";
+	}
 	
 }
 

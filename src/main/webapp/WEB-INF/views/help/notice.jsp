@@ -69,13 +69,27 @@
 	</c:if>
 	<div style="margin-bottom: 30px" align="center">
 		<ul class="pagination">
-			<li><a href="#">Prev</a></li>
-			<li><a href="#">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li><a href="#">4</a></li>
-			<li><a href="#">5</a></li>
-			<li><a href="#">Next</a></li>
+			<li> <a href="noticelist?pageNo=${pageInfo.currentPage-1}">Prev</a></li>
+	<c:forEach var="p" begin="${pageInfo.beginPage}" end="${pageInfo.endPage}">
+      <c:choose>
+      	<c:when test="${pageInfo.pageCount==0}">
+      	  <li class="active">
+	      	<a href="#">1</a>
+	      </li>
+      	</c:when>
+      	<c:when test="${pageInfo.currentPage==p}">
+	      <li class="active">
+	        <a href="noticelist?pageNo=${p}">${p}</a>
+	      </li>
+      	</c:when>
+      	<c:otherwise>
+	      <li>
+	        <a href="noticelist?pageNo=${p}">${p}</a>
+	      </li>
+      	</c:otherwise>
+      </c:choose>
+      </c:forEach>
+			<li><a href="noticelist?pageNo=${pageInfo.currentPage+1}">Next</a></li>
 		</ul>
 	</div>
 </div>

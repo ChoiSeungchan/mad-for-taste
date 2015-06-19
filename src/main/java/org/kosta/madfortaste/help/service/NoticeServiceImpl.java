@@ -13,11 +13,8 @@ public class NoticeServiceImpl implements NoticeService{
 	private NoticeDao noticeDAO;
 	
 	@Override
-	public List<Notice> loadNoticeList(String pageNo) {
-		if(pageNo==null||pageNo==""){
-			pageNo="1";
-		}
-		List<Notice> list = noticeDAO.loadNoticeList(new Page(Integer.parseInt(pageNo), 10, 5, noticeDAO.totalContentCount()));
+	public List<Notice> loadNoticeList(Page page) {
+		List<Notice> list = noticeDAO.loadNoticeList(page);
 		return list;
 	}
 
@@ -45,6 +42,11 @@ public class NoticeServiceImpl implements NoticeService{
 	@Override
 	public Notice noCountGetContents(String no) {
 		return noticeDAO.getContents(no);
+	}
+
+	@Override
+	public int totalContentCount() {
+		return noticeDAO.totalContentCount();
 	}
 
 }

@@ -19,7 +19,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <select id="loadNoticeList" resultMap="noticeRM">
- select * from(select rownum,n.* from notice_board n order by article_no desc) where rownum between #{beginRow} and #{endRow}
+ <!-- select * from(select rownum,n.* from notice_board n order by article_no desc) where rownum between #{beginRow} and #{endRow} -->
+ select * from (
+			select rownum as rnum, t.*, m.*
+			from (select * from notice_board order by article_no desc) t, member m
+			where t.writer=m.id
+		) where rnum between #{beginRow} and #{endRow}
 </select>
 	
 <select id="getContents" resultMap="noticeRM" resultType="noticevo">
@@ -41,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	update notice_board set title=#{title}, content=#{content} where article_no=#{articleNo}
 </update>
 
-<delete id="delete">
+<delete id="delete" parameterType="noticevo">
 	delete from notice_board where article_no=#{value}
 </delete>
 

@@ -12,11 +12,15 @@
 	 
 	 
 	 $("#updateView").click(function(){
-		 location.href="updateView?articleNo=${content.articleNo}&title=${content.title}&"+
-				 "regDate=${content.regDate}&content=${content.content}";
-				 /* "&content=${content.content}"; */
+		 location.href="updateView?articleNo=${content.articleNo}";
 				 });
-	 
+	 $("#delete").click(function(){
+		 if(confirm("삭제하시겠습니까?")){
+		 location.href="delete?articleNo=${content.articleNo}";
+		 }else{
+			 return false;
+		 }
+	 });
 	 
  });
 </script>

@@ -13,7 +13,7 @@ create sequence notice_no_seq nocache;
 drop sequence notice_no_seq;
 
 select * from notice_board order by article_no desc;
-
+delete from notice_board where article_no='79'
 
 
 insert into notice_board(article_no,writer, title, content)
