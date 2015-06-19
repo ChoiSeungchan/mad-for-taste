@@ -93,4 +93,20 @@ public class MemberDaoImpl implements MemberDao {
 		map.put("point", lostPoint);
 		sqlSessionTemplate.update("downPoint", map);
 	}
+
+	@Override
+	public void insertDailyCheckTime(String id) {
+		sqlSessionTemplate.insert("insertDailyCheckTime", id);
+	}
+
+	@Override
+	public int GetDailyCheckedMember(Map<String, Object> map) {
+		return sqlSessionTemplate.selectOne("GetDailyCheckedMember", map);
+	}
+	
+	@Override
+	public void updateDailyCheck(String id) {
+		sqlSessionTemplate.update("updateDailyCheck", id);
+		
+	}
 }

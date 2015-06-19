@@ -1,13 +1,18 @@
 package org.kosta.madfortaste.user.dao;
 
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.annotation.Resource;
@@ -35,6 +40,33 @@ public class TestMemberDao {
 	@Before
 	public void setUp() {
 		assertNotNull(memberDao);
+	}
+	
+	
+	@Test
+	public void testInsertDailyCheckTime() {
+		String id = "member";
+		memberDao.insertDailyCheckTime(id);
+	}
+
+	@Test
+	public void testGetDailyCheckedMember() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date date1 = new Date();
+		Date date2 = new Date(System.currentTimeMillis()+60*60*24*1000);
+		String today = format.format(date1);
+		String tomorrow = format.format(date2);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", "member");
+		map.put("today", today);
+		map.put("tomorrow", tomorrow);
+		memberDao.GetDailyCheckedMember(map);
+	}
+	
+	@Test
+	public void testUpdateDailyCheck() {
+		String id = "member";
+		memberDao.updateDailyCheck(id);
 	}
 	
 	@Test

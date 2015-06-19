@@ -27,4 +27,10 @@ public interface MemberService {
 
 	public abstract void downPoint(String id, int lostPoint);
 	
+	public abstract void insertDailyCheckTime(String id);
+	
+	public int GetDailyCheckedMember(String id);
+
+	public boolean dailyCheck(String id);
+	
 }

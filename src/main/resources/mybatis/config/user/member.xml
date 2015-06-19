@@ -47,6 +47,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="downPoint">
 		update member set point=point-#{point} where id=#{id}
 	</update>
+	<insert id="insertDailyCheckTime">
+		insert into daily_check(id) values(#{id})
+	</insert>
+	<select id="GetDailyCheckedMember" resultType="int">
+		<![CDATA[
+		select count(*) from daily_check where 
+		check_time > to_date(#{today},'YYYY/MM/DD HH24:MI:SS')
+		and
+		check_time < to_date(#{tomorrow},'YYYY/MM/DD HH24:MI:SS')
+		and id=#{id}
+		]]>
+	</select>
+	<update id="updateDailyCheck">
+		update daily_check set check_time=sysdate where id=#{id}
+	</update>
 </mapper>
  
  

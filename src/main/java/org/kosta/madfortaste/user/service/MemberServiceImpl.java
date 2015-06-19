@@ -2,7 +2,11 @@ package org.kosta.madfortaste.user.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +17,7 @@ import org.kosta.madfortaste.user.dao.MemberDao;
 import org.kosta.madfortaste.user.domain.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -116,6 +121,37 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void downPoint(String id, int lostPoint) {
 		memberDao.downPoint(id, lostPoint);
+	}
+
+	@Override
+	public void insertDailyCheckTime(String id) {
+		memberDao.insertDailyCheckTime(id);
+	}
+
+	@Override
+	public int GetDailyCheckedMember(String id) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date date1 = new Date();
+		Date date2 = new Date(System.currentTimeMillis()+60*60*24*1000);
+		String today = format.format(date1);
+		String tomorrow = format.format(date2);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("today", today);
+		map.put("tomorrow", tomorrow);
+		return memberDao.GetDailyCheckedMember(map);
+	}
+
+	@Transactional
+	@Override
+	public boolean dailyCheck(String id) {
+		boolean flag = false;
+		int count = this.GetDailyCheckedMember(id);
+		if(count==0) {
+			insertDailyCheckTime(id);
+			flag = true;
+		}
+		return flag;
 	}
 
 }
