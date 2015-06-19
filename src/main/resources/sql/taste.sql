@@ -104,8 +104,6 @@ create table taste_board_reply(
 drop sequence taste_board_reply_sequence
 create sequence taste_board_reply_sequence nocache
 
-
-
 select *from member
 create table tasty_place_mark(
 	br_no number references tasty_place(br_no) on delete cascade,
