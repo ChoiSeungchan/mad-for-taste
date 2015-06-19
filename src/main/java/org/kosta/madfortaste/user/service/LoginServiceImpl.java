@@ -20,7 +20,8 @@ public class LoginServiceImpl implements LoginService {
 	private MemberService memberService;
 
 	@Override
-	public void login(String userId, String password, HttpServletRequest req) {
+	public boolean login(String userId, String password, HttpServletRequest req) {
+		boolean successOrFailure = false;
 		User user = loginDao.isExistUser(userId);
 		if (user != null) {
 			HttpSession session = req.getSession(false);
@@ -30,6 +31,7 @@ public class LoginServiceImpl implements LoginService {
 					memberService.upExp(userId, 30);
 					member = loginDao.getMemberInfo(userId);
 					session.setAttribute("member", member);
+					successOrFailure = true;
 				}
 
 			} else if (user instanceof Owner) { // 업주일때
@@ -37,9 +39,11 @@ public class LoginServiceImpl implements LoginService {
 				if (password.equals(owner.getPassword())) {
 					owner = loginDao.getOwnerInfo(userId);
 					session.setAttribute("owner", owner);
+					successOrFailure = true;
 				}
 			}
 		}
+		return successOrFailure;
 	}
 
 	@Override

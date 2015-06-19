@@ -194,32 +194,18 @@
 								<td style="padding-left: 5px">
 									${reply.member.name} (${reply.member.id})<small>${reply.calDate}</small>
 								</td>
-								<c:choose>
-									<c:when test="${reply.member.id==sessionScope.member.id}">
-									<td style="padding-left: 10px">
-										<form>
-											<button class="btn btn-xs">수정</button>
-										</form>
-									</td>
-									<td style="padding-left: 5px">
-										<form>
-											<button class="btn btn-xs">삭제</button>
-										</form>
-									</td>
-									</c:when>
-									<c:otherwise>
-									<td style="padding-left: 10px">
-										<form>
-											<button class="btn btn-info btn-xs">좋아요</button>
-										</form>
-									</td>
-									<td style="padding-left: 5px">
-										<form>
-											<button class="btn btn-primary btn-xs">싫어요</button>
-										</form>
-									</td>
-									</c:otherwise>
-								</c:choose>
+								<c:if test="${reply.member.id==sessionScope.member.id}">
+								<td style="padding-left: 10px">
+									<form>
+										<button class="btn btn-xs">수정</button>
+									</form>
+								</td>
+								<td style="padding-left: 5px">
+									<form>
+										<button class="btn btn-xs">삭제</button>
+									</form>
+								</td>
+								</c:if>
 							</tr>
 						</table>
 					</dd>

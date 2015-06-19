@@ -5,6 +5,43 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
 	$(function() {
+		$('#rightLoginForm').submit(function() {
+			var id = $('#rightId').val();
+			var password = $('#rightPass').val();
+			if(id=='') {
+				alert('아이디를 입력하세요');
+				return false;
+			} else if (password=='') {
+				alert('비밀번호를 입력하세요');
+				return false;
+			} 
+			$.ajax({
+				type:"post",
+				url:"${initParam.root}loginAjax?"+$('#rightLoginForm').serialize(),
+				dataType:"json",
+				success:function(data){		
+					if(data=='success') location.reload(true);
+					else if (data=='failure') {
+						alert('없는 아이디이거나 비밀번호를 잘못 입력하셨습니다.');
+					} else if (data=='empty') {
+						alert('아이디 또는 비밀번호를 바르게 입력해주세요.')
+					}
+				}
+			});
+			return false;
+		})
+		
+		$('#logoutBtn').click(function(){
+			$.ajax({
+				type:"post",
+				url:"${initParam.root}logoutAjax",
+				dataType:"json",
+				success:function(data){	
+				}
+			});
+				location.reload(true);
+		});
+		
 		$('#registerBtn').click(function(){
 			var userCategory = $(':input[name=userCategory]:checked').val();
 			if(userCategory=='member') {
@@ -14,9 +51,6 @@
 			}
 		});
 		
-		$('#logoutBtn').click(function(){
-			location.href='${initParam.root}logout';
-		});
 		
 		$('#memberUpdateBtn').click(function(){
 			location.href='${initParam.root}memberUpdateForm';
@@ -33,17 +67,7 @@
 		$("#updateTpBtn").click(function(){
 			location.href="${initParam.root}tastyUpdateForm?id=${owner.ownerId}";
 		});
-		$('#rightLoginForm').submit(function(){
-			var id = $('#rightId').val();
-			var password = $('#rightPass').val();
-			if(id=='') {
-				alert('아이디를 입력하세요');
-				return false;
-			} else if (password=='') {
-				alert('비밀번호를 입력하세요');
-				return false;
-			} 
-		});
+		
 		
 		/*
 			경험치 20%, 50%, 90% 분기마다 경험치 바 색깔이 바뀌는 코드
@@ -167,7 +191,7 @@
 							<input type="radio" name="userCategory" id="owner" value="owner">업주 회원
 							</label>
 						</div>
-						<button type="submit" class="btn btn-primary">로그인</button>
+						<button type="submit" id="rightLoginBtn" class="btn btn-primary">로그인</button>
 						<button type="button" id="registerBtn" class="btn btn-info">회원가입</button>
 					</div>
 				</form>

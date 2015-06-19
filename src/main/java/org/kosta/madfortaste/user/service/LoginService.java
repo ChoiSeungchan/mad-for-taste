@@ -7,8 +7,8 @@ import org.kosta.madfortaste.user.domain.User;
 
 public interface LoginService {
 
-	void login(String userId, String password, HttpServletRequest req);
+	public boolean login(String userId, String password, HttpServletRequest req);
 
-	void reLogin(User user, HttpSession session, HttpServletRequest req);
+	public void reLogin(User user, HttpSession session, HttpServletRequest req);
 
 }
