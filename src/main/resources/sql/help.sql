@@ -14,7 +14,7 @@ drop sequence notice_no_seq;
 
 select * from notice_board order by article_no desc;
 
-insert into notice_board values(notice_no_seq.currval,'',#{title},#{content})
+
 
 insert into notice_board(article_no,writer, title, content)
 values(notice_no_seq.nextval,'admin','테스트1','테스트');
