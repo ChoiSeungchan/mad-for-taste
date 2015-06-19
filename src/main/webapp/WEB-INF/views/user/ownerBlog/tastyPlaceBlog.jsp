@@ -10,7 +10,10 @@
 			//<![CDATA[
 			var star="";
 			var first=0;
-			first=${map.TOTALMARK/map.TOTALCNT};
+			var totalCnt=${map.TOTALCNT};
+			if(totalCnt==0)
+				totalCnt=1;
+			first=${map.TOTALMARK/totalCnt};
 			if(first==1)
 				star="★";
 			else if(first==2)
