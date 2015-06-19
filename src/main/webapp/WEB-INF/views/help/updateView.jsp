@@ -30,9 +30,7 @@
     </span> -->
 			</div>
 		</div>
-		<div align="left" class="checkbox">
-			<label><input type="checkbox">비공개</label>
-		</div>
+		
 		<div align="right">
 		<input type="submit" class="btn btn-primary" value="수정">
 		<input type="hidden" name="writer" value="${updateElement.writer }">
