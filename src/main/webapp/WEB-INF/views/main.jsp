@@ -38,6 +38,12 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.topRank {
+	border-left-color: gold;
+	background-color: #FFFDE2;
+	
+}
 </style>
 <div class="col-md-12">
 	<div class="carousel slide" id="carousel-507091">
@@ -91,11 +97,11 @@
 		</c:otherwise>
 	</c:choose>
 	<!-- Top 3 Rank -->
-	<c:forEach  var="top3" items="${topRankArticle}">
+	<c:forEach  var="top3" varStatus="status" items="${topRankArticle}">
 		<blockquote id="${top3.articleNo}" class="topRank">
 			<div class="blockquoteContainer">
 				<span class="col-md-1">
-					<span class="glyphicon glyphicon glyphicon-star spin" style="color:gold;font-size: 40px"></span>
+					<img style="width:50px;height: 50px;" src="${initParam.root}resources/images/taste/${status.count}.png">
 				</span>
 				<span class="col-md-4">
 					<img style="width:50px;height: 50px;" src="${initParam.root}resources/images/user/member/${top3.member.profileImg}">

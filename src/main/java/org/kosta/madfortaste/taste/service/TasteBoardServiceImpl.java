@@ -31,6 +31,7 @@ public class TasteBoardServiceImpl implements TasteBoardService {
 	
 	@Override
 	public Article insertArticle(Article article) {
+		memberDao.upExp(article.getWriter(), 30);
 		return tasteBoardDao.insertArticle(article);
 	}
 
