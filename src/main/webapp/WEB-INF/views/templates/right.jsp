@@ -62,6 +62,17 @@
 					} else {
 						alert(data.exp+" 경험치를 획득하였습니다.");
 					}
+					
+					$.ajax({
+						type:"post",
+						url:"${initParam.root}maintainAuthSession",
+						dataType:"json",
+						success:function(data){		
+							alert(data);
+						}
+					});
+					
+					location.href=location.href;
 				}
 			});
 		})

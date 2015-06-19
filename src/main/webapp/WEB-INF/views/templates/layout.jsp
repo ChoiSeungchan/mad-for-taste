@@ -34,7 +34,6 @@
 				});
 			}
 		}
-		reLogin();
 	});
 </script>
 <style type="text/css">
