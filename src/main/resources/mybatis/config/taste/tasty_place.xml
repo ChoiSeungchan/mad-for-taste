@@ -37,6 +37,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="selectTastyPlaceMarkAge40" resultType="String">
  		select count(m.birth) from tasty_place_mark t,member m where m.id=t.id and birth between '1967' and '1977'
  	</select>
+ 	<insert id="insertTastyPlaceReplyMember">
+ 		 insert into tasty_place_reply(reply_no,br_no,id,contents) values(tasty_place_reply_seq.nextval,#{brNo},#{user},#{contents})
+ 	</insert>
+ 	 	<insert id="insertTastyPlaceReplyOwner">
+ 		 insert into tasty_place_reply(reply_no,br_no,owner_id,contents) values(tasty_place_reply_seq.nextval,#{brNo},#{user},#{contents})
+ 	</insert>
+ 	<select id="selectTastyPlaceReplyMember" resultMap="tastyPlaceBoardMember">
+ 		select reply,name,id,joinDate,profileImg from (select *from (select rownum numrow,t.reply_no reply,m.name name,m.id id,m.join_date joinDate,m.profile_img profileImg from tasty_place_reply t,member m where m.id=t.id)a order by reply desc)b where b.numrow between  #{value} and #{value}+2
+ 	</select>
+ 	<resultMap type="tastyPlaceBoard" id="tastyPlaceBoardMember">
+ 		<result column="reply" property="replyNo"/>
+ 		<result column="name" property="member.name"/>
+ 		<result column="id" property="member.id"/>
+ 		<result column="joinDate" property="member.joinDate"/>
+ 		<result column="profileImg" property="member.profileImg"/>
+ 	</resultMap>
+ 	<select id="selectTastyPlaceReplyOwner" resultMap="tastyPlaceBoardOwner">
+ 		select reply,name,id,joinDate,profileImg from (select *from (select rownum numrow,t.reply_no reply,o.name name,o.owner_id id,o.join_date joinDate,o.profile_img profileImg from tasty_place_reply t,owner o where o.owner_id=t.owner_id)a order by reply desc)b where b.numrow between  #{value} and #{value}+2
+ 	</select>
+ 	 	<resultMap type="tastyPlaceBoard" id="tastyPlaceBoardOwner">
+ 		<result column="reply" property="replyNo"/>
+ 		<result column="name" property="owner.name"/>
+ 		<result column="id" property="owner.ownerId"/>
+ 		<result column="joinDate" property="owner.joinDate"/>
+ 		<result column="profileImg" property="owner.profileImg"/>
+ 	</resultMap>
  </mapper>
  
  

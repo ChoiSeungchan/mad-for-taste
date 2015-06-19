@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tasteBoard">
+	<resultMap type="reply" id="replyRM">
+		<result property="replyNo" column="reply_no"/>
+		<result property="articleNo" column="article_no"/>
+		<result property="regDate" column="reg_date"/>
+		<result property="member.id" column="id"/>
+		<result property="member.password" column="password"/>
+		<result property="member.name" column="name"/>
+		<result property="member.address" column="address"/>
+		<result property="member.gender" column="gender"/>
+		<result property="member.birth" column="birth"/>
+		<result property="member.tel" column="tel"/>
+		<result property="member.exp" column="exp"/>
+		<result property="member.point" column="point"/>
+		<result property="member.profileImg" column="profile_Img"/>
+	</resultMap>
+	<insert id="insertReply">
+		insert into taste_board_reply(reply_no,article_no,writer,contents) 
+		values(taste_board_reply_sequence.nextval,#{articleNo},#{writer},#{contents})
+	</insert>
+	<select id="getReplies" resultMap="replyRM">
+		select r.*,m.* from taste_board_reply r, member m where r.article_no=#{articleNo} and r.writer=m.id
+	</select>
+	<select id="selectReply" resultMap="replyRM">
+		select r.*,m.* from taste_board_reply r, member m where reply_no=#{replyNo} and r.writer=m.id
+	</select>
+	<update id="updateReply">
+		update taste_board_reply set contents=#{contents} where reply_no=#{replyNo}
+	</update>
+	<update id="replyUpGood">
+		update taste_board_reply set good=good+1 where reply_no=#{replyNo}
+	</update>
+	<update id="replyUpBad">
+		update taste_board_reply set bad=bad+1 where reply_no=#{replyNo}
+	</update>
+	<delete id="deleteReply">
+		delete from taste_board_reply where reply_no=#{replyNo}	
+	</delete>
+	<select id="getReplyCount" resultType="int">
+		select count(*) from taste_board_reply where article_no=#{article_no}
+	</select>
+</mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

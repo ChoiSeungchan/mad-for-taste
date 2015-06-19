@@ -2,12 +2,14 @@ package org.kosta.madfortaste.taste.service;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.madfortaste.taste.dao.TastyPlaceDao;
 import org.kosta.madfortaste.taste.domain.TastyPlace;
+import org.kosta.madfortaste.taste.domain.TastyPlaceBoard;
 import org.kosta.madfortaste.taste.domain.TastyPlaceMark;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -68,5 +70,27 @@ public class TestTastyPlaceService {
 		String str=null;
 		str=tastyPlaceDao.selectTastyPlaceMarkAge40();
 		assertNotNull(str);
+	}
+	@Transactional
+	@Test
+	public void testInsertTastyPlaceReplyMember(){
+		assertEquals(1, tastyPlaceDao.insertTastyPlaceReplyMember(new TastyPlaceBoard(null, "777", null, "안녕하세요", null, null, "member1234")));
+	}
+	@Transactional
+	@Test
+	public void testInsertTastyPlaceReplyOwner(){
+		assertEquals(1, tastyPlaceDao.insertTastyPlaceReplyOwner(new TastyPlaceBoard(null, "777", null, "안녕하세요", null, null, "owner1234")));
+	}
+	
+	@Test
+	public void testSelectTastyPlaceReplyMember(){
+		List<TastyPlaceBoard> list=null;
+		assertNotNull((tastyPlaceDao.selectTastyPlaceReplyMember("1")));
+	}
+	
+	@Test
+	public void testSelectTastyPlaceReplyOwner(){
+		List<TastyPlaceBoard> list=null;
+		assertNotNull(tastyPlaceDao.selectTastyPlaceReplyOwner("1"));
 	}
 }

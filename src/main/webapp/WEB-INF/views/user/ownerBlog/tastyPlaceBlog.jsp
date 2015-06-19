@@ -6,14 +6,53 @@
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
 <script>
-			//<![CDATA[	
-			var str="[참여수:"+${map.TOTALCNT}+"명]   [평점:"+${map.TOTALMARK/map.TOTALCNT}+"점]";
+			//<![CDATA[
+			var star="";
+			var first=0;
+			first=${map.TOTALMARK/map.TOTALCNT};
+			if(first==1)
+				star="★";
+			else if(first==2)
+				star="★★";
+			else if(first==3)
+				star="★★★";
+			else if(first==4)
+				star="★★★★";
+			else if(first==5)
+				star="★★★★★";
+			var str="참여 인원:<b>"+${map.TOTALCNT}+"명</b><br>평점 평균:<b>"+star+"</b>";
 			var i2=0;var i3=0;var i4=0;
 			i2=${map.two};i3=${map.three};i4=${map.four};
 			var two=i2/3*100;
 			var three=i3/3*100;
 			var four=i4/3*100;
-			$(function(){	   			
+			var strVal="";
+			$(function(){	   	
+				alert("${memberList}");
+				alert("${ownerList}");
+				<c:forEach items="${list }" var="item1">
+				<c:if test="${item1.contractFlag=='Y'}">
+					strVal="${item1.brNo}";
+					strId="${item1.ownerId}";
+			    </c:if>
+			    </c:forEach>
+				$("#replyRegister").click(function(){
+					if($("#contents").val().trim().length==0)
+						return;
+					if(${member==null}&&${owner==null}){
+						alert("로그인 후에 작성하실 수 있습니다");
+						return;
+					}
+					location.href="reply_access?contents="+$("#contents").val()+"&brNo="+strVal+"&id=${param.id}";
+				});
+				$("#replyForm").hide(500);
+				$("#replyBtn").toggle(function(){
+					$("#replyForm").show(500);
+					$("#replyBtn").text("덧글접기<<");
+				},function(){
+					$("#replyForm").hide(500);
+					$("#replyBtn").text("덧글달기");
+				});
 			    $('#container').highcharts({
 			        chart: {
 			            plotBackgroundColor: null,
@@ -63,21 +102,21 @@
 			            ]
 			        }]
 			    });//this
-				$("#view").html("<img src='${initParam.root }resources/images/user/owner/tasty/mark3.jpg' width='150px'>");
+				$("#view").html("<img src='${initParam.root }resources/images/user/owner/tasty/mark3.jpg' width='300px'>");
 				$("#one").click(function(){
-					$("#view").html("<img src='${initParam.root }resources/images/user/owner/tasty/mark.jpg' width='150px'>");
+					$("#view").html("<img src='${initParam.root }resources/images/user/owner/tasty/mark.jpg' width='300px'>");
 				});
 				$("#two").click(function(){
-					$("#view").html("<img src='${initParam.root }resources/images/user/owner/tasty/mark2.jpg' width='150px'>");
+					$("#view").html("<img src='${initParam.root }resources/images/user/owner/tasty/mark2.jpg' width='300px'>");
 				});
 				$("#three").click(function(){
-					$("#view").html("<img src='${initParam.root }resources/images/user/owner/tasty/mark3.jpg' width='150px'>");
+					$("#view").html("<img src='${initParam.root }resources/images/user/owner/tasty/mark3.jpg' width='300px'>");
 				});
 				$("#four").click(function(){
-					$("#view").html("<img src='${initParam.root }resources/images/user/owner/tasty/mark4.jpg' width='150px'>");
+					$("#view").html("<img src='${initParam.root }resources/images/user/owner/tasty/mark4.jpg' width='300px'>");
 				});
 				$("#five").click(function(){
-					$("#view").html("<img src='${initParam.root }resources/images/user/owner/tasty/mark5.jpg' width='150px'>");
+					$("#view").html("<img src='${initParam.root }resources/images/user/owner/tasty/mark5.jpg' width='300px'>");
 				});
 				var member="${member}";
 				$("#markBtn").click(function(){
@@ -156,7 +195,42 @@
 <div class="alert alert-success">
   <strong><font size="3">덧글 공유하기</font></strong>&nbsp; 업주 사장님과 사용자 여러분들의 각자의 의견을 공유하는 공간입니다.
 </div>
-<div id="container" style="min-width: 310px; height: 400px; max-width: 900px; margin: 0 auto"></div>
-<div id="view"></div>
-&nbsp;&nbsp;&nbsp;<input type="radio" name=mark value="1" id="one"> &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name=mark value="2" id="two"> &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name=mark value="3" id="three" checked="checked"> &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name=mark value="4" id="four"> &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name=mark value="5" id="five"><br>
-<button type="button" class="btn btn-info btn-xs" id="markBtn">평점등록하기</button>
+<div id="container" style="min-width: 410px; height: 400px; max-width: 500px; margin: 0 auto"></div>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="view"></span>
+&nbsp;&nbsp;&nbsp;1점<input type="radio" name=mark value="1" id="one"> &nbsp;&nbsp;&nbsp;&nbsp;2점<input type="radio" name=mark value="2" id="two"> &nbsp;&nbsp;&nbsp;&nbsp;3점<input type="radio" name=mark value="3" id="three" checked="checked"> &nbsp;&nbsp;&nbsp;&nbsp;4점<input type="radio" name=mark value="4" id="four"> &nbsp;&nbsp;&nbsp;&nbsp;5점<input type="radio" name=mark value="5" id="five">&nbsp;&nbsp;&nbsp;&nbsp;
+<button type="button" class="btn btn-primary btn-md" id="markBtn">평점등록하기</button>&nbsp;&nbsp;<span><button type="button" class="btn btn-info btn-md" id="replyBtn">덧글달기</button></span>
+  <br><br>
+  <div class="form-group" id="replyForm">
+    <label for="contents"><font size="3"><b>덧글쓰기</b></font></label>
+    <input type="text" class="form-control input-lg"  name="contents" id="contents"/><br>
+    <button type="button" class="btn btn-default btn-md" id="replyRegister">덧글등록</button>
+  </div>
+  <br>
+  <c:if test="${memberList[0].replyNo>ownerList[0].replyNo }">
+   <c:forEach items="${memberList }" var="mList">
+   		<c:set var="breakCnt" value="true"/>
+  		<c:forEach items="${ownerList }" var="oList">
+	 		<c:if test="${mList.replyNo>oList.replyNo&&breakCnt}">
+	 			${mList.replyNo }<br>
+	 			<c:set var="breakCnt" value="false"/>
+	 		</c:if>
+	 		<c:if test="${mList.replyNo<oList.replyNo }">
+	 			${oList.replyNo }<br>
+	 		</c:if>
+  		</c:forEach>
+  </c:forEach>
+  </c:if>
+    <c:if test="${memberList[0].replyNo<ownerList[0].replyNo }">
+   <c:forEach items="${ownerList }" var="oList">
+   		<c:set var="breakCnt" value="true"/>
+  		<c:forEach items="${memberList }" var="mList">
+	 		<c:if test="${mList.replyNo<oList.replyNo&&breakCnt}">
+	 		 			${oList.replyNo }<br>
+	 			<c:set var="breakCnt" value="false"/>
+	 		</c:if>
+	 		<c:if test="${mList.replyNo>oList.replyNo }">
+ 			 			${mList.replyNo }<br>
+	 		</c:if>
+  		</c:forEach>
+  </c:forEach>
+  </c:if>
