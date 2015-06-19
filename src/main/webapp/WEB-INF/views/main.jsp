@@ -49,7 +49,7 @@
 		</ol>
 		<div class="carousel-inner">
 			<div class="item active">
-				<a href="pizzaMaru?id=kostajjang"><img alt="" src="${initParam.root}resources/images/test1.jpg" /></a>
+				<a href="tastyPlaceBlog?id=kostajjang"><img alt="" src="${initParam.root}resources/images/test1.jpg" /></a>
 				<div class="carousel-caption">
 					<h4>First Thumbnail label</h4>
 					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.
@@ -116,38 +116,51 @@
          </blockquote>
 	</c:forEach>
 	<!-- TasteBoard -->
-	<c:forEach var="article" items="${tasteBoard}">
-		 <blockquote class="tasteBoard" id="${article.articleNo}">
-			<div class="blockquoteContainer">
-				<span class="col-md-1">
-					#${article.articleNo}<br>
-					<b>${article.location}</b>
-				</span>
-				<span class="col-md-4">
-					<img style="width:50px;height: 50px;" src="${initParam.root}resources/images/user/member/${article.member.profileImg}">
-					<img style="width:20px;height: 20px" src="${initParam.root}resources/images/user/member/level/${article.member.levelInfo.level}.gif">
-					${article.member.name}(${article.writer})
-				</span>
-				<span class="col-md-3" style="margin-top : 12px;">
-					<b>${article.title}</b>
-				</span>
-				<span class="col-md-4" style="margin-top : 12px;">
-					<span class="glyphicon glyphicon glyphicon-comment" style="color:#045FB4"></span> ${article.reply} &nbsp&nbsp&nbsp&nbsp
-					<span class="glyphicon glyphicon-eye-open"></span> ${article.hits} &nbsp&nbsp&nbsp&nbsp
-					<span class="glyphicon glyphicon-thumbs-up" style="color:#045FB4"></span> ${article.good} &nbsp&nbsp&nbsp&nbsp
-					<span class="glyphicon glyphicon-thumbs-down" style="color:#D9230F"></span> ${article.bad} &nbsp&nbsp&nbsp&nbsp
-					<span class="glyphicon glyphicon-time"></span> ${article.calDate }
-				</span>
-			</div>
-         </blockquote>
-	</c:forEach>
+	<c:choose>
+		<c:when test="${page.totalListSize==0}">
+			<table class="table">
+				<thead>
+				<tr>
+					<td align="center" style="font-size: 15px"><strong>등록된 게시물이 존재하지 않습니다.</strong></td>
+				</tr>
+				</thead>
+			</table>
+		</c:when>
+		<c:otherwise>
+			<c:forEach var="article" items="${tasteBoard}">
+				 <blockquote class="tasteBoard" id="${article.articleNo}">
+					<div class="blockquoteContainer">
+						<span class="col-md-1">
+							#${article.articleNo}<br>
+							<b>${article.location}</b>
+						</span>
+						<span class="col-md-4">
+							<img style="width:50px;height: 50px;" src="${initParam.root}resources/images/user/member/${article.member.profileImg}">
+							<img style="width:20px;height: 20px" src="${initParam.root}resources/images/user/member/level/${article.member.levelInfo.level}.gif">
+							${article.member.name}(${article.writer})
+						</span>
+						<span class="col-md-3" style="margin-top : 12px;">
+							<b>${article.title}</b>
+						</span>
+						<span class="col-md-4" style="margin-top : 12px;">
+							<span class="glyphicon glyphicon glyphicon-comment" style="color:#045FB4"></span> ${article.reply} &nbsp&nbsp&nbsp&nbsp
+							<span class="glyphicon glyphicon-eye-open"></span> ${article.hits} &nbsp&nbsp&nbsp&nbsp
+							<span class="glyphicon glyphicon-thumbs-up" style="color:#045FB4"></span> ${article.good} &nbsp&nbsp&nbsp&nbsp
+							<span class="glyphicon glyphicon-thumbs-down" style="color:#D9230F"></span> ${article.bad} &nbsp&nbsp&nbsp&nbsp
+							<span class="glyphicon glyphicon-time"></span> ${article.calDate }
+						</span>
+					</div>
+		         </blockquote>
+			</c:forEach>
+		</c:otherwise>
+	</c:choose>
 	</div>
 	<div style="margin-bottom: 30px" align="center">
 	<ul class="pagination">
       <li>
         <a href="${initParam.root}getArticles/${page.beginPage-1}">Prev</a>
       </li>
-      <c:if test="${page.currentPageGroup!=1}">
+      <c:if test="${page.currentPageGroup!=1 && page.pageGroupCount!=0}">
       <li>
       	<a href="${initParam.root}getArticles/1">1</a>
       </li>
@@ -157,6 +170,11 @@
       </c:if>
       <c:forEach var="p" begin="${page.beginPage}" end="${page.endPage}">
       <c:choose>
+      	<c:when test="${page.pageCount==0}">
+      	  <li class="active">
+	      	<a href="#">1</a>
+	      </li>
+      	</c:when>
       	<c:when test="${page.currentPage==p}">
 	      <li class="active">
 	        <a href="${initParam.root}getArticles/${p}">${p}</a>

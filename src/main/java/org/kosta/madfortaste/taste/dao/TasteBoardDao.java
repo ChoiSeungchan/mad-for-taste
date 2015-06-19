@@ -35,6 +35,9 @@ public interface TasteBoardDao {
 	public List<Article> getArticlesOrderByHits(Page page);
 
 	public List<Article> getArticlesOredrByRank(Page page);
-
+	
+	public void insertVote(int articleNo, String id);
+	
+	public List<String> selectVotedList(int articleNo);
 
 }

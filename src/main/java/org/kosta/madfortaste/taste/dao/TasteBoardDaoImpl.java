@@ -93,4 +93,18 @@ public class TasteBoardDaoImpl implements TasteBoardDao {
 		return sqlSessionTemplate.selectList("testGetArticlesOredrByRank", page);
 	}
 
+	@Override
+	public void insertVote(int articleNo, String id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("articleNo", articleNo);
+		map.put("id", id);
+		sqlSessionTemplate.insert("insertVote", map);
+		
+	}
+
+	@Override
+	public List<String> selectVotedList(int articleNo) {
+		return sqlSessionTemplate.selectList("selectVotedList", articleNo);
+	}
+
 }

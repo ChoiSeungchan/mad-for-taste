@@ -8,9 +8,9 @@
 		$('#registerBtn').click(function(){
 			var userCategory = $(':input[name=userCategory]:checked').val();
 			if(userCategory=='member') {
-				location.href='memberRegisterForm';
+				location.href='${initParam.root}memberRegisterForm';
 			} else if(userCategory=='owner') {
-				location.href='owner_ownerRegisterForm';				
+				location.href='${initParam.root}owner_ownerRegisterForm';				
 			}
 		});
 		

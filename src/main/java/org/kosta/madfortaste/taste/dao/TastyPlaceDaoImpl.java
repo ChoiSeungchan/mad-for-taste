@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.kosta.madfortaste.taste.domain.TastyPlace;
+import org.kosta.madfortaste.taste.domain.TastyPlaceBoard;
 import org.kosta.madfortaste.taste.domain.TastyPlaceMark;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,17 @@ public class TastyPlaceDaoImpl implements TastyPlaceDao{
 	}
 	public String selectTastyPlaceMarkAge40(){
 		return sqlSessionTemplate.selectOne("tastyPlace.selectTastyPlaceMarkAge40");
+	}
+	public int insertTastyPlaceReplyOwner(TastyPlaceBoard tastyPlaceBoard){
+		return sqlSessionTemplate.insert("tastyPlace.insertTastyPlaceReplyOwner",tastyPlaceBoard);
+	}
+	public int insertTastyPlaceReplyMember(TastyPlaceBoard tastyPlaceBoard){
+		return sqlSessionTemplate.insert("tastyPlace.insertTastyPlaceReplyMember",tastyPlaceBoard);
+	}
+	public List<TastyPlaceBoard> selectTastyPlaceReplyMember(String viewCnt){
+		return sqlSessionTemplate.selectList("tastyPlace.selectTastyPlaceReplyMember",viewCnt);
+	}
+	public List<TastyPlaceBoard> selectTastyPlaceReplyOwner(String viewCnt){
+		return sqlSessionTemplate.selectList("tastyPlace.selectTastyPlaceReplyOwner",viewCnt);
 	}
 }

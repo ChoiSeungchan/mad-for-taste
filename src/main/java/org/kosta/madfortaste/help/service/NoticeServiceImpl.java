@@ -42,4 +42,9 @@ public class NoticeServiceImpl implements NoticeService{
 	     noticeDAO.delete(no);
 	}
 
+	@Override
+	public Notice noCountGetContents(String no) {
+		return noticeDAO.getContents(no);
+	}
+
 }

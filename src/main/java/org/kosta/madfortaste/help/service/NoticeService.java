@@ -11,5 +11,5 @@ public interface NoticeService {
 	public int insert(Notice notice);
 	public void update(Notice notice);
 	public void delete(String no);
-
+	public Notice noCountGetContents(String no);
 }

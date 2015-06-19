@@ -103,6 +103,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="upBad">
 		update taste_board set bad=bad+1 where article_no=#{articleNo}
 	</update>
+	<insert id="insertVote">
+		insert into taste_board_vote(article_no,member_id) 
+		values (#{articleNo},#{id})
+	</insert>
+	<select id="selectVotedList" resultType="string">
+		select member_id from taste_board_vote where article_no=#{articleNo}
+	</select>
 </mapper>
  
  

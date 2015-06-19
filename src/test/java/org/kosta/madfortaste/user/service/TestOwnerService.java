@@ -21,18 +21,18 @@ public class TestOwnerService {
 	@Transactional
 	@Test
 	public void insertOwner() {
-		Owner owner=new Owner("java", "1234", "강동원", "01033832281", "tgoo@yahoo.com",null,null,null);
+		Owner owner=new Owner("owner1234", "1234", "강동원", "01033832281", "tgoo@yahoo.com",null,null,null);
 		assertThat(owner, is(ownerDao.insertOwner(owner)));
 	}
 	@Test
 	public void testSelectOwner(){
 		Owner owner=null;
-		owner=ownerDao.selectOwnerById("kostajjang");
+		owner=ownerDao.selectOwnerById("owner1234");
 		Assert.assertNotNull(owner);
 	}
 	@Transactional
 	@Test
 	public void testDeleteOwner(){
-		assertEquals(1, ownerDao.deleteOwnerById("kostajjang"));
+		assertEquals(1, ownerDao.deleteOwnerById("owner1234"));
 	}
 }

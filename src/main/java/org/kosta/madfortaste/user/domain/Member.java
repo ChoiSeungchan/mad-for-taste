@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Member implements User{
-	
+
 	@Size(min=4, max=16)
 	private String id;
 	@Size(min=4, max=16)
@@ -33,6 +33,11 @@ public class Member implements User{
 
 	public Member() {
 		super();
+	}
+	
+	public Member(String id) {
+		super();
+		this.id = id;
 	}
 
 	public Member(String id, String password, String name, String address,
