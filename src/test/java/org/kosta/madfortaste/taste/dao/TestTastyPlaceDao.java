@@ -23,7 +23,7 @@ public class TestTastyPlaceDao {
 	@Transactional
 	@Test
 	public void testInsertTastyPlace() {
-		TastyPlace tastyPlace=new TastyPlace("3235325", "홍콩반점", "경기도 일산시", "1566-7777", null,"kostajjang");
+		TastyPlace tastyPlace=new TastyPlace("3235325", "홍콩반점", "경기도 일산시", "1566-7777", null,"owner1234");
 		assertEquals(1, tastyPlaceDao.insertTastyPlace(tastyPlace));
 	}
 	@Test
@@ -48,12 +48,12 @@ public class TestTastyPlaceDao {
 	@Transactional
 	@Test
 	public void testInsertTastyPlaceMark(){
-		assertEquals(1,	tastyPlaceDao.insertTastyPlaceMark(new TastyPlaceMark("777", "java1234", "3")));
+		assertEquals(1,	tastyPlaceDao.insertTastyPlaceMark(new TastyPlaceMark("777", "member", "3")));
 	}
 	
 	@Test
 	public void testSelectTastyPlaceMarkByDoublePk(){
-		assertEquals(0,	tastyPlaceDao.selectTastyPlaceMarkByDoublePk(new TastyPlaceMark("777", "java1234", "3")));
+		assertEquals(0,	tastyPlaceDao.selectTastyPlaceMarkByDoublePk(new TastyPlaceMark("777", "member", "3")));
 	}
 	
 	@Test
@@ -86,7 +86,7 @@ public class TestTastyPlaceDao {
 	@Transactional
 	@Test
 	public void testInsertTastyPlaceReplyMember(){
-		assertEquals(1, tastyPlaceDao.insertTastyPlaceReplyMember(new TastyPlaceBoard(null, "777", null, "안녕하세요", null, null, "member1234")));
+		assertEquals(1, tastyPlaceDao.insertTastyPlaceReplyMember(new TastyPlaceBoard(null, "777", null, "안녕하세요", null, null, "member")));
 	}
 	@Transactional
 	@Test
