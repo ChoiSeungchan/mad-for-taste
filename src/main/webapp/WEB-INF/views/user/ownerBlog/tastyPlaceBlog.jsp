@@ -227,14 +227,14 @@
   		<c:forEach items="${ownerList }" var="oList" varStatus="owner">
 	 		<c:if test="${mList.replyNo>oList.replyNo&&breakCnt}">
 	 			<div class="alert alert-warning">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/member/ ${mList.member.profileImg }" width="50px">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/member/ ${mList.member.profileImg }" width="50px"height="50px">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3><b>${mList.contents }</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${mList.member.joinDate }
 					<br><strong><font size=4>${mList.member.id }</font></strong>
 				</div>
 	 			<c:if test="${fn:length(memberList)==1 }">
 	 				<c:forEach items="${ownerList }" var="oList" begin="0" end="2">
 	 			<div class="alert alert-info">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/owner/profile/ ${oList.owner.ownerId }_${oList.owner.profileImg }" width="50px">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/owner/profile/ ${oList.owner.ownerId }_${oList.owner.profileImg }" width="50px"height="50px">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3><b>${oList.contents }</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${oList.owner.joinDate }
 					<br><strong><font size=4>${oList.owner.ownerId }</font></strong>
 				</div>
@@ -243,7 +243,7 @@
 	 			<c:if test="${fn:length(memberList)==2 }">
 	 				<c:forEach items="${ownerList }" var="oList" begin="0" end="1">
 	 			<div class="alert alert-info">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/owner/profile/ ${oList.owner.ownerId }_${oList.owner.profileImg }" width="50px">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/owner/profile/ ${oList.owner.ownerId }_${oList.owner.profileImg }" width="50px"height="50px">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3><b>${oList.contents }</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${oList.owner.joinDate }
 					<br><strong><font size=4>${oList.owner.ownerId }</font></strong>
 				</div>
@@ -253,7 +253,7 @@
 	 		</c:if>
 	 		<c:if test="${mList.replyNo<oList.replyNo&&breakCnt2 }">
  			 	<div class="alert alert-info">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/owner/profile/ ${oList.owner.ownerId }_${oList.owner.profileImg }" width="50px">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/owner/profile/ ${oList.owner.ownerId }_${oList.owner.profileImg }" width="50px"height="50px">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3><b>${oList.contents }</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${oList.owner.joinDate }
 					<br><strong><font size=4>${oList.owner.ownerId }</font></strong>
 				</div>
@@ -263,7 +263,7 @@
 	 		</c:if>
 	 		<c:if test="${breakCnt2==false&&breakCnt3 }">
 	 			<div class="alert alert-warning">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/member/ ${mList.member.profileImg }" width="50px">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/member/ ${mList.member.profileImg }" width="50px"height="50px">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3><b>${mList.contents }</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${mList.member.joinDate }
 					<br><strong><font size=4>${mList.member.id }</font></strong>
 				</div>
@@ -282,14 +282,14 @@
   		<c:forEach items="${memberList }" var="mList" varStatus="member">
 	 		<c:if test="${mList.replyNo<oList.replyNo&&breakCnt}">
 	 		 	<div class="alert alert-info">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/owner/profile/ ${oList.owner.ownerId }_${oList.owner.profileImg }" width="50px">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/owner/profile/ ${oList.owner.ownerId }_${oList.owner.profileImg }" width="50px"height="50px">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3><b>${oList.contents }</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${oList.owner.joinDate }
 					<br><strong><font size=4>${oList.owner.ownerId }</font></strong>
 				</div>
 	 		 	<c:if test="${fn:length(ownerList)==1 }">
 	 				<c:forEach items="${memberList }" var="mList" begin="0" end="2">
 	 			<div class="alert alert-warning">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/member/ ${mList.member.profileImg }" width="50px">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/member/ ${mList.member.profileImg }" width="50px"height="50px">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3><b>${mList.contents }</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${mList.member.joinDate }
 					<br><strong><font size=4>${mList.member.id }</font></strong>
 				</div>
@@ -298,7 +298,7 @@
 	 			<c:if test="${fn:length(ownerList)==2 }">
 	 				<c:forEach items="${memberList }" var="mList" begin="0" end="1">
 	 			<div class="alert alert-warning">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/member/ ${mList.member.profileImg }" width="50px">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/member/ ${mList.member.profileImg }" width="50px"height="50px">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3><b>${mList.contents }</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${mList.member.joinDate }
 					<br><strong><font size=4>${mList.member.id }</font></strong>
 				</div>
@@ -308,7 +308,7 @@
 	 		</c:if>
 	 		<c:if test="${mList.replyNo>oList.replyNo&&breakCnt2 }">
  			 	<div class="alert alert-warning">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/member/ ${mList.member.profileImg }" width="50px">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/member/ ${mList.member.profileImg }" width="50px"height="50px">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3><b>${mList.contents }</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${mList.member.joinDate }
 					<br><strong><font size=4>${mList.member.id }</font></strong>
 				</div>
@@ -318,7 +318,7 @@
 	 		</c:if>
 	 		<c:if test="${breakCnt2==false&&breakCnt3 }">
 	 			 <div class="alert alert-info">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/owner/profile/ ${oList.owner.ownerId }_${oList.owner.profileImg }" width="50px">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/owner/profile/ ${oList.owner.ownerId }_${oList.owner.profileImg }" width="50px"height="50px">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3><b>${oList.contents }</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${oList.owner.joinDate }
 					<br><strong><font size=4>${oList.owner.ownerId }</font></strong>
 				</div>
@@ -332,7 +332,7 @@
 <c:if test="${fn:length(ownerList)==0 }">
 	<c:forEach items="${memberList }" var="mList">
 			    <div class="alert alert-warning">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/member/ ${mList.member.profileImg }" width="50px">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/member/ ${mList.member.profileImg }" width="50px" height="50px">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3><b>${mList.contents }</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${mList.member.joinDate }
 					<br><strong><font size=4>${mList.member.id }</font></strong>
 				</div>
@@ -341,7 +341,7 @@
 <c:if test="${fn:length(memberList)==0 }">
 	<c:forEach items="${ownerList }" var="oList">
 		 		<div class="alert alert-info">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/owner/profile/ ${oList.owner.ownerId }_${oList.owner.profileImg }" width="50px">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/owner/profile/ ${oList.owner.ownerId }_${oList.owner.profileImg }" width="50px"height="50px">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3><b>${oList.contents }</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${oList.owner.joinDate }
 					<br><strong><font size=4>${oList.owner.ownerId }</font></strong>
 				</div>
