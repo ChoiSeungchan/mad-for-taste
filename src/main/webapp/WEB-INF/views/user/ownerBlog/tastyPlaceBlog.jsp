@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.1.0.js"></script>
 <script src="http://code.highcharts.com/highcharts.js"></script>
@@ -27,9 +28,21 @@
 			var three=i3/3*100;
 			var four=i4/3*100;
 			var strVal="";
-			$(function(){	   	
-				alert("${memberList}");
-				alert("${ownerList}");
+			$(function(){	
+				$("#nextViewBtn").click(function(){
+		 			if(${fn:length(memberList)<2&&fn:length(ownerList)<2}){
+						alert("더이상 덧글이 존재하지 않습니다");
+						return;
+					} 
+					location.href="${initParam.root}nextReplyView?id=${param.id}&page=${page+1}";
+				});
+				$("#prevViewBtn").click(function(){
+					if(${page==1}){
+						alert("더이상 이전 페이지로 돌릴수 없습니다");
+						return;
+					}
+					location.href="${initParam.root}nextReplyView?id=${param.id}&page=${page-1}";
+				});
 				<c:forEach items="${list }" var="item1">
 				<c:if test="${item1.contractFlag=='Y'}">
 					strVal="${item1.brNo}";
@@ -207,30 +220,131 @@
   </div>
   <br>
   <c:if test="${memberList[0].replyNo>ownerList[0].replyNo }">
-   <c:forEach items="${memberList }" var="mList">
+      <c:set var="breakCnt2" value="true"/>
+   	  <c:set var="breakCnt3" value="true"/>
+   <c:forEach items="${memberList }" var="mList" varStatus="member">
    		<c:set var="breakCnt" value="true"/>
-  		<c:forEach items="${ownerList }" var="oList">
+  		<c:forEach items="${ownerList }" var="oList" varStatus="owner">
 	 		<c:if test="${mList.replyNo>oList.replyNo&&breakCnt}">
-	 			${mList.replyNo }<br>
+	 			<div class="alert alert-warning">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/member/ ${mList.member.profileImg }" width="50px"height="50px">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3><b>${mList.contents }</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${mList.member.joinDate }
+					<br><strong><font size=4>${mList.member.id }</font></strong>
+				</div>
+	 			<c:if test="${fn:length(memberList)==1 }">
+	 				<c:forEach items="${ownerList }" var="oList" begin="0" end="2">
+	 			<div class="alert alert-info">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/owner/profile/ ${oList.owner.ownerId }_${oList.owner.profileImg }" width="50px"height="50px">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3><b>${oList.contents }</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${oList.owner.joinDate }
+					<br><strong><font size=4>${oList.owner.ownerId }</font></strong>
+				</div>
+	 				</c:forEach>
+	 			</c:if>
+	 			<c:if test="${fn:length(memberList)==2 }">
+	 				<c:forEach items="${ownerList }" var="oList" begin="0" end="1">
+	 			<div class="alert alert-info">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/owner/profile/ ${oList.owner.ownerId }_${oList.owner.profileImg }" width="50px"height="50px">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3><b>${oList.contents }</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${oList.owner.joinDate }
+					<br><strong><font size=4>${oList.owner.ownerId }</font></strong>
+				</div>
+	 				</c:forEach>
+	 			</c:if> 
 	 			<c:set var="breakCnt" value="false"/>
 	 		</c:if>
-	 		<c:if test="${mList.replyNo<oList.replyNo }">
-	 			${oList.replyNo }<br>
+	 		<c:if test="${mList.replyNo<oList.replyNo&&breakCnt2 }">
+ 			 	<div class="alert alert-info">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/owner/profile/ ${oList.owner.ownerId }_${oList.owner.profileImg }" width="50px"height="50px">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3><b>${oList.contents }</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${oList.owner.joinDate }
+					<br><strong><font size=4>${oList.owner.ownerId }</font></strong>
+				</div>
+ 			 			<c:if test="${owner.count==3 }">
+ 			 				<c:set var="breakCnt2" value="false"/>
+ 			 			</c:if>
+	 		</c:if>
+	 		<c:if test="${breakCnt2==false&&breakCnt3 }">
+	 			<div class="alert alert-warning">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/member/ ${mList.member.profileImg }" width="50px"height="50px">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3><b>${mList.contents }</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${mList.member.joinDate }
+					<br><strong><font size=4>${mList.member.id }</font></strong>
+				</div>
+	 			<c:if test="${member.count==3 }">
+	 			<c:set var="breakCnt3" value="false"/>
+	 			</c:if>
 	 		</c:if>
   		</c:forEach>
   </c:forEach>
   </c:if>
     <c:if test="${memberList[0].replyNo<ownerList[0].replyNo }">
-   <c:forEach items="${ownerList }" var="oList">
+    <c:set var="breakCnt2" value="true"/>
+    <c:set var="breakCnt3" value="true"/>
+   <c:forEach items="${ownerList }" var="oList" varStatus="owner">
    		<c:set var="breakCnt" value="true"/>
-  		<c:forEach items="${memberList }" var="mList">
+  		<c:forEach items="${memberList }" var="mList" varStatus="member">
 	 		<c:if test="${mList.replyNo<oList.replyNo&&breakCnt}">
-	 		 			${oList.replyNo }<br>
+	 		 	<div class="alert alert-info">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/owner/profile/ ${oList.owner.ownerId }_${oList.owner.profileImg }" width="50px"height="50px">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3><b>${oList.contents }</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${oList.owner.joinDate }
+					<br><strong><font size=4>${oList.owner.ownerId }</font></strong>
+				</div>
+	 		 	<c:if test="${fn:length(ownerList)==1 }">
+	 				<c:forEach items="${memberList }" var="mList" begin="0" end="2">
+	 			<div class="alert alert-warning">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/member/ ${mList.member.profileImg }" width="50px"height="50px">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3><b>${mList.contents }</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${mList.member.joinDate }
+					<br><strong><font size=4>${mList.member.id }</font></strong>
+				</div>
+	 				</c:forEach>
+	 			</c:if>
+	 			<c:if test="${fn:length(ownerList)==2 }">
+	 				<c:forEach items="${memberList }" var="mList" begin="0" end="1">
+	 			<div class="alert alert-warning">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/member/ ${mList.member.profileImg }" width="50px"height="50px">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3><b>${mList.contents }</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${mList.member.joinDate }
+					<br><strong><font size=4>${mList.member.id }</font></strong>
+				</div>
+	 				</c:forEach>
+	 			</c:if> 
 	 			<c:set var="breakCnt" value="false"/>
 	 		</c:if>
-	 		<c:if test="${mList.replyNo>oList.replyNo }">
- 			 			${mList.replyNo }<br>
+	 		<c:if test="${mList.replyNo>oList.replyNo&&breakCnt2 }">
+ 			 	<div class="alert alert-warning">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/member/ ${mList.member.profileImg }" width="50px"height="50px">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3><b>${mList.contents }</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${mList.member.joinDate }
+					<br><strong><font size=4>${mList.member.id }</font></strong>
+				</div>
+ 			 			<c:if test="${member.count==3 }">
+ 			 				<c:set var="breakCnt2" value="false"/>
+ 			 			</c:if>
+	 		</c:if>
+	 		<c:if test="${breakCnt2==false&&breakCnt3 }">
+	 			 <div class="alert alert-info">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/owner/profile/ ${oList.owner.ownerId }_${oList.owner.profileImg }" width="50px"height="50px">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3><b>${oList.contents }</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${oList.owner.joinDate }
+					<br><strong><font size=4>${oList.owner.ownerId }</font></strong>
+				</div>
+	 			<c:if test="${owner.count==3 }">
+	 			<c:set var="breakCnt3" value="false"/>
+	 			</c:if>
 	 		</c:if>
   		</c:forEach>
   </c:forEach>
   </c:if>
+<c:if test="${fn:length(ownerList)==0 }">
+	<c:forEach items="${memberList }" var="mList">
+			    <div class="alert alert-warning">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/member/ ${mList.member.profileImg }" width="50px" height="50px">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3><b>${mList.contents }</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${mList.member.joinDate }
+					<br><strong><font size=4>${mList.member.id }</font></strong>
+				</div>
+	</c:forEach>
+</c:if>
+<c:if test="${fn:length(memberList)==0 }">
+	<c:forEach items="${ownerList }" var="oList">
+		 		<div class="alert alert-info">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${initParam.root }resources/images/user/owner/profile/ ${oList.owner.ownerId }_${oList.owner.profileImg }" width="50px"height="50px">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3><b>${oList.contents }</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${oList.owner.joinDate }
+					<br><strong><font size=4>${oList.owner.ownerId }</font></strong>
+				</div>
+	</c:forEach>
+</c:if>
+  <button type="button" class="btn btn-success" style="width:422px;height:50px" id="prevViewBtn">Prev</button>  <button type="button" class="btn btn-default" style="width:422px;height:50px" id="nextViewBtn">Next</button>

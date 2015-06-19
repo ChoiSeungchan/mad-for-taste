@@ -47,7 +47,7 @@ public class TestOwnerDao {
 	@Transactional
 	@Test
 	public void testUpdateOwner(){
-		Owner owner=new Owner("owner1234", "12341234", "테스트용", "5555", "3333", null, null, "s.gif");
+		Owner owner=new Owner("owner1234", "1234", "테스트용", "5555", "3333", null, null, "s.gif");
 		assertEquals(1, ownerDao.updateOwnerById(owner));
 	}
 }

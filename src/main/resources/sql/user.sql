@@ -14,12 +14,12 @@ create table member(
 	join_date date default sysdate,
 	profile_img varchar2(30)
 )
-
+delete from owner where owner_id = 'owner1234'
 --- admin 계정 생성 ---
 delete from member
 insert into member(id,password,name,address,gender,birth,tel,exp) 
 values('admin','1234','관리자','none','none','none','none',10000000)
-
+update tasty_place set contract_flag = 'Y' where br_no = '77777'
 -- notice fk 로 인한 계정 추가(최승찬)--
 insert into member(id,password,name,address,gender,birth,tel,exp) 
 values('java','1234','최승찬','오산','남성','none','none',10000000)

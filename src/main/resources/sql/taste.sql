@@ -140,7 +140,8 @@ select *from	(select t.*,rownum numrow from tasty_place_reply t,member m where m
 select b.numrow from	(select a.*,rownum numrow from (select * from tasty_place_reply t,member m where m.id=t.id order by t.reply_no desc)a)b where b.numrow between 1 and 3
 select reply,name,id,joinDate,profileImg from (select *from (select rownum numrow,t.reply_no reply,o.name name,o.owner_id id,o.join_date joinDate,o.profile_img profileImg from tasty_place_reply t,owner o where o.owner_id=t.owner_id)a order by reply desc)b where b.numrow between  1 and 3
 select *from (select rownum numrow,t.reply_no,o.name from tasty_place_reply t,owner o where o.owner_id=t.owner_id)a where a.numrow between  1 and 3
-select *from member
-
+select *from tasty_place_reply
+delete from tasty_place_reply
 select reply,name,id,joinDate,profileImg from (select *from (select rownum numrow,t.reply_no reply,m.name name,m.id id,m.join_date joinDate,m.profile_img profileImg from tasty_place_reply t,member m where m.id=t.id)a order by reply desc)b where b.numrow between  1 and 3
 drop table tasty_place_reply 
+ 		 insert into tasty_place_reply(reply_no,br_no,owner_id,contents) values(tasty_place_reply_seq.nextval,'77777','owner1234','ㅎㅎㅇ')

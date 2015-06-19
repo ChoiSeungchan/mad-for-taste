@@ -42,7 +42,7 @@ public class OwnerController {
 		return "user/" + path;
 	}
 	@RequestMapping("tastyPlaceBlog")
-	public String pizzaMaru(String id,Model model){
+	public String pizzaMaru(String id,Model model,String page){
 		Map<String, String> map=new HashMap<String, String>();
 		map=tastyPlaceService.selectTastyPlaceMarkTotalPrice();
 		map.put("two", tastyPlaceService.selectTastyPlaceMarkAge20());
@@ -50,8 +50,19 @@ public class OwnerController {
 		map.put("four", tastyPlaceService.selectTastyPlaceMarkAge40());
 		model.addAttribute("map", map);
 		model.addAttribute("list", tastyPlaceService.selectTastyPlaceGetAllList(id));
-		model.addAttribute("memberList", tastyPlaceService.selectTastyPlaceReplyMember("1"));
-		model.addAttribute("ownerList", tastyPlaceService.selectTastyPlaceReplyOwner("1"));
+		String oriPage=page;
+		if(page==null||page==""){
+			page="1";
+			oriPage=page;
+		}
+		else{
+			int iPage=Integer.parseInt(page);
+			iPage=iPage*3-3;
+			page=Integer.toString(iPage);
+		}
+		model.addAttribute("memberList", tastyPlaceService.selectTastyPlaceReplyMember(page));
+		model.addAttribute("ownerList", tastyPlaceService.selectTastyPlaceReplyOwner(page));
+		model.addAttribute("page", oriPage);
 		return "user/ownerBlog/tastyPlaceBlog";
 	}
 	@RequestMapping(value="owner/{viewName1}/{viewName2}")
