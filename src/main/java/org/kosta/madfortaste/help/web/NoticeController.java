@@ -17,12 +17,15 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 	
-	@RequestMapping("noticelist")
+	@RequestMapping(value="noticelist")
 	public ModelAndView loadNoticeList(String pageNo){
-		Page page = null;
-		System.out.println(pageNo);
 		ModelAndView mv = new ModelAndView("help/notice");
-		List<Notice> list = noticeService.loadNoticeList(pageNo);
+		Page page = new Page(noticeService.totalContentCount());
+		if(pageNo==null||pageNo==""){
+			pageNo="1";
+		}
+		page.setCurrentPage(Integer.parseInt(pageNo));
+		List<Notice> list = noticeService.loadNoticeList(page);
 		mv.addObject("boardList",list);
 		mv.addObject("pageInfo",page);
 		return mv;
@@ -35,10 +38,38 @@ public class NoticeController {
 		return new ModelAndView("help/contentView","content",notice);
 	}
 	
-/*	public ModelAndView insert(Notice notice){
+	@RequestMapping("insertView")
+	public String insertView(){
+		return "help/insertView";
+	}
+	
+	@RequestMapping("insert")
+	public ModelAndView insert(Notice notice){
 		noticeService.insert(notice);
-		return new ModelAndView("redirect:help/notice");
-	}*/
+		return new ModelAndView("redirect:noticelist");
+	}
+	
+	@RequestMapping("updateView")
+	public ModelAndView updateView(Notice notice){
+		notice = noticeService.getContents(notice.getArticleNo());
+		return new ModelAndView("help/updateView","updateElement",notice);
+	}
+	
+	@RequestMapping("update")
+	public ModelAndView update(Notice notice){
+		System.out.println("Controller update : "+notice.getArticleNo());
+		noticeService.update(notice);
+		return new ModelAndView("redirect:showContentView?no="+notice.getArticleNo());
+	}
+	
+	@RequestMapping("delete")
+	public String delete(Notice notice){
+		String no = notice.getArticleNo();
+		System.out.println("delete : "+no);
+		noticeService.delete(no);
+		return "redirect:noticelist";
+	}
+	
 }
 
 

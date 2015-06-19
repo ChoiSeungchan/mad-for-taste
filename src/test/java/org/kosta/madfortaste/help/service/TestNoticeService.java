@@ -32,7 +32,8 @@ public class TestNoticeService {
     @Test
     public void loadNoticeList() {
 		String pageNo = "1";
-	   noticeService.loadNoticeList(pageNo);
+		Page page = new Page(noticeService.totalContentCount());
+	   noticeService.loadNoticeList(page);
 	    
 	}
     @Test
