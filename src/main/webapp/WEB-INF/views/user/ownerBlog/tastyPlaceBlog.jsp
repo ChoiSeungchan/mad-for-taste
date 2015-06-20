@@ -13,7 +13,7 @@
 			var totalCnt=${map.TOTALCNT};
 			if(totalCnt==0)
 				totalCnt=1;
-			first=${map.TOTALMARK/totalCnt};
+			first=${map.TOTALMARK}/totalCnt;
 			if(first==1)
 				star="★";
 			else if(first==2)
@@ -71,7 +71,7 @@
 				});
 			    $('#container').highcharts({
 			        chart: {
-			            plotBackgroundColor: null,
+			            plotBackgroundColor: '#FFFAFA',
 			            plotBorderWidth: 0,
 			            plotShadow: false
 			        },
@@ -91,8 +91,8 @@
 			                    distance: -50,
 			                    style: {
 			                        fontWeight: 'bold',
-			                        color: 'white',
-			                        textShadow: '0px 1px 2px black'
+			                        color: 'red',
+			                        textShadow: '0px 1px 2px yellow'
 			                    }
 			                },
 			                startAngle: -90,
@@ -117,7 +117,7 @@
 			                }
 			            ]
 			        }]
-			    });//this
+			    });//this	
 				$("#view").html("<img src='${initParam.root }resources/images/user/owner/tasty/mark3.jpg' width='300px'>");
 				$("#one").click(function(){
 					$("#view").html("<img src='${initParam.root }resources/images/user/owner/tasty/mark.jpg' width='300px'>");
@@ -211,7 +211,9 @@
 <div class="alert alert-success">
   <strong><font size="3">덧글 공유하기</font></strong>&nbsp; 업주 사장님과 사용자 여러분들의 각자의 의견을 공유하는 공간입니다.
 </div>
+<c:if test="${map.TOTALCNT!=0 }">
 <div id="container" style="min-width: 410px; height: 400px; max-width: 500px; margin: 0 auto"></div>
+</c:if>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="view"></span>
 &nbsp;&nbsp;&nbsp;1점<input type="radio" name=mark value="1" id="one"> &nbsp;&nbsp;&nbsp;&nbsp;2점<input type="radio" name=mark value="2" id="two"> &nbsp;&nbsp;&nbsp;&nbsp;3점<input type="radio" name=mark value="3" id="three" checked="checked"> &nbsp;&nbsp;&nbsp;&nbsp;4점<input type="radio" name=mark value="4" id="four"> &nbsp;&nbsp;&nbsp;&nbsp;5점<input type="radio" name=mark value="5" id="five">&nbsp;&nbsp;&nbsp;&nbsp;
 <button type="button" class="btn btn-primary btn-md" id="markBtn">평점등록하기</button>&nbsp;&nbsp;<span><button type="button" class="btn btn-info btn-md" id="replyBtn">덧글달기</button></span>
