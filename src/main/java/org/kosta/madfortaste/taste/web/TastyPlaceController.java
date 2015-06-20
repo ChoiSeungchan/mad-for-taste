@@ -106,7 +106,7 @@ public class TastyPlaceController {
 			tastyPlaceBoard.setUser(owner.getOwnerId());	
 			tastyPlaceService.insertTastyPlaceReplyOwner(tastyPlaceBoard);
 		}
-		return "redirect:tastyPlaceBlog?id="+id;
+		return "redirect:blog_tastyPlaceBlog?id="+id;
 	}
 	
 	@RequestMapping("nextReplyView")
