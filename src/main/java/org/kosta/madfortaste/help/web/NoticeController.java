@@ -70,6 +70,10 @@ public class NoticeController {
 		return "redirect:noticelist";
 	}
 	
+	public Notice mainNotice(){
+		
+		return null;
+	}
 }
 
 
