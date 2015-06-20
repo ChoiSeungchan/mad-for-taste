@@ -45,6 +45,8 @@ public class OwnerController {
 	public String pizzaMaru(String id,Model model,String page){
 		Map<String, String> map=new HashMap<String, String>();
 		map=tastyPlaceService.selectTastyPlaceMarkTotalPrice();
+		if(map.get("TOTALMARK")==null)
+			map.put("TOTALCNT", "0");
 		map.put("two", tastyPlaceService.selectTastyPlaceMarkAge20());
 		map.put("three", tastyPlaceService.selectTastyPlaceMarkAge30());
 		map.put("four", tastyPlaceService.selectTastyPlaceMarkAge40());

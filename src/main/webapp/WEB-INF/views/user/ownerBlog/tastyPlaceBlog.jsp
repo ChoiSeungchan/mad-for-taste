@@ -8,12 +8,12 @@
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
 <script>
 			//<![CDATA[
+			var twenty="20대";
+			var thirty="30대";
+			var fourty="40대";
 			var star="";
 			var first=0;
-			var totalCnt=${map.TOTALCNT};
-			if(totalCnt==0)
-				totalCnt=1;
-			first=${map.TOTALMARK}/totalCnt;
+			first=${map.TOTALMARK/map.TOTALCNT};
 			if(first==1)
 				star="★";
 			else if(first==2)
@@ -32,6 +32,12 @@
 			var four=i4/3*100;
 			var strVal="";
 			$(function(){	
+				if(two==0)
+					twenty="";
+				if(three==0)
+					thirty="";
+				if(four==0)
+					fourty="";
 				$("#nextViewBtn").click(function(){
 		 			if(${fn:length(memberList)<2&&fn:length(ownerList)<2}){
 						alert("더이상 덧글이 존재하지 않습니다");
@@ -105,9 +111,9 @@
 			            name: 'Browser share',
 			            innerSize: '50%',
 			            data: [
-			                ['20대',   two],
-			                ['30대',   three],
-			                ['40대',   four],
+			                [twenty,   two],
+			                [thirty,   three],
+			                [fourty,   four],
 			                {
 			                    name: 'Others',
 			                    y: 0.0,
@@ -153,6 +159,7 @@
 								alert(data.fail);
 							else
 								alert(data.success);
+							window.location.reload(true);
 						}
 					}); 
 				});

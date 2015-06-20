@@ -29,13 +29,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		select count(*) as totalCnt,sum(mark) as totalMark from tasty_place_mark
  	</select>
  	<select id="selectTastyPlaceMarkAge20" resultType="String">
- 		select count(m.birth) from tasty_place_mark t,member m where m.id=t.id and birth between '1987' and '1997'
+ 		select count(m.birth) from tasty_place_mark t,member m where m.id=t.id and birth between '1987' and '1996'
  	</select>
  	<select id="selectTastyPlaceMarkAge30" resultType="String">
- 		select count(m.birth) from tasty_place_mark t,member m where m.id=t.id and birth between '1977' and '1987'
+ 		select count(m.birth) from tasty_place_mark t,member m where m.id=t.id and birth between '1977' and '1986'
  	</select>
  	<select id="selectTastyPlaceMarkAge40" resultType="String">
- 		select count(m.birth) from tasty_place_mark t,member m where m.id=t.id and birth between '1967' and '1977'
+ 		select count(m.birth) from tasty_place_mark t,member m where m.id=t.id and birth between '1967' and '1976'
  	</select>
  	<insert id="insertTastyPlaceReplyMember">
  		 insert into tasty_place_reply(reply_no,br_no,id,contents) values(tasty_place_reply_seq.nextval,#{brNo},#{user},#{contents})
@@ -44,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		 insert into tasty_place_reply(reply_no,br_no,owner_id,contents) values(tasty_place_reply_seq.nextval,#{brNo},#{user},#{contents})
  	</insert>
  	<select id="selectTastyPlaceReplyMember" resultMap="tastyPlaceBoardMember">
- 		select reply,name,id,joinDate,profileImg,contents from (select *from (select rownum numrow,t.reply_no reply,m.name name,m.id id,m.join_date joinDate,m.profile_img profileImg,t.contents contents from tasty_place_reply t,member m where m.id=t.id)a order by reply desc)b where b.numrow between  #{value} and  #{value}+2
+ 				select * from (select rownum numrow,reply,name,id,joinDate,profileImg,contents from (select t.reply_no reply,m.name name,m.id id,m.join_date joinDate,m.profile_img profileImg,t.contents contents from tasty_place_reply t,member m where m.id=t.id order by reply desc)) where numrow between  #{value} and  #{value}+2
  	</select>
  	<resultMap type="tastyPlaceBoard" id="tastyPlaceBoardMember">
  		<result column="reply" property="replyNo"/>
@@ -54,7 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<result column="profileImg" property="member.profileImg"/>
  	</resultMap>
  	<select id="selectTastyPlaceReplyOwner" resultMap="tastyPlaceBoardOwner">
- 		select reply,name,id,joinDate,profileImg,contents from (select *from (select rownum numrow,t.reply_no reply,o.name name,o.owner_id id,o.join_date joinDate,o.profile_img profileImg,t.contents contents from tasty_place_reply t,owner o where o.owner_id=t.owner_id)a order by reply desc)b where b.numrow between  #{value} and  #{value}+2
+ 		select * from (select rownum numrow,reply,name,id,joinDate,profileImg,contents from (select t.reply_no reply,o.name name,o.owner_id id,o.join_date joinDate,o.profile_img profileImg,t.contents contents from tasty_place_reply t,owner o where o.owner_id=t.owner_id order by reply desc)) where numrow between  #{value} and  #{value}+2
  	</select>
  	 	<resultMap type="tastyPlaceBoard" id="tastyPlaceBoardOwner">
  		<result column="reply" property="replyNo"/>
