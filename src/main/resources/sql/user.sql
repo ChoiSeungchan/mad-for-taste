@@ -1,4 +1,18 @@
+-----출석체크-----
 
+drop table daily_check
+create table daily_check (
+	id varchar2(20) not null,
+	check_time date default sysdate,
+	constraint daily_check_id_fk foreign key (id) references member(id) on delete cascade
+)
+delete from daily_check
+select * from daily_check
+select check_time from daily_check where 
+check_time > to_date('2015-06-19','YYYY/MM/DD HH24:MI:SS')
+and
+check_time < to_date('2015-06-20','YYYY/MM/DD HH24:MI:SS')
+and id='member';
 ----- Member -----
 drop table member
 create table member(

@@ -52,7 +52,29 @@
 		});
 		
 		$('#dailyCheckBtn').click(function(){
-			alert('출석체크 버튼임 아직 미구현');
+			$.ajax({
+				type:"post",
+				url:"${initParam.root}dailyCheck",
+				dataType:"json",
+				success:function(data){	
+					if(data.result=='failure') {
+						alert('오늘은 이미 출석체크를 하셨습니다. 12시에 초기화됩니다.');
+					} else {
+						alert(data.exp+" 경험치를 획득하였습니다.");
+					}
+					
+					$.ajax({
+						type:"post",
+						url:"${initParam.root}maintainAuthSession",
+						dataType:"json",
+						success:function(data){		
+							alert(data);
+						}
+					});
+					
+					location.href=location.href;
+				}
+			});
 		})
 		
 		

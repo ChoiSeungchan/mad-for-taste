@@ -1,6 +1,8 @@
 package org.kosta.madfortaste.user.web;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class MemberController {
@@ -104,5 +107,24 @@ public class MemberController {
 		if(member!=null)
 		memberService.downPoint(member.getId(), new Random().nextInt(500));
 		return "redirect:reLogin";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="dailyCheck")
+	public Map<String, Object> dailyCheck (HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Member member = (Member) session.getAttribute("member");
+		if(member!=null) {
+			boolean flag = memberService.dailyCheck(member.getId());
+			if(flag) {
+				int randomExp = new Random().nextInt(100) + 1;
+				memberService.upExp(member.getId(), randomExp);
+				map.put("exp", randomExp);
+				map.put("result", "success");
+			} else {
+				map.put("result", "failure");
+			}
+		}
+		return map;
 	}
 }

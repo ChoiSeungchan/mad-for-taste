@@ -1,6 +1,7 @@
 package org.kosta.madfortaste.user.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.user.domain.Member;
@@ -24,5 +25,11 @@ public interface MemberDao {
 	public abstract void upPoint(String id, int acquiredPoint);
 
 	public abstract void downPoint(String id, int lostPoint);
+
+	public abstract void insertDailyCheckTime(String id);
+
+	public abstract int GetDailyCheckedMember(Map<String, Object> map);
+
+	public abstract void updateDailyCheck(String id);
 
 }

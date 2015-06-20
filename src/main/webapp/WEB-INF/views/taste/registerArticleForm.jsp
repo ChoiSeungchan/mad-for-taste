@@ -37,6 +37,25 @@
 	        //폼 submit
 	        $("#articleForm").submit();
 	    })
+	    
+	    $('#articleForm').submit(function(){
+	    	var location = $(':input[name=location]').val();
+	    	var title = $(':input[name=title]').val();
+	    	var contents = $(':input[name=contents]').val();
+			if (location.trim()=='') {
+				alert('지역을 선택해주세요')
+				$(':input[name=location]').focus();
+				return false;
+			} else if (title.trim()=='') {
+				alert('제목을 입력해주세요')
+				$(':input[name=title]').focus();
+				return false;
+			} else if (contents.trim()=='<p>&nbsp;</p>') {
+				alert('내용을 입력해주세요')
+				$(':input[name=contents]').focus();
+				return false;
+			}
+	    })
 	})
 	
 </script>

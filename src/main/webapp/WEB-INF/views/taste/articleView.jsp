@@ -8,20 +8,17 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	$(function(){
-		
-		var member = '${sessionScope.member.id}';
 		function reLogin() {
-			if(member!=''){
-				$.ajax({
-					type:"post",
-					url:"${initParam.root}maintainAuthSession",
-					dataType:"json",
-					success:function(data){		
-						alert(data);
-					}
-				});
-			}
+			$.ajax({
+				type:"post",
+				url:"${initParam.root}maintainAuthSession",
+				dataType:"json",
+				success:function(data){		
+					alert(data);
+				}
+			});
 		}
+		reLogin();
 		
 		$("#good").click(function(){
 			$.getJSON("${initParam.root}article/upGood?id=${sessionScope.member.id}+&articleNo=${article.articleNo}",function(data){

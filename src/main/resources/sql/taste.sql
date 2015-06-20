@@ -111,6 +111,8 @@ create table tasty_place_mark(
 	mark number not null,
 	primary key(br_no,id)
 )
+insert into tasty_place_mark values('77777','member',1)
+delete from tasty_place_mark
 select birth from member where id='java123'
 select *from tasty_place_mark
 select ceil(months_between(sysdate,to_date(birth,'yyyy-mm-dd'))/12) from member where id='java123'
