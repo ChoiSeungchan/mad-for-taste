@@ -49,10 +49,12 @@ public class LoginController {
 	@RequestMapping(value = "maintainAuthSession", method=RequestMethod.POST)	
 	public void maintainAuthSession (HttpSession session, HttpServletRequest req) {
 		Member member = (Member) session.getAttribute("member");
-		if (!(member.getId() == null || member.getId().equals(""))
-				&& !(member.getPassword() == null || member.getPassword()
-						.equals(""))) {
-		loginService.login(member.getId(), member.getPassword(), req);
+		if (member!=null) {
+			if (!(member.getId() == null || member.getId().equals(""))
+					&& !(member.getPassword() == null || member.getPassword()
+							.equals(""))) {
+			loginService.login(member.getId(), member.getPassword(), req);
+			}
 		}
 	}
 	

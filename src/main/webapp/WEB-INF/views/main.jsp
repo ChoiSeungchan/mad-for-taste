@@ -105,7 +105,7 @@
 				</span>
 				<span class="col-md-4">
 					<img style="width:50px;height: 50px;" src="${initParam.root}resources/images/user/member/${top3.member.profileImg}">
-					<img style="width:20px;height: 20px" src="${initParam.root}resources/images/user/member/level/${top3.member.levelInfo.level}.gif">
+					<img src="${initParam.root}resources/images/user/member/level/${top3.member.levelInfo.level}.gif">
 					${top3.member.name}(${top3.writer})
 				</span>
 				<span class="col-md-3" style="margin-top : 12px;">
@@ -142,7 +142,7 @@
 						</span>
 						<span class="col-md-4">
 							<img style="width:50px;height: 50px;" src="${initParam.root}resources/images/user/member/${article.member.profileImg}">
-							<img style="width:20px;height: 20px" src="${initParam.root}resources/images/user/member/level/${article.member.levelInfo.level}.gif">
+							<img src="${initParam.root}resources/images/user/member/level/${article.member.levelInfo.level}.gif">
 							${article.member.name}(${article.writer})
 						</span>
 						<span class="col-md-3" style="margin-top : 12px;">
