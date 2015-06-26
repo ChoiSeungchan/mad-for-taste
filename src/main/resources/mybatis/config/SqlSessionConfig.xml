@@ -15,6 +15,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="org.kosta.madfortaste.taste.domain.Article" alias="article"/>
 		<typeAlias type="org.kosta.madfortaste.taste.domain.Reply" alias="reply"/>
 		<typeAlias type="org.kosta.madfortaste.help.domain.Notice" alias="noticevo"/>
+		<typeAlias type="org.kosta.madfortaste.help.domain.Qna" alias="qnavo"/>
 		<typeAlias type="org.kosta.madfortaste.taste.domain.TastyPlaceBoard" alias="tastyPlaceBoard"/>
 	</typeAliases>
 	

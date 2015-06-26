@@ -4,6 +4,50 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="qna">
+ 
+ 	 <resultMap type="qnavo" id="qnaRM">		
+		<result property="articleNo" column="article_no" />			
+		<result property="writer" column="writer" /> 		
+		<result property="title" column="title" /> 		
+		<result property="content" column="content" /> 		
+		<result property="viewCount" column="hits" /> 		
+		<result property="regDate" column="reg_date" /> 		
+	</resultMap>	
+	
+	<select id="totalQnaContentCount" resultType="int">
+	select count(*) from qna_board
+</select>
+
+<select id="loadQnaList" resultMap="qnaRm">
+ select * from (
+			select rownum as rnum, t.*, m.*
+			from (select * from qna_board order by article_no desc) t, member m
+			where t.writer=m.id
+		) where rnum between #{beginRow} and #{endRow}
+</select>
+	<!-- 
+<select id="getQnaContents" resultMap="qnaRm" resultType="qnavo">
+	select * from qna_board where article_no=#{value}
+</select>
+
+<update id="updateViewCountQna" parameterType="String">
+	update qna_board set hits=hits+1 where article_no=#{value}
+	</update>
+
+<insert id="insertQna">
+ 	 <selectKey keyProperty="articleNo" resultType="String" order="BEFORE">
+		select qna_no_seq.nextval from dual
+	</selectKey>  
+  insert into qna_board(article_no,writer, title, content) values(#{articleNo},#{writer},#{title},#{content})
+  </insert>
+
+<update id="updateQna" parameterType="qnavo">
+	update qna_board set title=#{title}, content=#{content} where article_no=#{articleNo}
+</update>
+
+<delete id="deleteQna" parameterType="qnavo">
+	delete from qna_board where article_no=#{value}
+</delete> -->
  	
  </mapper>
  

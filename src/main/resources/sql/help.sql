@@ -53,3 +53,48 @@ select * from (select rownum,n.* from notice_board n order by article_no desc) w
 select * from member;
 drop table member;
 
+-------- Qna----------
+create table qna_board(
+	article_no number primary key,
+	writer varchar2(20) not null,
+	title varchar2(50) not null,
+	content clob not null,
+	hits number default 0,
+    reg_date date default sysdate,
+	constraint qnawriter_fk foreign key (writer) references member(id) on delete cascade
+)
+
+create sequence qna_no_seq nocache;
+
+insert into qna_board(article_no,writer, title, content)
+values(qna_no_seq.nextval,'admin','테스트1','테스트');
+insert into qna_board(article_no,writer, title, content)
+values(qna_no_seq.nextval,'admin','테스트2','테스트');
+insert into qna_board(article_no,writer, title, content)
+values(qna_no_seq.nextval,'admin','테스트3','테스트');
+insert into qna_board(article_no,writer, title, content)
+values(qna_no_seq.nextval,'admin','테스트4','테스트');
+insert into qna_board(article_no,writer, title, content)
+values(qna_no_seq.nextval,'admin','테스트5','테스트');
+insert into qna_board(article_no,writer, title, content)
+values(qna_no_seq.nextval,'admin','테스트6','테스트');
+insert into qna_board(article_no,writer, title, content)
+values(qna_no_seq.nextval,'admin','테스트7','테스트');
+insert into qna_board(article_no,writer, title, content)
+values(qna_no_seq.nextval,'admin','테스트8','테스트');
+insert into qna_board(article_no,writer, title, content)
+values(qna_no_seq.nextval,'admin','테스트9','테스트');
+insert into qna_board(article_no,writer, title, content)
+values(qna_no_seq.nextval,'admin','테스트10','테스트');
+insert into qna_board(article_no,writer, title, content)
+values(qna_no_seq.nextval,'admin','테스트11','테스트');
+insert into qna_board(article_no,writer, title, content)
+values(qna_no_seq.nextval,'admin','테스트12','테스트');
+insert into qna_board(article_no,writer, title, content)
+values(qna_no_seq.nextval,'admin','테스트13','테스트');
+insert into qna_board(article_no,writer, title, content)
+values(qna_no_seq.nextval,'admin','테스트14','테스트');
+insert into qna_board(article_no,writer, title, content)
+values(qna_no_seq.nextval,'admin','테스트15','테스트');
+insert into qna_board(article_no,writer, title, content)
+values(qna_no_seq.nextval,'admin','테스트16','테스트');

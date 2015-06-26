@@ -71,7 +71,7 @@
 						<a href="${initParam.root }noticelist">공지사항</a>
 					</li>
 					<li>
-						<a href="#">질문과 답변</a>
+						<a href="${initParam.root }qnalist">질문과 답변</a>
 					</li>
 				</ul>
 			</li>
