@@ -2,6 +2,7 @@ package org.kosta.madfortaste.taste.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,28 +60,28 @@ public class TestTastyPlaceDao {
 	@Test
 	public void testSelectTastyPlaceMarkTotalPrice(){
 		Map<String, String> map=null;
-		map=tastyPlaceDao.selectTastyPlaceMarkTotalPrice();
+		map=tastyPlaceDao.selectTastyPlaceMarkTotalPrice("777");
 		assertNotNull(map);
 	}
 	
 	@Test
 	public void testSelectTastyPlaceMarkAge20(){
 		String str=null;
-		str=tastyPlaceDao.selectTastyPlaceMarkAge20();
+		str=tastyPlaceDao.selectTastyPlaceMarkAge20("777");
 		assertNotNull(str);
 	}
 	
 	@Test
 	public void testSelectTastyPlaceMarkAge30(){
 		String str=null;
-		str=tastyPlaceDao.selectTastyPlaceMarkAge30();
+		str=tastyPlaceDao.selectTastyPlaceMarkAge30("777");
 		assertNotNull(str);
 	}
 	
 	@Test
 	public void testSelectTastyPlaceMarkAge40(){
 		String str=null;
-		str=tastyPlaceDao.selectTastyPlaceMarkAge40();
+		str=tastyPlaceDao.selectTastyPlaceMarkAge40("777");
 		assertNotNull(str);
 	}
 	@Transactional
@@ -97,13 +98,15 @@ public class TestTastyPlaceDao {
 	
 	@Test
 	public void testSelectTastyPlaceReplyMember(){
-		List<TastyPlaceBoard> list=null;
-		assertNotNull((tastyPlaceDao.selectTastyPlaceReplyMember("1")));
+		Map<String, String> map=new HashMap<String, String>();
+		map.put("cnt", "1");map.put("brno", "777");
+		assertNotNull((tastyPlaceDao.selectTastyPlaceReplyMember(map)));
 	}
 	
 	@Test
 	public void testSelectTastyPlaceReplyOwner(){
-		List<TastyPlaceBoard> list=null;
-		assertNotNull(tastyPlaceDao.selectTastyPlaceReplyOwner("1"));
+		Map<String, String> map=new HashMap<String, String>();
+		map.put("cnt", "1");map.put("brno", "777");
+		assertNotNull((tastyPlaceDao.selectTastyPlaceReplyOwner(map)));
 	}
 }

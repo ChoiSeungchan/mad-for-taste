@@ -11,7 +11,6 @@
 
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="${initParam.root}resources/bootstrap/css/bootstrap.css">
-
 <link rel="stylesheet" href="${initParam.root}resources/bootstrap/theme/simplex.css">
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->

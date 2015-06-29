@@ -15,12 +15,13 @@ public interface TastyPlaceService {
 	public void updateTastyPlace(TastyPlace tastyPlace);
 	public void insertTastyPlaceMark(TastyPlaceMark tastyPlaceMark);
 	public int selectTastyPlaceMarkByDoublePk(TastyPlaceMark tastyPlaceMark);
-	public Map<String,String> selectTastyPlaceMarkTotalPrice();
-	public String selectTastyPlaceMarkAge20();
-	public String selectTastyPlaceMarkAge30();
-	public String selectTastyPlaceMarkAge40();
+	public Map<String,String> selectTastyPlaceMarkTotalPrice(String brNo);
+	public String selectTastyPlaceMarkAge20(String brNo);
+	public String selectTastyPlaceMarkAge30(String brNo);
+	public String selectTastyPlaceMarkAge40(String brNo);
 	public int insertTastyPlaceReplyOwner(TastyPlaceBoard tastyPlaceBoard);
 	public int insertTastyPlaceReplyMember(TastyPlaceBoard tastyPlaceBoard);
-	public List<TastyPlaceBoard> selectTastyPlaceReplyMember(String viewCnt);
-	public List<TastyPlaceBoard> selectTastyPlaceReplyOwner(String viewCnt);
+	public List<TastyPlaceBoard> selectTastyPlaceReplyMember(String viewCnt,String brNo);
+	public List<TastyPlaceBoard> selectTastyPlaceReplyOwner(String viewCnt,String brNo);
+	public String selectTastyPlacefindByBrNo(String id);
 }

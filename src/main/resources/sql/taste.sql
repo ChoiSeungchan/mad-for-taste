@@ -96,3 +96,4 @@ select * from (select rownum numrow,reply,name,id,joinDate,profileImg,contents,b
  create sequence tasty_place_reply_seq nocache
  drop sequence tasty_place_reply_seq
  
+select count(m.birth) from tasty_place_mark t,member m where m.id=t.id and birth between '1987' and '1996' and br_no='7777'
