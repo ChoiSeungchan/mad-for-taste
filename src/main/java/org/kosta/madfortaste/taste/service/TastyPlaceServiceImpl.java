@@ -1,5 +1,6 @@
 package org.kosta.madfortaste.taste.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,20 +44,20 @@ public class TastyPlaceServiceImpl implements TastyPlaceService {
 		return tastyPlaceDao.selectTastyPlaceMarkByDoublePk(tastyPlaceMark);
 	}
 	@Override
-	public Map<String, String> selectTastyPlaceMarkTotalPrice() {
-		return tastyPlaceDao.selectTastyPlaceMarkTotalPrice();
+	public Map<String, String> selectTastyPlaceMarkTotalPrice(String brNo) {
+		return tastyPlaceDao.selectTastyPlaceMarkTotalPrice(brNo);
 	}
 	@Override
-	public String selectTastyPlaceMarkAge20() {
-		return tastyPlaceDao.selectTastyPlaceMarkAge20();
+	public String selectTastyPlaceMarkAge20(String brNo) {
+		return tastyPlaceDao.selectTastyPlaceMarkAge20(brNo);
 	}
 	@Override
-	public String selectTastyPlaceMarkAge30() {
-		return tastyPlaceDao.selectTastyPlaceMarkAge30();
+	public String selectTastyPlaceMarkAge30(String brNo) {
+		return tastyPlaceDao.selectTastyPlaceMarkAge30(brNo);
 	}
 	@Override
-	public String selectTastyPlaceMarkAge40() {
-		return tastyPlaceDao.selectTastyPlaceMarkAge40();
+	public String selectTastyPlaceMarkAge40(String brNo) {
+		return tastyPlaceDao.selectTastyPlaceMarkAge40(brNo);
 	}
 	@Override
 	public int insertTastyPlaceReplyOwner(TastyPlaceBoard tastyPlaceBoard) {
@@ -67,12 +68,20 @@ public class TastyPlaceServiceImpl implements TastyPlaceService {
 		return tastyPlaceDao.insertTastyPlaceReplyMember(tastyPlaceBoard);
 	}
 	@Override
-	public List<TastyPlaceBoard> selectTastyPlaceReplyMember(String viewCnt) {
-		return tastyPlaceDao.selectTastyPlaceReplyMember(viewCnt);
+	public List<TastyPlaceBoard> selectTastyPlaceReplyMember(String viewCnt,String brNo) {
+		Map<String, String>map =new HashMap<String, String>();
+		map.put("cnt", viewCnt);map.put("brno", brNo);
+		return tastyPlaceDao.selectTastyPlaceReplyMember(map);
 	}
 	@Override
-	public List<TastyPlaceBoard> selectTastyPlaceReplyOwner(String viewCnt) {
-		return tastyPlaceDao.selectTastyPlaceReplyOwner(viewCnt);
+	public List<TastyPlaceBoard> selectTastyPlaceReplyOwner(String viewCnt,String brNo) {
+		Map<String, String>map =new HashMap<String, String>();
+		map.put("cnt", viewCnt);map.put("brno", brNo);
+		return tastyPlaceDao.selectTastyPlaceReplyOwner(map);
+	}
+	@Override
+	public String selectTastyPlacefindByBrNo(String id) {
+		return tastyPlaceDao.selectTastyPlacefindByBrNo(id);
 	}
 
 }

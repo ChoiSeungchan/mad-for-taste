@@ -8,7 +8,7 @@
 			$(this).attr('style','background-color:#4F5151;color:white');
 		}, function (){
 			$(this).attr('style','background-color:none');
-		})
+		})		
 		
 		$('blockquote').click(function(){
 			location.href='${initParam.root}article/'+(this).id;
@@ -73,7 +73,7 @@
 				</div>
 			</div>
 			<div class="item">
-				<img alt="" src="${initParam.root}resources/images/test3.jpg" />
+					<a href="blog_tastyPlaceBlogThree?id=owner3456"><img alt="" src="${initParam.root}resources/images/test3.jpg" /></a>
 				<div class="carousel-caption">
 					<h4>Third Thumbnail label</h4>
 					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.

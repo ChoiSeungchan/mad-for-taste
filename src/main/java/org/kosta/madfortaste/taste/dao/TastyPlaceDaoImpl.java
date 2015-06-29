@@ -36,17 +36,17 @@ public class TastyPlaceDaoImpl implements TastyPlaceDao{
 	public int selectTastyPlaceMarkByDoublePk(TastyPlaceMark tastyPlaceMark){
 		return sqlSessionTemplate.selectOne("tastyPlace.selectTastyPlaceMarkByDoublePk",tastyPlaceMark);
 	}
-	public Map<String,String> selectTastyPlaceMarkTotalPrice(){
-		return sqlSessionTemplate.selectOne("tastyPlace.selectTastyPlaceMarkTotalPrice");
+	public Map<String,String> selectTastyPlaceMarkTotalPrice(String brNo){
+		return sqlSessionTemplate.selectOne("tastyPlace.selectTastyPlaceMarkTotalPrice",brNo);
 	}
-	public String selectTastyPlaceMarkAge20(){
-		return sqlSessionTemplate.selectOne("tastyPlace.selectTastyPlaceMarkAge20");
+	public String selectTastyPlaceMarkAge20(String brNo){
+		return sqlSessionTemplate.selectOne("tastyPlace.selectTastyPlaceMarkAge20",brNo);
 	}
-	public String selectTastyPlaceMarkAge30(){
-		return sqlSessionTemplate.selectOne("tastyPlace.selectTastyPlaceMarkAge30");
+	public String selectTastyPlaceMarkAge30(String brNo){
+		return sqlSessionTemplate.selectOne("tastyPlace.selectTastyPlaceMarkAge30",brNo);
 	}
-	public String selectTastyPlaceMarkAge40(){
-		return sqlSessionTemplate.selectOne("tastyPlace.selectTastyPlaceMarkAge40");
+	public String selectTastyPlaceMarkAge40(String brNo){
+		return sqlSessionTemplate.selectOne("tastyPlace.selectTastyPlaceMarkAge40",brNo);
 	}
 	public int insertTastyPlaceReplyOwner(TastyPlaceBoard tastyPlaceBoard){
 		return sqlSessionTemplate.insert("tastyPlace.insertTastyPlaceReplyOwner",tastyPlaceBoard);
@@ -54,10 +54,13 @@ public class TastyPlaceDaoImpl implements TastyPlaceDao{
 	public int insertTastyPlaceReplyMember(TastyPlaceBoard tastyPlaceBoard){
 		return sqlSessionTemplate.insert("tastyPlace.insertTastyPlaceReplyMember",tastyPlaceBoard);
 	}
-	public List<TastyPlaceBoard> selectTastyPlaceReplyMember(String viewCnt){
-		return sqlSessionTemplate.selectList("tastyPlace.selectTastyPlaceReplyMember",viewCnt);
+	public List<TastyPlaceBoard> selectTastyPlaceReplyMember(Map<String, String> map){
+		return sqlSessionTemplate.selectList("tastyPlace.selectTastyPlaceReplyMember",map);
 	}
-	public List<TastyPlaceBoard> selectTastyPlaceReplyOwner(String viewCnt){
-		return sqlSessionTemplate.selectList("tastyPlace.selectTastyPlaceReplyOwner",viewCnt);
+	public List<TastyPlaceBoard> selectTastyPlaceReplyOwner(Map<String, String> map){
+		return sqlSessionTemplate.selectList("tastyPlace.selectTastyPlaceReplyOwner",map);
+	}
+	public String selectTastyPlacefindByBrNo(String id){
+		return sqlSessionTemplate.selectOne("tastyPlace.selectTastyPlacefindByBrNo",id);
 	}
 }

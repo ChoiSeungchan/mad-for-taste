@@ -111,6 +111,6 @@ public class TastyPlaceController {
 	
 	@RequestMapping("nextReplyView")
 	public String nextReplyView(String id,String page){
-		return "redirect:tastyPlaceBlog?id="+id+"&page="+page;
+		return "redirect:blog_tastyPlaceBlog?id="+id+"&page="+page;
 	}
 }

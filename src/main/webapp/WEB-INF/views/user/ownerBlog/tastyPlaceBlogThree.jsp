@@ -157,9 +157,10 @@
 						success:function(data){
 							if(data.fail!=null)
 								alert(data.fail);
-							else
+							else{
 								alert(data.success);
-							window.location.reload(true);
+								window.location.reload(true);
+							}
 						}
 					}); 
 				});
@@ -196,46 +197,30 @@
   	<strong><font size="5">${list.businessName }</font></strong><br><br>
     <b>주소: </b>${list.address }<br>
     <b>대표전화: </b>${list.tastyTel }<br>
-   	<b>영업시간: </b>11:00 ~ 22:30
+   	<b>영업시간: </b>10:00 ~ 22:00
     </c:if>
     </c:forEach>
 </div>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:showImgWin('${initParam.root }resources/images/user/owner/tasty/shop4.png')"id="shop"><img src="${initParam.root }resources/images/user/owner/tasty/shop4.png" class="img-thumbnail" alt="Cinque Terre" width="254px" height="156px"></a>&nbsp;&nbsp;&nbsp;
-<a href="javascript:showImgWin('${initParam.root }resources/images/user/owner/tasty/shop5.png')"id="shop"><img src="${initParam.root }resources/images/user/owner/tasty/shop5.png" class="img-thumbnail" alt="Cinque Terre" width="254px" height="156px"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="javascript:showImgWin('${initParam.root }resources/images/user/owner/tasty/shop6.png')"id="shop"><img src="${initParam.root }resources/images/user/owner/tasty/shop6.png" class="img-thumbnail" alt="Cinque Terre" width="254px" height="156px"></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:showImgWin('${initParam.root }resources/images/user/owner/tasty/shop.png')"id="shop"><img src="${initParam.root }resources/images/user/owner/tasty/shop.png" class="img-thumbnail" alt="Cinque Terre" width="254px" height="156px"></a>&nbsp;&nbsp;&nbsp;
+<a href="javascript:showImgWin('${initParam.root }resources/images/user/owner/tasty/shop2.png')"id="shop"><img src="${initParam.root }resources/images/user/owner/tasty/shop2.png" class="img-thumbnail" alt="Cinque Terre" width="274px" height="156px"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="javascript:showImgWin('${initParam.root }resources/images/user/owner/tasty/shop3.png')"id="shop"><img src="${initParam.root }resources/images/user/owner/tasty/shop3.png" class="img-thumbnail" alt="Cinque Terre" width="254px" height="156px"></a>
 <br><br>
 <div class="alert alert-info">
   <strong><font size="3">Best Menu </font></strong> &nbsp; 해당 이미지를 클릭하시면 좀더 정확한 이미지를 보실 수 있습니다.
 </div>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:showImgWin('${initParam.root }resources/images/user/owner/tasty/menu7.png')"id="shop"><img src="${initParam.root }resources/images/user/owner/tasty/menu7.png" class="img-rounded" alt="Cinque Terre" width="254px" height="206px" onmouseover="changeImg(this,'${initParam.root }resources/images/user/owner/tasty/dMenu7.png')" onmouseout="changeImg(this,'${initParam.root }resources/images/user/owner/tasty/menu7.png')"></a>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:showImgWin('${initParam.root }resources/images/user/owner/tasty/menu8.png')"id="shop"><img src="${initParam.root }resources/images/user/owner/tasty/menu8.png" class="img-rounded" alt="Cinque Terre" width="254px" height="206px" onmouseover="changeImg(this,'${initParam.root }resources/images/user/owner/tasty/dMenu8.png')" onmouseout="changeImg(this,'${initParam.root }resources/images/user/owner/tasty/menu8.png')"></a>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:showImgWin('${initParam.root }resources/images/user/owner/tasty/menu9.png')"id="shop"><img src="${initParam.root }resources/images/user/owner/tasty/menu9.png" class="img-rounded" alt="Cinque Terre" width="254px" height="206px" onmouseover="changeImg(this,'${initParam.root }resources/images/user/owner/tasty/dMenu9.png')" onmouseout="changeImg(this,'${initParam.root }resources/images/user/owner/tasty/menu9.png')"></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:showImgWin('${initParam.root }resources/images/user/owner/tasty/menu.png')"id="shop"><img src="${initParam.root }resources/images/user/owner/tasty/menu.png" class="img-rounded" alt="Cinque Terre" width="254px" height="206px" onmouseover="changeImg(this,'${initParam.root }resources/images/user/owner/tasty/dMenu.png')" onmouseout="changeImg(this,'${initParam.root }resources/images/user/owner/tasty/menu.png')"></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:showImgWin('${initParam.root }resources/images/user/owner/tasty/menu2.png')"id="shop"><img src="${initParam.root }resources/images/user/owner/tasty/menu2.png" class="img-rounded" alt="Cinque Terre" width="254px" height="206px" onmouseover="changeImg(this,'${initParam.root }resources/images/user/owner/tasty/dMenu2.png')" onmouseout="changeImg(this,'${initParam.root }resources/images/user/owner/tasty/menu2.png')"></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:showImgWin('${initParam.root }resources/images/user/owner/tasty/menu3.png')"id="shop"><img src="${initParam.root }resources/images/user/owner/tasty/menu3.png" class="img-rounded" alt="Cinque Terre" width="254px" height="206px" onmouseover="changeImg(this,'${initParam.root }resources/images/user/owner/tasty/dMenu3.png')" onmouseout="changeImg(this,'${initParam.root }resources/images/user/owner/tasty/menu3.png')"></a>
 <br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:showImgWin('${initParam.root }resources/images/user/owner/tasty/menu10.png')"id="shop"><img src="${initParam.root }resources/images/user/owner/tasty/menu10.png" class="img-rounded" alt="Cinque Terre" width="254px" height="206px" onmouseover="changeImg(this,'${initParam.root }resources/images/user/owner/tasty/dMenu10.png')" onmouseout="changeImg(this,'${initParam.root }resources/images/user/owner/tasty/menu10.png')"></a>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:showImgWin('${initParam.root }resources/images/user/owner/tasty/menu11.png')"id="shop"><img src="${initParam.root }resources/images/user/owner/tasty/menu11.png" class="img-rounded" alt="Cinque Terre" width="254px" height="206px" onmouseover="changeImg(this,'${initParam.root }resources/images/user/owner/tasty/dMenu11.png')" onmouseout="changeImg(this,'${initParam.root }resources/images/user/owner/tasty/menu11.png')"></a>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:showImgWin('${initParam.root }resources/images/user/owner/tasty/menu12.png')"id="shop"><img src="${initParam.root }resources/images/user/owner/tasty/menu12.png" class="img-rounded" alt="Cinque Terre" width="254px" height="206px" onmouseover="changeImg(this,'${initParam.root }resources/images/user/owner/tasty/dMenu12.png')" onmouseout="changeImg(this,'${initParam.root }resources/images/user/owner/tasty/menu12.png')"></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:showImgWin('${initParam.root }resources/images/user/owner/tasty/menu4.png')"id="shop"><img src="${initParam.root }resources/images/user/owner/tasty/menu4.png" class="img-rounded" alt="Cinque Terre" width="254px" height="206px" onmouseover="changeImg(this,'${initParam.root }resources/images/user/owner/tasty/dMenu4.png')" onmouseout="changeImg(this,'${initParam.root }resources/images/user/owner/tasty/menu4.png')"></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:showImgWin('${initParam.root }resources/images/user/owner/tasty/menu5.png')"id="shop"><img src="${initParam.root }resources/images/user/owner/tasty/menu5.png" class="img-rounded" alt="Cinque Terre" width="254px" height="206px" onmouseover="changeImg(this,'${initParam.root }resources/images/user/owner/tasty/dMenu5.png')" onmouseout="changeImg(this,'${initParam.root }resources/images/user/owner/tasty/menu5.png')"></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:showImgWin('${initParam.root }resources/images/user/owner/tasty/menu6.png')"id="shop"><img src="${initParam.root }resources/images/user/owner/tasty/menu6.png" class="img-rounded" alt="Cinque Terre" width="254px" height="206px" onmouseover="changeImg(this,'${initParam.root }resources/images/user/owner/tasty/dMenu6.png')" onmouseout="changeImg(this,'${initParam.root }resources/images/user/owner/tasty/menu6.png')"></a>
 <br><br>
 <div class="alert alert-success">
   <strong><font size="3">덧글 공유하기</font></strong>&nbsp; 업주 사장님과 사용자 여러분들의 각자의 의견을 공유하는 공간입니다.
 </div>
 <c:if test="${map.TOTALCNT!=0 }">
-  <div class="progress">
-  <div class="progress-bar progress-bar-striped active" role="progressbar"
-  aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:${map.TOTALMARK/map.TOTALCNT*20 }%">
-   총 참여자수:${map.TOTALCNT }명  /  평점통계 :${map.TOTALMARK/map.TOTALCNT}점
-  </div>
-  </div>
-  <div class="progress">
-   <div class="progress-bar progress-bar-success" role="progressbar" style="width:${map.two*100/map.TOTALCNT}%">
-    20대(${map.two*100/map.TOTALCNT}%) 
-  </div>
-	<div class="progress-bar progress-bar-warning" role="progressbar" style="width:${map.three*100/map.TOTALCNT}%">
-    30대(${map.three*100/map.TOTALCNT}%)
- 	</div> 
-  <div class="progress-bar progress-bar-danger" role="progressbar" style="width:${map.four*100/map.TOTALCNT}%">
-    40대(${map.four*100/map.TOTALCNT}%)
-  </div>
-  </div>
+<div id="container" style="min-width: 410px; height: 400px; max-width: 500px; margin: 0 auto"></div>
 </c:if>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="view"></span>
 &nbsp;&nbsp;&nbsp;1점<input type="radio" name=mark value="1" id="one"> &nbsp;&nbsp;&nbsp;&nbsp;2점<input type="radio" name=mark value="2" id="two"> &nbsp;&nbsp;&nbsp;&nbsp;3점<input type="radio" name=mark value="3" id="three" checked="checked"> &nbsp;&nbsp;&nbsp;&nbsp;4점<input type="radio" name=mark value="4" id="four"> &nbsp;&nbsp;&nbsp;&nbsp;5점<input type="radio" name=mark value="5" id="five">&nbsp;&nbsp;&nbsp;&nbsp;
