@@ -137,6 +137,8 @@ public class TestMemberDao {
 	public void testSelectMemberList() {
 		int totalCount = memberDao.selectTotalCount();
 		Page page = new Page(totalCount);
+		page.setPageSize(1);
+		page.setCurrentPage(2);
 		List<Member> memberList = memberDao.selectMemberList(page);
 		if(totalCount==0) {
 			assertThat(memberList.size(), is(0));

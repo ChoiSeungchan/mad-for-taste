@@ -25,9 +25,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<select id="selectMemberList" resultMap="memberRM">
 		<![CDATA[
-			select * from
-			(select rownum, m.* from member m order by rownum desc)
-			where rownum between #{beginRow} and #{endRow}		
+			select * from (
+			select rownum as rnum, m.* 
+			from member m order by rnum desc)
+			where rnum between #{beginRow} and #{endRow}		
 		]]>
 	</select>
 	<update id="updateMember">

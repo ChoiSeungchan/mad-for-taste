@@ -3,7 +3,7 @@ create table item(
 	item_no number primary key,
 	item_stock number not null,
 	max_amount_available number default 10,
-	item_name varchar(20)not null,
+	item_name varchar(100)not null,
 	item_price number not null,
 	item_effect varchar2(20)not null,
 	item_effect_value number, 	
@@ -11,6 +11,8 @@ create table item(
 )
 create sequence item_seq nocache
 drop sequence item_seq
+
+select * from item
 
 drop table purchase
 create table Purchase(
@@ -24,3 +26,4 @@ create sequence purchase_seq nocache
 drop sequence purchase_seq
 
 select *from purchase
+

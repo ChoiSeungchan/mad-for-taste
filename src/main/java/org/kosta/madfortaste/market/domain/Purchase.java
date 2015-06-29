@@ -1,11 +1,13 @@
 package org.kosta.madfortaste.market.domain;
 
+import java.util.Date;
+
 import org.kosta.madfortaste.user.domain.Member;
 
 public class Purchase {
-	private String purchaseNo;
-	private String purchaseDate;
-	private String purchaseAmount;
+	private int purchaseNo;
+	private int purchaseAmount;
+	private Date purchaseDate;
 	private Member member;
 	private Item item;
 
@@ -13,45 +15,45 @@ public class Purchase {
 		super();
 	}
 
-	public Purchase(String purchaseAmount, Member member, Item item) {
+	public Purchase(int purchaseAmount, Member member, Item item) {
 		super();
 		this.purchaseAmount = purchaseAmount;
 		this.member = member;
 		this.item = item;
 	}
 
-	public Purchase(String purchaseNo, String purchaseDate,
-			String purchaseAmount, Member member, Item item) {
+	public Purchase(int purchaseNo, int purchaseAmount, Date purchaseDate,
+			Member member, Item item) {
 		super();
 		this.purchaseNo = purchaseNo;
-		this.purchaseDate = purchaseDate;
 		this.purchaseAmount = purchaseAmount;
+		this.purchaseDate = purchaseDate;
 		this.member = member;
 		this.item = item;
 	}
 
-	public String getPurchaseNo() {
+	public int getPurchaseNo() {
 		return purchaseNo;
 	}
 
-	public void setPurchaseNo(String purchaseNo) {
+	public void setPurchaseNo(int purchaseNo) {
 		this.purchaseNo = purchaseNo;
 	}
 
-	public String getPurchaseDate() {
-		return purchaseDate;
-	}
-
-	public void setPurchaseDate(String purchaseDate) {
-		this.purchaseDate = purchaseDate;
-	}
-
-	public String getPurchaseAmount() {
+	public int getPurchaseAmount() {
 		return purchaseAmount;
 	}
 
-	public void setPurchaseAmount(String purchaseAmount) {
+	public void setPurchaseAmount(int purchaseAmount) {
 		this.purchaseAmount = purchaseAmount;
+	}
+
+	public Date getPurchaseDate() {
+		return purchaseDate;
+	}
+
+	public void setPurchaseDate(Date purchaseDate) {
+		this.purchaseDate = purchaseDate;
 	}
 
 	public Member getMember() {
@@ -72,8 +74,8 @@ public class Purchase {
 
 	@Override
 	public String toString() {
-		return "Purchase [purchaseNo=" + purchaseNo + ", purchaseDate="
-				+ purchaseDate + ", purchaseAmount=" + purchaseAmount
+		return "Purchase [purchaseNo=" + purchaseNo + ", purchaseAmount="
+				+ purchaseAmount + ", purchaseDate=" + purchaseDate
 				+ ", member=" + member + ", item=" + item + "]";
 	}
 

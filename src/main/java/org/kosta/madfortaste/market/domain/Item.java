@@ -1,7 +1,7 @@
 package org.kosta.madfortaste.market.domain;
 
 public class Item {
-	private String itemNo;
+	private int itemNo;
 	private int itemStock;
 	private int maxAmountAvailable;
 	private String itemName;
@@ -12,6 +12,11 @@ public class Item {
 
 	public Item() {
 		super();
+	}
+	
+	public Item(int itemNo) {
+		super();
+		this.itemNo = itemNo;
 	}
 
 	public Item(int itemStock, int maxAmountAvailable, String itemName,
@@ -27,7 +32,7 @@ public class Item {
 		this.itemDetail = itemDetail;
 	}
 
-	public Item(String itemNo, int itemStock, int maxAmountAvailable,
+	public Item(int itemNo, int itemStock, int maxAmountAvailable,
 			String itemName, int itemPrice, String itemEffect,
 			int itemEffectValue, String itemDetail) {
 		super();
@@ -41,11 +46,11 @@ public class Item {
 		this.itemDetail = itemDetail;
 	}
 
-	public String getItemNo() {
+	public int getItemNo() {
 		return itemNo;
 	}
 
-	public void setItemNo(String itemNo) {
+	public void setItemNo(int itemNo) {
 		this.itemNo = itemNo;
 	}
 
