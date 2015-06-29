@@ -4,7 +4,15 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="market">
+ 	<insert id="insertItem">
+ 		insert into item(item_no,item_stock,max_amount_available,item_name,item_price,item_effect,item_effect_value,item_detail)
+ 		values(item_seq.nextval,#{itemStock},#{maxAmountAvailable},#{itemName},#{itemPrice},#{itemEffect},#{itemEffectValue},#{itemDetail})
+ 	</insert>
  	
+ 	<insert id="insertPurchase">
+ 		insert into purchase(purchase_no,purchase_amount,id,item_no)
+ 		values(purchase_seq.nextval,#{purchaseAmount},#{id},#{itemNo})
+ 	</insert>
  </mapper>
  
  
