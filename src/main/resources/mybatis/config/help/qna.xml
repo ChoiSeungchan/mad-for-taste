@@ -16,17 +16,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="totalQnaContentCount" resultType="int">
 	select count(*) from qna_board
-</select>
+	</select>
 
-<select id="loadQnaList" resultMap="qnaRm">
+<select id="loadQnaList" resultMap="qnaRM">
  select * from (
 			select rownum as rnum, t.*, m.*
 			from (select * from qna_board order by article_no desc) t, member m
 			where t.writer=m.id
 		) where rnum between #{beginRow} and #{endRow}
 </select>
-	<!-- 
-<select id="getQnaContents" resultMap="qnaRm" resultType="qnavo">
+
+ <select id="getQnaContents" resultMap="qnaRM">
 	select * from qna_board where article_no=#{value}
 </select>
 
@@ -47,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <delete id="deleteQna" parameterType="qnavo">
 	delete from qna_board where article_no=#{value}
-</delete> -->
+</delete>
  	
  </mapper>
  

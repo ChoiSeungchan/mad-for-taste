@@ -63,7 +63,7 @@ create table qna_board(
     reg_date date default sysdate,
 	constraint qnawriter_fk foreign key (writer) references member(id) on delete cascade
 )
-
+select * from qna_board;
 create sequence qna_no_seq nocache;
 
 insert into qna_board(article_no,writer, title, content)

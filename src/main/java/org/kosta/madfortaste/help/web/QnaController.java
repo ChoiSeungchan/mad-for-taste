@@ -2,6 +2,8 @@ package org.kosta.madfortaste.help.web;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.help.domain.Qna;
 import org.kosta.madfortaste.help.service.QnaService;
@@ -13,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class QnaController {
 	
-	@Autowired
+	@Resource(name="qnaServiceImpl")
 	private QnaService qnaService;
 	
 	@RequestMapping(value="qnalist")
@@ -30,38 +32,38 @@ public class QnaController {
 		return mv;
 		
 	}
-	@RequestMapping("qnaShowContentView")
+	@RequestMapping(value="qnaShowContentView")
 	public ModelAndView qnaShowContentView(String no){
 		System.out.println(no);
 		Qna qna = qnaService.getQnaContents(no);
 		return new ModelAndView("help/qnacontentView","qnaContent",qna);
 	}
 	
-	@RequestMapping("qnaInsertView")
+	@RequestMapping(value="qnaInsertView")
 	public String qnaInsertView(){
 		return "help/qnaInsertView";
 	}
 	
-	@RequestMapping("insertQna")
+	@RequestMapping(value="insertQna")
 	public ModelAndView insertQna(Qna qna){
 		qnaService.insertQna(qna);
 		return new ModelAndView("redirect:qnalist");
 	}
 	
-	@RequestMapping("qnaUpdateView")
+	@RequestMapping(value="qnaUpdateView")
 	public ModelAndView qnaUpdateView(Qna qna){
 		qna = qnaService.getQnaContents(qna.getArticleNo());
 		return new ModelAndView("help/qnaUpdateView","qnaUpdateElement",qna);
 	}
 	
-	@RequestMapping("updateQna")
+	@RequestMapping(value="updateQna")
 	public ModelAndView updateQna(Qna qna){
 		System.out.println("Controller update : "+qna.getArticleNo());
 		qnaService.updateQna(qna);
 		return new ModelAndView("redirect:qnaShowContentView?no="+qna.getArticleNo());
 	}
 	
-	@RequestMapping("deleteQna")
+	@RequestMapping(value="deleteQna")
 	public String deleteQna(Qna qna){
 		String no = qna.getArticleNo();
 		System.out.println("delete : "+no);
