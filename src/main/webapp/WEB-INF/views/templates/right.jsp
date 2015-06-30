@@ -114,8 +114,31 @@
 				$('#progress').attr('class','progress-bar progress-bar-success progress-bar-striped active');
 			}
 		}
+		
+		
+		/*
+			회원 랭킹 가져오는 ajax function
+		*/
+		$.ajax({
+			type:"post",
+			url:"${initParam.root}memberRank.json",
+			dataType:"json",
+			success:function(data){	
+				var tempStr = '';
+				$.each(data, function(index, member) {
+					tempStr+='<tr>';
+					tempStr+='<td>'+(index+1)+'</td>';
+					tempStr+='<td><img src=${initParam.root}resources/images/user/member/level/'+member.levelInfo.level+'.gif></td>';
+					tempStr+='<td><b>'+member.name+' ('+member.id+')'+'</b></td>';
+					tempStr+='<td>'+member.exp+'</td>';
+					tempStr+='</tr>';
+				})
+				$('#memberRankTableBody').html(tempStr);
+			}
+		});
 	})
 </script>
+</style>
 <ul class="list-group">
 	<li class="list-group-item"> <!-- 박스 시작 -->
 		<c:choose>
@@ -237,25 +260,9 @@
 		<h3 class="panel-title">회원 랭킹</h3>
 	</div>
 	<div class="panel-body"><br>
-		<table class="table">
-			<tr>
-				<td>asdf</td>
-			</tr>
-			<tr>
-				<td>asdf</td>
-			</tr>
-			<tr>
-				<td>asdf</td>
-			</tr>
-			<tr>
-				<td>asdf</td>
-			</tr>
-			<tr>
-				<td>asdf</td>
-			</tr>
-			<tr>
-				<td>asdf</td>
-			</tr>
+		<table id="memberRankTable" class="table table-hover">
+			<tbody id="memberRankTableBody"> 
+			</tbody>
 		</table>
 	</div>
 </div>

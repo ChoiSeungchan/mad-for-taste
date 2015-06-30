@@ -2,6 +2,7 @@ package org.kosta.madfortaste.common.web;
 
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.taste.service.TasteBoardService;
+import org.kosta.madfortaste.user.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.user.domain.Member;
 
 public interface MemberService {
@@ -16,6 +17,8 @@ public interface MemberService {
 	public abstract int selectTotalCount();
 
 	public abstract List<Member> selectMemberList(int currentPage);
+	
+	public abstract List<Member> selectMemberListOrderByExp(int currentPage);
 
 	public abstract void updateMember(Member member, HttpServletRequest req) throws IllegalStateException, IOException;
 

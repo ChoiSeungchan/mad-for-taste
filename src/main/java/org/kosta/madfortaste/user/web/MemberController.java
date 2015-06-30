@@ -2,6 +2,7 @@ package org.kosta.madfortaste.user.web;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -126,5 +127,12 @@ public class MemberController {
 			}
 		}
 		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="memberRank.json")
+	public List<Member> getMemberRank () {
+		List<Member> memberList = memberService.selectMemberListOrderByExp(1); 
+		return memberList;
 	}
 }

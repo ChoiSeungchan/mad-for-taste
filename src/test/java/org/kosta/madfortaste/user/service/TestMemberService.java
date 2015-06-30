@@ -82,6 +82,21 @@ public class TestMemberService {
 		}
 	}
 	
+	@Test
+	public void testSelectMemberListOrderByExp() {
+		int totalCount = memberService.selectTotalCount();
+		List<Member> memberList = memberService.selectMemberListOrderByExp(1);
+		if(totalCount==0) {
+			assertThat(memberList.size(), is(0));
+			log.info("회원이 없습니다.");
+		} else {
+			assertThat(memberList.size(), greaterThan(0));
+			for (Member member : memberList) {
+				log.info(member.toString());
+			}
+		}
+	}
+	
 	@Transactional
 	@Test
 	public void testUpExp() {

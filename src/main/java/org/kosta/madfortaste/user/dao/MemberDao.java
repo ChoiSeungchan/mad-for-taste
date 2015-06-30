@@ -16,6 +16,8 @@ public interface MemberDao {
 
 	public abstract List<Member> selectMemberList(Page page);
 
+	public abstract List<Member> selectMemberListOrderByExp(Page page);
+
 	public abstract void updateMember(Member member);
 
 	public abstract void deleteMember(String id);

@@ -31,6 +31,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			where rnum between #{beginRow} and #{endRow}		
 		]]>
 	</select>
+	<select id="selectMemberListOrderByExp" resultMap="memberRM">
+		<![CDATA[
+			select * from (
+			select rownum as rnum, m.* 
+			from member m where exp<10000000 order by exp desc)
+			where rnum between #{beginRow} and #{endRow}		
+		]]>
+	</select>
 	<update id="updateMember">
 		update member set password=#{password}, name=#{name}, address=#{address}, gender=#{gender},
 		birth=#{birth}, tel=#{tel}, profile_img=#{profileImg}

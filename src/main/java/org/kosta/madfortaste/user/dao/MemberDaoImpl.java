@@ -57,6 +57,16 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
+	public List<Member> selectMemberListOrderByExp(Page page) {
+		List<Member> memberList = sqlSessionTemplate.selectList("selectMemberListOrderByExp", page);
+		for (Member member : memberList) {
+			if(member!=null) levelTable.calculateLevelInfo(member);
+			member.setProfileImg(memberImgPath + member.getProfileImg());
+		}
+		return memberList;
+	}
+
+	@Override
 	public void updateMember(Member member) {
 		sqlSessionTemplate.update("updateMember",member);
 	}
