@@ -13,7 +13,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class MerketDaoImpl implements MarketDao{
+public class MarketDaoImpl implements MarketDao{
+
 	@Inject
 	private SqlSessionTemplate sqlSessionTemplate;
 

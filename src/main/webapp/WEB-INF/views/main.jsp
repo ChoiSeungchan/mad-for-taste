@@ -74,7 +74,7 @@
 			</div>
 			<div class="item">
 					<!-- <a href="blog_tastyPlaceBlogThree?id=owner3456"> -->
-					<a href="marketService">
+					<a href="market">
 					<img alt="" src="${initParam.root}resources/images/test3.jpg" /></a>
 				<div class="carousel-caption">
 					<h4>Third Thumbnail label</h4>
@@ -93,7 +93,7 @@
 	
 	<c:choose>
 		<c:when test="${member!=null && member.levelInfo.level>=1}">
-			<button id="regArticleBtn" class="btn btn-primary btn-lg btn-block" style="margin-bottom: 10px">나만의 맛집 소개하기</button>
+			<button id="regArticleBtn" class="btn btn-default btn-lg btn-block" style="margin-bottom: 10px">나만의 맛집 소개하기</button>
 		</c:when>
 		<c:otherwise>
 		</c:otherwise>

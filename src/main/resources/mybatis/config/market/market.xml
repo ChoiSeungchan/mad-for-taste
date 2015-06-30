@@ -56,7 +56,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<![CDATA[
 			select * from (
 			select rownum as rnum, i.* 
-			from item i order by rnum desc)
+			from item i order by item_no desc)
 			where rnum between #{beginRow} and #{endRow}		
 		]]>
  	</select>
