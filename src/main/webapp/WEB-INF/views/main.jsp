@@ -93,11 +93,14 @@
 	
 	<c:choose>
 		<c:when test="${member!=null && member.levelInfo.level>=1}">
-			<button id="regArticleBtn" class="btn btn-default btn-lg btn-block" style="margin-bottom: 10px">나만의 맛집 소개하기</button>
+			<button id="regArticleBtn" class="btn btn-primary btn-lg btn-block" style="margin-bottom: 10px">나만의 맛집 소개하기</button>
 		</c:when>
 		<c:otherwise>
 		</c:otherwise>
 	</c:choose>
+	<!-- Notice -->
+	
+	
 	<!-- Top 3 Rank -->
 	<c:forEach  var="top3" varStatus="status" items="${topRankArticle}">
 		<blockquote id="${top3.articleNo}" class="topRank">
