@@ -73,7 +73,9 @@
 				</div>
 			</div>
 			<div class="item">
-					<a href="blog_tastyPlaceBlogThree?id=owner3456"><img alt="" src="${initParam.root}resources/images/test3.jpg" /></a>
+					<!-- <a href="blog_tastyPlaceBlogThree?id=owner3456"> -->
+					<a href="marketService">
+					<img alt="" src="${initParam.root}resources/images/test3.jpg" /></a>
 				<div class="carousel-caption">
 					<h4>Third Thumbnail label</h4>
 					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.

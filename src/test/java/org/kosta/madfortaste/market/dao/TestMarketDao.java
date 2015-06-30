@@ -30,8 +30,8 @@ public class TestMarketDao {
 	 * 아이템을 등록하는 메소드
 	 */
 	@Test
-	public void testInsertItem() {//아이템 등록
-		Item item = new Item(500, 10, "중국집 할인 쿠폰", 3000, "PERCENT_SALE", 20, "중국집 20% 할인 쿠폰 이에요!");
+	public void testInsertItem() {//아이템 등록(PERCENT_SALE,FREE_SALE)
+		Item item = new Item(20, 1, "불닭나라 무료 쿠폰", 5000, "FREE_SALE", 100, "[대박]불닭나라 공짜 쿠폰!");
 		assertThat(item.getItemNo(), is(0));
 		item = marketDao.insertItem(item);
 		assertThat(item.getItemNo(), greaterThan(0));
@@ -43,7 +43,7 @@ public class TestMarketDao {
 	 */
 	@Test
 	public void testSelectItem() {
-		int itemNo = 1;
+		int itemNo = 2;
 		int totalCount = marketDao.getTotalItemCount();
 		assertThat(totalCount, greaterThan(0)); // item table이 notEmpty 이면 통과
 		Item item = marketDao.selectItem(itemNo);
@@ -59,6 +59,8 @@ public class TestMarketDao {
 		int totalCount = marketDao.getTotalItemCount();
 		assertThat(totalCount, greaterThan(0)); // item table이 notEmpty 이면 통과
 		Page page = new Page(totalCount);
+		page.setCurrentPage(1);
+		page.setPageSize(3);
 		List<Item> itemList = marketDao.getItemsByPaging(page);
 		assertThat(itemList.size(), greaterThan(0)); // 리턴된 list의 size가 0보다 크면 통과
 		for (Item item : itemList) {
@@ -141,8 +143,8 @@ public class TestMarketDao {
 		int totalPurchaseCount = marketDao.getTotalPurchaseCount();
 		assertThat(totalPurchaseCount, greaterThan(0));
 		Page page = new Page(totalPurchaseCount);
-		page.setPageSize(3);
-		page.setCurrentPage(1);
+		page.setPageSize(1);
+		page.setCurrentPage(2);
 		String memberId = "member";
 		List<Purchase> purchaseList = marketDao.getPurchaseListByPaging(memberId, page);
 		assertNotNull(purchaseList);

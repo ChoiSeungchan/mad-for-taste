@@ -15,4 +15,20 @@ public class MarketServiceImpl implements MerketService{
 	@Autowired
 	private MarketDao marketDao;
 
+	@Override
+	public List<Item> marketService(String currPage) {
+		String curPage=currPage;
+		Page page=new Page(marketDao.getTotalItemCount());
+		page.setPageSize(6);
+		if(curPage==null)
+			curPage="1";
+		page.setCurrentPage(Integer.parseInt(curPage));
+		return marketDao.getItemsByPaging(page);
+	}
+
+	@Override
+	public Item findItemByNo(String no) {
+		return marketDao.selectItem(Integer.parseInt(no));
+	}
+
 }

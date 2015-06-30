@@ -25,5 +25,3 @@ create table Purchase(
 create sequence purchase_seq nocache
 drop sequence purchase_seq
 
-select *from purchase
-
