@@ -60,6 +60,9 @@
 				</c:when>
 				<c:otherwise>
 					<li>
+						<a href="market">마켓</a>
+					</li>
+					<li>
 						<a href="logout">로그아웃</a>
 					</li>
 				</c:otherwise>

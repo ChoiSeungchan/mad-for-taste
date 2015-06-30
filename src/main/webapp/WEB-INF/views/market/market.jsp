@@ -86,7 +86,6 @@ $(function(){
 			});
 		},1000)
 	});
-	
 });
 </script>
 <style type="text/css">

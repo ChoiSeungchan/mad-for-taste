@@ -129,7 +129,7 @@
 					tempStr+='<tr>';
 					tempStr+='<td>'+(index+1)+'</td>';
 					tempStr+='<td><img src=${initParam.root}resources/images/user/member/level/'+member.levelInfo.level+'.gif></td>';
-					tempStr+='<td><b>'+member.name+' ('+member.id+')'+'</b></td>';
+					tempStr+='<td><b>'+member.id+'</b></td>';
 					tempStr+='<td>'+member.exp+'</td>';
 					tempStr+='</tr>';
 				})
