@@ -4,6 +4,72 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="qna">
+ 
+ 	 <resultMap type="qnavo" id="qnaRM">		
+		<result property="articleNo" column="article_no" />			
+		<result property="writer" column="writer" /> 		
+		<result property="title" column="title" /> 		
+		<result property="content" column="content" /> 		
+		<result property="viewCount" column="hits" /> 		
+		<result property="regDate" column="reg_date" /> 		
+	</resultMap>	
+	
+	<select id="totalQnaContentCount" resultType="int">
+	select count(*) from qna_reply
+	</select>
+
+<select id="loadQnaList" resultMap="qnaRM">
+ select * from (
+			select rownum as rnum, t.*, m.*
+			from (select * from qna_reply order by ref desc,restep asc) t, member m
+			where t.writer=m.id
+		) where rnum between #{beginRow} and #{endRow}
+</select>
+
+ <select id="getQnaContents" resultType="qnavo" resultMap="qnaRM">
+	select * from qna_reply where article_no=#{value}
+</select>
+
+<update id="updateViewCountQna" parameterType="String">
+	update qna_reply set hits=hits+1 where article_no=#{value}
+	</update>
+
+<insert id="insertQna">
+ 	 <selectKey keyProperty="articleNo" resultType="String" order="BEFORE">
+		select qna_no_seq.nextval from dual
+	</selectKey>  
+  insert into qna_reply(article_no,writer, title, content,ref,restep,relevel) values(#{articleNo},#{writer},#{title},#{content},#{articleNo},0,0)
+  </insert>
+
+<update id="updateQna" parameterType="qnavo">
+	update qna_reply set title=#{title}, content=#{content} where article_no=#{articleNo}
+</update>
+
+<delete id="deleteQna" parameterType="qnavo">
+	delete from qna_reply where article_no=#{value}
+</delete>
+
+<!-- 답변글처리를 위한 SQL 정의 2가지 
+		  1. 답변 대상글보다 restep이 큰 답변글을 +1 씩 update 시킨다.
+		  2. 답변글을 insert 시킨다. 
+	 -->
+	 <!-- BoardService: 답변글 restep+1 업데이트 , insert relevel+1 -->
+	 <update id="updateRestep" parameterType="hashmap">
+	 UPDATE 	qna_reply 
+		  SET 		restep = restep+1
+	 	WHERE     ref=#{ref}
+	 	 AND 		restep > #{restep}
+	 </update>
+	 
+	 <insert id="insertRefContent" parameterType="qnavo">
+	 	<selectKey keyProperty="articleNo" resultType="String" order="BEFORE">
+	 		select qna_reply_seq.nextval from dual 
+	 	</selectKey>
+	 	insert into qna_reply
+	 	(article_no,title,writer,content,ref,restep,relevel)
+	 	values(#{articleNo},#{title},#{writer},#{content},
+	 	#{ref},#{restep},#{relevel})
+	 </insert>
  	
  </mapper>
  

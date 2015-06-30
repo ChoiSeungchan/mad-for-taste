@@ -104,6 +104,15 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
+	public List<Member> selectMemberListOrderByExp(int currentPage) {
+		Page page = new Page(memberDao.selectTotalCount());
+		page.setCurrentPage(currentPage);
+		page.setPageSize(10);
+		page.setPageGroupSize(5);
+		return memberDao.selectMemberListOrderByExp(page);
+	}
+
+	@Override
 	public void deleteMember(String id) {
 		memberDao.deleteMember(id);
 	}
