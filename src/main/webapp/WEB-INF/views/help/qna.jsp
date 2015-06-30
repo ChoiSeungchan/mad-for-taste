@@ -10,8 +10,8 @@
 <script>
 	$(function() {
 		$("#insert").click(function() {
-			location.href = "qnaInsertView"
-		})
+			location.href = "insertQnaView"
+		});
 		$("#t1 tbody tr").click(function() {
 			var articleNo =$(this).children("td:eq(0)").text();
 			location.href="qnaShowContentView?no="+articleNo;
@@ -48,24 +48,33 @@
 				<tr>
 					<td id="articleNo" align="left">${qna.articleNo}</td>
 					<td><span class="col-md-3"> ${qna.writer} </span></td>
-					<td>${qna.title}</td>
+					
+					<td class="titleView">
+					<c:if test="${qna.relevel!=0}">
+					<c:forEach begin="0" end="${qna.relevel}" step="1">&nbsp;&nbsp;<img alt="" src="${initParam.root}resources/images/help/reply.jpg" /></c:forEach>
+					</c:if>
+					${qna.title }
+				</td>	
+					
 					<span class="col-md-5" style="text-align: right">
 						<td><div class="glyphicon glyphicon-eye-open"></div>
 							${qna.viewCount} &nbsp&nbsp&nbsp&nbsp</td>
 						<td><div class="glyphicon glyphicon-time"></div>
 							${qna.regDate }
-					<td>
+					</td>
 					</span>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
-
-	
+	 
 		<div id="insert">
+		 <c:if test="${sessionScope.member!=null||sessionScope.owner!=null }">
 			<button type="button" class="btn btn-primary btn-block">Qna
 				register</button>
+					</c:if>
 		</div>
+	
 	
 	<div style="margin-bottom: 30px" align="center">
 		<ul class="pagination">

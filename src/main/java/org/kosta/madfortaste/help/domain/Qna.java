@@ -7,6 +7,41 @@ public class Qna {
 	private String content;
 	private int viewCount;
 	private String regDate;
+	private int ref;// 원 게시물 번호 , 글묶음 
+	private int restep;// ref 글묶음내의 글순서 
+	private int relevel;// 답변의 단계 
+	
+	public Qna(String articleNo, String writer, String title, String content,
+			int viewCount, String regDate, int ref, int restep, int relevel) {
+		super();
+		this.articleNo = articleNo;
+		this.writer = writer;
+		this.title = title;
+		this.content = content;
+		this.viewCount = viewCount;
+		this.regDate = regDate;
+		this.ref = ref;
+		this.restep = restep;
+		this.relevel = relevel;
+	}
+	public int getRef() {
+		return ref;
+	}
+	public void setRef(int ref) {
+		this.ref = ref;
+	}
+	public int getRestep() {
+		return restep;
+	}
+	public void setRestep(int restep) {
+		this.restep = restep;
+	}
+	public int getRelevel() {
+		return relevel;
+	}
+	public void setRelevel(int relevel) {
+		this.relevel = relevel;
+	}
 	public Qna(String articleNo, String writer, String title, String content,
 			int viewCount, String regDate) {
 		super();

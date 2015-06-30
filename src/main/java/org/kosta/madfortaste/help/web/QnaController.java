@@ -27,6 +27,7 @@ public class QnaController {
 		}
 		page.setCurrentPage(Integer.parseInt(pageNo));
 		List<Qna> list = qnaService.loadQnaList(page);
+		System.out.println(list);
 		mv.addObject("qnaBoardList",list);
 		mv.addObject("qnaPageInfo",page);
 		return mv;
@@ -34,14 +35,14 @@ public class QnaController {
 	}
 	@RequestMapping(value="qnaShowContentView")
 	public ModelAndView qnaShowContentView(String no){
-		System.out.println(no);
+		System.out.println("qnaShowContentView : "+no);
 		Qna qna = qnaService.getQnaContents(no);
 		return new ModelAndView("help/qnacontentView","qnaContent",qna);
 	}
 	
-	@RequestMapping(value="qnaInsertView")
-	public String qnaInsertView(){
-		return "help/qnaInsertView";
+	@RequestMapping(value="insertQnaView")
+	public String insertQnaView(){
+		return "help/insertQnaView";
 	}
 	
 	@RequestMapping(value="insertQna")
@@ -70,4 +71,20 @@ public class QnaController {
 		qnaService.deleteQna(no);
 		return "redirect:qnalist";
 	}
+	
+	@RequestMapping(value="qnaReplyInsertView")
+	public ModelAndView replyView(String articleNo){
+		System.out.println("replyView : "+articleNo);
+		Qna qna = qnaService.noCountGetContentsQna(articleNo);
+		System.out.println(qna);
+		return new ModelAndView("help/qnaReplyInsertView","insertReply",qna);
+	}
+	
+	@RequestMapping(value="insertRefContent")
+	public ModelAndView reply(Qna qna) throws Exception{		
+		qnaService.reply(qna);		
+		return new ModelAndView("redirect:qnalist");
+	}
+	
+	
 }

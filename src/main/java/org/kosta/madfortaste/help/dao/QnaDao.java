@@ -14,4 +14,6 @@ public interface QnaDao {
 	public void updateQna(Qna qna);
 	public void deleteQna(String pageNo);
 	public void updateViewCountQna(String articleNo);
+	public void updateRestep(int ref, int restep);
+	public void insertRefContent(Qna qna);
 }

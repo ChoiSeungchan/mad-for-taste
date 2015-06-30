@@ -14,4 +14,5 @@ public interface QnaService {
 	public void updateQna(Qna qna);
 	public void deleteQna(String no);
 	public Qna noCountGetContentsQna(String no);
+	public void reply(Qna qna);
 }
