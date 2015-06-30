@@ -59,8 +59,9 @@ public class TestMarketDao {
 		int totalCount = marketDao.getTotalItemCount();
 		assertThat(totalCount, greaterThan(0)); // item table이 notEmpty 이면 통과
 		Page page = new Page(totalCount);
-		page.setCurrentPage(1);
-		page.setPageSize(3);
+		page.setCurrentPage(3);
+		page.setPageSize(6);
+		System.out.println(page.isLastPage());
 		List<Item> itemList = marketDao.getItemsByPaging(page);
 		assertThat(itemList.size(), greaterThan(0)); // 리턴된 list의 size가 0보다 크면 통과
 		for (Item item : itemList) {

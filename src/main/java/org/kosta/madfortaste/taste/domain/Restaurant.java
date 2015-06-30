@@ -8,6 +8,5 @@ public class Restaurant {
 	private String tel;
 	private double xCoordinate;
 	private double yCoordinate;
-	
-	
+		
 }
