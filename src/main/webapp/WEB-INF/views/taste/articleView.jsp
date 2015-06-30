@@ -68,7 +68,7 @@
 		})
 		
 		$('#listBtn').click(function(){
-			history.go(-1);
+			location.href=${initParam.root};
 		})
 		
 		$('#deleteTasteBoardReplyForm').submit(function(){

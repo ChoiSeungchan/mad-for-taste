@@ -41,13 +41,16 @@ public class OwnerController {
 			@PathVariable String path) {
 		return "user/" + path;
 	}
-	@RequestMapping("tastyPlaceBlog")
-	public String pizzaMaru(String id,Model model,String page){
+	@RequestMapping("blog_{path}")
+	public String pizzaMaru(String id,Model model,String page,@PathVariable String path){
+		String brNo=tastyPlaceService.selectTastyPlacefindByBrNo(id);
 		Map<String, String> map=new HashMap<String, String>();
-		map=tastyPlaceService.selectTastyPlaceMarkTotalPrice();
-		map.put("two", tastyPlaceService.selectTastyPlaceMarkAge20());
-		map.put("three", tastyPlaceService.selectTastyPlaceMarkAge30());
-		map.put("four", tastyPlaceService.selectTastyPlaceMarkAge40());
+		map=tastyPlaceService.selectTastyPlaceMarkTotalPrice(brNo);
+		if(map.get("TOTALMARK")==null)
+			map.put("TOTALCNT", "0");
+		map.put("two", tastyPlaceService.selectTastyPlaceMarkAge20(brNo));
+		map.put("three", tastyPlaceService.selectTastyPlaceMarkAge30(brNo));
+		map.put("four", tastyPlaceService.selectTastyPlaceMarkAge40(brNo));
 		model.addAttribute("map", map);
 		model.addAttribute("list", tastyPlaceService.selectTastyPlaceGetAllList(id));
 		String oriPage=page;
@@ -60,10 +63,10 @@ public class OwnerController {
 			iPage=iPage*3-3;
 			page=Integer.toString(iPage);
 		}
-		model.addAttribute("memberList", tastyPlaceService.selectTastyPlaceReplyMember(page));
-		model.addAttribute("ownerList", tastyPlaceService.selectTastyPlaceReplyOwner(page));
+		model.addAttribute("memberList", tastyPlaceService.selectTastyPlaceReplyMember(page,brNo));
+		model.addAttribute("ownerList", tastyPlaceService.selectTastyPlaceReplyOwner(page,brNo));
 		model.addAttribute("page", oriPage);
-		return "user/ownerBlog/tastyPlaceBlog";
+		return "user/ownerBlog/"+path;
 	}
 	@RequestMapping(value="owner/{viewName1}/{viewName2}")
 	public String test(@PathVariable String viewName1, @PathVariable String viewName2) {

@@ -8,7 +8,7 @@
 			$(this).attr('style','background-color:#4F5151;color:white');
 		}, function (){
 			$(this).attr('style','background-color:none');
-		})
+		})		
 		
 		$('blockquote').click(function(){
 			location.href='${initParam.root}article/'+(this).id;
@@ -55,7 +55,7 @@
 		</ol>
 		<div class="carousel-inner">
 			<div class="item active">
-				<a href="tastyPlaceBlog?id=owner1234"><img alt="" src="${initParam.root}resources/images/test1.jpg" /></a>
+				<a href="blog_tastyPlaceBlog?id=owner1234"><img alt="" src="${initParam.root}resources/images/test1.jpg" /></a>
 				<div class="carousel-caption">
 					<h4>First Thumbnail label</h4>
 					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.
@@ -64,7 +64,7 @@
 				</div>
 			</div>
 			<div class="item">
-				<img alt="" src="${initParam.root}resources/images/test2.jpg" />
+				<a href="blog_tastyPlaceBlogSecond?id=owner2345"><img alt="" src="${initParam.root}resources/images/test2.jpg" /></a>
 				<div class="carousel-caption">
 					<h4>Second Thumbnail label</h4>
 					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.
@@ -73,7 +73,7 @@
 				</div>
 			</div>
 			<div class="item">
-				<img alt="" src="${initParam.root}resources/images/test3.jpg" />
+					<a href="blog_tastyPlaceBlogThree?id=owner3456"><img alt="" src="${initParam.root}resources/images/test3.jpg" /></a>
 				<div class="carousel-caption">
 					<h4>Third Thumbnail label</h4>
 					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.

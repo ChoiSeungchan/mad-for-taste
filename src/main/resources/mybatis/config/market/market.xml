@@ -5,6 +5,91 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="market">
  	
+ 	<resultMap type="item" id="itemRM">
+ 		<result property="itemNo" column="item_no"/>
+ 		<result property="itemStock" column="item_stock"/>
+ 		<result property="maxAmountAvailable" column="max_amount_available"/>
+ 		<result property="itemName" column="item_name"/>
+ 		<result property="itemPrice" column="item_price"/>
+ 		<result property="itemEffect" column="item_effect"/>
+ 		<result property="itemEffectValue" column="item_effect_value"/>
+ 		<result property="itemDetail" column="item_detail"/>
+ 	</resultMap>
+ 	<resultMap type="purchase" id="purchaseRM">
+ 		<result property="purchaseNo" column="purchase_no"/>
+ 		<result property="purchaseAmount" column="purchase_amount"/>
+ 		<result property="purchaseDate" column="purchase_date"/>
+ 		<result property="member.id" column="id"/>
+		<result property="member.password" column="password"/>
+		<result property="member.name" column="name"/>
+		<result property="member.address" column="address"/>
+		<result property="member.gender" column="gender"/>
+		<result property="member.birth" column="birth"/>
+		<result property="member.tel" column="tel"/>
+		<result property="member.exp" column="exp"/>
+		<result property="member.point" column="point"/>
+		<result property="member.profileImg" column="profile_Img"/>
+ 		<result property="item.itemNo" column="item_no"/>
+ 		<result property="item.itemStock" column="item_stock"/>
+ 		<result property="item.maxAmountAvailable" column="max_amount_available"/>
+ 		<result property="item.itemName" column="item_name"/>
+ 		<result property="item.itemPrice" column="item_price"/>
+ 		<result property="item.itemEffect" column="item_effect"/>
+ 		<result property="item.itemEffectValue" column="item_effect_value"/>
+ 		<result property="item.itemDetail" column="item_detail"/>
+ 	</resultMap>
+ 	
+ 	<select id="getTotalItemCount" resultType="int">
+ 		select count(*) from item
+ 	</select>
+ 	<insert id="insertItem">
+ 		<selectKey keyProperty="itemNo" keyColumn="item_no" resultType="int" order="AFTER">
+ 			select item_seq.currval from dual
+ 		</selectKey>
+ 		insert into item(item_no,item_stock,max_amount_available,item_name,item_price,item_effect,item_effect_value,item_detail)
+ 		values(item_seq.nextval,#{itemStock},#{maxAmountAvailable},#{itemName},#{itemPrice},#{itemEffect},#{itemEffectValue},#{itemDetail})
+ 	</insert>
+ 	<select id="selectItem" resultMap="itemRM">
+ 		select * from item where item_no=#{itemNo}
+ 	</select>
+ 	<select id="getItemsByPaging" resultMap="itemRM">
+ 		<![CDATA[
+			select * from (
+			select rownum as rnum, i.* 
+			from item i order by rnum desc)
+			where rnum between #{beginRow} and #{endRow}		
+		]]>
+ 	</select>
+ 	<update id="updateItem">
+		update item set 
+		item_stock=#{itemStock},max_amount_available=#{maxAmountAvailable},item_name=#{itemName},
+		item_price=#{itemPrice},item_effect=#{itemEffect},item_effect_value=#{itemEffectValue},
+		item_detail=#{itemDetail} 
+		where item_no=#{itemNo}
+ 	</update>
+ 	<delete id="deleteItem">
+ 		delete from item where item_no=#{itemNo}
+ 	</delete>
+ 	<insert id="insertPurchase">
+ 		<selectKey keyProperty="purchaseNo" keyColumn="purchase_no" resultType="int" order="AFTER">
+ 			select purchase_seq.currval from dual
+ 		</selectKey>
+ 		insert into purchase(purchase_no,purchase_amount,id,item_no)
+ 		values(purchase_seq.nextval,#{purchaseAmount},#{memberId},#{itemNo})
+ 	</insert>
+ 	<select id="getTotalPurchaseCount" resultType="int">
+ 		select count(*) from purchase
+ 	</select>
+ 	<select id="getPurchaseList" resultMap="purchaseRM">
+ 		select p.*,i.* from purchase p, item i where p.item_no=i.item_no and p.id=#{memberId} order by p.purchase_date desc
+ 	</select>
+ 	<select id="getPurchaseListByPaging" resultMap="purchaseRM">
+ 		select * from (
+			select rownum as rnum, p.purchase_no,p.purchase_date,p.purchase_amount, i.*
+			from (select * from purchase order by purchase_date desc) p, item i
+			where p.id=#{memberId} and p.item_no=i.item_no
+		) where rnum between #{page.beginRow} and #{page.endRow}
+ 	</select>
  </mapper>
  
  

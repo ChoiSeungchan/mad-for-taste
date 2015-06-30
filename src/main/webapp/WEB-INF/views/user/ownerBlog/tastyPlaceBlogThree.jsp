@@ -157,9 +157,10 @@
 						success:function(data){
 							if(data.fail!=null)
 								alert(data.fail);
-							else
+							else{
 								alert(data.success);
-							window.location.reload(true);
+								window.location.reload(true);
+							}
 						}
 					}); 
 				});

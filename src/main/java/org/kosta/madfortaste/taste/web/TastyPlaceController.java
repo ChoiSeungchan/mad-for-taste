@@ -106,11 +106,11 @@ public class TastyPlaceController {
 			tastyPlaceBoard.setUser(owner.getOwnerId());	
 			tastyPlaceService.insertTastyPlaceReplyOwner(tastyPlaceBoard);
 		}
-		return "redirect:tastyPlaceBlog?id="+id;
+		return "redirect:blog_tastyPlaceBlog?id="+id;
 	}
 	
 	@RequestMapping("nextReplyView")
 	public String nextReplyView(String id,String page){
-		return "redirect:tastyPlaceBlog?id="+id+"&page="+page;
+		return "redirect:blog_tastyPlaceBlog?id="+id+"&page="+page;
 	}
 }
