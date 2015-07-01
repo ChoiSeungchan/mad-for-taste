@@ -3,6 +3,7 @@ package org.kosta.madfortaste.taste.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.kosta.madfortaste.taste.domain.Restaurant;
 import org.kosta.madfortaste.taste.domain.TastyPlace;
 import org.kosta.madfortaste.taste.domain.TastyPlaceBoard;
 import org.kosta.madfortaste.taste.domain.TastyPlaceMark;
@@ -24,4 +25,7 @@ public interface TastyPlaceDao {
 	public List<TastyPlaceBoard> selectTastyPlaceReplyMember(Map<String, String> map);
 	public List<TastyPlaceBoard> selectTastyPlaceReplyOwner(Map<String, String> map);
 	public String selectTastyPlacefindByBrNo(String id);
+	public void insertRestaurant(Restaurant restaurant);
+	public List<String> selectRestaurantByAddrDo();
+	public List<String> selectRestaurantByAddrSi(String addrDo);
 }

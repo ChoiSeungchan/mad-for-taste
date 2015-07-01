@@ -67,6 +67,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="selectTastyPlacefindByBrNo" resultType="String">
  		 select br_no from tasty_place where owner_id=#{value} and contract_flag='Y'
  	</select>
+ 	
+ 	<insert id="insertRestaurant">
+ 		<selectKey keyProperty="resNo" keyColumn="res_no" resultType="String" order="BEFORE">
+ 			select res_seq.nextval from dual
+ 		</selectKey>
+ 		insert into Restaurant(res_no,res_name,addr_do,addr_si,addr_gu,addr_dong) values(res_seq.currval,#{resName},#{addrDo},#{addrSi},#{addrGu},#{addrDong})
+ 	</insert>
+ 	<select id="selectRestaurantByAddrDo" resultType="String">
+ 		select distinct(addr_do) from Restaurant order by addr_do asc
+ 	</select>
+ 	
+ 	<select id="selectRestaurantByAddrSi" resultType="String">
+ 		select distinct(addr_si) from Restaurant where addr_do=#{value} order by addr_si asc
+ 	</select>
  </mapper>
  
  

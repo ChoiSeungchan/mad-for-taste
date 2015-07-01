@@ -1,17 +1,20 @@
 package org.kosta.madfortaste.taste.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kosta.madfortaste.taste.domain.Restaurant;
 import org.kosta.madfortaste.taste.domain.TastyPlace;
 import org.kosta.madfortaste.taste.domain.TastyPlaceBoard;
 import org.kosta.madfortaste.taste.domain.TastyPlaceMark;
-import org.kosta.madfortaste.user.domain.Member;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -21,6 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class TestTastyPlaceDao {
 	@Autowired
 	private TastyPlaceDao tastyPlaceDao;
+	private org.slf4j.Logger log = LoggerFactory.getLogger(getClass());
+	
 	@Transactional
 	@Test
 	public void testInsertTastyPlace() {
@@ -108,5 +113,40 @@ public class TestTastyPlaceDao {
 		Map<String, String> map=new HashMap<String, String>();
 		map.put("cnt", "1");map.put("brno", "777");
 		assertNotNull((tastyPlaceDao.selectTastyPlaceReplyOwner(map)));
+	}
+	
+	/**
+	 * 레스토랑 등록~
+	 */
+	@Test
+	public void testInsertRestaurant(){
+		Restaurant restaurant=new Restaurant("빡촌치킨", "전라도", "포항시", "분당구", "서현동");
+		log.info(restaurant.getResNo());
+		tastyPlaceDao.insertRestaurant(restaurant);
+		assertNotNull(restaurant.getResNo()); //Success Case: null값이 올수 없다.
+		log.info(restaurant.getResNo());
+	}
+	
+	/**
+	 * 레스토랑 검색~
+	 */
+	@Test
+	public void testSelectRestaurantByAddrDo(){//도별검색
+		List<String> restaurant=null;
+		restaurant=tastyPlaceDao.selectRestaurantByAddrDo();
+		assertNotNull(restaurant);//Success Case: null이 아니면 루프 돌면서 List값 출력
+		for(String addrDo : restaurant)
+			log.info(addrDo);
+	}
+	
+	@Test
+	public void testSelectRestaurantByAddrSi(){//시별검색
+		List<String> restaurant=null;
+		String addrDo="전라도";//웹에서 넘어올 해당 지역권 도의 값
+		//  ↓ 셀레트 박스에서 선택한 addrDo에 해당되는 addrSi의 List 출력
+		restaurant=tastyPlaceDao.selectRestaurantByAddrSi(addrDo);
+		assertNotNull(restaurant);//Success Case: null이 아니면 루프 돌면서 List값 출력
+		for(String addrSi : restaurant)
+			log.info(addrSi);
 	}
 }

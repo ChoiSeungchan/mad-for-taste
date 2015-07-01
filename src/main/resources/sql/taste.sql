@@ -95,9 +95,21 @@ delete from tasty_place_mark
 select * from (select rownum numrow,reply,name,id,joinDate,profileImg,contents,brno from (select t.reply_no reply,m.name name,m.id id,m.join_date joinDate,m.profile_img profileImg,t.contents contents,t.br_no brno from tasty_place_reply t,member m where m.id=t.id order by reply desc)) where brno='77777' and numrow between  1and 1+2
  create sequence tasty_place_reply_seq nocache
  drop sequence tasty_place_reply_seq
-<<<<<<< HEAD
- 
-=======
- 
-select count(m.birth) from tasty_place_mark t,member m where m.id=t.id and birth between '1987' and '1996' and br_no='7777'
->>>>>>> refs/remotes/sun/develop-sun
+
+ select count(m.birth) from tasty_place_mark t,member m where m.id=t.id and birth between '1987' and '1996' and br_no='7777'
+
+
+drop table Restaurant
+create table Restaurant(
+	res_no number primary key,
+	res_name varchar2(50) not null,
+	addr_do varchar2(20) not null,
+	addr_si varchar2(20) not null,
+	addr_gu varchar2(20) not null,
+	addr_dong varchar2(20) not null,
+	good number default 0 not null,
+	bad number default 0 not null,
+	unique(res_name,addr_do,addr_si,addr_gu,addr_dong)
+)
+create sequence res_seq nocache
+drop sequence res_seq

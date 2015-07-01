@@ -9,9 +9,11 @@ import java.util.Map;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.madfortaste.taste.dao.TastyPlaceDao;
+import org.kosta.madfortaste.taste.domain.Restaurant;
 import org.kosta.madfortaste.taste.domain.TastyPlace;
 import org.kosta.madfortaste.taste.domain.TastyPlaceBoard;
 import org.kosta.madfortaste.taste.domain.TastyPlaceMark;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -20,80 +22,103 @@ import org.springframework.transaction.annotation.Transactional;
 @ContextConfiguration(locations = "/root-context.xml")
 public class TestTastyPlaceService {
 	@Autowired
-	private TastyPlaceDao tastyPlaceDao;
+	private TastyPlaceService tastyPlaceService;
+	private org.slf4j.Logger log = LoggerFactory.getLogger(getClass());
 	
 	@Transactional
 	@Test
 	public void testInsertTastyPlace() {
 		TastyPlace tastyPlace=new TastyPlace(null, "홍콩반점", "경기도 일산시", "1566-7777", null,"owner1234");
-		assertEquals(1, tastyPlaceDao.insertTastyPlace(tastyPlace));
+		assertEquals(1, tastyPlaceService.insertTastyPlace(tastyPlace));
 	}
 	
 	@Transactional
 	@Test
 	public void testDeleteTastyPlace(){
-		assertEquals(1, tastyPlaceDao.deleteTastyPlace("777"));
+		assertEquals(1, tastyPlaceService.deleteTastyPlace("777"));
 	}
 	
 	@Transactional
 	@Test
 	public void testInsertTastyPlaceMark(){
-		assertEquals(1,	tastyPlaceDao.insertTastyPlaceMark(new TastyPlaceMark("777", "member", "3")));
+		assertEquals(1,	tastyPlaceService.insertTastyPlaceMark(new TastyPlaceMark("777", "member", "3")));
 	}
 	
 	@Test
 	public void testSelectTastyPlaceMarkByDoublePk(){
-		assertEquals(0,	tastyPlaceDao.selectTastyPlaceMarkByDoublePk(new TastyPlaceMark("777", "member", "3")));
+		assertEquals(0,	tastyPlaceService.selectTastyPlaceMarkByDoublePk(new TastyPlaceMark("777", "member", "3")));
 	}
 	@Test
 	public void testSelectTastyPlaceMarkTotalPrice(){
 		Map<String, String> map=null;
-		map=tastyPlaceDao.selectTastyPlaceMarkTotalPrice("777");
+		map=tastyPlaceService.selectTastyPlaceMarkTotalPrice("777");
 		assertNotNull(map);
 	}
 	
 	@Test
 	public void testSelectTastyPlaceMarkAge20(){
 		String str=null;
-		str=tastyPlaceDao.selectTastyPlaceMarkAge20("777");
+		str=tastyPlaceService.selectTastyPlaceMarkAge20("777");
 		assertNotNull(str);
 	}
 	
 	@Test
 	public void testSelectTastyPlaceMarkAge30(){
 		String str=null;
-		str=tastyPlaceDao.selectTastyPlaceMarkAge30("777");
+		str=tastyPlaceService.selectTastyPlaceMarkAge30("777");
 		assertNotNull(str);
 	}
 	
 	@Test
 	public void testSelectTastyPlaceMarkAge40(){
 		String str=null;
-		str=tastyPlaceDao.selectTastyPlaceMarkAge40("777");
+		str=tastyPlaceService.selectTastyPlaceMarkAge40("777");
 		assertNotNull(str);
 	}
 	@Transactional
 	@Test
 	public void testInsertTastyPlaceReplyMember(){
-		assertEquals(1, tastyPlaceDao.insertTastyPlaceReplyMember(new TastyPlaceBoard(null, "777", null, "안녕하세요", null, null, "member")));
+		assertEquals(1, tastyPlaceService.insertTastyPlaceReplyMember(new TastyPlaceBoard(null, "777", null, "안녕하세요", null, null, "member")));
 	}
 	@Transactional
 	@Test
 	public void testInsertTastyPlaceReplyOwner(){
-		assertEquals(1, tastyPlaceDao.insertTastyPlaceReplyOwner(new TastyPlaceBoard(null, "777", null, "안녕하세요", null, null, "owner1234")));
+		assertEquals(1, tastyPlaceService.insertTastyPlaceReplyOwner(new TastyPlaceBoard(null, "777", null, "안녕하세요", null, null, "owner1234")));
+	}
+
+	
+	/**
+	 * 레스토랑 등록~
+	 */
+	@Test
+	public void testInsertRestaurant(){
+		Restaurant restaurant=new Restaurant("삼촌치킨", "경기도", "성남시", "분당구", "서현동");
+		log.info(restaurant.getResNo());
+		tastyPlaceService.insertRestaurant(restaurant);
+		assertNotNull(restaurant.getResNo()); //Success Case: null값이 올수 없다.
+		log.info(restaurant.getResNo());
+	}
+	
+	/**
+	 * 레스토랑 검색~
+	 */
+	@Test
+	public void testSelectRestaurantByAddrDo(){//도별검색
+		List<String> restaurant=null;
+		restaurant=tastyPlaceService.selectRestaurantByAddrDo();
+		assertNotNull(restaurant);//Success Case: null이 아니면 루프 돌면서 List값 출력
+		for(String addrDo : restaurant)
+			log.info(addrDo);
 	}
 	
 	@Test
-	public void testSelectTastyPlaceReplyMember(){
-		Map<String, String> map=new HashMap<String, String>();
-		map.put("cnt", "1");map.put("brno", "777");
-		assertNotNull((tastyPlaceDao.selectTastyPlaceReplyMember(map)));
-	}
-	
-	@Test
-	public void testSelectTastyPlaceReplyOwner(){
-		Map<String, String> map=new HashMap<String, String>();
-		map.put("cnt", "1");map.put("brno", "777");
-		assertNotNull(tastyPlaceDao.selectTastyPlaceReplyOwner(map));
+	public void testSelectRestaurantByAddrSi(){//시별검색
+		List<String> restaurant=null;
+		String addrDo="전라도";//웹에서 넘어올 해당 지역권 도의 값
+		//  ↓ 셀레트 박스에서 선택한 addrDo에 해당되는 addrSi의 List 출력
+		restaurant=tastyPlaceService.selectRestaurantByAddrSi(addrDo);
+		assertNotNull(restaurant);//Success Case: null이 아니면 루프 돌면서 List값 출력
+		for(String addrSi : restaurant)
+			log.info(addrSi);
 	}
 }

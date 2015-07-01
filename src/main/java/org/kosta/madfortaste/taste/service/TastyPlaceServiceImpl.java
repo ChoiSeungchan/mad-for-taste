@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.kosta.madfortaste.taste.dao.TastyPlaceDao;
+import org.kosta.madfortaste.taste.domain.Restaurant;
 import org.kosta.madfortaste.taste.domain.TastyPlace;
 import org.kosta.madfortaste.taste.domain.TastyPlaceBoard;
 import org.kosta.madfortaste.taste.domain.TastyPlaceMark;
@@ -28,16 +29,16 @@ public class TastyPlaceServiceImpl implements TastyPlaceService {
 		return tastyPlaceDao.selectTastyPlaceGetAllList(id);
 	}
 	@Override
-	public void deleteTastyPlace(String id) {
-		tastyPlaceDao.deleteTastyPlace(id);
+	public int deleteTastyPlace(String id) {
+		return tastyPlaceDao.deleteTastyPlace(id);
 	}
 	@Override
 	public void updateTastyPlace(TastyPlace tastyPlace) {
 		tastyPlaceDao.updateTastyPlace(tastyPlace);
 	}
 	@Override
-	public void insertTastyPlaceMark(TastyPlaceMark tastyPlaceMark) {
-		tastyPlaceDao.insertTastyPlaceMark(tastyPlaceMark);
+	public int insertTastyPlaceMark(TastyPlaceMark tastyPlaceMark) {
+		return tastyPlaceDao.insertTastyPlaceMark(tastyPlaceMark);
 	}
 	@Override
 	public int selectTastyPlaceMarkByDoublePk(TastyPlaceMark tastyPlaceMark) {
@@ -82,6 +83,18 @@ public class TastyPlaceServiceImpl implements TastyPlaceService {
 	@Override
 	public String selectTastyPlacefindByBrNo(String id) {
 		return tastyPlaceDao.selectTastyPlacefindByBrNo(id);
+	}
+	@Override
+	public void insertRestaurant(Restaurant restaurant) {
+		tastyPlaceDao.insertRestaurant(restaurant);
+	}
+	@Override
+	public List<String> selectRestaurantByAddrDo() {
+		return tastyPlaceDao.selectRestaurantByAddrDo();
+	}
+	@Override
+	public List<String> selectRestaurantByAddrSi(String addrDo) {
+		return tastyPlaceDao.selectRestaurantByAddrSi(addrDo);
 	}
 
 }
