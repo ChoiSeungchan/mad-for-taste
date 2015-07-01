@@ -5,8 +5,10 @@ import java.util.List;
 
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.market.dao.MarketDao;
+import org.kosta.madfortaste.market.domain.Inventory;
 import org.kosta.madfortaste.market.domain.Item;
 import org.kosta.madfortaste.market.domain.Purchase;
+import org.kosta.madfortaste.market.exception.PurchaseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,6 +74,25 @@ public class MarketServiceImpl implements MarketService{
 	@Override
 	public List<Purchase> getPurchaseListByPaging(String memberId, Page page) {
 		return marketDao.getPurchaseListByPaging(memberId, page);
+	}
+
+	@Override
+	public void itemPurchaseService(Inventory inven) throws PurchaseException {
+		Item item = marketDao.selectItem(inven.getItemNo());
+		int stock = item.getItemStock();
+		int buyAmount = inven.getItemAmount();
+		System.out.println(stock);
+		System.out.println(buyAmount);
+		if((stock - buyAmount)<0) throw new PurchaseException("재고가 부족합니다.");
+		item.setItemStock(stock - buyAmount);
+		marketDao.updateItem(item);
+		Inventory existInventory = marketDao.selectInventory(inven);
+		if (existInventory!=null) {
+			inven.setItemAmount(inven.getItemAmount()+existInventory.getItemAmount());
+			marketDao.updateInventory(inven);
+		} else {
+			marketDao.insertInventory(inven);
+		}
 	}
 
 }
