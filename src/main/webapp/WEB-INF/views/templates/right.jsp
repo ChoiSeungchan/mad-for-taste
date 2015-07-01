@@ -138,7 +138,6 @@
 		});
 	})
 </script>
-</style>
 <ul class="list-group">
 	<li class="list-group-item"> <!-- 박스 시작 -->
 		<c:choose>

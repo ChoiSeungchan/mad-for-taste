@@ -42,7 +42,6 @@ public class TestMemberDao {
 		assertNotNull(memberDao);
 	}
 	
-	
 	@Test
 	public void testInsertDailyCheckTime() {
 		String id = "member";

@@ -19,20 +19,6 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#footer').css('background','orange');
-		
-		var member = '${sessionScope.member.id}';
-		function reLogin() {
-			if(member!=''){
-				$.ajax({
-					type:"post",
-					url:"${initParam.root}maintainAuthSession",
-					dataType:"json",
-					success:function(data){		
-						alert(data);
-					}
-				});
-			}
-		}
 	});
 </script>
 <style type="text/css">
