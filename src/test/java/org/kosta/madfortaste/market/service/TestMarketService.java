@@ -37,7 +37,7 @@ public class TestMarketService {
 		 * Inventory에 들어가야되고, 이미 인벤토리에 존재하는 아이템이라면,
 		 * 수량만 올라가야 한다. 
 		 */
-		Inventory inven = new Inventory("member", 12, 6);
+		Inventory inven = new Inventory("member", 3, 1);
 		marketService.itemPurchaseService(inven);
 		inven = marketDao.selectInventory(inven);
 		List<Inventory> invenList = marketDao.selectInventories("member", new Page(marketDao.getTotalInvenCount("member")));

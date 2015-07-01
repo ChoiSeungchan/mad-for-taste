@@ -5,16 +5,50 @@
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script type="text/javascript">
 $(function() {
-	$('#totalPrice').text('${item.itemPrice}' + ' Point');
-    var spinner = $( "#spinner" ).spinner({ min: 1, max: '${item.itemStock}'});
+    var spinner = $( "#spinner" ).spinner({ min: 0, max: '${item.itemStock}'});
     spinner.spinner( "value", 1 );
-    $('.ui-spinner-button').click(function() {
+   
+    var totalPirce = $(':input[name=itemAmount]').val() * '${item.itemPrice}';
+ 	if(totalPirce!=0) {
+		$('#totalPrice').text('${item.itemPrice}' + ' Point');
+ 	} else {
+ 		$('#totalPrice').text('0' + ' Point');
+ 	}
+	
+	$('.ui-spinner-button').click(function() {
      var totalPirce = $(':input[name=itemAmount]').val() * '${item.itemPrice}';
      $('#totalPrice').text(totalPirce + ' Point');
     })
     
     $('#buyItemForm').submit(function() {
-    	return confirm($('#totalPrice').text()+'가 차감됩니다. 진행하시겠습니까?');
+    	if('${item.itemStock}'==0) {
+    		alert('재고가 없습니다');
+    		return false;
+    	}
+    	if($(':input[name=itemAmount]').val()==0) {
+    		alert('최소 1개 이상 구매 가능합니다.');
+    		return false;
+    	}
+    	var flag = confirm($('#totalPrice').text()+'가 차감됩니다. 진행하시겠습니까?');
+    	if(flag) {
+	    	$.ajax({
+	    		type:"post",
+	    		url:"${initParam.root}purchaseItem.ajax?"+$(this).serialize(),
+	    		dataType:"json",
+	    		success:function(data){	
+	    			var result = data.purchaseResult;
+	    			if(result=='success') {
+						alert('구매 완료되었습니다. 인벤토리에서 확인하세요.');
+						window.close();
+						window.opener.location.href=window.opener.location.href;
+	    			} else {
+	    				alert(data.message);
+	    			}
+	    			
+	    		}
+	    	});
+	    }
+    	return false;
     })
 });
 </script>
@@ -65,7 +99,7 @@ $(function() {
 <div class="itemTitle">${item.itemName}</div>
 <div class="itemDetail">${item.itemDetail}</div>
 <div id="formArea">
-<form action="${initParam.root}buyItem" id="buyItemForm" method="post">
+<form action="${initParam.root}purchaseItem.ajax" id="buyItemForm" method="post">
 	<input type="hidden" name="id" value="${sessionScope.member.id}">
 	<input type="hidden" name="itemNo" value="${item.itemNo}">
 	<label for="spinner">수량:</label>

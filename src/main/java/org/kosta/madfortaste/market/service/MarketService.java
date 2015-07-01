@@ -6,6 +6,7 @@ import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.market.domain.Inventory;
 import org.kosta.madfortaste.market.domain.Item;
 import org.kosta.madfortaste.market.domain.Purchase;
+import org.kosta.madfortaste.market.exception.PurchaseException;
 
 
 public interface MarketService {
@@ -30,7 +31,7 @@ public int getTotalItemCount();
 
 	public List<Purchase> getPurchaseListByPaging(String memberId, Page page);
 
-	public void itemPurchaseService(Inventory inven);
+	public void itemPurchaseService(Inventory inven) throws PurchaseException;
 
 
 }

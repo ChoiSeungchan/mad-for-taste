@@ -35,6 +35,10 @@ $(function(){
 			});
 			
 			$('.itemContainer').click(function(){
+				if('${sessionScope.member}'=='') {
+					alert('로그인 후에 이용하실 수 있습니다');
+					return false;
+				}
 				itemPopup($(this).attr('id'));
 			});
 			
@@ -76,6 +80,10 @@ $(function(){
 					});
 					
 					$('.itemContainer').click(function(){
+						if('${sessionScope.member}'=='') {
+							alert('로그인 후에 이용하실 수 있습니다');
+							return false;
+						}
 						itemPopup($(this).attr('id'));
 					});
 					page++;

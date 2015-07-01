@@ -9,14 +9,20 @@ import org.kosta.madfortaste.market.domain.Inventory;
 import org.kosta.madfortaste.market.domain.Item;
 import org.kosta.madfortaste.market.domain.Purchase;
 import org.kosta.madfortaste.market.exception.PurchaseException;
+import org.kosta.madfortaste.user.dao.MemberDao;
+import org.kosta.madfortaste.user.domain.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MarketServiceImpl implements MarketService{
 	
 	@Autowired
 	private MarketDao marketDao;
+	
+	@Autowired
+	private MemberDao memberDao;
 
 	@Override
 	public int getTotalItemCount() {
@@ -75,15 +81,19 @@ public class MarketServiceImpl implements MarketService{
 	public List<Purchase> getPurchaseListByPaging(String memberId, Page page) {
 		return marketDao.getPurchaseListByPaging(memberId, page);
 	}
-
+	
+	@Transactional
 	@Override
 	public void itemPurchaseService(Inventory inven) throws PurchaseException {
 		Item item = marketDao.selectItem(inven.getItemNo());
 		int stock = item.getItemStock();
 		int buyAmount = inven.getItemAmount();
-		System.out.println(stock);
-		System.out.println(buyAmount);
+		int totalPrice = buyAmount * item.getItemPrice();
+		Member member = memberDao.selectMemberById(inven.getId()); 
+		if(stock==0) throw new PurchaseException("재고가 없습니다.");
 		if((stock - buyAmount)<0) throw new PurchaseException("재고가 부족합니다.");
+		if(member.getPoint()<totalPrice) throw new PurchaseException("포인트가 부족합니다.");
+		memberDao.downPoint(inven.getId(), totalPrice);
 		item.setItemStock(stock - buyAmount);
 		marketDao.updateItem(item);
 		Inventory existInventory = marketDao.selectInventory(inven);

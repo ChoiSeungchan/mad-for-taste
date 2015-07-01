@@ -55,12 +55,15 @@
 			<c:choose>
 				<c:when test="${member==null && owner==null}">
 					<li>
+						<a href="${initParam.root}market">마켓</a>
+					</li>
+					<li>
 						<a href="#" data-toggle="modal" data-target=".loginModal">로그인</a>
 					</li>
 				</c:when>
 				<c:otherwise>
 					<li>
-						<a href="market">마켓</a>
+						<a href="${initParam.root}market">마켓</a>
 					</li>
 					<li>
 						<a href="logout">로그아웃</a>
