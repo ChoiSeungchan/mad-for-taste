@@ -35,7 +35,7 @@ $(function(){
 			});
 			
 			$('.itemContainer').click(function(){
-				alert($(this).attr('id'))	
+				itemPopup($(this).attr('id'));
 			});
 			
 		}
@@ -76,16 +76,34 @@ $(function(){
 					});
 					
 					$('.itemContainer').click(function(){
-						alert($(this).attr('id'))	
+						itemPopup($(this).attr('id'));
 					});
 					page++;
 				 },
 				 error: function (xhr, ajaxOptions, thrownError) {
-				        alert('마지막 페이지 입니다.');
+					 var message = '마지막 페이지 입니다.';
+				     $('.buttonArea').html(message);
 		         }
 			});
 		},1000)
 	});
+	
+	function itemPopup(itemNo) {
+
+		 cw=screen.availWidth;     //화면 넓이
+		 ch=screen.availHeight;    //화면 높이
+
+		 sw=400;    //띄울 창의 넓이
+		 sh=400;    //띄울 창의 높이
+
+		 ml=(cw-sw)/2;        //가운데 띄우기위한 창의 x위치
+		 mt=(ch-sh)/2;         //가운데 띄우기위한 창의 y위치
+		 
+		 url = 'market/item/'+itemNo;
+		 
+		 test=window.open(url,'tst','width='+sw+',height='+sh+',top='+mt+',left='+ml+',resizable=no,scrollbars=no');
+	}
+	
 });
 </script>
 <style type="text/css">
@@ -117,9 +135,11 @@ $(function(){
 	font-size: 14px;
 	color: black;
 }
+.buttonArea {
+}
 </style>
 <div class="marketContainer"></div>
-<div class="container">
+<div class="col-md-12 buttonArea" align="center">
 	<br>
 	<div class="col-md-12 loading" align="center">
 		<img height="150px" width="auto" src="${initParam.root}resources/images/common/loding.gif">

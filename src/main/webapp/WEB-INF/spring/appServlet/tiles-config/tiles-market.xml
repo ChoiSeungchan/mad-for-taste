@@ -6,7 +6,4 @@
 	<definition name="market/*" extends="home">
 		<put-attribute name="main" value="/WEB-INF/views/market/{1}.jsp" />
 	</definition>
-	<definition name="market/*/*" extends="home">
-		<put-attribute name="main" value="/WEB-INF/views/market/{1}/{2}.jsp" />
-	</definition>
 </tiles-definitions>

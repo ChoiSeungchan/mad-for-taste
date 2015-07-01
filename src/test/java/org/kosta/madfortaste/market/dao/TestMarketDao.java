@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.madfortaste.common.lib.Page;
+import org.kosta.madfortaste.market.domain.Inventory;
 import org.kosta.madfortaste.market.domain.Item;
 import org.kosta.madfortaste.market.domain.Purchase;
 import org.slf4j.Logger;
@@ -155,4 +156,51 @@ public class TestMarketDao {
 			}
 		}
 	}
+	
+	@Transactional
+	@Test
+	public void testInsertInventory() {
+		Inventory inven = new Inventory("member", 1, 10);
+		int i = marketDao.insertInventory(inven);
+		assertThat(i, is(1));
+	}
+	
+	@Test
+	public void testSelectInventory() {
+		Inventory inven = marketDao.selectInventory(new Inventory("member",1));
+		System.out.println(inven);
+	}
+	
+	@Test
+	public void testSelectInventories() {
+		int totalInvenCount = marketDao.getTotalInvenCount("member");
+		assertThat(totalInvenCount, greaterThan(0));
+		Page page = new Page(totalInvenCount);
+		List<Inventory> invenList = marketDao.selectInventories("member", page);
+		assertThat(invenList.size(), greaterThan(0));
+		for (Inventory inventory : invenList) {
+			log.info(inventory.toString());
+		}
+	}
+	
+	@Test
+	public void testItemExistInInventory() {
+		boolean isExist = marketDao.ItemExistInInventory(1,"member");
+		System.out.println(isExist);
+	}
+	
+	@Transactional
+	@Test
+	public void testUpdateInventory() {
+		Inventory inven = marketDao.selectInventory(new Inventory("member",1));
+		assertNotNull(inven);
+		int beforeAmount = inven.getItemAmount();
+		inven.setItemAmount(beforeAmount+10);
+		marketDao.updateInventory(inven);
+		inven = marketDao.selectInventory(new Inventory("member",1));
+		int afterAmount = inven.getItemAmount();
+		assertNotEquals(beforeAmount, afterAmount);
+		log.info(inven.toString());
+	}
+	
 }

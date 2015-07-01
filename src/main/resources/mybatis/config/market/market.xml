@@ -38,7 +38,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<result property="item.itemEffectValue" column="item_effect_value"/>
  		<result property="item.itemDetail" column="item_detail"/>
  	</resultMap>
- 	
+ 	<resultMap type="inventory" id="invenRM">
+ 		<result property="id" column="id"/>
+ 		<result property="itemNo" column="item_no"/>
+ 		<result property="itemAmount" column="item_Amount"/>
+ 		<result property="item.itemNo" column="item_no"/>
+ 		<result property="item.itemStock" column="item_stock"/>
+ 		<result property="item.maxAmountAvailable" column="max_amount_available"/>
+ 		<result property="item.itemName" column="item_name"/>
+ 		<result property="item.itemPrice" column="item_price"/>
+ 		<result property="item.itemEffect" column="item_effect"/>
+ 		<result property="item.itemEffectValue" column="item_effect_value"/>
+ 		<result property="item.itemDetail" column="item_detail"/>
+ 	</resultMap>
  	<select id="getTotalItemCount" resultType="int">
  		select count(*) from item
  	</select>
@@ -89,6 +101,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			from (select * from purchase order by purchase_date desc) p, item i
 			where p.id=#{memberId} and p.item_no=i.item_no
 		) where rnum between #{page.beginRow} and #{page.endRow}
+ 	</select>
+ 	<insert id="insertInventory">
+		insert into inventory(id,item_no,item_amount) 
+		values(#{id},#{itemNo},#{itemAmount}) 	
+ 	</insert>
+ 	<select id="getTotalInvenCount" resultType="int">
+ 		select count(*) from inventory 
+ 		where id=#{id}
+ 	</select>
+ 	<update id="updateInventory">
+ 		update inventory set item_amount=#{itemAmount} 
+ 		where id=#{id} and item_no=#{itemNo}
+ 	</update>
+ 	<select id="selectInventory" resultMap="invenRM">
+ 		select inven.*,i.* from inventory inven, item i 
+ 		where inven.id=#{id} and inven.item_no=#{itemNo} and inven.item_no=i.item_no
+ 	</select>
+ 	<select id="selectInventories" resultMap="invenRM">
+ 		select * from (
+			select rownum as rnum, inven.id,inven.item_amount,i.* from inventory inven, item i 
+			where inven.id=#{id} and inven.item_no=i.item_no 
+		) where rnum between #{page.beginRow} and #{page.endRow}
+ 	</select>
+ 	<select id="ItemExistInInventory" resultType="int">
+ 		select count(*) from inventory
+ 		where id=#{id} and item_no=#{itemNo}
  	</select>
  </mapper>
  

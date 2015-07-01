@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.kosta.madfortaste.common.lib.Page;
+import org.kosta.madfortaste.market.domain.Inventory;
 import org.kosta.madfortaste.market.domain.Item;
 import org.kosta.madfortaste.market.domain.Purchase;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -75,5 +76,44 @@ public class MarketDaoImpl implements MarketDao{
 		map.put("page", page);
 		return sqlSessionTemplate.selectList("market.getPurchaseListByPaging", map);
 	}
+
+	@Override
+	public int insertInventory(Inventory inven) {
+		return sqlSessionTemplate.insert("market.insertInventory", inven);
+	}
+
+	@Override
+	public int getTotalInvenCount(String id) {
+		return sqlSessionTemplate.selectOne("market.getTotalInvenCount", id);
+	}
 	
+	@Override
+	public Inventory selectInventory(Inventory inventory) {
+		return sqlSessionTemplate.selectOne("market.selectInventory", inventory);
+	}
+
+	@Override
+	public List<Inventory> selectInventories(String id, Page page) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("page", page);
+		return sqlSessionTemplate.selectList("market.selectInventories", map);
+	}
+
+	@Override
+	public boolean ItemExistInInventory(int itemNo, String id) {
+		boolean isExist = false;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("itemNo", itemNo);
+		map.put("id", id);
+		int i = sqlSessionTemplate.selectOne("market.ItemExistInInventory", map);
+		if(i==1) isExist = true;
+		return isExist;
+	}
+
+	@Override
+	public void updateInventory(Inventory inven) {
+		sqlSessionTemplate.update("updateInventory",inven);
+	}
+
 }

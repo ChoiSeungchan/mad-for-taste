@@ -25,8 +25,12 @@ create table Purchase(
 create sequence purchase_seq nocache
 drop sequence purchase_seq
 
-			select * from (
-			select rownum as rnum, i.* 
-			from (select * from item order by item_no desc) i order by rnum asc)
-			where rnum between 3 and 6
-select *from item order by item_no desc
+drop table inventory
+create table inventory(
+	id references member(id) on delete cascade,
+	item_no number references item(item_no) on delete cascade,
+	item_amount number not null,
+	primary key(id,item_no)
+)
+
+select * from inventory
