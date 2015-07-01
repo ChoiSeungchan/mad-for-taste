@@ -54,9 +54,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	</select>
  	<select id="getItemsByPaging" resultMap="itemRM">
  		<![CDATA[
-			select * from (
+ 			select * from (
 			select rownum as rnum, i.* 
-			from item i order by item_no desc)
+			from (select * from item order by item_no desc) i order by rnum asc)
 			where rnum between #{beginRow} and #{endRow}		
 		]]>
  	</select>

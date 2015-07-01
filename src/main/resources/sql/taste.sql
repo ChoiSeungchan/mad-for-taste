@@ -101,3 +101,18 @@ select * from (select rownum numrow,reply,name,id,joinDate,profileImg,contents,b
  
 select count(m.birth) from tasty_place_mark t,member m where m.id=t.id and birth between '1987' and '1996' and br_no='7777'
 >>>>>>> refs/remotes/sun/develop-sun
+
+drop table Restaurant
+create table Restaurant(
+	res_no number primary key,
+	res_name varchar2(50) not null,
+	addr_do varchar2(20) not null,
+	addr_si varchar2(20) not null,
+	addr_gu varchar2(20) not null,
+	addr_dong varchar2(20) not null,
+	good number default 0 not null,
+	bad number default 0 not null,
+	unique(res_name,addr_do,addr_si,addr_gu,addr_dong)
+)
+create sequence res_seq nocache
+drop sequence res_seq

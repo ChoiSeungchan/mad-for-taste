@@ -29,11 +29,12 @@ public class TestMarketDao {
 	/**
 	 * 아이템을 등록하는 메소드
 	 */
+	@Transactional
 	@Test
 	public void testInsertItem() {//아이템 등록(PERCENT_SALE,FREE_SALE)
 		Item item = new Item(20, 1, "불닭나라 무료 쿠폰", 5000, "FREE_SALE", 100, "[대박]불닭나라 공짜 쿠폰!");
 		assertThat(item.getItemNo(), is(0));
-		item = marketDao.insertItem(item);
+		marketDao.insertItem(item);
 		assertThat(item.getItemNo(), greaterThan(0));
 		log.info(item.toString());
 	}
@@ -156,3 +157,7 @@ public class TestMarketDao {
 		}
 	}
 }
+
+
+
+

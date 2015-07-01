@@ -24,9 +24,3 @@ create table Purchase(
 )
 create sequence purchase_seq nocache
 drop sequence purchase_seq
-
-			select * from (
-			select rownum as rnum, i.* 
-			from (select * from item order by item_no desc) i order by rnum asc)
-			where rnum between 3 and 6
-select *from item order by item_no desc
