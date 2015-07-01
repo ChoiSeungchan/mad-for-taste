@@ -46,6 +46,11 @@ public class MarketController {
 		return itemList;
 	}
 	
+	@RequestMapping(value="itemRegisterForm")
+	public String itemRegisterForm(Item item) {
+		return "market/itemRegisterForm";
+	}
+	
 	@RequestMapping(value="market/purchase/{path}")
 	public String resultRedirectService(@PathVariable String path) {
 		return "market/purchase/"+path;

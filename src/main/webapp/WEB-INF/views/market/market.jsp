@@ -112,6 +112,10 @@ $(function(){
 		 test=window.open(url,'tst','width='+sw+',height='+sh+',top='+mt+',left='+ml+',resizable=no,scrollbars=no');
 	}
 	
+	$('#regItemBtn').click(function(){
+		location.href='${initParam.root}itemRegisterForm';
+	});
+	
 });
 </script>
 <style type="text/css">
@@ -144,6 +148,7 @@ $(function(){
 	color: black;
 }
 .buttonArea {
+	margin-bottom: 10px;
 }
 </style>
 <div class="marketContainer"></div>
@@ -153,5 +158,10 @@ $(function(){
 		<img height="150px" width="auto" src="${initParam.root}resources/images/common/loding.gif">
 	</div>
 	<button id="moreItemBtn" class="btn btn-default btn-lg btn-block">더 보기</button>
+</div>
+<div class="col-md-12" align="center">
+	<c:if test="${sessionScope.member!=null && sessionScope.member.exp>=10000000}">
+	<button id="regItemBtn" class="btn btn-primary btn-lg btn-block">아이템 등록하기</button>
 	<br>
+	</c:if>
 </div>
