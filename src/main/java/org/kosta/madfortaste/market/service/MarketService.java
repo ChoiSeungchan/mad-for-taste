@@ -36,6 +36,7 @@ public int getTotalItemCount();
 
 	public void itemPurchaseService(Inventory inven) throws PurchaseException;
 
+	public List<Inventory> getMyInventory(String memberId);
 
 
 }

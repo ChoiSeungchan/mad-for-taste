@@ -5,14 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-
-
-
-
-
-
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -60,6 +52,18 @@ public class MarketController {
 	public String itemRegisterForm(@ModelAttribute Item item) {
 		return "market/itemRegisterForm";
 	}
+	
+	@RequestMapping(value="myInventory")
+	public String myInventory(HttpSession session, Model model) {
+		if(session!=null){
+			Member member = (Member) session.getAttribute("member");
+			List<Inventory> inventory = marketService.getMyInventory(member.getId());
+			model.addAttribute("inventory", inventory);
+		} else {
+			return "redirect:/";
+		}
+		return "market/inventory";
+	}
 
 	@RequestMapping(value="registerItem", method=RequestMethod.POST)
 	public String registerItem(@Valid Item item, BindingResult result, HttpServletRequest req, Model model) {
@@ -67,10 +71,6 @@ public class MarketController {
 		if(result.hasErrors()){
 			return "market/itemRegisterForm";
 		}
-//		if(item.getItemImg().getSize()==0) {
-//			model.addAttribute("message", "아이템 사진은 필수적으로 등록되어야 합니다.");
-//			return "market/itemRegisterForm";
-//		}
 		try {
 			marketService.registerItem(item, req);
 		} catch (IllegalStateException e) {

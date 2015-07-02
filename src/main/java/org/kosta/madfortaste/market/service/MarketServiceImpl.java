@@ -161,4 +161,10 @@ public class MarketServiceImpl implements MarketService{
 		return item;
 	}
 
+	@Override
+	public List<Inventory> getMyInventory(String memberId) {
+		Page page = new Page(marketDao.getTotalInvenCount(memberId));
+		return marketDao.selectInventories(memberId, page);
+	}
+
 }

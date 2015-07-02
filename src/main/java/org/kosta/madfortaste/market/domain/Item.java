@@ -14,25 +14,31 @@ import org.springframework.web.multipart.MultipartFile;
 public class Item {
 	
 	private int itemNo;
+	
 	@NumberFormat(style=Style.NUMBER)
 	@Min(1)
 	@Max(100)
 	private int itemStock;
+	
 	@NumberFormat(style=Style.NUMBER)
 	@Min(1)
 	@Max(100)
 	private int maxAmountAvailable;
+	
 	@NotEmpty
 	private String itemName;
+	
 	@NumberFormat(style=Style.NUMBER)
 	@Min(1)
 	@Max(100000)
 	private int itemPrice;
 	private String itemEffect;
+	
 	@NumberFormat(style=Style.NUMBER)
 	@Min(1)
 	@Max(100000)
 	private int itemEffectValue;
+	
 	@NotEmpty
 	private String itemDetail;
 	private String itemImgName;
