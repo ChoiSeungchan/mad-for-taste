@@ -7,8 +7,10 @@ create table item(
 	item_price number not null,
 	item_effect varchar2(20)not null,
 	item_effect_value number, 	
-	item_detail long not null
+	item_detail long not null,
+	item_img_name varchar(30) not null
 )
+delete from item
 create sequence item_seq nocache
 drop sequence item_seq
 

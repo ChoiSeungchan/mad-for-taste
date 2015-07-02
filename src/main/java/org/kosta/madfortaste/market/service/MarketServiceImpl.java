@@ -1,7 +1,13 @@
 package org.kosta.madfortaste.market.service;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.market.dao.MarketDao;
@@ -14,6 +20,7 @@ import org.kosta.madfortaste.user.domain.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class MarketServiceImpl implements MarketService{
@@ -24,14 +31,22 @@ public class MarketServiceImpl implements MarketService{
 	@Autowired
 	private MemberDao memberDao;
 
+	@Resource(name="itemImg")
+	private String path;
+	
 	@Override
 	public int getTotalItemCount() {
 		return marketDao.getTotalItemCount();
 	}
-
+	
 	@Override
-	public Item insertItem(Item item) {
-		return marketDao.insertItem(item);
+	public void registerItem(Item item, HttpServletRequest req) throws IllegalStateException, IOException {
+		MultipartFile itemImg = item.getItemImg();
+		String fileName = marketDao.getItemSequence()+"";
+		String ext = itemImg.getOriginalFilename().substring(itemImg.getOriginalFilename().lastIndexOf(".")+1);
+		item.setItemImgName(fileName + "." + ext);
+		item = marketDao.insertItem(item);
+		if(item.getItemNo()>0) registerItemImg(item, req);
 	}
 
 	@Override
@@ -103,6 +118,47 @@ public class MarketServiceImpl implements MarketService{
 		} else {
 			marketDao.insertInventory(inven);
 		}
+	}
+	
+	public Item registerItemImg(Item item, HttpServletRequest req) throws IllegalStateException, IOException {
+		String realPath = new HttpServletRequestWrapper(req).getRealPath("/") + path;
+		MultipartFile imgFile = item.getItemImg();
+		if(imgFile.getSize()!=0) {
+			// 확장자 추출
+			String extension = imgFile.getOriginalFilename().substring(imgFile.getOriginalFilename().lastIndexOf(".")+1);
+			// 파일 업로드
+			imgFile.transferTo(new File(realPath + item.getItemNo() + "." + extension));
+			// 데이터베이스에 저장할 이미지 이름 파싱
+			//item.setProfileImg(item.getItemNo()+ "." +extension);
+			
+			 /*
+				프로필 사진이 java.png로 등록되어 있는데 java.jpg로 새로운 사진이 등록되면
+			 	java.jpg는 등록되고 java.png를 삭제해준다.
+			 */
+			for (File file : new File(realPath).listFiles()) {
+				if(file.isFile()) {
+				String fileName = file.getName();
+				String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1);
+				String fileBody = fileName.substring(0, fileName.length() - fileExt.length() - 1);
+				if(fileBody.equals(item.getItemNo()) && !fileExt.equals(extension)) file.delete();
+				}
+			}
+		} else {
+			for (File file : new File(realPath).listFiles()) {
+				if(file.isFile()) {
+					String fileName = file.getName();
+					String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1);
+					String fileBody = fileName.substring(0, fileName.length() - fileExt.length() - 1);
+					if(fileBody.equals(item.getItemNo())){
+						item.setItemImgName(fileBody + "." + fileExt);
+						break;
+					} else {
+						item.setItemImgName("default.jpg");
+					}
+				}
+			}
+		}
+		return item;
 	}
 
 }

@@ -94,7 +94,7 @@ $(function() {
 </style>
 <div id="container" align="center">
 <div id="imgArea">
-	<img class="img-responsive itemImg" src="${initParam.root}resources/images/market/itemSample.jpg">
+	<img class="img-responsive itemImg" src="${initParam.root}resources/images/market/item/${item.itemImgName}">
 </div>
 <div class="itemTitle">${item.itemName}</div>
 <div class="itemDetail">${item.itemDetail}</div>

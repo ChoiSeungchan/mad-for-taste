@@ -1,6 +1,9 @@
 package org.kosta.madfortaste.market.service;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.market.domain.Inventory;
@@ -12,8 +15,8 @@ import org.kosta.madfortaste.market.exception.PurchaseException;
 public interface MarketService {
 		
 public int getTotalItemCount();
-	
-	public Item insertItem(Item item);
+
+	public void registerItem(Item item, HttpServletRequest req) throws IllegalStateException, IOException;
 	
 	public int insertPurchase(String memberId, int itemNo, int purchaseAmount);
 	
@@ -32,6 +35,7 @@ public int getTotalItemCount();
 	public List<Purchase> getPurchaseListByPaging(String memberId, Page page);
 
 	public void itemPurchaseService(Inventory inven) throws PurchaseException;
+
 
 
 }

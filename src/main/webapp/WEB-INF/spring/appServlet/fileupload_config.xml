@@ -35,5 +35,10 @@
 			<value>resources\\images\\taste\\tasteBoard\\</value>
 		</constructor-arg>
 	</bean>
+	<bean id="itemImg" class="java.lang.String">
+		<constructor-arg>
+			<value>resources\\images\\market\\item\\</value>
+		</constructor-arg>
+	</bean>
 	
 </beans>

@@ -11,17 +11,23 @@ import org.kosta.madfortaste.market.domain.Inventory;
 import org.kosta.madfortaste.market.domain.Item;
 import org.kosta.madfortaste.market.domain.Purchase;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class MarketDaoImpl implements MarketDao{
 
-	@Inject
+	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 
 	@Override
 	public int getTotalItemCount() {
 		return sqlSessionTemplate.selectOne("market.getTotalItemCount");
+	}
+
+	@Override
+	public int getItemSequence() {
+		return sqlSessionTemplate.selectOne("market.getItemSequence");
 	}
 
 	@Override

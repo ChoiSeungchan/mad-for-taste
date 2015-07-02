@@ -1,5 +1,6 @@
 package org.kosta.madfortaste.market.web;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,7 +8,14 @@ import java.util.Map;
 
 
 
+
+
+
+
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.kosta.madfortaste.market.domain.Inventory;
 import org.kosta.madfortaste.market.domain.Item;
@@ -17,6 +25,8 @@ import org.kosta.madfortaste.user.domain.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -47,8 +57,28 @@ public class MarketController {
 	}
 	
 	@RequestMapping(value="itemRegisterForm")
-	public String itemRegisterForm(Item item) {
+	public String itemRegisterForm(@ModelAttribute Item item) {
 		return "market/itemRegisterForm";
+	}
+
+	@RequestMapping(value="registerItem", method=RequestMethod.POST)
+	public String registerItem(@Valid Item item, BindingResult result, HttpServletRequest req, Model model) {
+		System.out.println(item.getItemImg());
+		if(result.hasErrors()){
+			return "market/itemRegisterForm";
+		}
+//		if(item.getItemImg().getSize()==0) {
+//			model.addAttribute("message", "아이템 사진은 필수적으로 등록되어야 합니다.");
+//			return "market/itemRegisterForm";
+//		}
+		try {
+			marketService.registerItem(item, req);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "redirect:market";
 	}
 	
 	@RequestMapping(value="market/purchase/{path}")
@@ -74,4 +104,5 @@ public class MarketController {
 		}
 		return map;
 	}
+	
 }

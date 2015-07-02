@@ -17,7 +17,7 @@ $(function(){
 			$.each(data, function(index, item){
 				str+= '<div class="col-md-3 col-xs-6 itemContainer" id="'+item.itemNo+'" align="center">';
 				str+= '<div id="itemImgContainer">';
-				str+= '<img class="img-responsive itemImg" src="${initParam.root}resources/images/market/itemSample.jpg">';
+				str+= '<img class="img-responsive itemImg" src="${initParam.root}resources/images/market/item/'+item.itemImgName+'">';
 				str+= '</div>'
 				str+= '<div class="itemTitle">';
 				str+= item.itemName;
@@ -61,7 +61,7 @@ $(function(){
 					$.each(data, function(index, item){
 						str+= '<div class="col-md-3 col-xs-6 itemContainer" id="'+item.itemNo+'" align="center">';
 						str+= '<div id="itemImgContainer">';
-						str+= '<img class="img-responsive itemImg" src="${initParam.root}resources/images/market/itemSample.jpg">';
+						str+= '<img class="img-responsive itemImg" src="${initParam.root}resources/images/market/item/'+item.itemImgName+'">';
 						str+= '</div>'
 						str+= '<div class="itemTitle">';
 						str+= item.itemName;

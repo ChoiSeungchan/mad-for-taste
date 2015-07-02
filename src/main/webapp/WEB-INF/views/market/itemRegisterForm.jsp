@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <script type="text/javascript">
 function showKeyCode(event) {
@@ -26,22 +27,26 @@ function showKeyCode(event) {
 		<h3 class="panel-title">아이템 등록</h3>
 	</div>
 	<div class="panel-body">
-		<form action="" method="post" enctype="multipart/form-data">
+		<form:form action="/madfortaste/registerItem" method="post" enctype="multipart/form-data" commandName="item">
 			<div class="col-md-12 form-group">
 				<label for="itemName">아이템 이름</label>
-				<input type="text" class="form-control" name="itemName" id="itemName" placeholder="아이템 이름을 입력하세요"/>
+				<form:input type="text" class="form-control" path="itemName" name="itemName" id="itemName" placeholder="아이템 이름을 입력하세요"/>
+				<font color="red"><form:errors path="itemName"/></font>
 			</div>
 			<div class="col-md-4 form-group">
 				<label for="itemPrice">아이템 가격</label>
-				<input type="number" min="0" max="100" step="5" onkeydown="return showKeyCode(event)" class="form-control" name="itemPrice" id="itemPrice" placeholder="아이템 가격을 입력하세요"/>
+				<form:input type="number" path="itemPrice" min="0" max="100" step="5" onkeydown="return showKeyCode(event)" class="form-control" name="itemPrice" id="itemPrice" placeholder="아이템 가격을 입력하세요"/>
+				<font color="red"><form:errors path="itemPrice"/></font>	
 			</div>
 			<div class="col-md-4 form-group">
 				<label for="itemStock">아이템 재고</label>
-				<input type="number" min="0" max="100" step="1" onkeydown="return showKeyCode(event)" class="form-control" name="itemStock" id="itemStock" placeholder="아이템 재고를 입력하세요"/>
+				<form:input type="number" path="itemStock" min="0" max="100" step="1" onkeydown="return showKeyCode(event)" class="form-control" name="itemStock" id="itemStock" placeholder="아이템 재고를 입력하세요"/>
+				<font color="red"><form:errors path="itemStock"/></font>
 			</div>
 			<div class="col-md-4 form-group">
-				<label for="itemEffectValue">최대 보유 가능 수량</label>
-				<input type="number" min="0" max="100" step="1" onkeydown="return showKeyCode(event)" class="form-control" name="itemEffectValue" id="itemEffectValue" placeholder="효과 수치를 입력하세요"/>
+				<label for="maxAmountAvailable">최대 보유 가능 수량</label>
+				<form:input type="number" path="maxAmountAvailable" min="0" max="100" step="1" onkeydown="return showKeyCode(event)" class="form-control" name="maxAmountAvailable" id="maxAmountAvailable" placeholder="최대 보유 가능 수량을 입력하세요"/>
+				<font color="red"><form:errors path="maxAmountAvailable"/></font>
 			</div>
 			<div class="col-md-4 form-group">
 				<label for="itemEffect">아이템 효과</label>
@@ -55,20 +60,23 @@ function showKeyCode(event) {
 			</div>
 			<div class="col-md-4 form-group">
 				<label for="itemEffectValue">효과 수치</label>
-				<input type="number" min="0" max="100" step="5" onkeydown="return showKeyCode(event)" class="form-control" name="itemEffectValue" id="itemEffectValue" placeholder="효과 수치를 입력하세요"/>
+				<form:input type="number" path="itemEffectValue" min="0" max="100" step="5" onkeydown="return showKeyCode(event)" class="form-control" name="itemEffectValue" id="itemEffectValue" placeholder="효과 수치를 입력하세요"/>
+				<font color="red"><form:errors path="itemEffectValue"/></font>
 			</div>
 			<div class="col-md-4 form-group">
-				<label for="imgFile">아이템 사진</label>
-				<input type="file" name="imgFile" id="imgFile" accept="image/gif,image/jpeg,image/bmp, image/png">
+				<label for="itemImg">아이템 사진</label>
+				<form:input type="file" path="itemImg" name="itemImg" id="itemImg" accept="image/gif,image/jpeg,image/bmp, image/png"/>
+				<font color="red"><form:errors path="fileProvided"/></font>
 			</div>
 			<div class="col-md-12 form-group">
 				<label for="itemDetail">아이템 상세 설명</label>
-				<textarea class="form-control" name="itemDetail" id="itemDetail"></textarea>
+				<form:textarea class="form-control" path="itemDetail" name="itemDetail" id="itemDetail"></form:textarea>
+				<font color="red"><form:errors path="itemDetail"/></font>
 			</div>
 			<div class="col-md-12">
 				<button type="submit" class="btn btn-primary btn-lg btn-block">등록하기</button>
 			</div>
-		</form>
+		</form:form>
 	</div>
 </div>
 </div>

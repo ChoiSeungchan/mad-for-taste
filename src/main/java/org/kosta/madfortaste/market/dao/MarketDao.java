@@ -11,6 +11,8 @@ public interface MarketDao {
 	
 	public int getTotalItemCount();
 	
+	public int getItemSequence();
+	
 	public Item insertItem(Item item);
 	
 	public int insertPurchase(String memberId, int itemNo, int purchaseAmount);
