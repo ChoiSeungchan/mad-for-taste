@@ -57,10 +57,12 @@ public class MarketController {
 	public String myInventory(HttpSession session, Model model) {
 		if(session!=null){
 			Member member = (Member) session.getAttribute("member");
-			List<Inventory> inventory = marketService.getMyInventory(member.getId());
-			model.addAttribute("inventory", inventory);
-		} else {
-			return "redirect:/";
+			if(member!=null) {
+				List<Inventory> inventory = marketService.getMyInventory(member.getId());
+				model.addAttribute("inventory", inventory);
+			} else {
+				return "redirect:/";
+			}
 		}
 		return "market/inventory";
 	}

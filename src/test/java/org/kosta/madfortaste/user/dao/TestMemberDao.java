@@ -43,6 +43,11 @@ public class TestMemberDao {
 	}
 	
 	@Test
+	public void updateMemberToAdmin() {
+		memberDao.upExp("admin", 10000000);
+	}
+	
+	@Test
 	public void testInsertDailyCheckTime() {
 		String id = "member";
 		memberDao.insertDailyCheckTime(id);
