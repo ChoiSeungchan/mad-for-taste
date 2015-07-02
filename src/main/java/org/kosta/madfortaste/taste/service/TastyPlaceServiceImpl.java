@@ -84,17 +84,5 @@ public class TastyPlaceServiceImpl implements TastyPlaceService {
 	public String selectTastyPlacefindByBrNo(String id) {
 		return tastyPlaceDao.selectTastyPlacefindByBrNo(id);
 	}
-	@Override
-	public void insertRestaurant(Restaurant restaurant) {
-		tastyPlaceDao.insertRestaurant(restaurant);
-	}
-	@Override
-	public List<String> selectRestaurantByAddrDo() {
-		return tastyPlaceDao.selectRestaurantByAddrDo();
-	}
-	@Override
-	public List<String> selectRestaurantByAddrSi(String addrDo) {
-		return tastyPlaceDao.selectRestaurantByAddrSi(addrDo);
-	}
 
 }

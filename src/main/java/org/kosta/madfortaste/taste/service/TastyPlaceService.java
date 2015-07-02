@@ -25,7 +25,4 @@ public interface TastyPlaceService {
 	public List<TastyPlaceBoard> selectTastyPlaceReplyMember(String viewCnt,String brNo);
 	public List<TastyPlaceBoard> selectTastyPlaceReplyOwner(String viewCnt,String brNo);
 	public String selectTastyPlacefindByBrNo(String id);
-	public void insertRestaurant(Restaurant restaurant);
-	public List<String> selectRestaurantByAddrDo();
-	public List<String> selectRestaurantByAddrSi(String addrDo);
 }

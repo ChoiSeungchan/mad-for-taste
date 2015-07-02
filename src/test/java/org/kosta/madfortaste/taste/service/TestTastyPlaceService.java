@@ -85,40 +85,4 @@ public class TestTastyPlaceService {
 	public void testInsertTastyPlaceReplyOwner(){
 		assertEquals(1, tastyPlaceService.insertTastyPlaceReplyOwner(new TastyPlaceBoard(null, "777", null, "안녕하세요", null, null, "owner1234")));
 	}
-
-	
-	/**
-	 * 레스토랑 등록~
-	 */
-	@Test
-	public void testInsertRestaurant(){
-		Restaurant restaurant=new Restaurant("삼촌치킨", "경기도", "성남시", "분당구", "서현동");
-		log.info(restaurant.getResNo());
-		tastyPlaceService.insertRestaurant(restaurant);
-		assertNotNull(restaurant.getResNo()); //Success Case: null값이 올수 없다.
-		log.info(restaurant.getResNo());
-	}
-	
-	/**
-	 * 레스토랑 검색~
-	 */
-	@Test
-	public void testSelectRestaurantByAddrDo(){//도별검색
-		List<String> restaurant=null;
-		restaurant=tastyPlaceService.selectRestaurantByAddrDo();
-		assertNotNull(restaurant);//Success Case: null이 아니면 루프 돌면서 List값 출력
-		for(String addrDo : restaurant)
-			log.info(addrDo);
-	}
-	
-	@Test
-	public void testSelectRestaurantByAddrSi(){//시별검색
-		List<String> restaurant=null;
-		String addrDo="전라도";//웹에서 넘어올 해당 지역권 도의 값
-		//  ↓ 셀레트 박스에서 선택한 addrDo에 해당되는 addrSi의 List 출력
-		restaurant=tastyPlaceService.selectRestaurantByAddrSi(addrDo);
-		assertNotNull(restaurant);//Success Case: null이 아니면 루프 돌면서 List값 출력
-		for(String addrSi : restaurant)
-			log.info(addrSi);
-	}
 }

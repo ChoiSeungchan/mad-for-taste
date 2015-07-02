@@ -103,13 +103,14 @@ drop table Restaurant
 create table Restaurant(
 	res_no number primary key,
 	res_name varchar2(50) not null,
-	addr_do varchar2(20) not null,
-	addr_si varchar2(20) not null,
-	addr_gu varchar2(20) not null,
-	addr_dong varchar2(20) not null,
+	city varchar2(20) not null,
+	sigungu varchar2(20) not null,
+	eupmyeondong varchar2(20) not null,
 	good number default 0 not null,
 	bad number default 0 not null,
-	unique(res_name,addr_do,addr_si,addr_gu,addr_dong)
+	unique(res_name,city,sigungu,eupmyeondong)
 )
 create sequence res_seq nocache
 drop sequence res_seq
+
+select *from Restaurant
