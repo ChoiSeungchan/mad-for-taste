@@ -25,7 +25,4 @@ public interface TastyPlaceDao {
 	public List<TastyPlaceBoard> selectTastyPlaceReplyMember(Map<String, String> map);
 	public List<TastyPlaceBoard> selectTastyPlaceReplyOwner(Map<String, String> map);
 	public String selectTastyPlacefindByBrNo(String id);
-	public void insertRestaurant(Restaurant restaurant);
-	public List<String> selectRestaurantByAddrDo();
-	public List<String> selectRestaurantByAddrSi(String addrDo);
 }

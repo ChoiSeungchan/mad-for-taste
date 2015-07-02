@@ -64,16 +64,4 @@ public class TastyPlaceDaoImpl implements TastyPlaceDao{
 	public String selectTastyPlacefindByBrNo(String id){
 		return sqlSessionTemplate.selectOne("tastyPlace.selectTastyPlacefindByBrNo",id);
 	}
-	@Override
-	public void insertRestaurant(Restaurant restaurant) {
-		sqlSessionTemplate.insert("tastyPlace.insertRestaurant",restaurant);
-	}
-	@Override
-	public List<String> selectRestaurantByAddrDo() {
-		return sqlSessionTemplate.selectList("tastyPlace.selectRestaurantByAddrDo");
-	}
-	@Override
-	public List<String> selectRestaurantByAddrSi(String addrDo) {
-		return sqlSessionTemplate.selectList("tastyPlace.selectRestaurantByAddrSi",addrDo);
-	}
 }
