@@ -4,10 +4,9 @@ public class Restaurant {
 
 	private String resNo;
 	private String resName;
-	private String addrDo;
-	private String addrSi;
-	private String addrGu;
-	private String addrDong;
+	private String city;
+	private String sigungu;
+	private String eupmyeondong;
 	private String good;
 	private String bad;
 
@@ -15,37 +14,23 @@ public class Restaurant {
 		super();
 	}
 
-	public Restaurant(String resName, String addrDo, String addrSi,
-			String addrGu, String addrDong) {
+	public Restaurant(String resName, String city, String sigungu,
+			String eupmyeondong) {
 		super();
 		this.resName = resName;
-		this.addrDo = addrDo;
-		this.addrSi = addrSi;
-		this.addrGu = addrGu;
-		this.addrDong = addrDong;
+		this.city = city;
+		this.sigungu = sigungu;
+		this.eupmyeondong = eupmyeondong;
 	}
 
-	public Restaurant(String resName, String addrDo, String addrSi,
-			String addrGu, String addrDong, String good, String bad) {
-		super();
-		this.resName = resName;
-		this.addrDo = addrDo;
-		this.addrSi = addrSi;
-		this.addrGu = addrGu;
-		this.addrDong = addrDong;
-		this.good = good;
-		this.bad = bad;
-	}
-
-	public Restaurant(String resNo, String resName, String addrDo, String addrSi,
-			String addrGu, String addrDong, String good, String bad) {
+	public Restaurant(String resNo, String resName, String city,
+			String sigungu, String eupmyeondong, String good, String bad) {
 		super();
 		this.resNo = resNo;
 		this.resName = resName;
-		this.addrDo = addrDo;
-		this.addrSi = addrSi;
-		this.addrGu = addrGu;
-		this.addrDong = addrDong;
+		this.city = city;
+		this.sigungu = sigungu;
+		this.eupmyeondong = eupmyeondong;
 		this.good = good;
 		this.bad = bad;
 	}
@@ -66,36 +51,28 @@ public class Restaurant {
 		this.resName = resName;
 	}
 
-	public String getAddrDo() {
-		return addrDo;
+	public String getCity() {
+		return city;
 	}
 
-	public void setAddrDo(String addrDo) {
-		this.addrDo = addrDo;
+	public void setCity(String city) {
+		this.city = city;
 	}
 
-	public String getAddrSi() {
-		return addrSi;
+	public String getSigungu() {
+		return sigungu;
 	}
 
-	public void setAddrSi(String addrSi) {
-		this.addrSi = addrSi;
+	public void setSigungu(String sigungu) {
+		this.sigungu = sigungu;
 	}
 
-	public String getAddrGu() {
-		return addrGu;
+	public String getEupmyeondong() {
+		return eupmyeondong;
 	}
 
-	public void setAddrGu(String addrGu) {
-		this.addrGu = addrGu;
-	}
-
-	public String getAddrDong() {
-		return addrDong;
-	}
-
-	public void setAddrDong(String addrDong) {
-		this.addrDong = addrDong;
+	public void setEupmyeondong(String eupmyeondong) {
+		this.eupmyeondong = eupmyeondong;
 	}
 
 	public String getGood() {
@@ -117,9 +94,8 @@ public class Restaurant {
 	@Override
 	public String toString() {
 		return "Restaurant [resNo=" + resNo + ", resName=" + resName
-				+ ", addrDo=" + addrDo + ", addrSi=" + addrSi + ", addrGu="
-				+ addrGu + ", addrDong=" + addrDong + ", good=" + good
-				+ ", bad=" + bad + "]";
+				+ ", city=" + city + ", sigungu=" + sigungu + ", eupmyeondong="
+				+ eupmyeondong + ", good=" + good + ", bad=" + bad + "]";
 	}
 
 }

@@ -334,7 +334,8 @@
     	var tempFile,
     		sUploadURL;
     	
-    	sUploadURL= 'http://localhost:8888/madfortaste/multiplePhotoUpload'; 	//upload URL
+        sUploadURL= 'http://localhost:8888/madfortaste/multiplePhotoUpload'; 	//upload URL
+    	//sUploadURL= 'http://danielhs.iptime.org/madfortaste/multiplePhotoUpload'; 	//upload URL
     	
     	//파일을 하나씩 보내고, 결과를 받음.
     	for(var j=0, k=0; j < nImageInfoCnt; j++) {

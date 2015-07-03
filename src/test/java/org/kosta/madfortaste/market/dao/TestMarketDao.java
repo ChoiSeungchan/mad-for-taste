@@ -69,7 +69,7 @@ public class TestMarketDao {
 		Page page = new Page(totalCount);
 		page.setCurrentPage(3);
 		page.setPageSize(6);
-		System.out.println(page.isLastPage());
+		System.out.println(page.preview());
 		List<Item> itemList = marketDao.getItemsByPaging(page);
 		assertThat(itemList.size(), greaterThan(0)); // 리턴된 list의 size가 0보다 크면 통과
 		for (Item item : itemList) {

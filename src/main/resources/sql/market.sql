@@ -15,7 +15,6 @@ create sequence item_seq nocache
 drop sequence item_seq
 
 select * from item
-
 drop table purchase
 create table Purchase(
 	purchase_no number primary key,
