@@ -7,9 +7,10 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
-
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ import org.kosta.madfortaste.taste.domain.Article;
 import org.kosta.madfortaste.taste.domain.Reply;
 import org.kosta.madfortaste.taste.domain.TasteBoardImg;
 import org.kosta.madfortaste.taste.service.ReplyService;
+import org.kosta.madfortaste.taste.service.RestaurantService;
 import org.kosta.madfortaste.taste.service.TasteBoardService;
 import org.kosta.madfortaste.user.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,9 @@ public class TasteBoardController {
 
 	@Autowired
 	private TasteBoardService tasteBoardService;
+	
+	@Autowired
+	private RestaurantService restaurantService;
 	
 	@Autowired
 	private ReplyService replyService;
@@ -58,13 +63,25 @@ public class TasteBoardController {
 		return "home";
 	}
 	@RequestMapping(value="registerArticleForm")
-	public String registerArticleForm(Article article) {
+	public String registerArticleForm(Article article,Model model) {
+		model.addAttribute("listDo", restaurantService.selectSi());
 		return "taste/registerArticleForm";
 	}
 	
 	@RequestMapping(value="registerArticle")
-	public String registerArticle(Article article) {
-		article = tasteBoardService.insertArticle(article);
+	public String registerArticle(Article article,String doVal,String siVal,String dongVal,String name) {
+		Map<String, String> map=new HashMap<String, String>();
+		String si="";
+		String gu="  ";
+		String dong="  ";
+		si=doVal;
+		gu+=siVal;
+		dong+=dongVal;
+		map.put("si", si);
+		map.put("gu", gu);
+		map.put("dong", dong);
+		map.put("name", name);
+		article = tasteBoardService.insertArticle(article,map);
 		return "redirect:article/"+article.getArticleNo();
 	}
 	
@@ -219,5 +236,33 @@ public class TasteBoardController {
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
+	}
+	
+	@RequestMapping("listDoClickAjax")//시.도 클릭했을때 하위 시.군.구를 출력
+	@ResponseBody
+	public List<String> listDoClick(String doVal){
+		return restaurantService.selectGu(doVal);
+	}
+	
+	@RequestMapping(value="listSiClickAjax",method=RequestMethod.POST)
+	//시.군.구 를 클릭시 하위 읍.면.동을 출력
+	@ResponseBody
+	public List<String> listSiClick(String doVal,String siVal){
+		Map<String, String> map=new HashMap<String, String>();
+		map.put("si", doVal);map.put("gu", siVal);
+		return restaurantService.selectDong(map);
+	}
+	
+	@RequestMapping("findRestaurantAjax")//레스토랑 존재여부 확인
+	@ResponseBody
+	public List<String> findRestaurant(String doVal,String siVal,String dongVal,String name){
+		Map<String, String> map=new HashMap<String, String>();
+		List<String> list=new ArrayList<String>();
+		map.put("si", doVal);
+		map.put("gu", siVal);
+		map.put("dong", dongVal);
+		map.put("name", name);		
+		list.add(restaurantService.SelectRestaurantByAddress(map));
+		return list;
 	}
 }

@@ -15,30 +15,20 @@ create table tasty_place(
 drop table taste_board
 create table taste_board (
 	article_no number primary key,
-	location varchar2(20) not null,
-	writer varchar2(20) not null,
+	writer varchar2(20) references member(id) on delete cascade,
+	res_no number references restaurant(res_no) on delete cascade,
 	title varchar2(50) not null,
 	contents long not null,
 	reg_date date default sysdate,
 	reply number default 0,
 	good number default 0,
 	bad number default 0,
-	hits number default 0,
-	constraint writer_fk foreign key(writer) references member(id)
+	hits number default 0
 )
 
 drop sequence taste_board_sequence
 create sequence taste_board_sequence nocache
 
-drop table taste_board_img
-create table taste_board_img (
-	img_no number primary key,
-	article_no number not null,
-	file_name varchar(30) not null,
-	constraint article_no_fk foreign key(article_no) references taste_board(article_no)
-)
-drop sequence taste_board_img_sequence
-create sequence taste_board_img_sequence nocache
 
 -- 맛집 게시판 좋아요/싫어요 투표 여부 --
 
@@ -48,14 +38,6 @@ create table taste_board_vote(
 	member_id varchar(20) not null
 )
 
--- 맛집 게시판 댓글 좋아요/싫어요 투표 여부 --
-drop table taste_board_reply_vote
-create table taste_board_reply_vote(
-	reply_no number not null,
-	member_id varchar(20) not null,
-	constraint reply_vote_no_fk foreign key(reply_no) references taste_board_reply(reply_no),
-	constraint reply_vote_id_fk foreign key(member_id) references member(id)
-)
 -- 맛집 게시판 댓글 --
 
 drop table taste_board_reply
@@ -114,3 +96,4 @@ create sequence res_seq nocache
 drop sequence res_seq
 
 select *from Restaurant
+select *from taste_board

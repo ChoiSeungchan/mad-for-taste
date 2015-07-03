@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <script type="text/javascript">
-function showKeyCode(event) {
+/* function showKeyCode(event) {
 	event = event || window.event;
 	var keyID = (event.which) ? event.which : event.keyCode;
 	if( ( keyID >=48 && keyID <= 57 ) || ( keyID >=96 && keyID <= 105 ) )
@@ -14,7 +14,7 @@ function showKeyCode(event) {
 	{
 		return false;
 	}
-}
+} */
 </script>
 <style type="text/css">
 #itemRegContainer {
@@ -35,17 +35,17 @@ function showKeyCode(event) {
 			</div>
 			<div class="col-md-4 form-group">
 				<label for="itemPrice">아이템 가격</label>
-				<form:input type="number" path="itemPrice" min="0" max="100" step="5" onkeydown="return showKeyCode(event)" class="form-control" name="itemPrice" id="itemPrice" placeholder="아이템 가격을 입력하세요"/>
+				<form:input type="number" path="itemPrice" min="0" max="10000" step="5" onkeydown="return showKeyCode(event)" class="form-control" name="itemPrice" id="itemPrice" placeholder="아이템 가격을 입력하세요"/>
 				<font color="red"><form:errors path="itemPrice"/></font>	
 			</div>
 			<div class="col-md-4 form-group">
 				<label for="itemStock">아이템 재고</label>
-				<form:input type="number" path="itemStock" min="0" max="100" step="1" onkeydown="return showKeyCode(event)" class="form-control" name="itemStock" id="itemStock" placeholder="아이템 재고를 입력하세요"/>
+				<form:input type="number" path="itemStock" min="0" max="10000" step="1" onkeydown="return showKeyCode(event)" class="form-control" name="itemStock" id="itemStock" placeholder="아이템 재고를 입력하세요"/>
 				<font color="red"><form:errors path="itemStock"/></font>
 			</div>
 			<div class="col-md-4 form-group">
 				<label for="maxAmountAvailable">최대 보유 가능 수량</label>
-				<form:input type="number" path="maxAmountAvailable" min="0" max="100" step="1" onkeydown="return showKeyCode(event)" class="form-control" name="maxAmountAvailable" id="maxAmountAvailable" placeholder="최대 보유 가능 수량을 입력하세요"/>
+				<form:input type="number" path="maxAmountAvailable" min="0" max="5000" step="1" onkeydown="return showKeyCode(event)" class="form-control" name="maxAmountAvailable" id="maxAmountAvailable" placeholder="최대 보유 가능 수량을 입력하세요"/>
 				<font color="red"><form:errors path="maxAmountAvailable"/></font>
 			</div>
 			<div class="col-md-4 form-group">

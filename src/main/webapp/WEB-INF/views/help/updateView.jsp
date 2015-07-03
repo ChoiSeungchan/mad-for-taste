@@ -14,7 +14,7 @@
 			공지사항 수정하기
 			<hr><br>
 		</caption>
-	<form role="form" action="update">
+	<form role="form" action="update" method="post">
 		<div class="form-group">
 			<div class="input-group">
 			<label for="Title">Title</label> 
