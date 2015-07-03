@@ -13,19 +13,20 @@ import org.springframework.transaction.annotation.Transactional;
 public class QnaServiceImpl implements QnaService{
 	@Autowired
 	private QnaDao qnaDao;
-
-	@Override
-	public List<Qna> loadQnaList(Page page) {
-		return qnaDao.loadQnaList(page);
-	}
 	
-	@Override
-	public List<Qna> loadQnaListByInput(Page page,String searchSelect, String input) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		 map.put("page", page);
-		 map.put("input", input);
-		return qnaDao.loadQnaListByInput(map,searchSelect);
-	}
+	@Override 
+	 	public List<Qna> loadQnaList(Page page) { 
+	 		return qnaDao.loadQnaList(page); 
+	 	} 
+	 	 
+	 	@Override 
+	 	public List<Qna> loadQnaListByInput(Page page,String searchSelect, String input) { 
+	 		HashMap<String, Object> map = new HashMap<String, Object>(); 
+	 		 map.put("page", page); 
+	 		 map.put("input", input); 
+	 		return qnaDao.loadQnaListByInput(map,searchSelect); 
+	 	} 
+
 
 	@Override
 	public int totalQnaContentCount(String input) {
@@ -80,5 +81,4 @@ public class QnaServiceImpl implements QnaService{
 		qnaDao.insertRefContent(qna);//답변글 입력
 	}
 
-	
 }

@@ -1,4 +1,4 @@
-package org.kosta.madfortaste.help.service;
+/*package org.kosta.madfortaste.help.service;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
@@ -24,11 +24,11 @@ public class TestQnaService {
 	
 	private Logger log = LoggerFactory.getLogger(getClass());
 	
-	/**
+	*//**
 	 * Controller에서 paging 처리를 같이 처리하는데 있어
 	 * Q&A의 총 게시글의 개수를 가져오는 Service이다.
 	 * 또한 검색을 할 시에도 본 Service를 사용한다. 
-	 */
+	 *//*
 	@Transactional
 	@Test
 	public void testTotaQnaContentCount(){
@@ -53,9 +53,9 @@ public class TestQnaService {
 			assertNotNull(page.toString());//페이징 처리까지 정상적으로 되야 한다.
 	}
 	
-	/**
+	*//**
 	 * Q&A 메인페이지에서 게시글 상세보기를 위한 Service이다. 
-	 */
+	 *//*
 	@Transactional
 	@Test
 	public void testGetQnaContents(){
@@ -73,10 +73,10 @@ public class TestQnaService {
 		String confirmAriticleNo = qna.getArticleNo();
 		assertThat(no, is(confirmAriticleNo));//지정한 articleNo 1번과 불러온 글의 aritcleNo를 비교
 	}
-	/**
+	*//**
 	 * 게시글 수정시에는 ViewCount(조회수)가 올라가면 안되기 때문에
 	 * 수정후에 수정된 결과를 보여주는데 사용되는 서비스이다
-	 */
+	 *//*
 	@Transactional
 	@Test
 	public void testNoCountGetContentsQna(){
@@ -95,9 +95,9 @@ public class TestQnaService {
 		assertThat(no, is(confirmAriticleNo));//지정한 articleNo 1번과 불러온 글의 aritcleNo를 비교
 	}
 	
-	/**
+	*//**
 	 * Q&A 게시글 입력을 위한 서비스
-	 */
+	 *//*
 	@Transactional
 	@Test
 	public void testInsertQna(){
@@ -111,9 +111,9 @@ public class TestQnaService {
 		log.info("testInsertQna : " +qna.toString());
 	}
 	
-	/**
+	*//**
 	 * Q&A게시글 수정을 위한 서비스 본 서비스는 답글 수정시에도 사용한다. 
-	 */
+	 *//*
 	@Transactional
 	@Test
 	public void testUpdateQna(){
@@ -133,10 +133,10 @@ public class TestQnaService {
 		log.info("업데이트 후 : " + afterQna.getTitle());
 	}
 	
-	/**
+	*//**
 	 * Q&A 게시글의 삭제시 사용되는 서비스
 	 * 본 서비스는 답글을 삭제시에도 사용된다.
-	 */
+	 *//*
 	@Transactional
 	@Test
 	public void testDeleteQna(){
@@ -155,9 +155,9 @@ public class TestQnaService {
 		assertNull(afterQna);		
 	}
 	
-	/**
+	*//**
 	 * 답글 작성시 계층별 답글을 작성하기 위한 서비스 이다.
-	 */
+	 *//*
 	@Transactional
 	@Test
 	public void testReply(){
@@ -207,3 +207,4 @@ public class TestQnaService {
 	
 	
 }
+*/
