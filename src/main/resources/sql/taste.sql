@@ -29,15 +29,6 @@ create table taste_board (
 drop sequence taste_board_sequence
 create sequence taste_board_sequence nocache
 
-drop table taste_board_img
-create table taste_board_img (
-	img_no number primary key,
-	article_no number not null,
-	file_name varchar(30) not null,
-	constraint article_no_fk foreign key(article_no) references taste_board(article_no)
-)
-drop sequence taste_board_img_sequence
-create sequence taste_board_img_sequence nocache
 
 -- 맛집 게시판 좋아요/싫어요 투표 여부 --
 
@@ -47,14 +38,6 @@ create table taste_board_vote(
 	member_id varchar(20) not null
 )
 
--- 맛집 게시판 댓글 좋아요/싫어요 투표 여부 --
-drop table taste_board_reply_vote
-create table taste_board_reply_vote(
-	reply_no number not null,
-	member_id varchar(20) not null,
-	constraint reply_vote_no_fk foreign key(reply_no) references taste_board_reply(reply_no),
-	constraint reply_vote_id_fk foreign key(member_id) references member(id)
-)
 -- 맛집 게시판 댓글 --
 
 drop table taste_board_reply
