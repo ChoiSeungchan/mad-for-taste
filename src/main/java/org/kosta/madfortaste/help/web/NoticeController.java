@@ -57,6 +57,7 @@ public class NoticeController {
 	
 	@RequestMapping("insert")
 	public ModelAndView insert(Notice notice){
+		System.out.println(notice.toString());
 		noticeService.insert(notice);
 		return new ModelAndView("redirect:noticelist");
 	}
