@@ -16,7 +16,6 @@
 				 });
 	 
 	 $("#qnaReplyInsertView").click(function(){
-		 alert("${qnaContent.articleNo }");
 		 location.href="qnaReplyInsertView?articleNo=${qnaContent.articleNo }";
 	 });
 	 

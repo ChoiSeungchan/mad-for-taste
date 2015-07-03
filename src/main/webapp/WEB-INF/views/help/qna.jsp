@@ -7,6 +7,14 @@
 	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<!-- <script type="text/javascript">
+   function qnalist(pageNo) {
+      var selectComp = $("searchSelect").Element.value();
+      alert(selectComp);
+      location.href = "qnalist?pageNo="
+            + pageNo + "&searchSelect=" + selectComp;
+   }
+</script> -->
 <script>
 	$(function() {
 		$("#insert").click(function() {
@@ -51,7 +59,9 @@
 					
 					<td class="titleView">
 					<c:if test="${qna.relevel!=0}">
-					<c:forEach begin="0" end="${qna.relevel}" step="1">&nbsp;&nbsp;<img alt="" src="${initParam.root}resources/images/help/reply.jpg" /></c:forEach>
+					<c:forEach begin="1" end="${qna.relevel}" step="1">&nbsp;&nbsp;</c:forEach>
+					
+					<span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>${qna.title }
 					</c:if>
 					${qna.title }
 				</td>	
@@ -75,10 +85,10 @@
 					</c:if>
 		</div>
 	
-	
+	<form id="searchForm" action="qnalist">
 	<div style="margin-bottom: 30px" align="center">
 		<ul class="pagination">
-			<li> <a href="qnalist?pageNo=${qnaPageInfo.currentPage-1}">Prev</a></li>
+			<li> <a href="qnalist?pageNo=${qnaPageInfo.currentPage-1}&searchSelect=${param.searchSelect}&input=${param.input}">Prev</a></li>
 	<c:forEach var="p" begin="${qnaPageInfo.beginPage}" end="${qnaPageInfo.endPage}">
       <c:choose>
       	<c:when test="${qnaPageInfo.pageCount==0}">
@@ -88,17 +98,45 @@
       	</c:when>
       	<c:when test="${qnaPageInfo.currentPage==p}">
 	      <li class="active">
-	        <a href="qnalist?pageNo=${p}">${p}</a>
+	        <a href="qnalist?pageNo=${p}&searchSelect=${param.searchSelect}&input=${param.input}">${p}</a>
 	      </li>
       	</c:when>
       	<c:otherwise>
 	      <li>
-	        <a href="qnalist?pageNo=${p}">${p}</a>
+	        <a href="qnalist?pageNo=${p}&searchSelect=${param.searchSelect}&input=${param.input}">${p}</a>
 	      </li>
       	</c:otherwise>
       </c:choose>
       </c:forEach>
-			<li><a href="qnalist?pageNo=${qnaPageInfo.currentPage+1}">Next</a></li>
+			<li><a href="qnalist?pageNo=${qnaPageInfo.currentPage+1}&searchSelect=${param.searchSelect}&input=${param.input}">Next</a></li>
 		</ul>
+		
+	<!-- Search -->
+	<div class="col-md-offset-0">
+	<!-- SelectBoax -->
+      <div class="col-md-2 text-right">
+         <div class="btn-group btn-group-sm">
+            <select class="selectpicker" name="searchSelect" id="searchSelect">
+               <option value="">검색조건</option>
+               <option value="0">사용자</option>
+               <option value="1">제목+내용</option>
+            </select>
+         </div>
+      </div>
+      
+      <!-- Text and Button Area -->
+      <div class="col-md-10 text-left">
+         <div class="form-group">
+            <div class="input-group">
+               <input type="text" class="form-control" placeholder="검색어입력"
+                  name="input" id="input"> <span class="input-group-btn">
+                  <input type="submit" class="btn btn-primary" value="검색">
+               </span>
+            </div>
+         </div>
+      </div>
+      </div>
+
 	</div>
+	</form>
 </div>

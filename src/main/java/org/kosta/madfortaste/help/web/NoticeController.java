@@ -15,6 +15,14 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 	
+	/**
+	 * 페이징 처리와 동시에 메인 페이지에서 공지사항 게시글 리스트를
+	 * 보여주는 컨트롤러이다. 
+	 * 처음 화면을 띄울때는 페이지버튼을 누르지 않은 상태이기 때문에
+	 * pageNo가 null처리 될 수 있다. 이경우 1페이지로 초기화 시켜준다.
+	 * @param pageNo
+	 * @return
+	 */
 	@RequestMapping(value="noticelist")
 	public ModelAndView loadNoticeList(String pageNo){
 		ModelAndView mv = new ModelAndView("help/notice");
@@ -29,6 +37,12 @@ public class NoticeController {
 		return mv;
 		
 	}
+	
+	/**
+	 * notice.jsp에서 tr
+	 * @param no
+	 * @return
+	 */
 	@RequestMapping("showContentView")
 	public ModelAndView showContentView(String no){
 		System.out.println(no);
