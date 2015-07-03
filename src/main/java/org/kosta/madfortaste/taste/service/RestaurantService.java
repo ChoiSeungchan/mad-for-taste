@@ -1,12 +1,9 @@
-package org.kosta.madfortaste.taste.dao;
+package org.kosta.madfortaste.taste.service;
 
 import java.util.List;
 import java.util.Map;
 
-import org.kosta.madfortaste.taste.domain.Restaurant;
-
-public interface RestaurantDao {
-	public void insertRestaurant(Restaurant restaurant);
+public interface RestaurantService {
 	public List<String> selectSi();
 	public List<String> selectGu(String si);
 	public List<String> selectDong(Map<String, String> map);
