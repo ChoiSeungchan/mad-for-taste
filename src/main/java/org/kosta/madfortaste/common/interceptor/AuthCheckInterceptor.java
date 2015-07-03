@@ -28,9 +28,10 @@ public class AuthCheckInterceptor extends HandlerInterceptorAdapter{
 		super.afterCompletion(request, response, handler, ex);
 		HttpSession session = request.getSession(false);
 		if(session!=null) {
-			Member member = (Member) session.getAttribute("Member");
-			if(member!=null) loginService.reLogin(member, session, request);
+			Member member = (Member) session.getAttribute("member");
+			if(member!=null) { 
+				loginService.reLogin(member, session, request);
+			}
 		}
-		
 	}
 }

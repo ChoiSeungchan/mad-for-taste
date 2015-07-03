@@ -50,7 +50,6 @@ public class LoginServiceImpl implements LoginService {
 		if(user instanceof Member) {
 			Member member = (Member) user;
 			member = loginDao.getMemberInfo(member.getId());
-			System.out.println(session.getId());
 			session.setAttribute("member", member);
 		} else if (user instanceof Owner) {
 			Owner owner = (Owner) user;

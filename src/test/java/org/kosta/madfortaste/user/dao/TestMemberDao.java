@@ -43,6 +43,18 @@ public class TestMemberDao {
 	}
 	
 	@Test
+	public void grantPointToMember() {
+		String memberId = "java1";
+		memberDao.upPoint(memberId, 1000);
+	}
+	
+	@Test
+	public void grantExpToMember() {
+		String memberId = "java1";
+		memberDao.upExp(memberId, 500);
+	}
+	
+	@Test
 	public void updateMemberToAdmin() {
 		memberDao.upExp("admin", 10000000);
 	}
