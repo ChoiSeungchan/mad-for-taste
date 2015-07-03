@@ -58,4 +58,3 @@ $(function() {
 	</div>
 	</c:forEach>
 </div>
-${inventory}
