@@ -14,7 +14,7 @@
 			공지사항 작성하기
 			<hr><br>
 		</caption>
-	<form role="form" action="insert">
+	<form role="form" action="insert" method="post">
 		<div class="form-group">
 			<div class="input-group">
 			<label for="Title">Title</label> 
