@@ -15,16 +15,15 @@ create table tasty_place(
 drop table taste_board
 create table taste_board (
 	article_no number primary key,
-	location varchar2(20) not null,
-	writer varchar2(20) not null,
+	writer varchar2(20) references member(id) on delete cascade,
+	res_no number references restaurant(res_no) on delete cascade,
 	title varchar2(50) not null,
 	contents long not null,
 	reg_date date default sysdate,
 	reply number default 0,
 	good number default 0,
 	bad number default 0,
-	hits number default 0,
-	constraint writer_fk foreign key(writer) references member(id)
+	hits number default 0
 )
 
 drop sequence taste_board_sequence
@@ -114,3 +113,4 @@ create sequence res_seq nocache
 drop sequence res_seq
 
 select *from Restaurant
+select *from taste_board

@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.kosta.madfortaste.common.config.ExpConfig;
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.taste.dao.ReplyDao;
+import org.kosta.madfortaste.taste.dao.RestaurantDao;
 import org.kosta.madfortaste.taste.dao.TasteBoardDao;
 import org.kosta.madfortaste.taste.domain.Article;
+import org.kosta.madfortaste.taste.domain.Restaurant;
 import org.kosta.madfortaste.user.dao.MemberDao;
 import org.kosta.madfortaste.user.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +31,20 @@ public class TasteBoardServiceImpl implements TasteBoardService {
 	@Autowired
 	private MemberDao memberDao;
 	
+	@Autowired
+	private RestaurantDao restaurantDao;
+	
 	@Override
-	public Article insertArticle(Article article) {
+	public Article insertArticle(Article article,Map<String, String> map) {
 		memberDao.upExp(article.getWriter(), 30);
+		String resNo=restaurantDao.SelectRestaurantByAddress(map);
+		if(resNo!=null)
+			article.setResNo(resNo);
+		else{
+			Restaurant restaurant=new Restaurant(map.get("name"), map.get("si"), map.get("gu"), map.get("dong"));
+			restaurantDao.insertRestaurant(restaurant);
+			article.setResNo(restaurant.getResNo());
+		}
 		return tasteBoardDao.insertArticle(article);
 	}
 
