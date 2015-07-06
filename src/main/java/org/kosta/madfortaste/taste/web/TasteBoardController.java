@@ -94,7 +94,6 @@ public class TasteBoardController {
 		Article article = tasteBoardService.getArticleByNo(articleNo);
 		List<Reply> replies = replyService.getReplies(articleNo);
 		model.addAttribute("article", article);
-		System.out.println(article);
 		if(replies.size()!=0)model.addAttribute("replies", replies);
 		return "taste/articleView";
 	}

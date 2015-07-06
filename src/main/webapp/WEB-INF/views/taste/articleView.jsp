@@ -156,6 +156,7 @@ pre{
 		<hr>
 		<div class="row">
 			<div class="col-md-12">
+			<strong>해당 글의 맛집${article.restaurant }</strong><br>
 				<p>
 					${article.contents}
 				</p>
