@@ -89,6 +89,9 @@ public class TasteBoardController {
 			HttpServletResponse res) {
 		tasteBoardService.upHits(articleNo, cookie, res);
 		Article article = tasteBoardService.getArticleByNo(articleNo);
+		int good=article.getGood();
+		int bad=article.getBad();
+		
 		List<Reply> replies = replyService.getReplies(articleNo);
 		model.addAttribute("article", article);
 		if(replies.size()!=0)model.addAttribute("replies", replies);

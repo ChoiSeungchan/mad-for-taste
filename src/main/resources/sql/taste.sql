@@ -8,7 +8,6 @@ create table tasty_place(
 	owner_id varchar2(20) not null,
 	constraint owner_id_fk foreign key (owner_id) references owner(owner_id) on delete cascade
 )
-
 -- 맛집게시판 --
 
 
