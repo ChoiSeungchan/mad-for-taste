@@ -49,7 +49,7 @@ $(function() {
 	<img class="img-responsive itemImg" src="${initParam.root}resources/images/market/item/${inven.item.itemImgName}">
 	</div>
 	<div class="itemTitle">
-	${inven.item.itemName }
+	${inven.item.itemName}
 	</div>
 	<div class="itemAmount">${inven.itemAmount}개 보유중</div>
 	<div class="buttonArea">
@@ -58,4 +58,3 @@ $(function() {
 	</div>
 	</c:forEach>
 </div>
-${inventory}
