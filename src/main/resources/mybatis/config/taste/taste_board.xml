@@ -5,9 +5,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="tasteBoard">
 	<resultMap type="article" id="articleRM">
-	    <result property="restaurant.city" column="city"/>
-	    <result property="restaurant.sigungu" column="sigungu"/>
-	    <result property="restaurant.eupmyeondong" column="eupmyeondong"/>
+	    <result property="restaurant.resNo" column="resno"/>
+	    <result property="restaurant.city" column="rcity"/>
+	    <result property="restaurant.sigungu" column="rsigungu"/>
+	    <result property="restaurant.eupmyeondong" column="reupmyeondong"/>
 	    <result property="restaurant.resName" column="rname"/>
 	    <result property="restaurant.good" column="rgood"/>
 	    <result property="restaurant.bad" column="rbad"/>
@@ -16,6 +17,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="member.id" column="id"/>
 		<result property="member.password" column="password"/>
 		<result property="member.name" column="name"/>
+		<result property="member.city" column="city"/>
+		<result property="member.sigungu" column="sigungu"/>
+		<result property="member.eupmyeondong" column="eupmyeondong"/>
 		<result property="member.address" column="address"/>
 		<result property="member.gender" column="gender"/>
 		<result property="member.birth" column="birth"/>
@@ -63,7 +67,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from taste_board where article_no=#{articleNo}
 	</delete>
 	<select id="getArticleByNo" resultMap="articleRM">
-	    select rownum,t.*,m.*,r.city city,r.sigungu sigungu,r.eupmyeondong eupmyeondong,r.res_name rname,r.good rgood,r.bad rbad from taste_board t, member m,restaurant r where t.writer=m.id and r.res_no=t.res_no and article_no=#{articleNo}
+	    select rownum,t.*,m.*,r.res_no resno,r.city rcity,r.sigungu rsigungu,r.eupmyeondong reupmyeondong,r.res_name rname,r.good rgood,r.bad rbad from taste_board t, member m,restaurant r where t.writer=m.id and r.res_no=t.res_no and article_no=#{articleNo}
 	</select>
 	<select id="getArticles" resultMap="articleRM">
 		select * from (

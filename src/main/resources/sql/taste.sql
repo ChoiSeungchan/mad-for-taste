@@ -52,6 +52,7 @@ create table taste_board_reply(
 	constraint r_article_no_fk foreign key(article_no) references taste_board(article_no),
 	constraint r_writer_fk foreign key(writer) references member(id)
 )
+select *from taste_board_reply
 drop sequence taste_board_reply_sequence
 create sequence taste_board_reply_sequence nocache
 
@@ -62,6 +63,7 @@ create table tasty_place_mark(
 	mark number not null,
 	primary key(br_no,id)
 )
+select *from tasty_place_mark
 insert into tasty_place_mark values('777','member','5')
 delete from tasty_place_mark
  drop table tasty_place_reply
@@ -74,6 +76,7 @@ delete from tasty_place_mark
  	contents long not null,
  	primary key(reply_no,br_no)
  )
+ select *from tasty_place_reply
 select * from (select rownum numrow,reply,name,id,joinDate,profileImg,contents,brno from (select t.reply_no reply,m.name name,m.id id,m.join_date joinDate,m.profile_img profileImg,t.contents contents,t.br_no brno from tasty_place_reply t,member m where m.id=t.id order by reply desc)) where brno='77777' and numrow between  1and 1+2
  create sequence tasty_place_reply_seq nocache
  drop sequence tasty_place_reply_seq
@@ -97,4 +100,4 @@ drop sequence res_seq
 
 select *from Restaurant
 select *from taste_board
-select rownum,t.*,m.*,r.city city,r.sigungu sigungu,r.eupmyeondong eupmyeondong,r.good rgood,r.bad rbad from taste_board t, member m,restaurant r where t.writer=m.id and r.res_no=t.res_no and article_no='19'
+ select rownum,t.*,m.*,r.city rcity,r.sigungu rigungu,r.eupmyeondong reupmyeondong,r.res_name rname,r.good rgood,r.bad rbad from taste_board t, member m,restaurant r where t.writer=m.id and r.res_no=t.res_no and article_no='19'
