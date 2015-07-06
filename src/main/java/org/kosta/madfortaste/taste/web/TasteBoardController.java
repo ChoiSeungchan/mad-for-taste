@@ -48,9 +48,6 @@ public class TasteBoardController {
 	@Autowired
 	private ReplyService replyService;
 	
-	@Autowired
-	private MemberService memberService;
-	
 	@RequestMapping(value="getArticles/{currentPage}")
 	public String getArticles(@PathVariable int currentPage, Model model) {
 		Page page = new Page(tasteBoardService.getTotalCount());

@@ -94,6 +94,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="SelectRestaurantByAddress" resultType="String">
 		select res_no from restaurant where city=#{si} and sigungu=#{gu} and eupmyeondong=#{dong} and res_name=#{name}
 	</select>
+	
+	<update id="upGood">
+		update restaurant set good=good+1 where res_no=#{resNo}
+	</update>
+	
+	<update id="upBad">
+		update restaurant set bad=bad+1 where res_no=#{resNo}
+	</update>
  </mapper>
  
  

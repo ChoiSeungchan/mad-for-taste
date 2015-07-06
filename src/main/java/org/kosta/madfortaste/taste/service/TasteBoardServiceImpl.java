@@ -137,6 +137,7 @@ public class TasteBoardServiceImpl implements TasteBoardService {
 		}
 		if(isThisMemberVoted==false) {
 			tasteBoardDao.upGood(articleNo);
+//			restaurantDao.upGood(resNo);
 			tasteBoardDao.insertVote(articleNo, id);
 			memberDao.upExp(id.trim(), ExpConfig.GOOD_BAD);
 		}
@@ -158,6 +159,7 @@ public class TasteBoardServiceImpl implements TasteBoardService {
 		}
 		if(isThisMemberVoted==false) {
 			tasteBoardDao.upBad(articleNo);
+//			restaurantDao.upBad(resNo);
 			tasteBoardDao.insertVote(articleNo, id);
 			memberDao.upExp(id.trim(), ExpConfig.GOOD_BAD);
 		}

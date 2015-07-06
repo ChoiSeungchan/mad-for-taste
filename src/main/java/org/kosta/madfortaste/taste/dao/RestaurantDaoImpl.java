@@ -42,4 +42,13 @@ public class RestaurantDaoImpl implements RestaurantDao {
 		return sqlSessionTemplate.selectOne("tastyPlace.SelectRestaurantByAddress",map);
 	}
 
+	@Override
+	public void upGood(int resNo) {
+		sqlSessionTemplate.update("tastyPlace.upGood", resNo);
+	}
+
+	@Override
+	public void upBad(int resNo) {
+		sqlSessionTemplate.update("tastyPlace.upBad", resNo);
+	}
 }
