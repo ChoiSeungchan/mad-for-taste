@@ -2,10 +2,10 @@ package org.kosta.madfortaste.user.domain;
 
 import java.util.Date;
 
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Member implements User{
@@ -14,6 +14,8 @@ public class Member implements User{
 	private String id;
 	@Size(min=4, max=16)
 	private String password;
+	@Size(min=4, max=16)
+	private String passwordCheck;
 	@NotEmpty
 	private String name;
 	@NotEmpty
@@ -36,7 +38,16 @@ public class Member implements User{
 	private Date joinDate;
 	private String profileImg;
 	private MultipartFile imgFile;
-
+	
+	@AssertTrue(message = "비밀번호와 비밀번호 확인란이 일치하지 않습니다.")
+	public boolean isPasswordSync() {
+		boolean flag = false;
+		if(password!=null && passwordCheck!=null) {
+			flag  = password.equals(passwordCheck);
+		}
+	    return flag;
+	}
+	
 	public Member() {
 		super();
 	}
@@ -46,8 +57,6 @@ public class Member implements User{
 		this.id = id;
 	}
 
-	
-	
 	public Member(String id, String password, String name, String city,
 			String sigungu, String eupmyeondong, String address, String gender,
 			String birth, String tel) {
@@ -141,6 +150,14 @@ public class Member implements User{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getPasswordCheck() {
+		return passwordCheck;
+	}
+
+	public void setPasswordCheck(String passwordCheck) {
+		this.passwordCheck = passwordCheck;
 	}
 
 	public String getName() {

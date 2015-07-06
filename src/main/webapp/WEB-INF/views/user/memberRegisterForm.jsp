@@ -62,36 +62,104 @@ $(function(){
 			$("#listSi").html(listVal);
     	})
     })
+    
     $("#listSi").change(function(){
 		$("#restaurant").val("");
     		var listVal="<option value=''></option>";
-		 	$.ajax({
-    		type : "post",
-    		url : "listSiClickAjax?doVal="+$("#listDo").val()+"&siVal=  "+$(this).val(),
-    		dataType : "json",
-    		success : function(data){
-        		$.each(data,function(index,val){
-	    			listVal+="<option value="+val+">"+val+"</option>";
-	    		})
-    			$("#listDong").html(listVal);
-    		}
-    	}) 
+			 $.ajax({
+	    		type : "post",
+	    		url : "listSiClickAjax?doVal="+$("#listDo").val()+"&siVal=  "+$(this).val(),
+	    		dataType : "json",
+	    		success : function(data){
+	        		$.each(data,function(index,val){
+		    			listVal+="<option value="+val+">"+val+"</option>";
+		    		})
+	    			$("#listDong").html(listVal);
+	    		}
+	    	}) 
     })
+    
+    $('#memberId').keyup(function(){
+    	var idLength = $(this).val().length
+    	if (idLength==0) {
+    		$('.memberId').attr('class','memberId form-group');
+			$('#idCheckLabel').css('color','#777777');
+    		$('#idCheckLabel').html('아이디');
+    	} else if(idLength<=16 && idLength>=4) {
+	    	$.ajax({
+	    		type : "post",
+	    		url : "memberIdCheck.json?memberId="+$(this).val(),
+	    		dataType : "json",
+	    		success : function(data){
+	    			var idCheckStr = '';
+	    			if(data.result=="true") {
+	    				$('.memberId').attr('class','memberId form-group has-success');
+	    				$('#idCheckLabel').css('color','green');
+	    				idCheckStr = '사용 가능한 아이디 입니다.';
+	    			} else if (data.result=="false") {
+	    				$('.memberId').attr('class','memberId form-group has-error');
+	    				$('#idCheckLabel').css('color','red');
+	    				idCheckStr = '사용 불가능한 아이디 입니다.';
+	    			}
+	    			$('#idCheckLabel').html(idCheckStr);
+	    		}
+	    	}) 
+    	} else {
+    		$('.memberId').attr('class','memberId form-group has-warning');
+			$('#idCheckLabel').css('color','orange');
+			$('#idCheckLabel').html('아이디는 4자 이상 16자 이하만 가능합니다.');
+    	}
+    });
+	
+	$('#pw').keyup(function(){
+		var passLength = $(this).val().length;
+		if(passLength>16 || passLength<4) {
+			$('#passwordLable').css('color','red');
+			$('#passwordLable').html('비밀번호는 4자 이상 16자 이하만 가능합니다.');
+		} else {
+			$('#passwordLable').css('color','#777777');
+			$('#passwordLable').html('비밀번호');
+		}
+		if(passLength==0) {
+			$('#passwordLable').css('color','#777777');
+			$('#passwordLable').html('비밀번호');
+		}
+	});
+	
+	$('#passwordCheck').keyup(function(){
+		if($(this).val()!=$('#pw').val()){
+			$('#passwordCheckLable').css('color','red');
+			$('#passwordCheckLable').html('비밀번호와 비밀번호 확인란이 일치하지 않습니다.');
+		} else {
+			$('#passwordCheckLable').css('color','green');
+			$('#passwordCheckLable').html('비밀번호와 비밀번호 확인란이 일치합니다.');
+		}
+		if ($(this).val().length==0) {
+			$('#passwordCheckLable').css('color','#777777');
+			$('#passwordCheckLable').html('비밀번호 확인');
+		}
+	})
 });
 </script>
 </head>
 <body>
 <div class="col-md-4 col-md-offset-4">
 <form:form action="registerMember" method="post" id="registerMemberForm" enctype="multipart/form-data" commandName="member">
-  <div class="form-group">
-    <label for="id">아이디</label>
-    <form:input type="text" class="form-control" path="id" name="id" id="id" placeholder="아이디를 입력하세요"/>
+  <div class="memberId form-group">
+    <label id="idCheckLabel" for="id">아이디</label>
+    <form:input type="text" class="form-control" path="id" name="id" id="memberId" placeholder="아이디를 입력하세요"/>
   	<font color="red"><form:errors path="id"/></font>
   </div>
   <div class="form-group">
-    <label for="password">비밀번호</label>
-    <form:input type="password" class="form-control" path="password" name="password" id="password" placeholder="비밀번호를 입력하세요"/>
+    <label id="passwordLable" for="password">비밀번호</label>
+    <form:input type="password" class="form-control" path="password" name="password" id="pw" placeholder="비밀번호를 입력하세요"/>
   	<font color="red"><form:errors path="password"/></font>
+  </div>
+  <div class="form-group">
+    <label id="passwordCheckLable" for="passwordCheck">비밀번호 확인</label>
+    <form:input type="password" class="form-control" path="passwordCheck" name="passwordCheck" id="passwordCheck" placeholder="비밀번호를 다시 입력하세요"/>
+  	<font color="red"><form:errors path="passwordCheck"/></font><br>
+  	<font color="red"><form:errors path="passwordSync"/></font>
   </div>
   <div class="form-group">
     <label for="name">이름</label>
