@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet"
@@ -59,8 +60,7 @@
 					
 					<td class="titleView">
 					<c:if test="${qna.relevel!=0}">
-					<c:forEach begin="1" end="${qna.relevel}" step="1">&nbsp;&nbsp;</c:forEach>
-					
+					<c:forEach begin="1" end="${qna.relevel}" step="1">&nbsp;&nbsp;</c:forEach>				
 					<span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>${qna.title }
 					</c:if>
 					${qna.title }

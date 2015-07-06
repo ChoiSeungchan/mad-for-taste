@@ -1,5 +1,6 @@
 package org.kosta.madfortaste.help.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,11 +9,8 @@ import org.kosta.madfortaste.help.domain.Qna;
 
 
 public interface QnaService {
-	public List<Qna> loadQnaList(Page page); 
-	 	public List<Qna> loadQnaListByInput(Page page,String searchSelect, String input); 
-	 	public int totalQnaContentCount(String input); 
-	 	public Qna getQnaContents(String no); 
-
+	public Qna getQnaContents(String no); 
+	public HashMap<String,Object> loadQnaService(String pageNo,String searchSelect,String input);
 	public int insertQna(Qna qna);
 	public void updateQna(Qna qna);
 	public void deleteQna(String no);

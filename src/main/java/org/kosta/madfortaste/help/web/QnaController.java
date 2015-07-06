@@ -1,13 +1,12 @@
 package org.kosta.madfortaste.help.web;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.help.domain.Qna;
 import org.kosta.madfortaste.help.service.QnaService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,29 +21,10 @@ public class QnaController {
 	public ModelAndView loadQnaList(String pageNo, String searchSelect,
 			String input) {
 		ModelAndView mv = new ModelAndView("help/qna");
-		List<Qna> list = null;
-		if (pageNo == null || pageNo == "") {
-			pageNo = "1";
-		}
-		if (input == null){
-			input = "";
-		}
-		if (searchSelect == null){
-			searchSelect = "";
-		}
-		Page page = new Page(qnaService.totalQnaContentCount(input));
-		page.setCurrentPage(Integer.parseInt(pageNo));
-		if (searchSelect.equals("0")) {
-			list = qnaService.loadQnaListByInput(page,searchSelect, input);
-		} else if(searchSelect.equals("1")){
-			list = qnaService.loadQnaListByInput(page,searchSelect, input);
-			/*page.setCurrentPage(Integer.parseInt(pageNo));*/
-		}else {
-			list = qnaService.loadQnaList(page);
-			/*page.setCurrentPage(Integer.parseInt(pageNo));*/
-		}
-		mv.addObject("qnaBoardList", list);
-		mv.addObject("qnaPageInfo", page);
+		HashMap<String,Object> map = qnaService.loadQnaService(pageNo, searchSelect, input);
+		mv.addObject("qnaBoardList", map.get("qnaList"));
+		mv.addObject("qnaPageInfo", map.get("page"));
+		//System.out.println("test"+map.get("qnaList"));
 		return mv;
 
 	}
