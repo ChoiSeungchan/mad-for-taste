@@ -10,11 +10,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="profileImg" column="profile_img"/>
 	</resultMap>
 	<sql id="selectMember">
-		select id,password,name,address,gender,birth,tel,exp,point,join_date,profile_img from member
+		select * from member
 	</sql>
 	<insert id="insertMember">
-		insert into member(id,password,name,address,gender,birth,tel,profile_img)
-		values (#{id},#{password},#{name},#{address},#{gender},#{birth},#{tel},#{profileImg})
+		insert into member(id,password,name,city,sigungu,eupmyeondong,address,gender,birth,tel,profile_img)
+		values (#{id},#{password},#{name},#{city},#{sigungu},#{eupmyeondong},#{address},#{gender},#{birth},#{tel},#{profileImg})
 	</insert>
 	<select id="selectMemberById" resultMap="memberRM">
 		<include refid="selectMember"></include>
