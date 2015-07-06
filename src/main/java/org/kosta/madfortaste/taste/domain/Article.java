@@ -7,10 +7,10 @@ import org.kosta.madfortaste.user.domain.Member;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Article {
-	
+
 	private int articleNo;
-	private String location;
 	private String writer;
+	private String resNo;
 	private String title;
 	private String contents;
 	private Date regDate;
@@ -20,26 +20,24 @@ public class Article {
 	private int bad;
 	private int hits;
 	private Member member;
-	
+	private Restaurant restaurant;
+
 	public Article() {
 		super();
 	}
 
-	public Article(String location, String writer, String title,
-			String contents) {
+	public Article(String writer, String title, String contents) {
 		super();
-		this.location = location;
 		this.writer = writer;
 		this.title = title;
 		this.contents = contents;
 	}
 
-	public Article(int articleNo, String location, String writer,
-			String title, String contents, Date regDate, int reply, int good, int bad,
+	public Article(int articleNo, String writer, String title,
+			String contents, Date regDate, int reply, int good, int bad,
 			int hits) {
 		super();
 		this.articleNo = articleNo;
-		this.location = location;
 		this.writer = writer;
 		this.title = title;
 		this.contents = contents;
@@ -51,6 +49,26 @@ public class Article {
 		this.setCalDate();
 	}
 
+	public Article(int articleNo, String writer, String resNo,
+			String title, String contents, Date regDate, String calDate,
+			int reply, int good, int bad, int hits, Member member,
+			Restaurant restaurant) {
+		super();
+		this.articleNo = articleNo;
+		this.writer = writer;
+		this.resNo = resNo;
+		this.title = title;
+		this.contents = contents;
+		this.regDate = regDate;
+		this.calDate = calDate;
+		this.reply = reply;
+		this.good = good;
+		this.bad = bad;
+		this.hits = hits;
+		this.member = member;
+		this.restaurant = restaurant;
+	}
+
 	public int getArticleNo() {
 		return articleNo;
 	}
@@ -59,20 +77,28 @@ public class Article {
 		this.articleNo = articleNo;
 	}
 
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
 	public String getWriter() {
 		return writer;
 	}
 
 	public void setWriter(String writer) {
 		this.writer = writer;
+	}
+
+	public String getResNo() {
+		return resNo;
+	}
+
+	public void setResNo(String resNo) {
+		this.resNo = resNo;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getContents() {
@@ -89,41 +115,32 @@ public class Article {
 
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
-		this.setCalDate();
 	}
 
 	public String getCalDate() {
 		return calDate;
 	}
-	
+
 	public void setCalDate() {
 		long currentD = System.currentTimeMillis();
 		long createD = regDate.getTime();
 		long resultS = ((currentD - createD) / 1000);
 		String result = null;
-		
-		if (resultS >= 60*60*24*365) {
-			result = resultS/(60*60*24*365) + "년 전";
-		} else if (resultS >= 60*60*24*30) {
-			result = resultS/(60*60*24*30) + "개월 전";
-		} else if (resultS >= 60*60*24) {
-			result = resultS/(60*60*24) + "일 전";
-		} else if (resultS >= 60*60) {
-			result = resultS/(60*60) + "시간 전";
+
+		if (resultS >= 60 * 60 * 24 * 365) {
+			result = resultS / (60 * 60 * 24 * 365) + "년 전";
+		} else if (resultS >= 60 * 60 * 24 * 30) {
+			result = resultS / (60 * 60 * 24 * 30) + "개월 전";
+		} else if (resultS >= 60 * 60 * 24) {
+			result = resultS / (60 * 60 * 24) + "일 전";
+		} else if (resultS >= 60 * 60) {
+			result = resultS / (60 * 60) + "시간 전";
 		} else if (resultS >= 60) {
-			result = resultS/(60) + "분 전";
+			result = resultS / (60) + "분 전";
 		} else {
 			result = resultS + "초 전";
 		}
 		this.calDate = result;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
 	}
 
 	public int getReply() {
@@ -162,17 +179,26 @@ public class Article {
 		return member;
 	}
 
-
 	public void setMember(Member member) {
 		this.member = member;
 	}
 
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
+
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
+	}
+
 	@Override
 	public String toString() {
-		return "Article [articleNo=" + articleNo + ", location=" + location
-				+ ", writer=" + writer + ", title=" + title + ", contents="
-				+ contents + ", regDate=" + regDate + ", calDate=" + calDate
-				+ ", reply=" + reply + ", good=" + good + ", bad=" + bad
-				+ ", hits=" + hits + ", member=" + member + "]";
+		return "Article [articleNo=" + articleNo
+				+ ", writer=" + writer + ", resNo=" + resNo + ", title="
+				+ title + ", contents=" + contents + ", regDate=" + regDate
+				+ ", calDate=" + calDate + ", reply=" + reply + ", good="
+				+ good + ", bad=" + bad + ", hits=" + hits + ", member="
+				+ member + ", restaurant=" + restaurant + "]";
 	}
+
 }

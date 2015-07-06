@@ -43,6 +43,18 @@ public class TestMemberDao {
 	}
 	
 	@Test
+	public void grantPointToMember() {
+		String memberId = "java1";
+		memberDao.upPoint(memberId, 1000);
+	}
+	
+	@Test
+	public void grantExpToMember() {
+		String memberId = "java1";
+		memberDao.upExp(memberId, 500);
+	}
+	
+	@Test
 	public void updateMemberToAdmin() {
 		memberDao.upExp("admin", 10000000);
 	}
@@ -86,14 +98,15 @@ public class TestMemberDao {
 	
 	@Test
 	public void testInsertMemberTest() {
-		Member member = new Member("member", "1234", "정현승", "성남시 분당구 서현동", "남", "1989-02-04", "01089909923");
+		Member member = new Member("member", "1234", "정현승", "경기도", "성남시 분당구", "서현동", "우리집", "male", "1989-02-04", "01089909923");
+		member.setProfileImg("default.jpg");
 		Member insertedMember = memberDao.insertMember(member);
 		assertThat(insertedMember.getId(), is(member.getId()));
 	}
 
 	@Test
 	public void testSelectMemberById() {
-		String id = "hs9923";
+		String id = "member";
 		Member member = memberDao.selectMemberById(id);
 		assertThat(member.getId(), is(id));
 		log.info(member.toString());

@@ -143,7 +143,6 @@
 					<div class="blockquoteContainer">
 						<span class="col-md-1">
 							#${article.articleNo}<br>
-							<b>${article.location}</b>
 						</span>
 						<span class="col-md-4">
 							<img style="width:50px;height: 50px;" src="${initParam.root}resources/images/user/member/${article.member.profileImg}">

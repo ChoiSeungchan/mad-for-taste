@@ -7,8 +7,8 @@ import java.util.Map;
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.help.domain.Qna;
 
-
 public interface QnaService {
+
 	public Qna getQnaContents(String no); 
 	public HashMap<String,Object> loadQnaService(String pageNo,String searchSelect,String input);
 	public int insertQna(Qna qna);

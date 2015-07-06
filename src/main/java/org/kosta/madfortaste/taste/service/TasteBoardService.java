@@ -11,7 +11,7 @@ import org.kosta.madfortaste.taste.domain.Article;
 
 public interface TasteBoardService {
 	
-	public Article insertArticle(Article article);
+	public Article insertArticle(Article article, Map<String, String> map);
 
 	public void updateArticle(Article article);
 

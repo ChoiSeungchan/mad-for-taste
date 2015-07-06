@@ -5,7 +5,7 @@
 <script type="text/javascript">
 $(function() {
 	$('#itemUseBtn').click(function(){
-		alert($('.itemContainer').attr('id'))
+		alert('${sessionScope.member.name}님이 itemNo : '+$('.itemContainer').attr('id')+' 를 사용하였습니다.');
 	});
 });
 </script>
@@ -41,21 +41,36 @@ $(function() {
 .buttonArea {
 	margin-bottom: 10px;
 }
+.myInventoryTitle {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	font-size : 20px;
+	font-weight: bold;
+}
 </style>
+<div class="myInventoryTitle" align="center">
+	<hr>
+	${sessionScope.member.name}(${sessionScope.member.id}) 님의 인벤토리
+	<hr>
+</div>
 <div class="invenContainer">
-	<c:forEach var="inven" items="${inventory}">
-	<div class="col-md-3 col-xs-6 itemContainer" id="${inven.itemNo}" align="center">
-	<div id="itemImgContainer">
-	<img class="img-responsive itemImg" src="${initParam.root}resources/images/market/item/${inven.item.itemImgName}">
-	</div>
-	<div class="itemTitle">
-	${inven.item.itemName }
-	</div>
-	<div class="itemAmount">${inven.itemAmount}개 보유중</div>
-	<div class="buttonArea">
-		<button id="itemUseBtn" class="btn btn-default">사용하기</button>
-	</div>
-	</div>
+	<c:if test="${container.page.totalListSize==0}">
+		<div align="center">
+			<font color="red">보유 중인 아이템이 없습니다.</font>
+		</div>
+	</c:if>
+	<c:forEach var="inven" items="${container.list}">
+		<div class="col-md-3 col-xs-6 itemContainer" id="${inven.itemNo}" align="center">
+		<div id="itemImgContainer">
+		<img class="img-responsive itemImg" src="${initParam.root}resources/images/market/item/${inven.item.itemImgName}">
+		</div>
+		<div class="itemTitle">
+		${inven.item.itemName }
+		</div>
+		<div class="itemAmount">${inven.itemAmount}개 보유중</div>
+		<div class="buttonArea">
+			<button id="itemUseBtn" class="btn btn-default">사용하기</button>
+		</div>
+		</div>
 	</c:forEach>
 </div>
-${inventory}

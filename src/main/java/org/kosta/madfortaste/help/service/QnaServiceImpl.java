@@ -99,4 +99,6 @@ public class QnaServiceImpl implements QnaService {
 		qnaDao.insertRefContent(qna);// 답변글 입력
 	}
 
+	
+
 }

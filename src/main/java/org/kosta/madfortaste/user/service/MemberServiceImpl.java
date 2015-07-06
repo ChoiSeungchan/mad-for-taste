@@ -162,5 +162,25 @@ public class MemberServiceImpl implements MemberService{
 		}
 		return flag;
 	}
+	
+	@Override
+	public List<String> selectSi() {
+		return memberDao.selectSi();
+	}
+
+	@Override
+	public List<String> selectGu(String si) {
+		return memberDao.selectGu(si);
+	}
+
+	@Override
+	public List<String> selectDong(Map<String, String> map) {
+		return memberDao.selectDong(map);
+	}
+
+	@Override
+	public List<String> selectRi(Map<String, String> map) {
+		return memberDao.selectRi(map);
+	}
 
 }
