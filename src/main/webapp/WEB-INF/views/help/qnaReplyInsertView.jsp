@@ -12,10 +12,10 @@
 <div class="col-md-12">
 	<caption>
 			<h2>Q&A</h2><br>
-			Q&A 작성하기
+			Q&A 답글 작성하기
 			<hr><br>
 		</caption>
-	<form role="form" action="insertRefContent">
+	<form role="form" action="insertRefContent" method="post">
 		<div class="form-group">
 			<div class="input-group">
 			<label for="Title">Title</label> 

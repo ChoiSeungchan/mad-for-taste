@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
+import org.kosta.madfortaste.common.domain.ListContainer;
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.market.dao.MarketDao;
 import org.kosta.madfortaste.market.domain.Inventory;
@@ -162,9 +163,10 @@ public class MarketServiceImpl implements MarketService{
 	}
 
 	@Override
-	public List<Inventory> getMyInventory(String memberId) {
+	public ListContainer getMyInventory(String memberId) {
 		Page page = new Page(marketDao.getTotalInvenCount(memberId));
-		return marketDao.selectInventories(memberId, page);
+		ListContainer list = new ListContainer(marketDao.selectInventories(memberId, page), page);
+		return list;
 	}
 
 }

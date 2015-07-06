@@ -123,7 +123,7 @@ pre{
 			<div class="col-md-12">
 				<div class="page-header">
 					<h1>
-						#${article.articleNo}. ${article.title} <small><${article.location}></small>
+						#${article.articleNo}. ${article.title} </small>
 					</h1>
 				</div>
 			</div>
@@ -157,7 +157,7 @@ pre{
 		<div class="row">
 			<div class="col-md-12">
 				<p>
-					${article.contents}
+					${article.contents}${article}
 				</p>
 			</div>
 		</div>

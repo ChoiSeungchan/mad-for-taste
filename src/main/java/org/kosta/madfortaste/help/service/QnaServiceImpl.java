@@ -1,5 +1,6 @@
 package org.kosta.madfortaste.help.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.kosta.madfortaste.common.lib.Page;
@@ -12,15 +13,30 @@ import org.springframework.transaction.annotation.Transactional;
 public class QnaServiceImpl implements QnaService{
 	@Autowired
 	private QnaDao qnaDao;
+	
+	@Override 
+	 	public List<Qna> loadQnaList(Page page) { 
+	 		return qnaDao.loadQnaList(page); 
+	 	} 
+	 	 
+	 	@Override 
+	 	public List<Qna> loadQnaListByInput(Page page,String searchSelect, String input) { 
+	 		HashMap<String, Object> map = new HashMap<String, Object>(); 
+	 		 map.put("page", page); 
+	 		 map.put("input", input); 
+	 		return qnaDao.loadQnaListByInput(map,searchSelect); 
+	 	} 
+
 
 	@Override
-	public List<Qna> loadQnaList(Page page) {
-		return qnaDao.loadQnaList(page);
-	}
-
-	@Override
-	public int totalQnaContentCount() {
-		return qnaDao.totalQnaContentCount();
+	public int totalQnaContentCount(String input) {
+		int result;
+		if(input==null||input==""){
+			result= qnaDao.totalQnaContentCount();
+		}else{
+			result = qnaDao.totalQnaInputContentCount(input);
+		}
+		return result;
 	}
 
 	@Override
@@ -51,6 +67,7 @@ public class QnaServiceImpl implements QnaService{
 	}
 	
 	@Transactional
+	@Override
 	public void reply(Qna qna){
 		int ref = qna.getRef();
 		int restep = qna.getRestep();
@@ -63,4 +80,5 @@ public class QnaServiceImpl implements QnaService{
 		qna.setRelevel(relevel+1);
 		qnaDao.insertRefContent(qna);//답변글 입력
 	}
+
 }

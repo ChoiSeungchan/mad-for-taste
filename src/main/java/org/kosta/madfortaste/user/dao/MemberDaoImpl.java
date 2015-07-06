@@ -119,4 +119,24 @@ public class MemberDaoImpl implements MemberDao {
 		sqlSessionTemplate.update("updateDailyCheck", id);
 		
 	}
+	
+	@Override
+	public List<String> selectSi() {
+		return sqlSessionTemplate.selectList("tastyPlace.selectSi");
+	}
+
+	@Override
+	public List<String> selectGu(String si) {
+		return sqlSessionTemplate.selectList("tastyPlace.selectGu",si);
+	}
+
+	@Override
+	public List<String> selectDong(Map<String, String> map) {
+		return sqlSessionTemplate.selectList("tastyPlace.selectDong",map);
+	}
+
+	@Override
+	public List<String> selectRi(Map<String, String> map) {
+		return sqlSessionTemplate.selectList("tastyPlace.selectRi",map);
+	}
 }

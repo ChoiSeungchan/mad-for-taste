@@ -9,4 +9,7 @@ create table address (
      add_no1 varchar2(2),
      add_no2 varchar2(2)
 );
-	
+<<<<<<< HEAD
+=======
+select *from address
+>>>>>>> refs/remotes/sun/develop-sun

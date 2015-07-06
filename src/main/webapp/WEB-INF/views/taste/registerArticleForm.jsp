@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -12,7 +13,7 @@
 	$(function(){
 	    //전역변수선언
 	    var editor_object = [];
-	     
+
 	    nhn.husky.EZCreator.createInIFrame({
 	        oAppRef: editor_object,
 	        elPlaceHolder: "SE",
@@ -29,6 +30,10 @@
 	     
 	    //전송버튼 클릭이벤트
 	    $("#registerArticleBtn").click(function(){
+	    	if($("#listDo").val()==""||$("#listSi").val()==""||$("#listDong").val()==""||$("#restaurant").val().trim().length==0){
+	    		alert("등록하실 맛집에 대한 정보를 모두 기입해 주세요");
+	    		return;
+	    	}
 	        //id가 smarteditor인 textarea에 에디터에서 대입
 	        editor_object.getById["SE"].exec("UPDATE_CONTENTS_FIELD", []);
 	         
@@ -39,14 +44,9 @@
 	    })
 	    
 	    $('#articleForm').submit(function(){
-	    	var location = $(':input[name=location]').val();
 	    	var title = $(':input[name=title]').val();
 	    	var contents = $(':input[name=contents]').val();
-			if (location.trim()=='') {
-				alert('지역을 선택해주세요')
-				$(':input[name=location]').focus();
-				return false;
-			} else if (title.trim()=='') {
+			 if (title.trim()=='') {
 				alert('제목을 입력해주세요')
 				$(':input[name=title]').focus();
 				return false;
@@ -56,6 +56,49 @@
 				return false;
 			}
 	    })
+	    $("#listDo").change(function(){
+    		$("#restaurant").val("");
+	    	var listVal="<option value=''></option>";
+	    	$("#listDong option").remove();
+	    	$.getJSON("listDoClickAjax?doVal="+$(this).val(),function(data){
+	    		$.each(data,function(index,val){
+	    			listVal+="<option value="+val+">"+val+"</option>";
+	    		})
+    			$("#listSi").html(listVal);
+	    	})
+	    })
+	    $("#listSi").change(function(){
+    		$("#restaurant").val("");
+	    		var listVal="<option value=''></option>";
+			 	$.ajax({
+	    		type : "post",
+	    		url : "listSiClickAjax?doVal="+$("#listDo").val()+"&siVal=  "+$(this).val(),
+	    		dataType : "json",
+	    		success : function(data){
+	        		$.each(data,function(index,val){
+		    			listVal+="<option value="+val+">"+val+"</option>";
+		    		})
+	    			$("#listDong").html(listVal);
+	    		}
+	    	}) 
+	    })
+	    $("#listDong").change(function(){
+    		$("#restaurant").val("");
+	    })
+	    $("#restaurant").keyup(function(){
+	    	if($("#listDo").val()&&$("#listSi").val()&&$("#listDong").val()!=""){
+	    		$.getJSON("findRestaurantAjax?doVal="+$("#listDo").val()+"&siVal=  "+$("#listSi").val()+"&dongVal=  "+$("#listDong").val()+"&name="+$(this).val(),function(data){	 
+	  				if($("#restaurant").val().trim().length==0){
+	    				$("#findRestaurant").html("찾을 이름(상호)").css("color","black");
+	    				return;
+    				}
+	    			if(data=="")
+	    				$("#findRestaurant").html("등록하실수 있어요").css("color","lime");
+	    			else	
+	    				$("#findRestaurant").html("등록 되어 있네요").css("color","red");	    		
+	    		})
+	    	}
+	    })
 	})
 	
 </script>
@@ -64,18 +107,36 @@
 	<div class="container-fluid">
 		<form action="${initParam.root}registerArticle" method="post" role="form" id="articleForm">
 			<input type="hidden" name="writer" value="${sessionScope.member.id}"> 
+			<div class="col-md-3">
+				<div class="form-group">
+					<label class="control-label">시.도</label>
+					<select	name="doVal" class="form-control" id="listDo">
+					<option selected="selected" value=""></option>
+					<c:forEach items="${listDo }" var="list">
+						<option value="${list}">${list }</option>
+					</c:forEach>
+					</select>
+				</div>
+			</div>		
+			<div class="col-md-3">
 			<div class="form-group">
-				<label class="control-label">어느 지역의 맛집인가요?</label>
-				<select	name="location" class="form-control">
-				<option selected="selected">${article.location}</option>
-				<option>서울</option>
-				<option>경기</option>
-				<option>대전</option>
-				<option>대구</option>
-				<option>부산</option>
-				<option>광주</option>
-				<option>제주</option>
-				</select>
+					<label class="control-label">시.군.구</label>
+					<select	name="siVal" class="form-control" id="listSi">
+					<option selected="selected" value=""></option>
+					</select>
+				</div>
+			</div>
+			<div class="col-md-3">
+			<div class="form-group">
+					<label class="control-label">읍.면.동</label>
+					<select	name="dongVal" class="form-control" id="listDong">
+					<option selected="selected" value=""></option>
+					</select>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<label class="control-label"><span id="findRestaurant">찾을 이름(상호)</span></label>
+					<input type="text" class="form-control" id="restaurant" name="name">
 			</div>
 			<div class="form-group">
 				<label class="control-label" for="title">맛집 소개글의 제목을 입력해주세요</label>

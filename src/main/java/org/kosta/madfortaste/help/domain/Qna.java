@@ -24,6 +24,32 @@ public class Qna {
 		this.restep = restep;
 		this.relevel = relevel;
 	}
+	public Qna(String articleNo, String writer, String title, String content,
+			int viewCount, String regDate) {
+		super();
+		this.articleNo = articleNo;
+		this.writer = writer;
+		this.title = title;
+		this.content = content;
+		this.viewCount = viewCount;
+		this.regDate = regDate;
+	}
+	
+	public Qna(String writer, String title, String content, int ref,
+			int restep, int relevel) {
+		super();
+		this.writer = writer;
+		this.title = title;
+		this.content = content;
+		this.ref = ref;
+		this.restep = restep;
+		this.relevel = relevel;
+	}
+	
+	public Qna() {
+		super();
+	}
+	
 	public int getRef() {
 		return ref;
 	}
@@ -42,19 +68,7 @@ public class Qna {
 	public void setRelevel(int relevel) {
 		this.relevel = relevel;
 	}
-	public Qna(String articleNo, String writer, String title, String content,
-			int viewCount, String regDate) {
-		super();
-		this.articleNo = articleNo;
-		this.writer = writer;
-		this.title = title;
-		this.content = content;
-		this.viewCount = viewCount;
-		this.regDate = regDate;
-	}
-	public Qna() {
-		super();
-	}
+	
 	public String getArticleNo() {
 		return articleNo;
 	}
@@ -91,11 +105,14 @@ public class Qna {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
+
 	@Override
 	public String toString() {
 		return "Qna [articleNo=" + articleNo + ", writer=" + writer
 				+ ", title=" + title + ", content=" + content + ", viewCount="
-				+ viewCount + ", regDate=" + regDate + "]";
+				+ viewCount + ", regDate=" + regDate + ", ref=" + ref
+				+ ", restep=" + restep + ", relevel=" + relevel + "]";
 	}
+	
 	
 }

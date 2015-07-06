@@ -1,7 +1,7 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -49,12 +49,40 @@ $(function(){
 		  monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] // 월의 한글 형식.
 	
 		 });
+	
+	
+	$("#listDo").change(function(){
+		$("#restaurant").val("");
+    	var listVal="<option value=''></option>";
+    	$("#listDong option").remove();
+    	$.getJSON("listDoClickAjax?doVal="+$(this).val(),function(data){
+    		$.each(data,function(index,val){
+    			listVal+="<option value="+val+">"+val+"</option>";
+    		})
+			$("#listSi").html(listVal);
+    	})
+    })
+    $("#listSi").change(function(){
+		$("#restaurant").val("");
+    		var listVal="<option value=''></option>";
+		 	$.ajax({
+    		type : "post",
+    		url : "listSiClickAjax?doVal="+$("#listDo").val()+"&siVal=  "+$(this).val(),
+    		dataType : "json",
+    		success : function(data){
+        		$.each(data,function(index,val){
+	    			listVal+="<option value="+val+">"+val+"</option>";
+	    		})
+    			$("#listDong").html(listVal);
+    		}
+    	}) 
+    })
 });
 </script>
 </head>
 <body>
 <div class="col-md-4 col-md-offset-4">
-<form:form action="registerMember" method="post" enctype="multipart/form-data" commandName="member">
+<form:form action="registerMember" method="post" id="registerMemberForm" enctype="multipart/form-data" commandName="member">
   <div class="form-group">
     <label for="id">아이디</label>
     <form:input type="text" class="form-control" path="id" name="id" id="id" placeholder="아이디를 입력하세요"/>
@@ -70,15 +98,44 @@ $(function(){
     <form:input type="text" class="form-control" path="name" name="name" id="name" placeholder="이름을 입력하세요"/>
   	<font color="red"><form:errors path="name"/></font>
   </div>
-   <div class="form-group">
-    <label for="address">주소</label>
-    <form:input type="text" class="form-control" path="address" name="address" id="address" placeholder="주소를 입력하세요"/>
-  	<font color="red"><form:errors path="address"/></font>
-  </div>
+  <label for="name">주소</label>
+  <ul class="list-group">
+	  <li class="list-group-item">
+	<div class="form-group">
+		<label class="control-label">시.도</label>
+		<form:select path="city" name="city" class="form-control" id="listDo">
+		<option selected="selected" value=""></option>
+		<c:forEach items="${listDo }" var="list">
+			<option value="${list}">${list }</option>
+		</c:forEach>
+		</form:select>
+		<font color="red"><form:errors path="city"/></font>
+	</div>
+	<div class="form-group">
+		<label class="control-label">시.군.구</label>
+		<form:select path="sigungu" name="sigungu" class="form-control" id="listSi">
+		<option selected="selected" value=""></option>
+		</form:select>
+		<font color="red"><form:errors path="sigungu"/></font>
+	</div>
+	<div class="form-group">
+		<label class="control-label">읍.면.동</label>
+		<form:select path="eupmyeondong" name="eupmyeondong" class="form-control" id="listDong">
+		<option selected="selected" value=""></option>
+		</form:select>
+		<font color="red"><form:errors path="eupmyeondong"/></font>
+	</div>
+	<div class="form-group">
+		<label class="control-label">상세 주소</label>
+		<form:input path="address" type="text" class="form-control" id="address" name="address"/>
+		<font color="red"><form:errors path="address"/></font>
+	</div>
+	  </li>
+  </ul>
+  <label for="gender">성별</label>
   <div class="form-group">
-    <label for="gender">성별</label>
-    <form:input type="text" class="form-control" path="gender" name="gender" id="gender" placeholder="성별을 입력하세요"/>
-  	<font color="red"><form:errors path="gender"/></font>
+	  <input type="radio" name="gender" id="gender" value="male" checked="checked"/> 남
+	  <input type="radio" name="gender" id="gender" value="female"/> 여
   </div>
   <div class="form-group">
     <label for="birth">생년월일</label>

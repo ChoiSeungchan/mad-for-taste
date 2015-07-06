@@ -16,7 +16,7 @@
 			Q&A 작성하기
 			<hr><br>
 		</caption>
-	<form role="form" action="insertQna">
+	<form role="form" action="insertQna" method="post">
 		<div class="form-group">
 			<div class="input-group">
 			<label for="Title">Title</label> 

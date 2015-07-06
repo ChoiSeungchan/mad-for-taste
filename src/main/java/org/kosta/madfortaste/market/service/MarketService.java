@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.kosta.madfortaste.common.domain.ListContainer;
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.market.domain.Inventory;
 import org.kosta.madfortaste.market.domain.Item;
@@ -36,7 +37,7 @@ public int getTotalItemCount();
 
 	public void itemPurchaseService(Inventory inven) throws PurchaseException;
 
-	public List<Inventory> getMyInventory(String memberId);
+	public ListContainer getMyInventory(String memberId);
 
 
 }

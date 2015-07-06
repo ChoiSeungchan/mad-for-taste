@@ -34,4 +34,11 @@ public interface MemberDao {
 
 	public abstract void updateDailyCheck(String id);
 
+	public List<String> selectSi();
+	
+	public List<String> selectGu(String si);
+	
+	public List<String> selectDong(Map<String, String> map);
+	
+	public List<String> selectRi(Map<String, String> map);
 }

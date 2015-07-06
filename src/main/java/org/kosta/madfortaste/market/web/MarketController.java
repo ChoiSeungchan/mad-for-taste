@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.kosta.madfortaste.common.domain.ListContainer;
 import org.kosta.madfortaste.market.domain.Inventory;
 import org.kosta.madfortaste.market.domain.Item;
 import org.kosta.madfortaste.market.exception.PurchaseException;
@@ -58,8 +59,8 @@ public class MarketController {
 		if(session!=null){
 			Member member = (Member) session.getAttribute("member");
 			if(member!=null) {
-				List<Inventory> inventory = marketService.getMyInventory(member.getId());
-				model.addAttribute("inventory", inventory);
+				ListContainer container = marketService.getMyInventory(member.getId());
+				model.addAttribute("container", container);
 			} else {
 				return "redirect:/";
 			}

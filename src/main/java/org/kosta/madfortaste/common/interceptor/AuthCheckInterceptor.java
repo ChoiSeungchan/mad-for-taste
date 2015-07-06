@@ -17,17 +17,21 @@ public class AuthCheckInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
-		HttpSession session = request.getSession(false);
-		if(session!=null) {
-			Member member = (Member) session.getAttribute("member");
-			if(member!=null) {
-				loginService.reLogin(member, session, request);
-				System.out.println("*** MEMBER ID = '" + member.getId() + "' 세션 유지중" + " ***");
-				
-			}
-		}
 		System.out.println(request.getRequestURI()+" 인터셉터 진입 성공");
 		return true;
 	}
-	
+
+	@Override
+	public void afterCompletion(HttpServletRequest request,
+			HttpServletResponse response, Object handler, Exception ex)
+					throws Exception {
+		super.afterCompletion(request, response, handler, ex);
+		HttpSession session = request.getSession(false);
+		if(session!=null) {
+			Member member = (Member) session.getAttribute("member");
+			if(member!=null) { 
+				loginService.reLogin(member, session, request);
+			}
+		}
+	}
 }

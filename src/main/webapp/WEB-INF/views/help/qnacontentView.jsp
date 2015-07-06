@@ -16,7 +16,6 @@
 				 });
 	 
 	 $("#qnaReplyInsertView").click(function(){
-		 alert("${qnaContent.articleNo }");
 		 location.href="qnaReplyInsertView?articleNo=${qnaContent.articleNo }";
 	 });
 	 
@@ -54,7 +53,7 @@
 	<c:if test="${sessionScope.member!=null||sessionScope.owner!=null }">
 	<button id="qnaReplyInsertView" type="button" class="btn btn-primary">답글</button>
 	</c:if>
-		<c:if test="${sessionScope.member.id==qnaContent.writer}">
+		<c:if test="${sessionScope.member.id==qnaContent.writer||sessionScope.member.levelInfo.level>=100}">
 		<button id="updateView" type="button" class="btn btn-primary">수정</button>
 		<button id="delete" type="button" class="btn btn-primary">삭제</button>
 		</c:if>

@@ -17,6 +17,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="totalQnaContentCount" resultType="int">
 	select count(*) from qna_reply
 	</select>
+	
+	<select id="totalQnaInputContentCount" resultType="int">
+	select count(*) from qna_reply where writer like '%' || #{input} || '%' or  content like '%' || #{input} || '%' or title like '%' || #{input} || '%'
+	</select>
 
 <select id="loadQnaList" resultMap="qnaRM">
  select * from (
@@ -24,6 +28,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			from (select * from qna_reply order by ref desc,restep asc) t, member m
 			where t.writer=m.id
 		) where rnum between #{beginRow} and #{endRow}
+</select>
+
+<select id="loadQnaListByUser" resultMap="qnaRM" parameterType="hashmap">
+ select * from (
+			select rownum as rnum, t.*, m.*
+			from (select * from qna_reply order by ref desc,restep asc) t, member m
+			where t.writer=m.id and upper(writer) like '%' || upper(#{input}) || '%' 
+		) where rnum between #{page.beginRow} and #{page.endRow}
+</select>
+
+<select id="loadQnaListByBoth" resultMap="qnaRM" parameterType="hashmap">
+ select * from (
+			select rownum as rnum, t.*, m.*
+			from (select * from qna_reply order by ref desc,restep asc) t, member m
+			where t.writer=m.id and content like '%' || #{input} || '%' or title like '%' || #{input} || '%'
+		) where rnum between #{page.beginRow} and #{page.endRow}
 </select>
 
  <select id="getQnaContents" resultType="qnavo" resultMap="qnaRM">
@@ -34,12 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	update qna_reply set hits=hits+1 where article_no=#{value}
 	</update>
 
-<insert id="insertQna">
- 	 <selectKey keyProperty="articleNo" resultType="String" order="BEFORE">
-		select qna_no_seq.nextval from dual
-	</selectKey>  
-  insert into qna_reply(article_no,writer, title, content,ref,restep,relevel) values(#{articleNo},#{writer},#{title},#{content},#{articleNo},0,0)
-  </insert>
+
 
 <update id="updateQna" parameterType="qnavo">
 	update qna_reply set title=#{title}, content=#{content} where article_no=#{articleNo}
@@ -61,14 +76,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	 AND 		restep > #{restep}
 	 </update>
 	 
+	  <insert id="insertQna" parameterType="qnavo">
+	 	 <selectKey keyProperty="articleNo" resultType="String" order="BEFORE">
+			select qna_reply_seq.nextval from dual
+		</selectKey>  
+	  insert into qna_reply(article_no,writer, title, content,ref,restep,relevel) 
+	  values(#{articleNo},#{writer},#{title},#{content},#{articleNo},0,0)
+	  </insert>
+	 
 	 <insert id="insertRefContent" parameterType="qnavo">
 	 	<selectKey keyProperty="articleNo" resultType="String" order="BEFORE">
 	 		select qna_reply_seq.nextval from dual 
 	 	</selectKey>
-	 	insert into qna_reply
-	 	(article_no,title,writer,content,ref,restep,relevel)
-	 	values(#{articleNo},#{title},#{writer},#{content},
-	 	#{ref},#{restep},#{relevel})
+	 	insert into qna_reply(article_no,title,writer,content,ref,restep,relevel)
+	 	values(#{articleNo},#{title},#{writer},#{content},#{ref},#{restep},#{relevel})
 	 </insert>
  	
  </mapper>

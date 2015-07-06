@@ -8,11 +8,15 @@ create table daily_check (
 )
 
 ----- Member -----
+select * from member;
 drop table member
 create table member(
 	id varchar2(20) primary key,
 	password varchar2(20) not null,
 	name varchar2(20) not null,
+	city varchar2(20) not null,
+	sigungu varchar2(20) not null,
+	eupmyeondong varchar2(20) not null,
 	address varchar2(50) not null,
 	gender varchar2(10) not null,
 	birth varchar2(20) not null,

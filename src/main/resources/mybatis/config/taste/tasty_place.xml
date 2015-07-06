@@ -76,12 +76,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="selectSi" resultType="String">
-		select distinct(si) from address
+		select distinct(si) from address order by si asc
 	</select>
 	
 	<select id="selectGu" resultType="String">
-		select distinct(gu) from address where si=#{value}
+		select distinct(gu) from address where si=#{value} order by gu asc
 	</select>
+	
+	<select id="selectDong" resultType="String">
+		select distinct(dong) from address where si=#{si} and gu=#{gu} order by dong asc
+	</select>
+	
+	<select id="selectRi" resultType="String">
+		select distinct(ri) from address where si=#{si} and gu=#{gu} and dong=#{dong} order by ri asc
+	</select>
+	
+	<select id="SelectRestaurantByAddress" resultType="String">
+		select res_no from restaurant where city=#{si} and sigungu=#{gu} and eupmyeondong=#{dong} and res_name=#{name}
+	</select>
+	
+	<update id="upGood">
+		update restaurant set good=good+1 where res_no=#{resNo}
+	</update>
+	
+	<update id="upBad">
+		update restaurant set bad=bad+1 where res_no=#{resNo}
+	</update>
  </mapper>
  
  

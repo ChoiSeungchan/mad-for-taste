@@ -66,7 +66,7 @@
 						<a href="${initParam.root}market">마켓</a>
 					</li>
 					<li>
-						<a href="logout">로그아웃</a>
+						<a href="${initParam.root}logout">로그아웃</a>
 					</li>
 				</c:otherwise>
 			</c:choose>
