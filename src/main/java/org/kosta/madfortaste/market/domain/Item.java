@@ -47,7 +47,7 @@ public class Item {
 	@AssertTrue(message = "아이템 사진을 반드시 첨부하셔야 합니다.")
 	public boolean isFileProvided() {
 	    return (itemImg != null) && ( ! itemImg.isEmpty());
-	  }
+	}
 	
 	public Item() {
 		super();

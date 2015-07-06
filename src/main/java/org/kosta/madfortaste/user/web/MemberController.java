@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +47,19 @@ public class MemberController {
 	@RequestMapping(value="memberUpdateForm")
 	public String updateMemberForm (@ModelAttribute Member member) {
 		return "user/memberUpdateForm";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="memberIdCheck.json")
+	public Map<String, Object> memberIdCheck(String memberId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Member member = memberService.selectMemberById(memberId);
+		if (member==null) {
+			map.put("result", "true");
+		} else {
+			map.put("result", "false");
+		}
+		return map;
 	}
 	
 	@RequestMapping(value="registerMember", method=RequestMethod.POST)
