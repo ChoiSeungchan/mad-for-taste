@@ -31,9 +31,9 @@ public interface TasteBoardService {
 
 	public void upHits(int articleNo, Cookie cookie, HttpServletResponse res);
 
-	public boolean upGood(int articleNo, String id);
+	public boolean upGood(int articleNo, String id, int resNo);
 
-	public boolean upBad(int articleNo, String id);
+	public boolean upBad(int articleNo, String id, int resNo);
 
 	public List<Article> getArticlesOrderByHits(Page page);
 

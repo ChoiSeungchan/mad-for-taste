@@ -118,11 +118,11 @@ public class TasteBoardController {
 	
 	@ResponseBody
 	@RequestMapping(value="article/upGood")
-	public List<String> upGood(int articleNo, String id) {
+	public List<String> upGood(int articleNo, String id, int resNo) {
 		boolean flag = false;
 		List<String> list = new ArrayList<String>();
 		if(!id.trim().equals("")) {
-			flag = tasteBoardService.upGood(articleNo, id);
+			flag = tasteBoardService.upGood(articleNo, id, resNo);
 			if(flag==false) {
 				list.add("success");
 				list.add(ExpConfig.GOOD_BAD+"");
@@ -135,11 +135,11 @@ public class TasteBoardController {
 	
 	@ResponseBody
 	@RequestMapping(value="article/upBad")
-	public List<String> upBad(int articleNo, String id) {
+	public List<String> upBad(int articleNo, String id, int resNo) {
 		boolean flag = false;
 		List<String> list = new ArrayList<String>();
 		if(!id.trim().equals("")) {
-			flag = tasteBoardService.upBad(articleNo, id);
+			flag = tasteBoardService.upBad(articleNo, id, resNo);
 			if(flag==false) {
 				list.add("success");
 				list.add(ExpConfig.GOOD_BAD+"");

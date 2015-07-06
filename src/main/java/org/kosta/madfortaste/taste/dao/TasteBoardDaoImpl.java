@@ -70,17 +70,17 @@ public class TasteBoardDaoImpl implements TasteBoardDao {
 
 	@Override
 	public void upHits(int articleNo) {
-		sqlSessionTemplate.update("upHits", articleNo);
+		sqlSessionTemplate.update("tasteBoard.upHits", articleNo);
 	}
 
 	@Override
 	public void upGood(int articleNo) {
-		sqlSessionTemplate.update("upGood", articleNo);
+		sqlSessionTemplate.update("tasteBoard.upGood", articleNo);
 	}
 	
 	@Override
 	public void upBad(int articleNo) {
-		sqlSessionTemplate.update("upBad", articleNo);
+		sqlSessionTemplate.update("tasteBoard.upBad", articleNo);
 	}
 
 	@Override
