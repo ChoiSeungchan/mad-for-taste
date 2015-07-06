@@ -97,3 +97,4 @@ drop sequence res_seq
 
 select *from Restaurant
 select *from taste_board
+select rownum,t.*,m.*,r.city city,r.sigungu sigungu,r.eupmyeondong eupmyeondong,r.good rgood,r.bad rbad from taste_board t, member m,restaurant r where t.writer=m.id and r.res_no=t.res_no and article_no='19'
