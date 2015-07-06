@@ -21,7 +21,7 @@
 		reLogin();
 		
 		$("#good").click(function(){
-			$.getJSON("${initParam.root}article/upGood?id=${sessionScope.member.id}+&articleNo=${article.articleNo}",function(data){
+			$.getJSON("${initParam.root}article/upGood?id=${sessionScope.member.id}&articleNo=${article.articleNo}&resNo=${article.restaurant.resNo}",function(data){
 				if (data=="fail") { 
 					alert('이미 투표 하셨습니다!');
 				} else if (data=="notLogon") {
@@ -35,7 +35,7 @@
 		})
 		
 		$("#bad").click(function(){
-			$.getJSON("${initParam.root}article/upBad?id=${sessionScope.member.id}+&articleNo=${article.articleNo}",function(data){
+			$.getJSON("${initParam.root}article/upBad?id=${sessionScope.member.id}&articleNo=${article.articleNo}&resNo=${article.restaurant.resNo}",function(data){
 				if (data=="fail") { 
 					alert('이미 투표 하셨습니다!');
 				} else if (data=="notLogon") {
@@ -158,7 +158,7 @@ pre{
 			<div class="col-md-12">
 			<strong>해당 글의 맛집${article.restaurant }</strong><br>
 				<p>
-					${article.contents}
+					${article.contents}${article}
 				</p>
 			</div>
 		</div>

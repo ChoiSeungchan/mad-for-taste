@@ -124,7 +124,7 @@ public class TasteBoardServiceImpl implements TasteBoardService {
 	
 	@Transactional
 	@Override
-	public boolean upGood(int articleNo, String id) {
+	public boolean upGood(int articleNo, String id, int resNo) {
 		List<String> votedMemberList = tasteBoardDao.selectVotedList(articleNo);
 		boolean isThisMemberVoted = false;;
 		if (votedMemberList != null && votedMemberList.size() != 0) {
@@ -137,6 +137,7 @@ public class TasteBoardServiceImpl implements TasteBoardService {
 		}
 		if(isThisMemberVoted==false) {
 			tasteBoardDao.upGood(articleNo);
+			restaurantDao.upGood(resNo);
 			tasteBoardDao.insertVote(articleNo, id);
 			memberDao.upExp(id.trim(), ExpConfig.GOOD_BAD);
 		}
@@ -145,7 +146,7 @@ public class TasteBoardServiceImpl implements TasteBoardService {
 	
 	@Transactional
 	@Override
-	public boolean upBad(int articleNo, String id) {
+	public boolean upBad(int articleNo, String id, int resNo) {
 		List<String> votedMemberList = tasteBoardDao.selectVotedList(articleNo);
 		boolean isThisMemberVoted = false;;
 		if (votedMemberList != null && votedMemberList.size() != 0) {
@@ -158,6 +159,7 @@ public class TasteBoardServiceImpl implements TasteBoardService {
 		}
 		if(isThisMemberVoted==false) {
 			tasteBoardDao.upBad(articleNo);
+			restaurantDao.upBad(resNo);
 			tasteBoardDao.insertVote(articleNo, id);
 			memberDao.upExp(id.trim(), ExpConfig.GOOD_BAD);
 		}
