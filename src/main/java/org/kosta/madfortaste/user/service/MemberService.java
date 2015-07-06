@@ -2,6 +2,7 @@ package org.kosta.madfortaste.user.service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -35,5 +36,13 @@ public interface MemberService {
 	public int GetDailyCheckedMember(String id);
 
 	public boolean dailyCheck(String id);
+	
+	public List<String> selectSi();
+	
+	public List<String> selectGu(String si);
+	
+	public List<String> selectDong(Map<String, String> map);
+	
+	public List<String> selectRi(Map<String, String> map);
 	
 }

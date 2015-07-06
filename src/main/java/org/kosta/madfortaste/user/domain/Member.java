@@ -17,6 +17,12 @@ public class Member implements User{
 	@NotEmpty
 	private String name;
 	@NotEmpty
+	private String city;
+	@NotEmpty
+	private String sigungu;
+	@NotEmpty
+	private String eupmyeondong;
+	@NotEmpty
 	private String address;
 	@NotEmpty
 	private String gender;
@@ -40,24 +46,34 @@ public class Member implements User{
 		this.id = id;
 	}
 
-	public Member(String id, String password, String name, String address,
-			String gender, String birth, String tel) {
+	
+	
+	public Member(String id, String password, String name, String city,
+			String sigungu, String eupmyeondong, String address, String gender,
+			String birth, String tel) {
 		super();
 		this.id = id;
 		this.password = password;
 		this.name = name;
+		this.city = city;
+		this.sigungu = sigungu;
+		this.eupmyeondong = eupmyeondong;
 		this.address = address;
 		this.gender = gender;
 		this.birth = birth;
 		this.tel = tel;
 	}
-	
-	public Member(String id, String password, String name, String address,
-			String gender, String birth, String tel, MultipartFile imgFile) {
+
+	public Member(String id, String password, String name, String city,
+			String sigungu, String eupmyeondong, String address, String gender,
+			String birth, String tel, MultipartFile imgFile) {
 		super();
 		this.id = id;
 		this.password = password;
 		this.name = name;
+		this.city = city;
+		this.sigungu = sigungu;
+		this.eupmyeondong = eupmyeondong;
 		this.address = address;
 		this.gender = gender;
 		this.birth = birth;
@@ -65,13 +81,17 @@ public class Member implements User{
 		this.imgFile = imgFile;
 	}
 	
-	public Member(String id, String password, String name, String address,
-			String gender, String birth, String tel, int exp,
-			LevelInfo levelInfo, int point, Date joinDate, String profileImg) {
+	public Member(String id, String password, String name, String city,
+			String sigungu, String eupmyeondong, String address, String gender,
+			String birth, String tel, int exp, LevelInfo levelInfo, int point,
+			Date joinDate, String profileImg) {
 		super();
 		this.id = id;
 		this.password = password;
 		this.name = name;
+		this.city = city;
+		this.sigungu = sigungu;
+		this.eupmyeondong = eupmyeondong;
 		this.address = address;
 		this.gender = gender;
 		this.birth = birth;
@@ -82,9 +102,33 @@ public class Member implements User{
 		this.joinDate = joinDate;
 		this.profileImg = profileImg;
 	}
-	
+
 	public String getId() {
 		return id;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getSigungu() {
+		return sigungu;
+	}
+
+	public void setSigungu(String sigungu) {
+		this.sigungu = sigungu;
+	}
+
+	public String getEupmyeondong() {
+		return eupmyeondong;
+	}
+
+	public void setEupmyeondong(String eupmyeondong) {
+		this.eupmyeondong = eupmyeondong;
 	}
 
 	public void setId(String id) {
@@ -191,13 +235,12 @@ public class Member implements User{
 	@Override
 	public String toString() {
 		return "Member [id=" + id + ", password=" + password + ", name=" + name
-				+ ", address=" + address + ", gender=" + gender + ", birth="
-				+ birth + ", tel=" + tel + ", exp=" + exp + ", levelInfo="
-				+ levelInfo + ", point=" + point + ", joinDate=" + joinDate
-				+ ", profileImg=" + profileImg + ", imgFile=" + imgFile + "]";
+				+ ", city=" + city + ", sigungu=" + sigungu + ", eupmyeondong="
+				+ eupmyeondong + ", address=" + address + ", gender=" + gender
+				+ ", birth=" + birth + ", tel=" + tel + ", exp=" + exp
+				+ ", levelInfo=" + levelInfo + ", point=" + point
+				+ ", joinDate=" + joinDate + ", profileImg=" + profileImg
+				+ ", imgFile=" + imgFile + "]";
 	}
-	
-	
-	
 
 }

@@ -38,7 +38,8 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="memberRegisterForm")
-	public String memberRegisterForm(@ModelAttribute Member member) {
+	public String memberRegisterForm(@ModelAttribute Member member, Model model) {
+		model.addAttribute("listDo", memberService.selectSi());
 		return "user/memberRegisterForm";
 	}
 
@@ -48,8 +49,9 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="registerMember", method=RequestMethod.POST)
-	public String registerMember(@Valid Member member, BindingResult result,  HttpServletRequest req) {
+	public String registerMember(@Valid Member member, BindingResult result,  HttpServletRequest req, Model model) {
 		if(result.hasErrors()){
+			model.addAttribute("listDo", memberService.selectSi());
 			return "user/memberRegisterForm";
 		}
 		try {

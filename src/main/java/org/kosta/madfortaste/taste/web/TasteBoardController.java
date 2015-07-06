@@ -241,6 +241,8 @@ public class TasteBoardController {
 	@RequestMapping("listDoClickAjax")//시.도 클릭했을때 하위 시.군.구를 출력
 	@ResponseBody
 	public List<String> listDoClick(String doVal){
+		System.out.println(doVal);
+		System.out.println(restaurantService.selectGu(doVal));
 		return restaurantService.selectGu(doVal);
 	}
 	
