@@ -161,4 +161,16 @@ public class MemberController {
 		model.addAttribute("container", memberService.selectMemberList(pageNo));
 		return "user/admin/memberAdmin";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="memberAdmin/deleteMember.ajax")
+	public Map<String, Object> deleteMemberAjax(String memberArray) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		System.out.println(memberArray);
+		String member[] = memberArray.split("/");
+		for (String memberId : member) {
+			memberService.deleteMember(memberId);
+		}
+		return map;
+	}
 }

@@ -6,7 +6,25 @@
 
 <script type="text/javascript">
 $(function(){
-})
+	$('#memberDeleteBtn').click(function(){
+		var flag = confirm('정말 삭제하시겠습니까?');
+		if(flag==true) {
+			var checkedMember = $(':input[name=checkedMember]:checked');
+			var memberArray = '';
+			$(checkedMember).each(function(){
+				memberArray += $(this).val()+'/';
+			})
+			$.ajax({
+		   		type : "post",
+		   		url : "${initParam.root}memberAdmin/deleteMember.ajax?memberArray="+memberArray,
+		   		dataType : "json",
+		   		success : function(data){
+		       		location.href=location.href;
+		   		}
+		   	})
+		}
+	});
+});
 </script>
 <div class="col-md-12">
 <div align="center">
