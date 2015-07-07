@@ -60,7 +60,7 @@
 					if(data.result=='failure') {
 						alert('오늘은 이미 출석체크를 하셨습니다. 12시에 초기화됩니다.');
 					} else {
-						alert(data.exp+" 경험치를 획득하였습니다.");
+						alert(data.exp+" 경험치와 "+data.point+" 포인트를 획득하였습니다.");
 					}
 					
 					$.ajax({
@@ -193,7 +193,7 @@
 						<span style="padding-right: 10px" class="glyphicon glyphicon-th" aria-hidden="true"></span>내 인벤토리
 					</button>
 					<button id="dailyCheckBtn" class="btn btn-default btn-block">
-						<span style="padding-right: 10px" class="glyphicon glyphicon-ok" aria-hidden="true"></span>출석체크<br>(1~100EXP 획득)
+						<span style="padding-right: 10px" class="glyphicon glyphicon-ok" aria-hidden="true"></span>출석체크<br>(1~100EXP,Point 랜덤획득)
 					</button>
 				</div>
 			</c:when>

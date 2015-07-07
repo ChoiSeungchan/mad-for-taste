@@ -45,7 +45,8 @@ public class MemberController {
 	}
 
 	@RequestMapping(value="memberUpdateForm")
-	public String updateMemberForm (@ModelAttribute Member member) {
+	public String updateMemberForm (@ModelAttribute Member member, Model model) {
+		model.addAttribute("listDo", memberService.selectSi());
 		return "user/memberUpdateForm";
 	}
 	
@@ -82,7 +83,7 @@ public class MemberController {
 	@RequestMapping(value="updateMember", method=RequestMethod.POST)
 	public String updateMember(@Valid Member member, BindingResult result, Model model, HttpServletRequest req) {
 		if(result.hasErrors()){
-			return "user/memberRegisterForm";
+			return "user/memberUpdateForm";
 		}
 		try {
 			memberService.updateMember(member, req);
@@ -135,8 +136,11 @@ public class MemberController {
 			boolean flag = memberService.dailyCheck(member.getId());
 			if(flag) {
 				int randomExp = new Random().nextInt(100) + 1;
+				int randomPoint = new Random().nextInt(100) + 1;
 				memberService.upExp(member.getId(), randomExp);
+				memberService.upPoint(member.getId(), randomPoint);
 				map.put("exp", randomExp);
+				map.put("point", randomPoint);
 				map.put("result", "success");
 			} else {
 				map.put("result", "failure");
