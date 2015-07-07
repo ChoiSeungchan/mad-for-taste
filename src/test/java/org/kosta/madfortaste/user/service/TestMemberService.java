@@ -4,7 +4,9 @@ import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.annotation.Resource;
@@ -13,6 +15,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.madfortaste.common.lib.Page;
+import org.kosta.madfortaste.taste.domain.Restaurant;
+import org.kosta.madfortaste.taste.service.RestaurantService;
 import org.kosta.madfortaste.user.domain.LevelTable;
 import org.kosta.madfortaste.user.domain.Member;
 import org.slf4j.Logger;
@@ -30,6 +34,9 @@ public class TestMemberService {
 	
 	@Autowired
 	MemberService memberService;
+	
+	@Resource
+	private RestaurantService restaurantService;
 	
 	@Before
 	public void setUp() {
@@ -67,5 +74,27 @@ public class TestMemberService {
 				log.info(member.toString());
 			}
 		}
+	}
+	/**
+	 * 회원의 주소로 근처에 있는 맛집 서비스를 제공
+	 */
+	@Test
+	public void testMemberAddressNearbyRestaurant(){
+		Member member=null;
+		List<Restaurant> list=null;
+		member=memberService.selectMemberById("member");
+		assertNotNull(member); //Success Case: null이 아니면 통과
+		String city=member.getCity();
+		String sigungu="  ";
+		sigungu+=member.getSigungu();
+		String eupmyeondong="  ";
+		eupmyeondong+=member.getEupmyeondong();
+		Map<String, String> map=new HashMap<String, String>();
+		map.put("si", city);	//파라미터 넘어올 회원의 주소 정보
+		map.put("gu", sigungu);
+		map.put("dong", eupmyeondong);
+		list=restaurantService.selectRestaurantNearByAddress(map);
+		assertNotNull(list); //Success Case: null 이 아니면 통과
+		System.out.println(list);
 	}
 }

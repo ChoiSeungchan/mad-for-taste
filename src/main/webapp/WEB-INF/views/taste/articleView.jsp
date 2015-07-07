@@ -8,6 +8,46 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	$(function(){
+		var rating=0;
+		if(${article.restaurant.good!=0})
+			rating=${article.restaurant.good/(article.restaurant.good+article.restaurant.bad)}*100; 
+		//jstl로 분기처리를 하지않고 자바단에서 변수를 분기처리해서 적용(조금더 간결한 로직)
+		if(rating==0){
+			if(${article.restaurant.bad>0}){
+				$("#grade1").css("width","100%");
+				$("#grade1").html("최악의 가게 입니다 (좋아요  <span class='glyphicon glyphicon-thumbs-up'></span>&nbsp;&nbsp;"+${article.restaurant.good}+"  /  싫어요 <span class='glyphicon glyphicon-thumbs-down'></span>&nbsp;&nbsp;"+${article.restaurant.bad}+")");
+			}
+			if(${article.restaurant.bad==0})
+				$('[data-toggle="tooltip"]').hide();
+		}
+		else if(rating==100){
+			$("#grade3").css("width","100%");
+			$("#grade3").html("이 가게는 최고의 맛집이네요! (좋아요  <span class='glyphicon glyphicon-thumbs-up'></span>&nbsp;&nbsp;"+${article.restaurant.good}+"  /  싫어요 <span class='glyphicon glyphicon-thumbs-down'></span>&nbsp;&nbsp;"+${article.restaurant.bad}+")");
+		}
+		else{
+			if(rating<40){
+				alert(rating);
+				$("#grade2").css("width",(100-rating)+"%");
+				$("#grade2").html("가게 평이 매우 안좋네요 (싫어요 <span class='glyphicon glyphicon-thumbs-down'></span>&nbsp;&nbsp;"+${article.restaurant.bad}+")");
+				$("#grade3").css("width",rating+"%");
+				if(rating>=15)
+					$("#grade3").html("좋아요  <span class='glyphicon glyphicon-thumbs-up'></span>&nbsp;&nbsp;"+${article.restaurant.good});
+			}
+			if(rating>60){
+				$("#grade2").css("width",(100-rating)+"%");
+				if(rating<85)
+					$("#grade2").html("싫어요 <span class='glyphicon glyphicon-thumbs-down'></span>&nbsp;&nbsp;"+${article.restaurant.bad});
+				$("#grade3").css("width",rating+"%");
+				$("#grade3").html(" 가게 평이 매우 좋네요 (좋아요  <span class='glyphicon glyphicon-thumbs-up'></span>&nbsp;&nbsp;"+${article.restaurant.good}+")");
+			}
+			if(rating>=40&&rating<=60){
+				$("#grade2").css("width",(100-rating)+"%");
+				$("#grade2").html("싫어요 <span class='glyphicon glyphicon-thumbs-down'></span>&nbsp;&nbsp;"+${article.restaurant.bad});
+				$("#grade3").css("width",rating+"%");
+				$("#grade3").html("좋아요  <span class='glyphicon glyphicon-thumbs-up'></span>&nbsp;&nbsp;"+${article.restaurant.good});
+			}
+		}
+	    $('[data-toggle="tooltip"]').tooltip(); 
 		function reLogin() {
 			$.ajax({
 				type:"post",
@@ -156,8 +196,24 @@ pre{
 		<hr>
 		<div class="row">
 			<div class="col-md-12">
+			<div class="alert alert-warning">
+			<strong>맛집위치: </strong>${article.restaurant.city }
+			${article.restaurant.sigungu } ${article.restaurant.eupmyeondong } ${article.restaurant.resName }<br>
+			<b>${article.restaurant.resName } 총 평점</b><br>
+			<c:if test="${article.restaurant.good==0&&article.restaurant.bad==0 }">
+				${article.restaurant.resName }에 대한 평가가 없습니다
+			</c:if>
+<div class="progress" data-toggle="tooltip" title="현재 맛집에 대한 평가(평가는 좋아요-싫어요 로 평가됩니다)">
+  <div class="progress-bar progress-bar-warring" role="progressbar" style=width:0%  id="grade1">
+  </div>
+  <div class="progress-bar progress-bar-info" role="progressbar" style="width:0%" id="grade3">
+  </div>
+  <div class="progress-bar progress-bar-danger" role="progressbar" style="width:0%" id="grade2">
+  </div>
+</div>
+</div>
 				<p>
-					${article.contents}${article}
+					${article.contents}
 				</p>
 			</div>
 		</div>

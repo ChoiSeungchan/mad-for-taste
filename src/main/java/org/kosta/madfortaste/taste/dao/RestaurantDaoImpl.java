@@ -51,4 +51,9 @@ public class RestaurantDaoImpl implements RestaurantDao {
 	public void upBad(int resNo) {
 		sqlSessionTemplate.update("tastyPlace.upBad", resNo);
 	}
+
+	@Override
+	public List<Restaurant> selectRestaurantNearByAddress(Map<String, String> map) {
+		return sqlSessionTemplate.selectList("tastyPlace.selectRestaurantNearByAddress",map);
+	}
 }

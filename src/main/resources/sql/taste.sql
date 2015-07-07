@@ -8,7 +8,6 @@ create table tasty_place(
 	owner_id varchar2(20) not null,
 	constraint owner_id_fk foreign key (owner_id) references owner(owner_id) on delete cascade
 )
-
 -- 맛집게시판 --
 
 
@@ -98,6 +97,7 @@ create table Restaurant(
 create sequence res_seq nocache
 drop sequence res_seq
 
-select *from Restaurant
 select *from taste_board
- select rownum,t.*,m.*,r.city rcity,r.sigungu rigungu,r.eupmyeondong reupmyeondong,r.res_name rname,r.good rgood,r.bad rbad from taste_board t, member m,restaurant r where t.writer=m.id and r.res_no=t.res_no and article_no='19'
+
+select *from restaurant
+update restaurant set good='100',bad='70' where res_no='18'

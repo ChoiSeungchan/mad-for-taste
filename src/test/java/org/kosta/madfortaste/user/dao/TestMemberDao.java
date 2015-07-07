@@ -21,10 +21,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.madfortaste.common.lib.Page;
+import org.kosta.madfortaste.taste.dao.RestaurantDao;
+import org.kosta.madfortaste.taste.domain.Restaurant;
 import org.kosta.madfortaste.user.domain.LevelTable;
 import org.kosta.madfortaste.user.domain.Member;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +40,9 @@ public class TestMemberDao {
 	@Resource
 	MemberDao memberDao;
 
+	@Autowired
+	private RestaurantDao restaurantDao;
+	
 	@Before
 	public void setUp() {
 		assertNotNull(memberDao);
@@ -231,5 +237,27 @@ public class TestMemberDao {
 		} else {
 			log.info("잔여 포인트가 없어 명령을 수행하지 못하였습니다.");
 		}
+	}
+	/**
+	 * 회원의 주소로 근처에 있는 맛집 서비스를 제공
+	 */
+	@Test
+	public void testMemberAddressNearbyRestaurant(){
+		Member member=null;
+		List<Restaurant> list=null;
+		member=memberDao.selectMemberById("member");
+		assertNotNull(member); //Success Case: null이 아니면 통과
+		String city=member.getCity();
+		String sigungu="  ";
+		sigungu+=member.getSigungu();
+		String eupmyeondong="  ";
+		eupmyeondong+=member.getEupmyeondong();
+		Map<String, String> map=new HashMap<String, String>();
+		map.put("si", city);	//파라미터 넘어올 회원의 주소 정보
+		map.put("gu", sigungu);
+		map.put("dong", eupmyeondong);
+		list=restaurantDao.selectRestaurantNearByAddress(map);
+		assertNotNull(list); //Success Case: null 이 아니면 통과
+		System.out.println(list);
 	}
 }
