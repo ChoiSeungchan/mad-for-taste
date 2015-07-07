@@ -50,6 +50,8 @@ values(notice_no_seq.nextval,'admin','테스트16','테스트');
 
 
 -------- Qna reply----------
+drop table qna_reply;
+
 create table qna_reply(
 	article_no number primary key,
 	title varchar2(100) not null,
@@ -61,6 +63,8 @@ create table qna_reply(
 	restep number not null, -- 답변글묶음내 글순서(정렬 오름차순)
 	relevel number not null -- 답변글레벨 , 답변의 단계 	
 )
+select * from qna_reply where article_no = '1';
+
  select * from (
 			select rownum as rnum, t.*, m.*
 			from (select * from qna_reply order by ref desc,restep asc) t, member m
