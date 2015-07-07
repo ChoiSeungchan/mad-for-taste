@@ -49,8 +49,6 @@
 </script>
 
 <script type="text/javascript">
-
-
 $(function(){
 		var rating=0;
 		if(${article.restaurant.good!=0})
@@ -253,7 +251,9 @@ pre{
 				</p>
 				<div id="map-canvas"></div>
 				<c:if test="${article.restaurant.good==0&&article.restaurant.bad==0 }">
-					${article.restaurant.resName }에 대한 평가가 없습니다
+				<div align="center" style="margin: 20px; font-size: 16px; font-weight: bold;">
+					${article.restaurant.resName }에 대한 평가가 아직 없습니다. 좋아요/싫어요 투표해주세요!
+				</div>
 				</c:if>
 				<div class="progress" data-toggle="tooltip" title="현재 맛집에 대한 평가 (평가는 좋아요-싫어요 로 평가됩니다)">
 				  <div class="progress-bar progress-bar-warring" role="progressbar" style=width:0%  id="grade1">
@@ -361,7 +361,6 @@ pre{
 								    </div>
 								  </div>
 								</div>
-								
 								</c:if>
 							</tr>
 						</table>
