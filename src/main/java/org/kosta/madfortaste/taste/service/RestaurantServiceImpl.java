@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.kosta.madfortaste.taste.dao.RestaurantDao;
+import org.kosta.madfortaste.taste.domain.Restaurant;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -36,5 +37,10 @@ public class RestaurantServiceImpl implements RestaurantService {
 	@Override
 	public String SelectRestaurantByAddress(Map<String, String> map) {
 		return restaurantDao.SelectRestaurantByAddress(map);
+	}
+
+	@Override
+	public List<Restaurant> selectRestaurantNearByAddress(Map<String, String> map) {
+		return restaurantDao.selectRestaurantNearByAddress(map);
 	}
 }

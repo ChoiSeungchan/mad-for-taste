@@ -14,4 +14,5 @@ public interface RestaurantDao {
 	public String SelectRestaurantByAddress(Map<String, String> map);
 	public void upGood(int resNo);
 	public void upBad(int resNo);
+	public List<Restaurant> selectRestaurantNearByAddress(Map<String, String> map);
 }

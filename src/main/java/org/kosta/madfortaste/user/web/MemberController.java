@@ -6,10 +6,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.kosta.madfortaste.taste.domain.Restaurant;
+import org.kosta.madfortaste.taste.service.RestaurantService;
 import org.kosta.madfortaste.user.domain.Member;
 import org.kosta.madfortaste.user.service.LoginService;
 import org.kosta.madfortaste.user.service.MemberService;
@@ -29,6 +32,9 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Inject
+	private RestaurantService restaurantService;
 	
 	@Autowired
 	private LoginService loginService;
@@ -150,5 +156,20 @@ public class MemberController {
 	public List<Member> getMemberRank () {
 		List<Member> memberList = memberService.selectMemberListOrderByExp(1); 
 		return memberList;
+	}
+	
+	@RequestMapping("memberAddressNearByRestaurantService")
+	//회원 정보(주소) 가지고 모든 레스토랑 검색하는 서비스
+	public String memberAddressNearByRestaurantService(Model model,HttpServletRequest rq){
+		Member member=(Member)rq.getSession(false).getAttribute("member");
+		Map<String, String> map=new HashMap<String, String>();
+		member.setSigungu("  "+member.getSigungu());
+		member.setEupmyeondong("  "+member.getEupmyeondong());
+		map.put("si", member.getCity());
+		map.put("gu", member.getSigungu());
+		map.put("dong", member.getEupmyeondong());
+		List<Restaurant> list=restaurantService.selectRestaurantNearByAddress(map);
+		model.addAttribute("restaurantList", list);
+		return "user/result/restaurantService";
 	}
 }

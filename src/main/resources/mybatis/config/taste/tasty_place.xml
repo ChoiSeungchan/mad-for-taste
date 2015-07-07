@@ -102,6 +102,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="upBad">
 		update restaurant set bad=bad+1 where res_no=#{resNo}
 	</update>
+	
+	<select id="selectRestaurantNearByAddress" resultType="restaurant">
+	    select res_name resName,city,sigungu,eupmyeondong,good,bad from restaurant where city=#{si} and sigungu=#{gu} and eupmyeondong=#{dong}
+	</select>
  </mapper>
  
  
