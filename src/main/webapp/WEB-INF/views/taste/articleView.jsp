@@ -47,8 +47,10 @@
 				$("#grade3").html("좋아요  <span class='glyphicon glyphicon-thumbs-up'></span>&nbsp;&nbsp;"+${article.restaurant.good});
 			}
 		}
-	    $('[data-toggle="tooltip"]').tooltip(); 
-		function reLogin() {
+	    
+		$('[data-toggle="tooltip"]').tooltip(); 
+		
+	    function reLogin() {
 			$.ajax({
 				type:"post",
 				url:"${initParam.root}maintainAuthSession",
@@ -196,22 +198,21 @@ pre{
 		<hr>
 		<div class="row">
 			<div class="col-md-12">
-			<div class="alert alert-warning">
 			<strong>맛집위치: </strong>${article.restaurant.city }
 			${article.restaurant.sigungu } ${article.restaurant.eupmyeondong } ${article.restaurant.resName }<br>
 			<b>${article.restaurant.resName } 총 평점</b><br>
 			<c:if test="${article.restaurant.good==0&&article.restaurant.bad==0 }">
 				${article.restaurant.resName }에 대한 평가가 없습니다
 			</c:if>
-<div class="progress" data-toggle="tooltip" title="현재 맛집에 대한 평가(평가는 좋아요-싫어요 로 평가됩니다)">
-  <div class="progress-bar progress-bar-warring" role="progressbar" style=width:0%  id="grade1">
-  </div>
-  <div class="progress-bar progress-bar-info" role="progressbar" style="width:0%" id="grade3">
-  </div>
-  <div class="progress-bar progress-bar-danger" role="progressbar" style="width:0%" id="grade2">
-  </div>
-</div>
-</div>
+			<div id="map-canvas"></div>
+			<div class="progress" data-toggle="tooltip" title="현재 맛집에 대한 평가 (평가는 좋아요-싫어요 로 평가됩니다)">
+			  <div class="progress-bar progress-bar-warring" role="progressbar" style=width:0%  id="grade1">
+			  </div>
+			  <div class="progress-bar progress-bar-info" role="progressbar" style="width:0%" id="grade3">
+			  </div>
+			  <div class="progress-bar progress-bar-danger" role="progressbar" style="width:0%" id="grade2">
+			  </div>
+			</div>
 				<p>
 					${article.contents}
 				</p>

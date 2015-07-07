@@ -115,6 +115,7 @@ public class TasteBoardServiceImpl implements TasteBoardService {
 			}
 			res.addCookie(cookie);
 		} else {
+			tasteBoardDao.upHits(articleNo);
 			getArticleLog = "|"+articleNo+"|";
 			cookie = new Cookie("getArticleLog", getArticleLog);
 			cookie.setMaxAge(60*60*24);
