@@ -1,13 +1,57 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
+<!-- GoogoleMap Asynchronously Loading the API ********************************************* -->
 <script type="text/javascript">
-	$(function(){
+    function initialize() {
+     
+        var mapOptions = {
+                            zoom: 17, // 지도를 띄웠을 때의 줌 크기
+                            mapTypeId: google.maps.MapTypeId.ROADMAP
+                        };
+         
+         
+        var map = new google.maps.Map(document.getElementById("map-canvas"), // div의 id과 값이 같아야 함. "map-canvas"
+                                    mapOptions);
+       
+        // Geocoding *****************************************************
+        var address = '${article.restaurant.city} ${article.restaurant.sigungu} ${article.restaurant.eupmyeondong} ${article.restaurant.resName}'; // DB에서 주소 가져와서 검색하거나 왼쪽과 같이 주소를 바로 코딩.
+        var marker = null;
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode( { 'address': address}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+                marker = new google.maps.Marker({
+                                map: map,
+                                title: '${article.restaurant.city} ${article.restaurant.sigungu} ${article.restaurant.eupmyeondong} ${article.restaurant.resName}', // 마커에 마우스 포인트를 갖다댔을 때 뜨는 타이틀
+                                position: results[0].geometry.location
+                            });
+ 
+                var content = "${article.restaurant.city} ${article.restaurant.sigungu} ${article.restaurant.eupmyeondong} ${article.restaurant.resName}"; // 말풍선 안에 들어갈 내용
+             
+                // 마커를 클릭했을 때의 이벤트. 말풍선 뿅~
+                var infowindow = new google.maps.InfoWindow({ content: content});
+                infowindow.open(map,marker);
+                //google.maps.event.addListener(marker, "click", function() {infowindow.open(map,marker);});
+            } else {
+                alert("Geocode was not successful for the following reason: " + status);
+            }
+        });
+        // Geocoding // *****************************************************
+         
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+<script type="text/javascript">
+
+
+$(function(){
 		var rating=0;
 		if(${article.restaurant.good!=0})
 			rating=${article.restaurant.good/(article.restaurant.good+article.restaurant.bad)}*100; 
@@ -48,7 +92,7 @@
 			}
 		}
 	    
-		$('[data-toggle="tooltip"]').tooltip(); 
+		$('[data-toggle="tooltip"]').tooltip();
 		
 	    function reLogin() {
 			$.ajax({
@@ -157,6 +201,12 @@ pre{
 	background-color: #F2F0F0;
 	border: 0px;
 }
+
+#map-canvas {
+	width: 100%; 
+	height: 300px;
+	margin-top: 30px;
+}
 </style>
 </head>
 <body>
@@ -198,24 +248,21 @@ pre{
 		<hr>
 		<div class="row">
 			<div class="col-md-12">
-			<strong>맛집위치: </strong>${article.restaurant.city }
-			${article.restaurant.sigungu } ${article.restaurant.eupmyeondong } ${article.restaurant.resName }<br>
-			<b>${article.restaurant.resName } 총 평점</b><br>
-			<c:if test="${article.restaurant.good==0&&article.restaurant.bad==0 }">
-				${article.restaurant.resName }에 대한 평가가 없습니다
-			</c:if>
-			<div id="map-canvas"></div>
-			<div class="progress" data-toggle="tooltip" title="현재 맛집에 대한 평가 (평가는 좋아요-싫어요 로 평가됩니다)">
-			  <div class="progress-bar progress-bar-warring" role="progressbar" style=width:0%  id="grade1">
-			  </div>
-			  <div class="progress-bar progress-bar-info" role="progressbar" style="width:0%" id="grade3">
-			  </div>
-			  <div class="progress-bar progress-bar-danger" role="progressbar" style="width:0%" id="grade2">
-			  </div>
-			</div>
 				<p>
 					${article.contents}
 				</p>
+				<div id="map-canvas"></div>
+				<c:if test="${article.restaurant.good==0&&article.restaurant.bad==0 }">
+					${article.restaurant.resName }에 대한 평가가 없습니다
+				</c:if>
+				<div class="progress" data-toggle="tooltip" title="현재 맛집에 대한 평가 (평가는 좋아요-싫어요 로 평가됩니다)">
+				  <div class="progress-bar progress-bar-warring" role="progressbar" style=width:0%  id="grade1">
+				  </div>
+				  <div class="progress-bar progress-bar-info" role="progressbar" style="width:0%" id="grade3">
+				  </div>
+				  <div class="progress-bar progress-bar-danger" role="progressbar" style="width:0%" id="grade2">
+				  </div>
+				</div>
 			</div>
 		</div>
 		<div class="col-md-12" align="center">
