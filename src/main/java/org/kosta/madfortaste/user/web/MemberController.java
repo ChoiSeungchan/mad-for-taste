@@ -155,4 +155,10 @@ public class MemberController {
 		List<Member> memberList = memberService.selectMemberListOrderByExp(1); 
 		return memberList;
 	}
+	
+	@RequestMapping(value="memberAdmin/{pageNo}") 
+	public String memberAdmin(@PathVariable int pageNo, Model model) {
+		model.addAttribute("container", memberService.selectMemberList(pageNo));
+		return "user/admin/memberAdmin";
+	}
 }
