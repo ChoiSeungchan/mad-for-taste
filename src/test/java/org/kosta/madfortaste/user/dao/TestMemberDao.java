@@ -256,6 +256,16 @@ public class TestMemberDao {
 		map.put("si", city);	//파라미터 넘어올 회원의 주소 정보
 		map.put("gu", sigungu);
 		map.put("dong", eupmyeondong);
+		Page page=new Page(restaurantDao.selectRestaurantTotalCnt(map));
+		page.setPageSize(3); //페이징 테스트
+		page.setPageGroupSize(3);
+		page.setCurrentPage(7);
+		System.out.println(page);
+		page.preview(); //페이지 처리 미리보기
+		String beginRow=Integer.toString(page.getBeginRow());
+		String endRow=Integer.toString(page.getEndRow());
+		map.put("beginRow", beginRow);
+		map.put("endRow", endRow);
 		list=restaurantDao.selectRestaurantNearByAddress(map);
 		assertNotNull(list); //Success Case: null 이 아니면 통과
 		System.out.println(list);

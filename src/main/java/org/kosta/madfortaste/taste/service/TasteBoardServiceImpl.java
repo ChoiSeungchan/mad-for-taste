@@ -185,4 +185,14 @@ public class TasteBoardServiceImpl implements TasteBoardService {
 		return articles;
 	}
 
+	@Override
+	public List<Article> selectBoardByResNo(Map<String, String> map) {
+		return tasteBoardDao.selectBoardByResNo(map);
+	}
+
+	@Override
+	public int selectTotalCntBoardByResNo(String string) {
+		return tasteBoardDao.selectTotalCntBoardByResNo(string);
+	}
+
 }

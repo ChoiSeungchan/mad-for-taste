@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kosta.madfortaste.taste.domain.Restaurant;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -85,5 +86,16 @@ public class testRestaurantService {
 		resNo=restaurantService.SelectRestaurantByAddress(map);
 		assertNull(resNo); //Success Case: null이어야 통과(중복되면 안되므로)
 		log.info(resNo);
+	}
+	
+	/**
+	 * 레스토랑 pk 검색
+	 */
+	@Test
+	public void testSelectRestaurantByResNo(){
+		Restaurant restaurant=null;
+		restaurant=restaurantService.selectRestaurantByResNo("60");
+		assertNotNull(restaurant);	//Success Case: null이 아니면 통과
+		System.out.println(restaurant);
 	}
 }

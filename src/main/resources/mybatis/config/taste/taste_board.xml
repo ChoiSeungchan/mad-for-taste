@@ -120,6 +120,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectVotedList" resultType="string">
 		select member_id from taste_board_vote where article_no=#{articleNo}
 	</select>
+	
+	<select id="selectBoardByAddress" resultType="article">
+	    select article_no articleno,m.name writer,title,contents from taste_board t,member m where city=#{city} and sigungu=#{sigungu} and eupmyeondong=#{eupmyeondong} and address=#{resName} and m.id=t.writer
+	</select>
+	
+	<select id="selectBoardByResNo" resultType="article">
+	   select a.* from (select rownum numrow,t.* from (select t.article_no articleno,m.name writer,t.title title,t.contents contents from taste_board t,member m  where res_no=#{resNo} and m.id=t.writer order by article_no desc)t)a where numrow between #{beginRow} and #{endRow}
+	</select>
+	
+	<select id="selectTotalCntBoardByResNo" resultType="int">
+	    select count(*) from taste_board where res_no=#{value}	    
+	</select>
 </mapper>
  
  

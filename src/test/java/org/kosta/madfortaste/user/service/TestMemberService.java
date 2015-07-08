@@ -1,13 +1,13 @@
 package org.kosta.madfortaste.user.service;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import javax.annotation.Resource;
 
@@ -24,7 +24,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/root-context.xml")
@@ -93,6 +92,16 @@ public class TestMemberService {
 		map.put("si", city);	//파라미터 넘어올 회원의 주소 정보
 		map.put("gu", sigungu);
 		map.put("dong", eupmyeondong);
+		Page page=new Page(restaurantService.selectRestaurantTotalCnt(map));
+		page.setPageSize(3); //페이징 테스트
+		page.setPageGroupSize(3);
+		page.setCurrentPage(7);
+		System.out.println(page);
+		page.preview(); //페이지 처리 미리보기
+		String beginRow=Integer.toString(page.getBeginRow());
+		String endRow=Integer.toString(page.getEndRow());
+		map.put("beginRow", beginRow);
+		map.put("endRow", endRow);
 		list=restaurantService.selectRestaurantNearByAddress(map);
 		assertNotNull(list); //Success Case: null 이 아니면 통과
 		System.out.println(list);

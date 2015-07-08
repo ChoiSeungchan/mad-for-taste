@@ -12,4 +12,6 @@ public interface RestaurantService {
 	public List<String> selectRi(Map<String, String> map);
 	public String SelectRestaurantByAddress(Map<String, String> map);
 	public List<Restaurant> selectRestaurantNearByAddress(Map<String, String> map);
+	public int selectRestaurantTotalCnt(Map<String, String> map);
+	public Restaurant selectRestaurantByResNo(String string);
 }

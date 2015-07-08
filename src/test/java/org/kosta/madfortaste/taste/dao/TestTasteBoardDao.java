@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.taste.domain.Article;
+import org.kosta.madfortaste.taste.domain.Restaurant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -172,5 +173,39 @@ public class TestTasteBoardDao {
 				dao.upBad(articleNo);
 			}
 		}
+	}
+	
+	/**
+	 * 주소와 가게이름으로 해당 게시글 리스트 검색
+	 */
+	@Test
+	public void testSelectBoardByAddress(){
+		List<Article> list=null;
+		Map<String, String> map=new HashMap<String, String>();
+		Restaurant restaurant=new Restaurant();
+		restaurant.setCity("  서울특별시");
+		restaurant.setSigungu("  강남구");
+		restaurant.setEupmyeondong("  대치동");
+		restaurant.setResName("파파이스");
+		list=dao.selectBoardByAddress(restaurant);
+		System.out.println(list);
+	}
+	/**
+	 * ResNo 으로 해당 게시글 리스트 검색
+	 */
+	@Test
+	public void testSelectBoardByResNo(){
+		List<Article> list=null;
+		Map<String, String> map=new HashMap<String, String>();
+		Page page=new Page(dao.selectTotalCntBoardByResNo("60"));
+		page.setPageGroupSize(3);
+		page.setPageSize(3);
+		page.setCurrentPage(4);
+		map.put("resNo", "60");
+		map.put("beginRow", Integer.toString(page.getBeginRow()));
+		map.put("endRow", Integer.toString(page.getEndRow()));
+		list=dao.selectBoardByResNo(map);
+		assertNotNull(list); //Success Case: null이 아니면 통과
+		System.out.println(list);
 	}
 }

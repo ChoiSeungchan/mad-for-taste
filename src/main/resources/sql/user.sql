@@ -36,4 +36,6 @@ create table owner(
 	join_date date not null,
 	profile_img varchar2(30)
 )
+
+select *from taste_board
  	select * from (select rownum numrow,reply,name,id,joinDate,profileImg,contents from (select t.reply_no reply,o.name name,o.owner_id id,o.join_date joinDate,o.profile_img profileImg,t.contents contents from tasty_place_reply t,owner o where o.owner_id=t.owner_id order by reply desc)) where numrow between  #{value} and  #{value}+2
