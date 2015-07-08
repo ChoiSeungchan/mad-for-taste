@@ -24,6 +24,26 @@ $(function(){
 		   	})
 		}
 	});
+	
+	$('.memberAdminForm').submit(function() {
+		var flag = confirm('정말 수정하시겠습니까?');
+		if(flag==true) {
+			$.ajax({
+		   		type : "post",
+		   		url : "${initParam.root}memberAdmin/updateMember.ajax?"+$(this).serialize(),
+		   		dataType : "json",
+		   		success : function(data){
+		   			if(data.result=="success") {
+		   				alert('수정이 완료되었습니다.');
+		   			} else {
+		   				alert(data.result);
+		   			}
+		       		location.href=location.href;
+		   		}
+		   	})
+		}
+		return false;
+	});
 });
 </script>
 <div class="col-md-12">
@@ -32,7 +52,6 @@ $(function(){
 		<h3>회원관리</h3>
 	<hr>
 </div>
-<form >
 <table class="table">
 	<thead>
 		<tr>
@@ -51,23 +70,33 @@ $(function(){
 	</thead>
 	<tbody>
 	<c:forEach var="member" items="${container.list}">
-		<tr id="memberTr">
+		<form action="" method="post" id="${member.id}" class="memberAdminForm">
+		<tr id="${member.id}">
 			<td><input type="checkbox" value="${member.id}" name="checkedMember"></td>
 			<td>${member.id}</td>
-			<td><input type="password" name="password" value="${member.password}"></td>
-			<td><input type="text" name="name" value="${member.name}"></td>
+			<td><input type="password" style="width: 100%" name="password" value="${member.password}"></td>
+			<td><input type="text" style="width: 100%" name="name" value="${member.name}"></td>
 			<td>${member.gender}</td>
 			<td>${member.birth}</td>
-			<td><input type="text" name="tel" value="${member.tel}"></td>
+			<td><input type="text" style="width: 100%" name="tel" value="${member.tel}"></td>
 			<td>${member.levelInfo.level}</td>
-			<td><input type="text" name="exp" value="${member.exp}"></td>
-			<td><input type="text" name="point" value="${member.point}"></td>
-			<td></td>
+			<td><input type="text" style="width: 100%" name="exp" value="${member.exp}"></td>
+			<td><input type="text" style="width: 100%" name="point" value="${member.point}"></td>
+			<td>
+				<input type="hidden" name="id" value="${member.id}">
+				<input type="hidden" name="city" value="${member.city}">
+				<input type="hidden" name="sigungu" value="${member.sigungu}">
+				<input type="hidden" name="eupmyeondong" value="${member.eupmyeondong}">
+				<input type="hidden" name="address" value="${member.address}">
+				<input type="hidden" name="gender" value="${member.gender}">
+				<input type="hidden" name="birth" value="${member.birth}">
+				<button type="submit" id="memberAdminBtn" class="btn btn-default btn-xs">수정</button>
+			</td>
 		</tr>
+		</form>
 	</c:forEach>
 	</tbody>
 </table>
-</form>
 <div>
 	<button id="memberDeleteBtn" class="btn btn-primary">회원 삭제</button>
 </div>

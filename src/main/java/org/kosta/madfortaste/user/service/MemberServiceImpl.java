@@ -33,7 +33,7 @@ public class MemberServiceImpl implements MemberService{
 	public Member registerMemberImg(Member member, HttpServletRequest req) throws IllegalStateException, IOException {
 		String realPath = new HttpServletRequestWrapper(req).getRealPath("/") + path;
 		MultipartFile imgFile = member.getImgFile();
-		if(imgFile.getSize()!=0) {
+		if(imgFile!=null && imgFile.getSize()!=0) {
 			// 확장자 추출
 			String extension = imgFile.getOriginalFilename().substring(imgFile.getOriginalFilename().lastIndexOf(".")+1);
 			// 파일 업로드
