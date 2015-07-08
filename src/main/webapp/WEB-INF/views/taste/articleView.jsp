@@ -230,10 +230,40 @@ pre{
 					<b>${article.member.name} (${article.member.id})</b> 님이 ${article.calDate}에 작성한 글입니다.
 				</td>
 				<td>
-				<c:if test="${article.member.id==sessionScope.member.id}">
+				<c:choose>
+					<c:when test="${article.member.id==sessionScope.member.id}">
 					<button id="updateArticleFormBtn" class="btn btn-success btn-sm">글 수정하기</button>&nbsp&nbsp
 					<button id="deleteArticleFormBtn" class="btn btn-danger btn-sm">글 삭제하기</button>
-				</c:if>
+					</c:when>
+					<c:otherwise>
+					<button id="reportArticleBtn" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#reportArticleModal">이 글 신고하기</button>&nbsp&nbsp
+					<!-- Modal -->
+					<div class="modal fade" id="reportArticleModal" tabindex="-1" role="dialog" aria-labelledby="reportArticleModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					        <h4 class="modal-title" id="myModalLabel">신고하기</h4>
+					      </div>
+					      <div class="modal-body">
+						    <form id="tasteBoardReportForm" action="${initParam.root}tasteBoardReport" method="post" >
+								<input type="hidden" name="boardName" value="TASTEBOARD">
+								<input type="hidden" name="articleNo" value="${article.articleNo}">
+								<input type="hidden" name="accuserId" value="${sessionScope.member.id}">
+								<div style="font-size: 15px; margin-top: 10px; margin-bottom: 10px">신고 사유 (100자 이내)</div>
+								<textarea name="reportReason" class="form-control" rows="5" maxlength="100">${reply.contents}</textarea>
+								<br>
+								<div align="right">
+									<button type="submit" class="btn btn-primary">신고하기</button>
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								</div>
+							</form>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+					</c:otherwise>
+				</c:choose>
 				</td>
 				<td align="right">
 					<span class="glyphicon glyphicon glyphicon-comment" style="color:#045FB4"></span> ${article.reply} &nbsp&nbsp&nbsp&nbsp

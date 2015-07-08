@@ -140,7 +140,22 @@ select * from (
 
 
 
+--- 신고 ---
+select * from article_report
+		
+drop table article_report
+create table article_report (
+	report_no number primary key,
+	board_name varchar2(20) not null,
+	article_no number not null,
+	accuser_id varchar2(20) references member(id) on delete cascade, 
+	report_reason varchar2(300) not null,
+	report_date date default sysdate,
+	unique(board_name, article_no, accuser_id)
+)
 
+drop sequence article_report_seq
+create sequence article_report_seq nocache
 
 
 

@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -172,10 +171,25 @@ public class MemberController {
 	@RequestMapping(value="memberAdmin/deleteMember.ajax")
 	public Map<String, Object> deleteMemberAjax(String memberArray) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		System.out.println(memberArray);
 		String member[] = memberArray.split("/");
 		for (String memberId : member) {
 			memberService.deleteMember(memberId);
+		}
+		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="memberAdmin/updateMember.ajax")
+	public Map<String, Object> updateMemberAjax(Member member, HttpServletRequest req) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		System.out.println(member);
+		try {
+			memberService.updateMember(member, req);
+			map.put("result", "success");
+		} catch (IllegalStateException e) {
+			map.put("result", e.getMessage());
+		} catch (IOException e) {
+			map.put("result", e.getMessage());
 		}
 		return map;
 	}

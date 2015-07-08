@@ -41,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<update id="updateMember">
 		update member set password=#{password}, name=#{name}, city=#{city}, sigungu=#{sigungu}, eupmyeondong=#{eupmyeondong}, address=#{address}, gender=#{gender},
-		birth=#{birth}, tel=#{tel}, profile_img=#{profileImg}
+		birth=#{birth}, tel=#{tel}, exp=#{exp}, point=#{point}, profile_img=#{profileImg}
 		where id=#{id}
 	</update>
 	<delete id="deleteMember">

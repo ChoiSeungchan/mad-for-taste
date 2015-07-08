@@ -23,7 +23,6 @@ public class ReplyController {
 	@RequestMapping(value="updateTasteBoardReply")
 	public String updateReply (Reply reply) {
 		System.out.println(reply);
-		replyService.updateReply(reply);
 		return "redirect:article/"+reply.getArticleNo();
 	}
 	
