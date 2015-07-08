@@ -60,7 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values(taste_board_sequence.currval,#{writer},#{resNo},#{title},#{contents})
 	</insert>
 	<update id="updateArticle">
-		update taste_board set location=#{location},title=#{title},contents=#{contents}
+		update taste_board set title=#{title},contents=#{contents}
 		where article_no=#{articleNo}
 	</update>
 	<delete id="deleteArticle">

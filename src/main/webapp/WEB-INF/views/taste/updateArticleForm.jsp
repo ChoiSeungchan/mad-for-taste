@@ -46,18 +46,9 @@
 		<form action="${initParam.root}updateArticle" method="post" role="form" id="articleForm">
 			<input type="hidden" name="articleNo" value="${article.articleNo}"> 
 			<input type="hidden" name="writer" value="${sessionScope.member.id}"> 
-			<div class="form-group">
-				<label class="control-label">어느 지역의 맛집인가요?</label>
-				<select	name="location" class="form-control">
-				<option selected="selected">${article.location}</option>
-				<option>서울</option>
-				<option>경기</option>
-				<option>대전</option>
-				<option>대구</option>
-				<option>부산</option>
-				<option>광주</option>
-				<option>제주</option>
-				</select>
+			<input type="hidden" name="resNo" value="${article.restaurant.resNo}"> 
+			<div class="restaurantAddr" style="font-size: 18px; color:red;margin-top: 10px; margin-bottom: 10px">
+				글을 등록할 때 소개한 맛집은 수정하실 수 없습니다 : <font style="color: #777777; font-weight: bold;" >${article.restaurant.city} ${article.restaurant.sigungu} ${article.restaurant.eupmyeondong} ${article.restaurant.resName}</font>
 			</div>
 			<div class="form-group">
 				<label class="control-label" for="title">맛집 소개글의 제목을 입력해주세요</label>

@@ -46,6 +46,10 @@
 			location.href='${initParam.root}memberAdmin/1';
 		});
 		
+		$('#reportAdminBtn').click(function(){
+			location.href='${initParam.root}reportAdmin/1';
+		});
+		
 		$('#registerBtn').click(function(){
 			var userCategory = $(':input[name=userCategory]:checked').val();
 			if(userCategory=='member') {
@@ -188,8 +192,9 @@
 					</tbody>
 				</table>
 				<div style="width: 100%; padding: 5px" align="center">
-					<input type="button" id="logoutBtn" class="btn btn-primary btn-xs btn-block" value="로그아웃">
+					<input type="button" id="logoutBtn" class="btn btn-primary btn-block" value="로그아웃">
 					<input type="button" id="memberAdminBtn" class="btn btn-info btn-block" value="회원 관리">
+					<input type="button" id="reportAdminBtn" class="btn btn-danger btn-block" value="신고 처리">
 				</div>
 			</c:when>
 			<c:when test="${sessionScope.member!=null}">

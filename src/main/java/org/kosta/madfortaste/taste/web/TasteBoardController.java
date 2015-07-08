@@ -106,7 +106,6 @@ public class TasteBoardController {
 	
 	@RequestMapping(value="updateArticle")
 	public String updateArticle(Article article) {
-		System.out.println(article);
 		tasteBoardService.updateArticle(article);
 		return "redirect:article/"+article.getArticleNo();
 	}

@@ -158,6 +158,19 @@ $(function(){
 		$('#deleteTasteBoardReplyForm').submit(function(){
 			return confirm('정말 삭제하시겠습니까?');
 		})
+		
+		$('#tasteBoardReportForm').submit(function() {
+			$.ajax({
+	    		type : "post",
+	    		url : "${initParam.root}articleReport.ajax?"+$(this).serialize(),
+	    		dataType : "json",
+	    		success : function(data){
+	        		alert(data.message);
+	    		}
+	    	}) 
+			$('#reportArticleModal').modal('hide')
+			return false;
+		})
 	})
 	
 </script>
