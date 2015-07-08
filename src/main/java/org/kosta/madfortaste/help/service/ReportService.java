@@ -17,5 +17,5 @@ public interface ReportService {
 
 	public int deleteArticleReport(int reportNo);
 
-	public void blindArticle(String boardName, int articleNo);
+	public void blindArticle(ArticleReport report);
 }

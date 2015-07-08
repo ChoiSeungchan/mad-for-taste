@@ -60,4 +60,13 @@ public class TestReportDao {
 		System.out.println(i);
 	}
 	
+	@Transactional
+	@Test
+	public void testDeleteSameArticleReports() {
+		String boardName = "TASTEBOARD";
+		int articleNo = 1;
+		reportDao.deleteSameArticleReports(boardName, articleNo);
+		ArticleReport report = reportDao.selectArticleReport(1);
+		System.out.println(report);
+	}
 }

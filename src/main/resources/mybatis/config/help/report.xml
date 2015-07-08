@@ -33,6 +33,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteArticleReport">
 		delete from article_report where report_no=#{reportNo}
 	</delete>
+	<delete id="deleteSameArticleReports">
+		delete from article_report where board_name=#{boardName} and article_no=#{articleNo}
+	</delete>
 </mapper>
  
  

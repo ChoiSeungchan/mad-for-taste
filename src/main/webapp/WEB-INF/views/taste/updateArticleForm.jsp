@@ -42,7 +42,7 @@
 </script>
 </head>
 <body>
-	<div class="container-fluid">
+	<div>
 		<form action="${initParam.root}updateArticle" method="post" role="form" id="articleForm">
 			<input type="hidden" name="articleNo" value="${article.articleNo}"> 
 			<input type="hidden" name="writer" value="${sessionScope.member.id}"> 

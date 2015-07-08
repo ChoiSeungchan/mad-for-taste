@@ -1,6 +1,8 @@
 package org.kosta.madfortaste.help.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.help.domain.ArticleReport;
@@ -37,6 +39,14 @@ public class ReportDaoImpl implements ReportDao{
 	@Override
 	public int deleteArticleReport(int reportNo) {
 		return sqlSessionTemplate.delete("report.deleteArticleReport", reportNo);
+	}
+
+	@Override
+	public void deleteSameArticleReports(String boardName, int articleNo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("boardName", boardName);
+		map.put("articleNo", articleNo);
+		sqlSessionTemplate.delete("report.deleteSameArticleReports", map);
 	}
 	
 	

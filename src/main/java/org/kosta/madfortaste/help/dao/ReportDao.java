@@ -17,4 +17,6 @@ public interface ReportDao {
 
 	public int deleteArticleReport(int reportNo);
 
+	public void deleteSameArticleReports(String boardName, int articleNo);
+
 }

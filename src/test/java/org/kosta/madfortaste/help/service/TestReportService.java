@@ -22,12 +22,4 @@ public class TestReportService {
 		assertNotNull(reportService);
 	}
 	
-	@Transactional
-	@Test
-	public void testBlindArticle() {
-		String boardName = "TASTEBOARD";
-		int articleNo = 1;
-		reportService.blindArticle(boardName, articleNo);
-	}
-	
 }

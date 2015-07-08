@@ -45,18 +45,17 @@ public class ReportServiceImpl implements ReportService{
 	}
 	
 	@Override
-	public void blindArticle(String boardName, int articleNo) {
+	public void blindArticle(ArticleReport report) {
+		String boardName = report.getBoardName();
+		int articleNo = report.getArticleNo();
 		if(boardName!=null && articleNo>0) {
 			if(boardName.equals("TASTEBOARD")) {
-				Article article = tasteBoardDao.getArticleByNo(articleNo);
-				article.setTitle("관리자에 의해 블라인드 처리 된 게시물 입니다.");
-				article.setContents("관리자에 의해 블라인드 처리 된 게시물 입니다.");
-				tasteBoardDao.updateArticle(article);
-				article = tasteBoardDao.getArticleByNo(articleNo);
-				System.out.println(article);
+				tasteBoardDao.deleteArticle(articleNo);
 			} else if (boardName.equals("QNA")) {
 			}
+			reportDao.deleteSameArticleReports(boardName, articleNo);
 		}
+		
 	}
 
 }

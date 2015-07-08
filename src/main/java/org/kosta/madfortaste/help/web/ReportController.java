@@ -38,4 +38,12 @@ public class ReportController {
 		model.addAttribute("page", page);
 		return "help/admin/reportAdmin";
 	}
+	
+	@RequestMapping(value="reportAdmin/blindArticle")
+	public String blindArticle(ArticleReport report) {
+		if(report!=null) {
+			reportService.blindArticle(report);
+		}
+		return "redirect:/reportAdmin/1";
+	}
 }
