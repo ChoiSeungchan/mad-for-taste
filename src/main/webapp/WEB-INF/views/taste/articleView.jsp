@@ -165,7 +165,11 @@ $(function(){
 	    		url : "${initParam.root}articleReport.ajax?"+$(this).serialize(),
 	    		dataType : "json",
 	    		success : function(data){
-	        		alert(data.message);
+	    			if(data.message==undefined) {
+						alert('성공적으로 신고하였습니다.');	    				
+	    			} else {
+		        		alert(data.message);
+	    			}
 	    		}
 	    	}) 
 			$('#reportArticleModal').modal('hide')
@@ -244,7 +248,7 @@ pre{
 				</td>
 				<td>
 				<c:choose>
-					<c:when test="${article.member.id==sessionScope.member.id}">
+					<c:when test="${article.member.id==sessionScope.member.id || sessionScope.member.exp>10000000}">
 					<button id="updateArticleFormBtn" class="btn btn-success btn-sm">글 수정하기</button>&nbsp&nbsp
 					<button id="deleteArticleFormBtn" class="btn btn-danger btn-sm">글 삭제하기</button>
 					</c:when>

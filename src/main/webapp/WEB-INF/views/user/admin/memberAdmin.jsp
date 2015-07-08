@@ -49,7 +49,7 @@ $(function(){
 <div class="col-md-12">
 <div align="center">
 	<hr>
-		<h3>회원관리</h3>
+		<h3>회원 관리</h3>
 	<hr>
 </div>
 <table class="table">
