@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.taste.domain.Article;
+import org.kosta.madfortaste.taste.domain.Restaurant;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -105,6 +106,21 @@ public class TasteBoardDaoImpl implements TasteBoardDao {
 	@Override
 	public List<String> selectVotedList(int articleNo) {
 		return sqlSessionTemplate.selectList("selectVotedList", articleNo);
+	}
+
+	@Override
+	public List<Article> selectBoardByAddress(Restaurant restaurant) {
+		return sqlSessionTemplate.selectList("selectBoardByAddress",restaurant);
+	}
+
+	@Override
+	public List<Article> selectBoardByResNo(Map<String, String> map) {
+		return sqlSessionTemplate.selectList("selectBoardByResNo",map);
+	}
+
+	@Override
+	public int selectTotalCntBoardByResNo(String string) {
+		return sqlSessionTemplate.selectOne("selectTotalCntBoardByResNo",string);
 	}
 
 }

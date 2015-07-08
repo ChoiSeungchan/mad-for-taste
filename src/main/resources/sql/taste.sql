@@ -99,5 +99,4 @@ drop sequence res_seq
 
 select *from taste_board
 
-select *from restaurant
-update restaurant set good='100',bad='70' where res_no='18'
+select a.* from (select rownum numrow,t.* from (select t.article_no articleno,m.name writer,t.title title,t.contents contents from taste_board t,member m  where res_no='60' and m.id=t.writer order by article_no desc)t)a where numrow between 1 and 3

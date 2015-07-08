@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.taste.domain.Article;
+import org.kosta.madfortaste.taste.domain.Restaurant;
 
 public interface TasteBoardDao {
 
@@ -39,5 +40,11 @@ public interface TasteBoardDao {
 	public void insertVote(int articleNo, String id);
 	
 	public List<String> selectVotedList(int articleNo);
+
+	public List<Article> selectBoardByAddress(Restaurant restaurant);
+
+	public List<Article> selectBoardByResNo(Map<String, String> map);
+
+	public int selectTotalCntBoardByResNo(String string);
 
 }

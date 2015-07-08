@@ -39,4 +39,8 @@ public interface TasteBoardService {
 
 	public List<Article> getArticlesOredrByRank(Page page);
 
+	public List<Article> selectBoardByResNo(Map<String, String> map);
+
+	public int selectTotalCntBoardByResNo(String string);
+
 }

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.taste.domain.Restaurant;
 import org.kosta.madfortaste.taste.service.RestaurantService;
 import org.kosta.madfortaste.user.domain.Member;
@@ -196,16 +197,28 @@ public class MemberController {
 	
 	@RequestMapping("memberAddressNearByRestaurantService")
 	//회원 정보(주소) 가지고 모든 레스토랑 검색하는 서비스
-	public String memberAddressNearByRestaurantService(Model model,HttpServletRequest rq){
+	public String memberAddressNearByRestaurantService(Model model,HttpServletRequest rq,String currPage,String pageSize){
 		Member member=(Member)rq.getSession(false).getAttribute("member");
 		Map<String, String> map=new HashMap<String, String>();
+		if(currPage==null)
+			currPage="1";
+		if(pageSize==null)
+			pageSize="3";
 		member.setSigungu("  "+member.getSigungu());
 		member.setEupmyeondong("  "+member.getEupmyeondong());
 		map.put("si", member.getCity());
 		map.put("gu", member.getSigungu());
 		map.put("dong", member.getEupmyeondong());
+		Page page=new Page(restaurantService.selectRestaurantTotalCnt(map));
+		page.setPageGroupSize(3);
+		page.setPageSize(Integer.parseInt(pageSize));
+		page.setCurrentPage(Integer.parseInt(currPage));
+		map.put("beginRow", Integer.toString(page.getBeginRow()));
+		map.put("endRow", Integer.toString(page.getEndRow()));
+		System.out.println(map);
 		List<Restaurant> list=restaurantService.selectRestaurantNearByAddress(map);
 		model.addAttribute("restaurantList", list);
+		model.addAttribute("page", page);
 		return "user/result/restaurantService";
 	}
 }
