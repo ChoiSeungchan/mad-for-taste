@@ -369,7 +369,7 @@
 				<td>asdf</td>
 			</tr>
 			<tr>
-				<td>asdf</td>
+				<td>asdf</td>	
 			</tr>
 			<tr>
 				<td>asdf</td>
@@ -383,7 +383,7 @@
 			<tr>
 				<td>asdf</td>
 			</tr>
-		</table>
+		</table>		
 	</div>
 </div>
 
