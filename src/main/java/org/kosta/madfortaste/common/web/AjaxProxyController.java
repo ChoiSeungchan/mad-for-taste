@@ -44,6 +44,7 @@ public class AjaxProxyController {
 				String mapx = item.getChildText("mapx");
 				String mapy = item.getChildText("mapy");
 				NaverMap naverMap = new NaverMap(title, category, telephone, address, roadAddress, mapx, mapy);
+				System.out.println(naverMap);
 				mapList.add(naverMap);
 			}
 		} catch (MalformedURLException e) {

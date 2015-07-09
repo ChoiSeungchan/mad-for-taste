@@ -38,9 +38,6 @@ public class AuthCheckInterceptor extends HandlerInterceptorAdapter{
 				return false;
 			}
 		}
-		
-		
-		System.out.println("path="+path);
 		return true;
 	}
 
