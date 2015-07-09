@@ -5,47 +5,54 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
-<!-- GoogoleMap Asynchronously Loading the API ********************************************* -->
+
+<script src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=5bc54909bf6294c7538ba9828efdb279"></script>
+<script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=5bc54909bf6294c7538ba9828efdb279"></script>
 <script type="text/javascript">
-    function initialize() {
-     
-        var mapOptions = {
-                            zoom: 17, // 지도를 띄웠을 때의 줌 크기
-                            mapTypeId: google.maps.MapTypeId.ROADMAP
-                        };
-         
-         
-        var map = new google.maps.Map(document.getElementById("map-canvas"), // div의 id과 값이 같아야 함. "map-canvas"
-                                    mapOptions);
-       
-        // Geocoding *****************************************************
-        var address = '${article.restaurant.city} ${article.restaurant.sigungu} ${article.restaurant.eupmyeondong} ${article.restaurant.resName}'; // DB에서 주소 가져와서 검색하거나 왼쪽과 같이 주소를 바로 코딩.
-        var marker = null;
-        var geocoder = new google.maps.Geocoder();
-        geocoder.geocode( { 'address': address}, function(results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                map.setCenter(results[0].geometry.location);
-                marker = new google.maps.Marker({
-                                map: map,
-                                title: '${article.restaurant.city} ${article.restaurant.sigungu} ${article.restaurant.eupmyeondong} ${article.restaurant.resName}', // 마커에 마우스 포인트를 갖다댔을 때 뜨는 타이틀
-                                position: results[0].geometry.location
-                            });
- 
-                var content = "${article.restaurant.city} ${article.restaurant.sigungu} ${article.restaurant.eupmyeondong} ${article.restaurant.resName}"; // 말풍선 안에 들어갈 내용
-             
-                // 마커를 클릭했을 때의 이벤트. 말풍선 뿅~
-                var infowindow = new google.maps.InfoWindow({ content: content});
-                infowindow.open(map,marker);
-                //google.maps.event.addListener(marker, "click", function() {infowindow.open(map,marker);});
-            } else {
-                alert("Geocode was not successful for the following reason: " + status);
-            }
-        });
-        // Geocoding // *****************************************************
-         
-    }
-    google.maps.event.addDomListener(window, 'load', initialize);
+$(function(){
+	
+	var key = 'e124bb7fb19604d25ec62feb7c7ff1f1';
+	var query = '${article.restaurant.city}${article.restaurant.sigungu}${article.restaurant.eupmyeondong}${article.restaurant.resName}';
+	$.ajax({
+		type:"post",
+		url:'${initParam.root}naverGeoCording.json?key='+key+'&query='+query.trim(),
+		dataType:"json",
+		success:function(data){		
+		
+			var	mapx=data[0].mapx;
+			var	mapy=data[0].mapy;
+		
+			var oPoint = new nhn.api.map.TM128(mapx, mapy);
+		    nhn.api.map.setDefaultPoint('LatLng');
+		    oMap = new nhn.api.map.Map('mapCanvas' ,{
+			           point : oPoint,
+			           zoom : 12,
+			           enableWheelZoom : true,
+			           enableDragPan : true,
+			           enableDblClickZoom : false,
+			           mapMode : 0,
+			           activateTrafficMap : false,
+			           activateBicycleMap : false,
+			           minMaxLevel : [ 1, 14 ],
+			           size : new nhn.api.map.Size(740, 400)
+			});
+		    
+		    var oSize = new nhn.api.map.Size(28, 37);
+		    var oOffset = new nhn.api.map.Size(14, 37);
+		    var oIcon = new nhn.api.map.Icon('http://static.naver.com/maps2/icons/pin_spot2.png', oSize, oOffset);
+		    var oMarker = new nhn.api.map.Marker(oIcon, { title : data[0].title });                        
+		    oMarker.setPoint(oPoint);                        
+		    oMap.addOverlay(oMarker);  
+			
+		    var oLabel = new nhn.api.map.MarkerLabel(); // - 마커 라벨 선언.       
+		    oMap.addOverlay(oLabel);  
+		    oLabel.setVisible(true, oMarker);
+		    
+		}
+	});
+	
+    
+})
 </script>
 
 <script type="text/javascript">
@@ -296,7 +303,7 @@ pre{
 				<p>
 					${article.contents}
 				</p>
-				<div id="map-canvas"></div>
+				<div id = "mapCanvas" style="width:740px; height:400px; margin:20px;"></div>
 				<c:if test="${article.restaurant.good==0&&article.restaurant.bad==0 }">
 				<div align="center" style="margin: 20px; font-size: 16px; font-weight: bold;">
 					${article.restaurant.resName }에 대한 평가가 아직 없습니다. 좋아요/싫어요 투표해주세요!
