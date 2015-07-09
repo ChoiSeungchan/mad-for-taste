@@ -179,6 +179,13 @@
 			<version>2.5.1</version>
 		</dependency>
 		
+		<!-- XML -->
+		<dependency>
+			<groupId>jdom</groupId>
+			<artifactId>jdom</artifactId>
+			<version>1.0</version>
+		</dependency>
+				
 		<!-- Valid -->
 		<dependency>
 			<groupId>javax.validation</groupId>

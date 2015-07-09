@@ -26,10 +26,10 @@ public class TestTasteBoardService {
 	@Test
 	public void testInsertArticle() {
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("name", "병천순대");
-		map.put("si", "성남시");
-		map.put("gu", "분당구");
-		map.put("dong", "서현동");
+		map.put("name", "안동찜닭");
+		map.put("si", "서울특별시");
+		map.put("gu", "종로구");
+		map.put("dong", "견지동");
 		for (int i = 0; i < 30; i++) {
 			tasteBoardService.insertArticle(
 					new Article("hs9923", "서현동 병천순대", "test 게시글 입니다."), map);
