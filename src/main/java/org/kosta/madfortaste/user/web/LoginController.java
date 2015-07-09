@@ -27,7 +27,7 @@ public class LoginController {
 	@RequestMapping(value = "loginForm")
 	public String loginForm(String path, Model model) {
 		model.addAttribute("path", path);
-		return "user/login";
+		return "loginPage";
 	}
 	
 	@RequestMapping(value = "login")
@@ -46,7 +46,7 @@ public class LoginController {
 		}
 		model.addAttribute("path",path);
 		model.addAttribute("loginResult", "failure");
-		return "redirect:loginForm?path="+path+"&loginResult=failure";
+		return "loginPage";
 	}
 	
 	@ResponseBody
