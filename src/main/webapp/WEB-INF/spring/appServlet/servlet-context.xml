@@ -58,7 +58,7 @@
 	<!-- Interceptor -->
 	<interceptors>
 	<interceptor>
-		<mapping path="/*" />
+		<mapping path="/**" />
 		<exclude-mapping path="/resources/**" />
 		<beans:bean class="org.kosta.madfortaste.common.interceptor.AuthCheckInterceptor"/>
 	</interceptor>

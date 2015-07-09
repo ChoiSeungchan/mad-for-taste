@@ -39,7 +39,7 @@
 	           //]]>
 </script>
 <form action="update_access" method="post" enctype="multipart/form-data" onsubmit="return checkForm()">
-<div class="col-md-4 col-md-offset-4">
+<div class="col-xs-10 col-xs-offset-1">
   <div class="form-group">
     <label for="id">아이디</label>
     <input type="text" class="form-control"  name="ownerId"  placeholder="아이디를 입력하세요" readonly="readonly" value="${owner.ownerId }" id="ownerId"/>

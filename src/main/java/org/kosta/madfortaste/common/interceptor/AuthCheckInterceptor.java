@@ -20,18 +20,25 @@ public class AuthCheckInterceptor extends HandlerInterceptorAdapter{
 		String uri = request.getRequestURI();
 		String root = request.getContextPath();
 		String path = uri.replace(root+"/", "");
+		Member member = null;
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			member = (Member) session.getAttribute("member");
+		}
 		
-		if((!path.contains("member") && path.contains("egister")) || path.contains("pdate") || path.contains("elete")){
-			System.out.println("이프문 안으로 진입");
-			HttpSession session = request.getSession(false);
-			if (session != null) {
-				Member member = (Member) session.getAttribute("member");
+		if((!(path.contains("member") || path.contains("owner")) &&
+				path.contains("egister")) || path.contains("pdate") || path.contains("elete")){
 				if (member == null) {
 					response.sendRedirect("loginForm?path="+path);
 					return false;
 				}
+		} else if (path.contains("Admin")) {
+			if(member==null || member.getExp()<10000000) {
+				response.sendRedirect("/madfortaste/loginForm?path="+path);
+				return false;
 			}
 		}
+		
 		
 		System.out.println("path="+path);
 		return true;

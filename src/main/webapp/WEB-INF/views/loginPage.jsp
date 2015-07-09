@@ -26,6 +26,15 @@
 			alert('존재하지 않는 아이디 이거나 패스워드를 잘못 입력하셨습니다.');
 			$('#loginId').focus();
 		}
+		
+		$('#registerBtn').click(function(){
+			var userCategory = $(':input[name=userCategory]:checked').val();
+			if(userCategory=='member') {
+				location.href='${initParam.root}memberRegisterForm';
+			} else if(userCategory=='owner') {
+				location.href='${initParam.root}owner_ownerRegisterForm';				
+			}
+		});
 	});
 </script>
 <style type="text/css">

@@ -32,6 +32,9 @@ body {
 #left {
 	margin-top: 15px;
 }
+#footer{
+	margin-top: 50px;
+}
 .container-fluid {
   width: 1366px;
   max-width: none !important;

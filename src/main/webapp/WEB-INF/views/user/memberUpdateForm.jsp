@@ -111,7 +111,7 @@ $(function(){
 </script>
 </head>
 <body>
-<div class="col-md-4 col-md-offset-4">
+<div class="col-xs-10 col-xs-offset-1">
 <form:form action="updateMember" method="post" enctype="multipart/form-data" commandName="member">
   <div class="form-group">
     <label for="id">아이디</label>

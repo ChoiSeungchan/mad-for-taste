@@ -143,7 +143,7 @@ $(function(){
 </script>
 </head>
 <body>
-<div class="col-md-4 col-md-offset-4">
+<div class="col-xs-10 col-xs-offset-1">
 <form:form action="registerMember" method="post" id="registerMemberForm" enctype="multipart/form-data" commandName="member">
   <div class="memberId form-group">
     <label id="idCheckLabel" for="id">아이디</label>

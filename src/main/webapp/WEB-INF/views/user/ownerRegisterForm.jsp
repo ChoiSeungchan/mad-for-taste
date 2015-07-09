@@ -59,7 +59,7 @@
 
 <!-- 아이디/비밀번호/이름/이메일/전화번호/사업자등록번호/상호명/맛집주소/맛집전화번호 -->
 
- <div class="col-md-4 col-md-offset-4">
+ <div class="col-xs-10 col-xs-offset-1">
 <form:form action="register_access" commandName="ownerForm" enctype="multipart/form-data" onsubmit="return duplicationCheck()">
 	<div class="form-group"> 
 	 <label for="ownerId">아이디</label>
