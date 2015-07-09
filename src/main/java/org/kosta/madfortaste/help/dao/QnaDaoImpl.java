@@ -2,6 +2,7 @@ package org.kosta.madfortaste.help.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.help.domain.Qna;
@@ -31,16 +32,17 @@ public class QnaDaoImpl implements QnaDao {
 		/*System.out.println("DAOImpl list : " + list);*/
 		return list;
 	}
-
+	
 	@Override
-	public List<Qna> loadQnaListByInput(HashMap<String, Object> map,
+	public List<Qna> loadQnaListByUser(HashMap<String, Object> map,
 			String searchSelect) {
-		List<Qna> list = null;
-		if (searchSelect.equals("0")) {
-			list = sqlSessionTemplate.selectList("qna.loadQnaListByUser", map);
-		} else {
-			list = sqlSessionTemplate.selectList("qna.loadQnaListByBoth", map);
-		}
+		List<Qna> list =  sqlSessionTemplate.selectList("qna.loadQnaListByUser", map);
+		return list;
+	}
+	@Override
+	public List<Qna> loadQnaListByBoth(HashMap<String, Object> map,
+			String searchSelect) {
+		List<Qna> list = sqlSessionTemplate.selectList("qna.loadQnaListByBoth", map);
 		return list;
 	}
 

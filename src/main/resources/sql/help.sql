@@ -13,56 +13,45 @@ create table notice_board(
 create sequence notice_no_seq nocache;
 drop sequence notice_no_seq;
 
+insert into notice_board(article_no,writer, title, content)
+values(notice_no_seq.nextval,'admin','테스트1','테스트');
+insert into notice_board(article_no,writer, title, content)
+values(notice_no_seq.nextval,'admin','테스트2','테스트');
+insert into notice_board(article_no,writer, title, content)
+values(notice_no_seq.nextval,'admin','테스트3','테스트');
+insert into notice_board(article_no,writer, title, content)
+values(notice_no_seq.nextval,'admin','테스트4','테스트');
+insert into notice_board(article_no,writer, title, content)
+values(notice_no_seq.nextval,'admin','테스트5','테스트');
+insert into notice_board(article_no,writer, title, content)
+values(notice_no_seq.nextval,'admin','테스트6','테스트');
+insert into notice_board(article_no,writer, title, content)
+values(notice_no_seq.nextval,'admin','테스트7','테스트');
+insert into notice_board(article_no,writer, title, content)
+values(notice_no_seq.nextval,'admin','테스트8','테스트');
+insert into notice_board(article_no,writer, title, content)
+values(notice_no_seq.nextval,'admin','테스트9','테스트');
+insert into notice_board(article_no,writer, title, content)
+values(notice_no_seq.nextval,'admin','테스트10','테스트');
+insert into notice_board(article_no,writer, title, content)
+values(notice_no_seq.nextval,'admin','테스트11','테스트');
+insert into notice_board(article_no,writer, title, content)
+values(notice_no_seq.nextval,'admin','테스트12','테스트');
+insert into notice_board(article_no,writer, title, content)
+values(notice_no_seq.nextval,'admin','테스트13','테스트');
+insert into notice_board(article_no,writer, title, content)
+values(notice_no_seq.nextval,'admin','테스트14','테스트');
+insert into notice_board(article_no,writer, title, content)
+values(notice_no_seq.nextval,'admin','테스트15','테스트');
+insert into notice_board(article_no,writer, title, content)
+values(notice_no_seq.nextval,'admin','테스트16','테스트');
 
--------- Qna----------
-create table qna_board(
-	article_no number primary key,
-	writer varchar2(20) not null,
-	title varchar2(50) not null,
-	content clob not null,
-	hits number default 0,
-    reg_date date default sysdate,
-	constraint qnawriter_fk foreign key (writer) references member(id) on delete cascade
-)
-drop table qna_board;
-select * from qna_board;
-create sequence qna_no_seq nocache;
-drop sequence qna_no_seq;
 
-insert into qna_board(article_no,writer, title, content)
-values(qna_no_seq.nextval,'admin','테스트1','테스트');
-insert into qna_board(article_no,writer, title, content)
-values(qna_no_seq.nextval,'admin','테스트2','테스트');
-insert into qna_board(article_no,writer, title, content)
-values(qna_no_seq.nextval,'admin','테스트3','테스트');
-insert into qna_board(article_no,writer, title, content)
-values(qna_no_seq.nextval,'admin','테스트4','테스트');
-insert into qna_board(article_no,writer, title, content)
-values(qna_no_seq.nextval,'admin','테스트5','테스트');
-insert into qna_board(article_no,writer, title, content)
-values(qna_no_seq.nextval,'admin','테스트6','테스트');
-insert into qna_board(article_no,writer, title, content)
-values(qna_no_seq.nextval,'admin','테스트7','테스트');
-insert into qna_board(article_no,writer, title, content)
-values(qna_no_seq.nextval,'admin','테스트8','테스트');
-insert into qna_board(article_no,writer, title, content)
-values(qna_no_seq.nextval,'admin','테스트9','테스트');
-insert into qna_board(article_no,writer, title, content)
-values(qna_no_seq.nextval,'admin','테스트10','테스트');
-insert into qna_board(article_no,writer, title, content)
-values(qna_no_seq.nextval,'admin','테스트11','테스트');
-insert into qna_board(article_no,writer, title, content)
-values(qna_no_seq.nextval,'admin','테스트12','테스트');
-insert into qna_board(article_no,writer, title, content)
-values(qna_no_seq.nextval,'admin','테스트13','테스트');
-insert into qna_board(article_no,writer, title, content)
-values(qna_no_seq.nextval,'admin','테스트14','테스트');
-insert into qna_board(article_no,writer, title, content)
-values(qna_no_seq.nextval,'admin','테스트15','테스트');
-insert into qna_board(article_no,writer, title, content)
-values(qna_no_seq.nextval,'admin','테스트16','테스트');
+
 
 -------- Qna reply----------
+drop table qna_reply;
+
 create table qna_reply(
 	article_no number primary key,
 	title varchar2(100) not null,
@@ -74,6 +63,8 @@ create table qna_reply(
 	restep number not null, -- 답변글묶음내 글순서(정렬 오름차순)
 	relevel number not null -- 답변글레벨 , 답변의 단계 	
 )
+select * from qna_reply where article_no = '1';
+
  select * from (
 			select rownum as rnum, t.*, m.*
 			from (select * from qna_reply order by ref desc,restep asc) t, member m
