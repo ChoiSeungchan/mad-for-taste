@@ -23,6 +23,19 @@ public class TestTasteBoardService {
 	private TasteBoardService tasteBoardService;
 	private Logger log=LoggerFactory.getLogger(getClass());
 	
+	@Test
+	public void testInsertArticle() {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("name", "병천순대");
+		map.put("si", "성남시");
+		map.put("gu", "분당구");
+		map.put("dong", "서현동");
+		for (int i = 0; i < 30; i++) {
+			tasteBoardService.insertArticle(
+					new Article("hs9923", "서현동 병천순대", "test 게시글 입니다."), map);
+		}
+	}
+	
 	/**
 	 * ResNo 으로 해당 게시글 리스트 검색
 	 */

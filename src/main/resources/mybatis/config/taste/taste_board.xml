@@ -71,10 +71,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<select id="getArticles" resultMap="articleRM">
 		select * from (
-			select rownum as rnum, t.*, m.*
-			from (select * from taste_board) t, member m
+			select t.*, m.*
+			from (select rownum as rnum,t.* from taste_board t order by article_no desc) t, member m
 			where t.writer=m.id
-		) where rnum between #{beginRow} and #{endRow} order by article_no desc
+		) where rnum between #{beginRow} and #{endRow} order by rnum asc
 	</select>
 	<select id="getArticlesOrderByHits" resultMap="articleRM">
 		select * from (

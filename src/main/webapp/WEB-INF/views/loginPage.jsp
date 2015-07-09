@@ -35,6 +35,10 @@
 				location.href='${initParam.root}owner_ownerRegisterForm';				
 			}
 		});
+		
+		$('#homeBtn').click(function() {
+			location.href='${initParam.root}';
+		});
 	});
 </script>
 <style type="text/css">
@@ -92,6 +96,7 @@ body {
 					<input type="hidden" name="path" value="${path}">
 					<button type="submit" id="rightLoginBtn" class="btn btn-primary">로그인</button>
 					<button type="button" id="registerBtn" class="btn btn-info">회원가입</button>
+					<button type="button" id="homeBtn" class="btn btn-default">홈으로</button>
 				</div>
 			</form>
 		</div>
