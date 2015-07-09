@@ -195,4 +195,24 @@ public class TasteBoardServiceImpl implements TasteBoardService {
 		return tasteBoardDao.selectTotalCntBoardByResNo(string);
 	}
 
+	@Override
+	public List<Article> selectByWriter(String string) {
+		return tasteBoardDao.selectByWriter(string);
+	}
+
+	@Override
+	public List<Article> selectByTitle(String string) {
+		return tasteBoardDao.selectByTitle(string);
+	}
+
+	@Override
+	public List<Article> selectByWriterApplicationPaging(Map<String, Object> map) {
+		return tasteBoardDao.selectByWriterApplicationPaging(map);
+	}
+
+	@Override
+	public List<Article> selectByTitleApplicationPaging(Map<String, Object> map) {
+		return tasteBoardDao.selectByTitleApplicationPaging(map);
+	}
+
 }

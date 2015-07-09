@@ -132,6 +132,48 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectTotalCntBoardByResNo" resultType="int">
 	    select count(*) from taste_board where res_no=#{value}	    
 	</select>
+	
+	<select id="selectByWriter" resultMap="articleRM">
+	    select * from (
+			select rownum as rnum, t.*, m.id,upper(m.name) name,m.password,m.city,m.sigungu,
+			m.eupmyeondong,m.address,m.gender,m.birth,m.tel,m.exp,m.point,m.join_date,
+			m.profile_img
+			from (select * from taste_board) t, member m
+			where t.writer=m.id
+		)where name like upper('%' ||  #{value} || '%') order by article_no desc
+	</select>
+	
+	<select id="selectByTitle" resultMap="articleRM">
+	    select * from (
+			select rownum as rnum, t.article_no,t.writer,upper(t.title) title,t.contents,t.reg_date,t.reply,
+			t.good,t.bad,t.hits, m.id,m.name,m.password,m.city,m.sigungu,
+			m.eupmyeondong,m.address,m.gender,m.birth,m.tel,m.exp,m.point,m.join_date,
+			m.profile_img
+			from (select * from taste_board) t, member m
+			where t.writer=m.id
+		)where title like upper('%' ||  #{value} || '%') order by article_no desc
+	</select>
+	
+	<select id="selectByWriterApplicationPaging" resultMap="articleRM">
+	    select * from (
+			select rownum as rnum, t.*, m.id,upper(m.name) name,m.password,m.city,m.sigungu,
+			m.eupmyeondong,m.address,m.gender,m.birth,m.tel,m.exp,m.point,m.join_date,
+			m.profile_img
+			from (select * from taste_board order by article_no desc) t, member m
+			where t.writer=m.id and name like upper('%'|| #{name} ||'%')
+		)  where rnum between #{beginRow} and #{endRow}
+	</select>
+	
+	<select id="selectByTitleApplicationPaging" resultMap="articleRM">
+	    select * from (
+			select rownum as rnum, t.article_no,t.writer,upper(t.title) title,t.contents,t.reg_date,t.reply,
+			t.good,t.bad,t.hits, m.id,m.name,m.password,m.city,m.sigungu,
+			m.eupmyeondong,m.address,m.gender,m.birth,m.tel,m.exp,m.point,m.join_date,
+			m.profile_img
+			from (select * from taste_board order by article_no desc) t, member m
+			where t.writer=m.id and title like upper('%'|| #{title} ||'%')
+		)  where rnum between #{beginRow} and #{endRow}
+	</select>
 </mapper>
  
  

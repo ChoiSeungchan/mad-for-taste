@@ -43,4 +43,12 @@ public interface TasteBoardService {
 
 	public int selectTotalCntBoardByResNo(String string);
 
+	public List<Article> selectByWriter(String string);
+
+	public List<Article> selectByTitle(String string);
+
+	public List<Article> selectByWriterApplicationPaging(Map<String, Object> map);
+
+	public List<Article> selectByTitleApplicationPaging(Map<String, Object> map);
+
 }

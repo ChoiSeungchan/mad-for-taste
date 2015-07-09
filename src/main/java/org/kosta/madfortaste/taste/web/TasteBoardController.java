@@ -61,6 +61,37 @@ public class TasteBoardController {
 		model.addAttribute("page", page);
 		return "home";
 	}
+	@RequestMapping(value="searchGetArticles")
+	public String getArticles(Model model,String currPage,String searchVal,String event) {
+		Page page=null;
+		List<Article> list=null;
+		String searchName="title";
+		if(currPage==null)
+			currPage="1";
+		if(event.equals("writer")){
+			 page = new Page(tasteBoardService.selectByWriter(searchVal).size());
+			 searchName="name";
+		}
+		else
+			 page = new Page(tasteBoardService.selectByTitle(searchVal).size());
+		page.setCurrentPage(Integer.parseInt(currPage));
+		Page topRankPage = new Page(tasteBoardService.getTotalCount());
+		topRankPage.setPageSize(3);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put(searchName, searchVal);
+		map.put("beginRow", page.getBeginRow());
+		map.put("endRow", page.getEndRow());
+		if(event.equals("writer"))
+			list=tasteBoardService.selectByWriterApplicationPaging(map);
+		else
+			list=tasteBoardService.selectByTitleApplicationPaging(map);
+		model.addAttribute("topRankArticle", tasteBoardService.getArticlesOredrByRank(topRankPage));
+		model.addAttribute("tasteBoard", list);
+		model.addAttribute("page", page);
+		model.addAttribute("searchVal", searchVal);
+		model.addAttribute("event", event);
+		return "searchHome";
+	}
 	@RequestMapping(value="registerArticleForm")
 	public String registerArticleForm(Article article,Model model) {
 		model.addAttribute("listDo", restaurantService.selectSi());

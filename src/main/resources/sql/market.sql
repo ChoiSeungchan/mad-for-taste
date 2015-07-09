@@ -36,4 +36,3 @@ create table inventory(
 )
 
 select * from inventory
-

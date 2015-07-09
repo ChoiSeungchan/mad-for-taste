@@ -123,4 +123,24 @@ public class TasteBoardDaoImpl implements TasteBoardDao {
 		return sqlSessionTemplate.selectOne("selectTotalCntBoardByResNo",string);
 	}
 
+	@Override
+	public List<Article> selectByWriter(String string) {
+		return sqlSessionTemplate.selectList("selectByWriter",string);
+	}
+
+	@Override
+	public List<Article> selectByTitle(String string) {
+		return sqlSessionTemplate.selectList("selectByTitle",string);
+	}
+
+	@Override
+	public List<Article> selectByWriterApplicationPaging(Map<String, Object> map) {
+		return sqlSessionTemplate.selectList("selectByWriterApplicationPaging",map);
+	}
+
+	@Override
+	public List<Article> selectByTitleApplicationPaging(Map<String, Object> map) {
+		return sqlSessionTemplate.selectList("selectByTitleApplicationPaging",map);
+	}
+
 }

@@ -5,6 +5,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
 	$(function() {
+		$("#writerSearch,#titleSearch").click(function(){
+			if($("#searchVal").val().trim().length<=1){
+				alert("검색어를 2자이상 입력해 주세요");
+				$("#searchVal").val("");
+				$("#searchVal").focus();
+				return;
+			}
+			location.href="${initParam.root}searchGetArticles?searchVal="+$("#searchVal").val()+"&event="+$(this).val();
+		})
 		$('#rightLoginForm').submit(function() {
 			var id = $('#rightId').val();
 			var password = $('#rightPass').val();
@@ -351,4 +360,9 @@
 			</tr>
 		</table>
 	</div>
+</div>
+<div class="btn-group-vertical">
+  <button type="button" class="btn btn-primary" id="writerSearch" value="writer">작성자별 검색</button>
+  <button type="button" class="btn btn-primary" id="titleSearch" value="title">제목별 검색</button>
+  <input type="text" id="searchVal">
 </div>

@@ -13,6 +13,8 @@ import org.junit.runner.RunWith;
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.taste.domain.Article;
 import org.kosta.madfortaste.taste.domain.Restaurant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -24,6 +26,7 @@ public class TestTasteBoardDao {
 
 	@Autowired
 	private TasteBoardDao dao;
+	private Logger log=LoggerFactory.getLogger(getClass());
 	
 	@Before
 	public void setUp() {
@@ -34,7 +37,7 @@ public class TestTasteBoardDao {
 	public void testInsertArticle() {
 		String [] location = {"서울","경기","대전","대구","부산","울산"};
 		for(int i = 0; i<30; i++) {
-		Article article = dao.insertArticle(new Article( "hs9923", "testTitle", "testContents"));
+		Article article = dao.insertArticle(new Article( "FUCKyou", "testTitle", "testContents"));
 		System.out.println(article);
 		}
 	}
@@ -206,6 +209,59 @@ public class TestTasteBoardDao {
 		map.put("endRow", Integer.toString(page.getEndRow()));
 		list=dao.selectBoardByResNo(map);
 		assertNotNull(list); //Success Case: null이 아니면 통과
+		System.out.println(list);
+	}
+	
+	/**
+	 * 메인게시판 검색 서비스
+	 */
+	@Test //작성자로 검색
+	public void testSelectByWriter(){
+		List<Article> list=null;
+		list=dao.selectByWriter("YOU"); //대소문자 구분가능
+		assertNotNull(list); //Success Case: null 이 아니면 통과
+		System.out.println(list);
+	}
+	
+	@Test //제목으로 검색
+	public void testSelectByTitle(){
+		List<Article> list=null;
+		list=dao.selectByTitle("우하하"); //대소문자 구분가능
+		assertNotNull(list); //Success Case: null 이 아니면 통과
+		System.out.println(list);
+	}
+	
+	@Test //작성자로 검색(페이징 적용)
+	public void testSelectByWriterApplicationPaging(){
+		List<Article> list=null;
+		Map<String, Object> map=new HashMap<String, Object>();
+		Page page=new Page(dao.selectByWriter("fuck").size());
+		page.setPageGroupSize(3);
+		page.setPageSize(3);
+		page.setCurrentPage(1);
+		map.put("name", "fuck");
+		map.put("beginRow", page.getBeginRow());
+		map.put("endRow", page.getEndRow());
+		list=dao.selectByWriterApplicationPaging(map); //대소문자 구분가능
+		assertNotNull(list); //Success Case: null 이 아니면 통과
+		log.info(Integer.toString(list.size())); //원하는 페이징 사이즈 출력확인
+		System.out.println(list);
+	}
+	
+	@Test //제목으로 검색(페이징 적용)
+	public void testSelectByTitleApplicationPaging(){
+		List<Article> list=null;
+		Map<String, Object> map=new HashMap<String, Object>();
+		Page page=new Page(dao.selectByTitle("fuck").size());
+		page.setPageGroupSize(3);
+		page.setPageSize(3);
+		page.setCurrentPage(1);
+		map.put("title", "ㅎㅎㅎ");
+		map.put("beginRow", page.getBeginRow());
+		map.put("endRow", page.getEndRow());
+		list=dao.selectByTitleApplicationPaging(map); //대소문자 구분가능
+		assertNotNull(list); //Success Case: null 이 아니면 통과
+		log.info(Integer.toString(list.size())); //원하는 페이징 사이즈 출력확인
 		System.out.println(list);
 	}
 }
