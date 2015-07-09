@@ -17,7 +17,23 @@ public class AuthCheckInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
-		System.out.println(request.getRequestURI()+" 인터셉터 진입 성공");
+		String uri = request.getRequestURI();
+		String root = request.getContextPath();
+		String path = uri.replace(root+"/", "");
+		
+		if((!path.contains("member") && path.contains("egister")) || path.contains("pdate") || path.contains("elete")){
+			System.out.println("이프문 안으로 진입");
+			HttpSession session = request.getSession(false);
+			if (session != null) {
+				Member member = (Member) session.getAttribute("member");
+				if (member == null) {
+					response.sendRedirect("loginForm?path="+path);
+					return false;
+				}
+			}
+		}
+		
+		System.out.println("path="+path);
 		return true;
 	}
 

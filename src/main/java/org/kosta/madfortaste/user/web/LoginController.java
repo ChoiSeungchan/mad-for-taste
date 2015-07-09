@@ -11,6 +11,7 @@ import org.kosta.madfortaste.user.domain.User;
 import org.kosta.madfortaste.user.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,12 +24,29 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 	
+	@RequestMapping(value = "loginForm")
+	public String loginForm(String path, Model model) {
+		model.addAttribute("path", path);
+		return "user/login";
+	}
+	
 	@RequestMapping(value = "login")
 	public String login(String id, String password, HttpServletRequest req) {
 		if (!(id == null || id.equals("")) 	&& !(password == null || password.equals(""))) {
 			loginService.login(id, password, req);
 		}
 		return "redirect:/";
+	}
+
+	@RequestMapping(value = "loginWithPath")
+	public String loginByPath(String id, String password, String path, Model model,HttpServletRequest req) {
+		if (!(id == null || id.equals("")) 	&& !(password == null || password.equals(""))) {
+			boolean flag = loginService.login(id, password, req);
+			if(flag) return "redirect:/"+path;
+		}
+		model.addAttribute("path",path);
+		model.addAttribute("loginResult", "failure");
+		return "redirect:loginForm?path="+path+"&loginResult=failure";
 	}
 	
 	@ResponseBody
