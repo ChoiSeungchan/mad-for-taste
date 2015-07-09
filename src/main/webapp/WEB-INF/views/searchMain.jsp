@@ -143,7 +143,7 @@
 			<c:forEach var="article" items="${tasteBoard}">
 				 <blockquote class="tasteBoard" id="${article.articleNo}">
 					<div class="blockquoteContainer">
-						<span class="col-md-1">
+						<span class="col-md-1"  style="margin-top : 12px;">
 							#${article.articleNo}<br>
 						</span>
 						<span class="col-md-4">

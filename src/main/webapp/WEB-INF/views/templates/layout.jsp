@@ -33,7 +33,7 @@ body {
 	margin-top: 15px;
 }
 .container-fluid {
-  width: 1440px;
+  width: 1366px;
   max-width: none !important;
 }
 </style>
