@@ -25,7 +25,7 @@ public class TestRestaurantDao {
 	 */
 	@Test
 	public void testInsertRestaurant(){
-		Restaurant restaurant=new Restaurant("피노피자", "  대구광역시", "  달성군", "  유가면");
+		Restaurant restaurant=new Restaurant("파파이스", "  서울특별시", "  강남구", "  대치동");
 		String resNo=restaurant.getResNo();//입력값이 없으므로 null
 		assertNull(resNo);//Success Case: null
 		restaurantDao.insertRestaurant(restaurant);
@@ -100,5 +100,16 @@ public class TestRestaurantDao {
 		resNo=restaurantDao.SelectRestaurantByAddress(map);
 		assertNull(resNo); //Success Case: null이어야 통과(중복되면 안되므로)
 		log.info(resNo);
+	}
+	
+	/**
+	 * 레스토랑 pk 검색
+	 */
+	@Test
+	public void testSelectRestaurantByResNo(){
+		Restaurant restaurant=null;
+		restaurant=restaurantDao.selectRestaurantByResNo("60");
+		assertNotNull(restaurant);	//Success Case: null이 아니면 통과
+		System.out.println(restaurant);
 	}
 }

@@ -12,10 +12,12 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="org.kosta.madfortaste.user.domain.Member" alias="member"/>
 		<typeAlias type="org.kosta.madfortaste.user.domain.Owner" alias="owner"/>
 		<typeAlias type="org.kosta.madfortaste.taste.domain.TastyPlace" alias="tastyPlace"/>
+		<typeAlias type="org.kosta.madfortaste.taste.domain.Restaurant" alias="restaurant"/>
 		<typeAlias type="org.kosta.madfortaste.taste.domain.Article" alias="article"/>
 		<typeAlias type="org.kosta.madfortaste.taste.domain.Reply" alias="reply"/>
 		<typeAlias type="org.kosta.madfortaste.help.domain.Notice" alias="noticevo"/>
 		<typeAlias type="org.kosta.madfortaste.help.domain.Qna" alias="qnavo"/>
+		<typeAlias type="org.kosta.madfortaste.help.domain.ArticleReport" alias="articleReport"/>
 		<typeAlias type="org.kosta.madfortaste.taste.domain.TastyPlaceBoard" alias="tastyPlaceBoard"/>
 		<typeAlias type="org.kosta.madfortaste.market.domain.Item" alias="item"/>
 		<typeAlias type="org.kosta.madfortaste.market.domain.Purchase" alias="purchase"/>

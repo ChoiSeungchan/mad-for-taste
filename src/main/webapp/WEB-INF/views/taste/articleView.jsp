@@ -1,14 +1,98 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
+<!-- GoogoleMap Asynchronously Loading the API ********************************************* -->
 <script type="text/javascript">
-	$(function(){
-		function reLogin() {
+    function initialize() {
+     
+        var mapOptions = {
+                            zoom: 17, // 지도를 띄웠을 때의 줌 크기
+                            mapTypeId: google.maps.MapTypeId.ROADMAP
+                        };
+         
+         
+        var map = new google.maps.Map(document.getElementById("map-canvas"), // div의 id과 값이 같아야 함. "map-canvas"
+                                    mapOptions);
+       
+        // Geocoding *****************************************************
+        var address = '${article.restaurant.city} ${article.restaurant.sigungu} ${article.restaurant.eupmyeondong} ${article.restaurant.resName}'; // DB에서 주소 가져와서 검색하거나 왼쪽과 같이 주소를 바로 코딩.
+        var marker = null;
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode( { 'address': address}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+                marker = new google.maps.Marker({
+                                map: map,
+                                title: '${article.restaurant.city} ${article.restaurant.sigungu} ${article.restaurant.eupmyeondong} ${article.restaurant.resName}', // 마커에 마우스 포인트를 갖다댔을 때 뜨는 타이틀
+                                position: results[0].geometry.location
+                            });
+ 
+                var content = "${article.restaurant.city} ${article.restaurant.sigungu} ${article.restaurant.eupmyeondong} ${article.restaurant.resName}"; // 말풍선 안에 들어갈 내용
+             
+                // 마커를 클릭했을 때의 이벤트. 말풍선 뿅~
+                var infowindow = new google.maps.InfoWindow({ content: content});
+                infowindow.open(map,marker);
+                //google.maps.event.addListener(marker, "click", function() {infowindow.open(map,marker);});
+            } else {
+                alert("Geocode was not successful for the following reason: " + status);
+            }
+        });
+        // Geocoding // *****************************************************
+         
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+<script type="text/javascript">
+$(function(){
+		var rating=0;
+		if(${article.restaurant.good!=0})
+			rating=${article.restaurant.good/(article.restaurant.good+article.restaurant.bad)}*100; 
+		//jstl로 분기처리를 하지않고 자바단에서 변수를 분기처리해서 적용(조금더 간결한 로직)
+		if(rating==0){
+			if(${article.restaurant.bad>0}){
+				$("#grade1").css("width","100%");
+				$("#grade1").html("최악의 가게 입니다 (좋아요  <span class='glyphicon glyphicon-thumbs-up'></span>&nbsp;&nbsp;"+${article.restaurant.good}+"  /  싫어요 <span class='glyphicon glyphicon-thumbs-down'></span>&nbsp;&nbsp;"+${article.restaurant.bad}+")");
+			}
+			if(${article.restaurant.bad==0})
+				$('[data-toggle="tooltip"]').hide();
+		}
+		else if(rating==100){
+			$("#grade3").css("width","100%");
+			$("#grade3").html("이 가게는 최고의 맛집이네요! (좋아요  <span class='glyphicon glyphicon-thumbs-up'></span>&nbsp;&nbsp;"+${article.restaurant.good}+"  /  싫어요 <span class='glyphicon glyphicon-thumbs-down'></span>&nbsp;&nbsp;"+${article.restaurant.bad}+")");
+		}
+		else{
+			if(rating<40){
+				alert(rating);
+				$("#grade2").css("width",(100-rating)+"%");
+				$("#grade2").html("가게 평이 매우 안좋네요 (싫어요 <span class='glyphicon glyphicon-thumbs-down'></span>&nbsp;&nbsp;"+${article.restaurant.bad}+")");
+				$("#grade3").css("width",rating+"%");
+				if(rating>=15)
+					$("#grade3").html("좋아요  <span class='glyphicon glyphicon-thumbs-up'></span>&nbsp;&nbsp;"+${article.restaurant.good});
+			}
+			if(rating>60){
+				$("#grade2").css("width",(100-rating)+"%");
+				if(rating<85)
+					$("#grade2").html("싫어요 <span class='glyphicon glyphicon-thumbs-down'></span>&nbsp;&nbsp;"+${article.restaurant.bad});
+				$("#grade3").css("width",rating+"%");
+				$("#grade3").html(" 가게 평이 매우 좋네요 (좋아요  <span class='glyphicon glyphicon-thumbs-up'></span>&nbsp;&nbsp;"+${article.restaurant.good}+")");
+			}
+			if(rating>=40&&rating<=60){
+				$("#grade2").css("width",(100-rating)+"%");
+				$("#grade2").html("싫어요 <span class='glyphicon glyphicon-thumbs-down'></span>&nbsp;&nbsp;"+${article.restaurant.bad});
+				$("#grade3").css("width",rating+"%");
+				$("#grade3").html("좋아요  <span class='glyphicon glyphicon-thumbs-up'></span>&nbsp;&nbsp;"+${article.restaurant.good});
+			}
+		}
+	    
+		$('[data-toggle="tooltip"]').tooltip();
+		
+	    function reLogin() {
 			$.ajax({
 				type:"post",
 				url:"${initParam.root}maintainAuthSession",
@@ -21,7 +105,7 @@
 		reLogin();
 		
 		$("#good").click(function(){
-			$.getJSON("${initParam.root}article/upGood?id=${sessionScope.member.id}+&articleNo=${article.articleNo}",function(data){
+			$.getJSON("${initParam.root}article/upGood?id=${sessionScope.member.id}&articleNo=${article.articleNo}&resNo=${article.restaurant.resNo}",function(data){
 				if (data=="fail") { 
 					alert('이미 투표 하셨습니다!');
 				} else if (data=="notLogon") {
@@ -35,7 +119,7 @@
 		})
 		
 		$("#bad").click(function(){
-			$.getJSON("${initParam.root}article/upBad?id=${sessionScope.member.id}+&articleNo=${article.articleNo}",function(data){
+			$.getJSON("${initParam.root}article/upBad?id=${sessionScope.member.id}&articleNo=${article.articleNo}&resNo=${article.restaurant.resNo}",function(data){
 				if (data=="fail") { 
 					alert('이미 투표 하셨습니다!');
 				} else if (data=="notLogon") {
@@ -73,6 +157,23 @@
 		
 		$('#deleteTasteBoardReplyForm').submit(function(){
 			return confirm('정말 삭제하시겠습니까?');
+		})
+		
+		$('#tasteBoardReportForm').submit(function() {
+			$.ajax({
+	    		type : "post",
+	    		url : "${initParam.root}articleReport.ajax?"+$(this).serialize(),
+	    		dataType : "json",
+	    		success : function(data){
+	    			if(data.message==undefined) {
+						alert('성공적으로 신고하였습니다.');	    				
+	    			} else {
+		        		alert(data.message);
+	    			}
+	    		}
+	    	}) 
+			$('#reportArticleModal').modal('hide')
+			return false;
 		})
 	})
 	
@@ -115,6 +216,12 @@ pre{
 	background-color: #F2F0F0;
 	border: 0px;
 }
+
+#map-canvas {
+	width: 100%; 
+	height: 300px;
+	margin-top: 30px;
+}
 </style>
 </head>
 <body>
@@ -140,10 +247,40 @@ pre{
 					<b>${article.member.name} (${article.member.id})</b> 님이 ${article.calDate}에 작성한 글입니다.
 				</td>
 				<td>
-				<c:if test="${article.member.id==sessionScope.member.id}">
+				<c:choose>
+					<c:when test="${article.member.id==sessionScope.member.id || sessionScope.member.exp>10000000}">
 					<button id="updateArticleFormBtn" class="btn btn-success btn-sm">글 수정하기</button>&nbsp&nbsp
 					<button id="deleteArticleFormBtn" class="btn btn-danger btn-sm">글 삭제하기</button>
-				</c:if>
+					</c:when>
+					<c:otherwise>
+					<button id="reportArticleBtn" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#reportArticleModal">이 글 신고하기</button>&nbsp&nbsp
+					<!-- Modal -->
+					<div class="modal fade" id="reportArticleModal" tabindex="-1" role="dialog" aria-labelledby="reportArticleModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					        <h4 class="modal-title" id="myModalLabel">신고하기</h4>
+					      </div>
+					      <div class="modal-body">
+						    <form id="tasteBoardReportForm" action="${initParam.root}tasteBoardReport" method="post" >
+								<input type="hidden" name="boardName" value="TASTEBOARD">
+								<input type="hidden" name="articleNo" value="${article.articleNo}">
+								<input type="hidden" name="accuserId" value="${sessionScope.member.id}">
+								<div style="font-size: 15px; margin-top: 10px; margin-bottom: 10px">신고 사유 (100자 이내)</div>
+								<textarea name="reportReason" class="form-control" rows="5" maxlength="100">${reply.contents}</textarea>
+								<br>
+								<div align="right">
+									<button type="submit" class="btn btn-primary">신고하기</button>
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								</div>
+							</form>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+					</c:otherwise>
+				</c:choose>
 				</td>
 				<td align="right">
 					<span class="glyphicon glyphicon glyphicon-comment" style="color:#045FB4"></span> ${article.reply} &nbsp&nbsp&nbsp&nbsp
@@ -159,6 +296,20 @@ pre{
 				<p>
 					${article.contents}
 				</p>
+				<div id="map-canvas"></div>
+				<c:if test="${article.restaurant.good==0&&article.restaurant.bad==0 }">
+				<div align="center" style="margin: 20px; font-size: 16px; font-weight: bold;">
+					${article.restaurant.resName }에 대한 평가가 아직 없습니다. 좋아요/싫어요 투표해주세요!
+				</div>
+				</c:if>
+				<div class="progress" data-toggle="tooltip" title="현재 맛집에 대한 평가 (평가는 좋아요-싫어요 로 평가됩니다)">
+				  <div class="progress-bar progress-bar-warring" role="progressbar" style=width:0%  id="grade1">
+				  </div>
+				  <div class="progress-bar progress-bar-info" role="progressbar" style="width:0%" id="grade3">
+				  </div>
+				  <div class="progress-bar progress-bar-danger" role="progressbar" style="width:0%" id="grade2">
+				  </div>
+				</div>
 			</div>
 		</div>
 		<div class="col-md-12" align="center">
@@ -257,7 +408,6 @@ pre{
 								    </div>
 								  </div>
 								</div>
-								
 								</c:if>
 							</tr>
 						</table>

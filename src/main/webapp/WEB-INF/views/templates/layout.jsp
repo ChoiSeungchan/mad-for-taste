@@ -16,6 +16,7 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="${initParam.root}resources/bootstrap/js/bootstrap.min.js"></script>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#footer').css('background','orange');
@@ -31,26 +32,27 @@ body {
 #left {
 	margin-top: 15px;
 }
+.container-fluid {
+  width: 1440px;
+  max-width: none !important;
+}
 </style>
 </head>
 <body>
 <div class="container-fluid">
-<div id="nav" class="col-md-12">
+<div id="nav" class="col-xs-12">
 	<tiles:insertAttribute name="nav"></tiles:insertAttribute>
 </div>
-<div id="header" class="col-md-12">
+<div id="header" class="col-xs-12">
 	<tiles:insertAttribute name="header"></tiles:insertAttribute>
 </div>
-<div id="left" class="col-md-2">
-	<tiles:insertAttribute name="left"></tiles:insertAttribute>
-</div>
-<div id="main" class="col-md-8">
+<div id="main" class="col-xs-9">
 	<tiles:insertAttribute name="main"></tiles:insertAttribute>
 </div>
-<div id="right" class="col-md-2">
+<div id="right" class="col-xs-3">
 	<tiles:insertAttribute name="right"></tiles:insertAttribute>
 </div>
-<div id="footer" class="col-md-12">
+<div id="footer" class="col-xs-12">
 	<tiles:insertAttribute name="footer"></tiles:insertAttribute>
 </div>
 </div>

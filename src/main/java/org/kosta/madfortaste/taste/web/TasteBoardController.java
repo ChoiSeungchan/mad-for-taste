@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import org.kosta.madfortaste.common.config.ExpConfig;
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.taste.domain.Article;
 import org.kosta.madfortaste.taste.domain.Reply;
+import org.kosta.madfortaste.taste.domain.Restaurant;
 import org.kosta.madfortaste.taste.domain.TasteBoardImg;
 import org.kosta.madfortaste.taste.service.ReplyService;
 import org.kosta.madfortaste.taste.service.RestaurantService;
@@ -47,9 +49,6 @@ public class TasteBoardController {
 	
 	@Autowired
 	private ReplyService replyService;
-	
-	@Autowired
-	private MemberService memberService;
 	
 	@RequestMapping(value="getArticles/{currentPage}")
 	public String getArticles(@PathVariable int currentPage, Model model) {
@@ -94,7 +93,6 @@ public class TasteBoardController {
 		Article article = tasteBoardService.getArticleByNo(articleNo);
 		List<Reply> replies = replyService.getReplies(articleNo);
 		model.addAttribute("article", article);
-		System.out.println(article);
 		if(replies.size()!=0)model.addAttribute("replies", replies);
 		return "taste/articleView";
 	}
@@ -108,7 +106,6 @@ public class TasteBoardController {
 	
 	@RequestMapping(value="updateArticle")
 	public String updateArticle(Article article) {
-		System.out.println(article);
 		tasteBoardService.updateArticle(article);
 		return "redirect:article/"+article.getArticleNo();
 	}
@@ -121,11 +118,11 @@ public class TasteBoardController {
 	
 	@ResponseBody
 	@RequestMapping(value="article/upGood")
-	public List<String> upGood(int articleNo, String id) {
+	public List<String> upGood(int articleNo, String id, int resNo) {
 		boolean flag = false;
 		List<String> list = new ArrayList<String>();
 		if(!id.trim().equals("")) {
-			flag = tasteBoardService.upGood(articleNo, id);
+			flag = tasteBoardService.upGood(articleNo, id, resNo);
 			if(flag==false) {
 				list.add("success");
 				list.add(ExpConfig.GOOD_BAD+"");
@@ -138,11 +135,11 @@ public class TasteBoardController {
 	
 	@ResponseBody
 	@RequestMapping(value="article/upBad")
-	public List<String> upBad(int articleNo, String id) {
+	public List<String> upBad(int articleNo, String id, int resNo) {
 		boolean flag = false;
 		List<String> list = new ArrayList<String>();
 		if(!id.trim().equals("")) {
-			flag = tasteBoardService.upBad(articleNo, id);
+			flag = tasteBoardService.upBad(articleNo, id, resNo);
 			if(flag==false) {
 				list.add("success");
 				list.add(ExpConfig.GOOD_BAD+"");
@@ -267,5 +264,25 @@ public class TasteBoardController {
 		map.put("name", name);		
 		list.add(restaurantService.SelectRestaurantByAddress(map));
 		return list;
+	}
+	
+	@RequestMapping(value="restaurantSeeEverything",method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> restaurantSeeEverything(String resNo,String currPage){
+		Page page=new Page(tasteBoardService.selectTotalCntBoardByResNo(resNo));
+		Map<String, String> map=new HashMap<String, String>();
+		Map<String, Object> objectMap=new HashMap<String, Object>();
+		if(currPage==null)
+			currPage="1";
+		page.setPageSize(3);
+		page.setPageGroupSize(1);
+		page.setCurrentPage(Integer.parseInt(currPage));
+		map.put("resNo", resNo);
+		map.put("beginRow", Integer.toString(page.getBeginRow()));
+		map.put("endRow", Integer.toString(page.getEndRow()));
+		List<Article> list=tasteBoardService.selectBoardByResNo(map);
+		objectMap.put("list", list);
+		objectMap.put("resultPage", page);
+		return objectMap;
 	}
 }

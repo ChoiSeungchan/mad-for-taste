@@ -104,7 +104,7 @@
 </script>
 </head>
 <body>
-	<div class="container-fluid">
+	<div>
 		<form action="${initParam.root}registerArticle" method="post" role="form" id="articleForm">
 			<input type="hidden" name="writer" value="${sessionScope.member.id}"> 
 			<div class="col-md-3">

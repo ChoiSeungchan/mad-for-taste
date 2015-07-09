@@ -3,9 +3,40 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="report">
- 	
- </mapper>
+<mapper namespace="report">
+	<resultMap type="articleReport" id="arRM">
+		<result property="reportNo" column="report_no"/>
+		<result property="boardName" column="board_name"/>
+		<result property="articleNo" column="article_no"/>
+		<result property="accuserId" column="accuser_id"/>
+		<result property="reportReason" column="report_reason"/>
+		<result property="reportDate" column="report_date"/>
+	</resultMap>
+	<select id="getArticleReportTotalCount" resultType="int">
+		select count(*)from article_report
+	</select>
+	<insert id="insertArticleReport">
+		insert into article_report(report_no,board_name,article_no,accuser_id,report_reason) 
+		values(article_report_seq.nextval,#{boardName},#{articleNo},#{accuserId},#{reportReason})
+	</insert>
+	<select id="selectArticleReport" resultMap="arRM">
+		select * from article_report where report_no=#{reportNo}
+	</select>
+	<select id="selectArticleReportsByPaging" resultMap="arRM">
+		<![CDATA[
+			select * from (
+			select rownum as rnum, r.* 
+			from article_report r order by rnum desc)
+			where rnum between #{beginRow} and #{endRow}		
+		]]>
+	</select>
+	<delete id="deleteArticleReport">
+		delete from article_report where report_no=#{reportNo}
+	</delete>
+	<delete id="deleteSameArticleReports">
+		delete from article_report where board_name=#{boardName} and article_no=#{articleNo}
+	</delete>
+</mapper>
  
  
  

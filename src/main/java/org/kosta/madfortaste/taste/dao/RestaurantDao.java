@@ -12,4 +12,9 @@ public interface RestaurantDao {
 	public List<String> selectDong(Map<String, String> map);
 	public List<String> selectRi(Map<String, String> map);
 	public String SelectRestaurantByAddress(Map<String, String> map);
+	public void upGood(int resNo);
+	public void upBad(int resNo);
+	public List<Restaurant> selectRestaurantNearByAddress(Map<String, String> map);
+	public int selectRestaurantTotalCnt(Map<String, String> map);
+	public Restaurant selectRestaurantByResNo(String string);
 }

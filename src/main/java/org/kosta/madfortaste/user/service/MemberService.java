@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.kosta.madfortaste.common.domain.ListContainer;
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.user.domain.Member;
 
@@ -17,7 +18,7 @@ public interface MemberService {
 
 	public abstract int selectTotalCount();
 
-	public abstract List<Member> selectMemberList(int currentPage);
+	public abstract ListContainer selectMemberList(int currentPage);
 	
 	public abstract List<Member> selectMemberListOrderByExp(int currentPage);
 

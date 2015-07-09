@@ -94,6 +94,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="SelectRestaurantByAddress" resultType="String">
 		select res_no from restaurant where city=#{si} and sigungu=#{gu} and eupmyeondong=#{dong} and res_name=#{name}
 	</select>
+	
+	<update id="upGood">
+		update restaurant set good=good+1 where res_no=#{resNo}
+	</update>
+	
+	<update id="upBad">
+		update restaurant set bad=bad+1 where res_no=#{resNo}
+	</update>
+	
+	<select id="selectRestaurantNearByAddress" resultType="restaurant">
+	    	   select a.res_no resno,a.res_name resname,a.city city,a.sigungu sigungu,a.eupmyeondong eupmyeondong,a.good good,a.bad bad from (select rownum numrow,r.* from (select *from restaurant where city=#{si}and sigungu=#{gu} and eupmyeondong=#{dong} order by res_no desc)r)a where numrow between #{beginRow} and #{endRow}
+	</select>
+	
+	<select id="selectRestaurantTotalCnt" resultType="int">
+	    select count(*) from restaurant where city=#{si} and sigungu=#{gu} and eupmyeondong=#{dong}
+	</select>
+	
+	<select id="selectRestaurantByResNo" resultType="restaurant">
+	    select city,sigungu,eupmyeondong,res_name resname from restaurant where res_no=#{value}
+	</select>
  </mapper>
  
  

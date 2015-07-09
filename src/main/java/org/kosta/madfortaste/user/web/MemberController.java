@@ -6,10 +6,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.kosta.madfortaste.common.lib.Page;
+import org.kosta.madfortaste.taste.domain.Restaurant;
+import org.kosta.madfortaste.taste.service.RestaurantService;
 import org.kosta.madfortaste.user.domain.Member;
 import org.kosta.madfortaste.user.service.LoginService;
 import org.kosta.madfortaste.user.service.MemberService;
@@ -29,6 +33,9 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Inject
+	private RestaurantService restaurantService;
+	
 	@Autowired
 	private LoginService loginService;
 	
@@ -44,8 +51,22 @@ public class MemberController {
 	}
 
 	@RequestMapping(value="memberUpdateForm")
-	public String updateMemberForm (@ModelAttribute Member member) {
+	public String updateMemberForm (@ModelAttribute Member member, Model model) {
+		model.addAttribute("listDo", memberService.selectSi());
 		return "user/memberUpdateForm";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="memberIdCheck.json")
+	public Map<String, Object> memberIdCheck(String memberId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Member member = memberService.selectMemberById(memberId);
+		if (member==null) {
+			map.put("result", "true");
+		} else {
+			map.put("result", "false");
+		}
+		return map;
 	}
 	
 	@RequestMapping(value="registerMember", method=RequestMethod.POST)
@@ -68,7 +89,7 @@ public class MemberController {
 	@RequestMapping(value="updateMember", method=RequestMethod.POST)
 	public String updateMember(@Valid Member member, BindingResult result, Model model, HttpServletRequest req) {
 		if(result.hasErrors()){
-			return "user/memberRegisterForm";
+			return "user/memberUpdateForm";
 		}
 		try {
 			memberService.updateMember(member, req);
@@ -121,8 +142,11 @@ public class MemberController {
 			boolean flag = memberService.dailyCheck(member.getId());
 			if(flag) {
 				int randomExp = new Random().nextInt(100) + 1;
+				int randomPoint = new Random().nextInt(100) + 1;
 				memberService.upExp(member.getId(), randomExp);
+				memberService.upPoint(member.getId(), randomPoint);
 				map.put("exp", randomExp);
+				map.put("point", randomPoint);
 				map.put("result", "success");
 			} else {
 				map.put("result", "failure");
@@ -136,5 +160,65 @@ public class MemberController {
 	public List<Member> getMemberRank () {
 		List<Member> memberList = memberService.selectMemberListOrderByExp(1); 
 		return memberList;
+	}
+	
+	@RequestMapping(value="memberAdmin/{pageNo}") 
+	public String memberAdmin(@PathVariable int pageNo, Model model) {
+		model.addAttribute("container", memberService.selectMemberList(pageNo));
+		return "user/admin/memberAdmin";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="memberAdmin/deleteMember.ajax")
+	public Map<String, Object> deleteMemberAjax(String memberArray) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String member[] = memberArray.split("/");
+		for (String memberId : member) {
+			memberService.deleteMember(memberId);
+		}
+		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="memberAdmin/updateMember.ajax")
+	public Map<String, Object> updateMemberAjax(Member member, HttpServletRequest req) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		System.out.println(member);
+		try {
+			memberService.updateMember(member, req);
+			map.put("result", "success");
+		} catch (IllegalStateException e) {
+			map.put("result", e.getMessage());
+		} catch (IOException e) {
+			map.put("result", e.getMessage());
+		}
+		return map;
+	}
+	
+	@RequestMapping("memberAddressNearByRestaurantService")
+	//회원 정보(주소) 가지고 모든 레스토랑 검색하는 서비스
+	public String memberAddressNearByRestaurantService(Model model,HttpServletRequest rq,String currPage,String pageSize){
+		Member member=(Member)rq.getSession(false).getAttribute("member");
+		Map<String, String> map=new HashMap<String, String>();
+		if(currPage==null)
+			currPage="1";
+		if(pageSize==null)
+			pageSize="3";
+		member.setSigungu("  "+member.getSigungu());
+		member.setEupmyeondong("  "+member.getEupmyeondong());
+		map.put("si", member.getCity());
+		map.put("gu", member.getSigungu());
+		map.put("dong", member.getEupmyeondong());
+		Page page=new Page(restaurantService.selectRestaurantTotalCnt(map));
+		page.setPageGroupSize(3);
+		page.setPageSize(Integer.parseInt(pageSize));
+		page.setCurrentPage(Integer.parseInt(currPage));
+		map.put("beginRow", Integer.toString(page.getBeginRow()));
+		map.put("endRow", Integer.toString(page.getEndRow()));
+		System.out.println(map);
+		List<Restaurant> list=restaurantService.selectRestaurantNearByAddress(map);
+		model.addAttribute("restaurantList", list);
+		model.addAttribute("page", page);
+		return "user/result/restaurantService";
 	}
 }

@@ -5,9 +5,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="tasteBoard">
 	<resultMap type="article" id="articleRM">
-	    <result property="restaurant.city" column="city"/>
-	    <result property="restaurant.sigungu" column="sigungu"/>
-	    <result property="restaurant.eupmyeondong" column="eupmyeondong"/>
+	    <result property="restaurant.resNo" column="resno"/>
+	    <result property="restaurant.city" column="rcity"/>
+	    <result property="restaurant.sigungu" column="rsigungu"/>
+	    <result property="restaurant.eupmyeondong" column="reupmyeondong"/>
 	    <result property="restaurant.resName" column="rname"/>
 	    <result property="restaurant.good" column="rgood"/>
 	    <result property="restaurant.bad" column="rbad"/>
@@ -16,6 +17,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="member.id" column="id"/>
 		<result property="member.password" column="password"/>
 		<result property="member.name" column="name"/>
+		<result property="member.city" column="city"/>
+		<result property="member.sigungu" column="sigungu"/>
+		<result property="member.eupmyeondong" column="eupmyeondong"/>
 		<result property="member.address" column="address"/>
 		<result property="member.gender" column="gender"/>
 		<result property="member.birth" column="birth"/>
@@ -56,21 +60,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values(taste_board_sequence.currval,#{writer},#{resNo},#{title},#{contents})
 	</insert>
 	<update id="updateArticle">
-		update taste_board set location=#{location},title=#{title},contents=#{contents}
+		update taste_board set title=#{title},contents=#{contents}
 		where article_no=#{articleNo}
 	</update>
 	<delete id="deleteArticle">
 		delete from taste_board where article_no=#{articleNo}
 	</delete>
 	<select id="getArticleByNo" resultMap="articleRM">
-	    select rownum,t.*,m.*,r.city city,r.sigungu sigungu,r.eupmyeondong eupmyeondong,r.res_name rname,r.good rgood,r.bad rbad from taste_board t, member m,restaurant r where t.writer=m.id and r.res_no=t.res_no and article_no=#{articleNo}
+	    select rownum,t.*,m.*,r.res_no resno,r.city rcity,r.sigungu rsigungu,r.eupmyeondong reupmyeondong,r.res_name rname,r.good rgood,r.bad rbad from taste_board t, member m,restaurant r where t.writer=m.id and r.res_no=t.res_no and article_no=#{articleNo}
 	</select>
 	<select id="getArticles" resultMap="articleRM">
 		select * from (
 			select rownum as rnum, t.*, m.*
-			from (select * from taste_board order by article_no desc) t, member m
+			from (select * from taste_board) t, member m
 			where t.writer=m.id
-		) where rnum between #{beginRow} and #{endRow}
+		) where rnum between #{beginRow} and #{endRow} order by article_no desc
 	</select>
 	<select id="getArticlesOrderByHits" resultMap="articleRM">
 		select * from (
@@ -115,6 +119,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	<select id="selectVotedList" resultType="string">
 		select member_id from taste_board_vote where article_no=#{articleNo}
+	</select>
+	
+	<select id="selectBoardByAddress" resultType="article">
+	    select article_no articleno,m.name writer,title,contents from taste_board t,member m where city=#{city} and sigungu=#{sigungu} and eupmyeondong=#{eupmyeondong} and address=#{resName} and m.id=t.writer
+	</select>
+	
+	<select id="selectBoardByResNo" resultType="article">
+	   select a.* from (select rownum numrow,t.* from (select t.article_no articleno,m.name writer,t.title title,t.contents contents from taste_board t,member m  where res_no=#{resNo} and m.id=t.writer order by article_no desc)t)a where numrow between #{beginRow} and #{endRow}
+	</select>
+	
+	<select id="selectTotalCntBoardByResNo" resultType="int">
+	    select count(*) from taste_board where res_no=#{value}	    
 	</select>
 </mapper>
  

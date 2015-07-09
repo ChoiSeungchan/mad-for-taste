@@ -115,6 +115,7 @@ public class Article {
 
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
+		this.setCalDate();
 	}
 
 	public String getCalDate() {

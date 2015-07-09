@@ -10,6 +10,7 @@ create table item(
 	item_detail long not null,
 	item_img_name varchar(30) not null
 )
+select *from item
 delete from item
 create sequence item_seq nocache
 drop sequence item_seq

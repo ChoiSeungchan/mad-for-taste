@@ -64,7 +64,9 @@
 				</div>
 			</div>
 			<div class="item">
-				<a href="blog_tastyPlaceBlogSecond?id=owner2345"><img alt="" src="${initParam.root}resources/images/test2.jpg" /></a>
+				<!-- <a href="blog_tastyPlaceBlogSecond?id=owner2345"> -->
+				<a href="memberAddressNearByRestaurantService">
+				<img alt="" src="${initParam.root}resources/images/test2.jpg" /></a>
 				<div class="carousel-caption">
 					<h4>Second Thumbnail label</h4>
 					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.

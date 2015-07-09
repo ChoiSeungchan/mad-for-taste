@@ -42,6 +42,14 @@
 				location.reload(true);
 		});
 		
+		$('#memberAdminBtn').click(function(){
+			location.href='${initParam.root}memberAdmin/1';
+		});
+		
+		$('#reportAdminBtn').click(function(){
+			location.href='${initParam.root}reportAdmin/1';
+		});
+		
 		$('#registerBtn').click(function(){
 			var userCategory = $(':input[name=userCategory]:checked').val();
 			if(userCategory=='member') {
@@ -60,7 +68,7 @@
 					if(data.result=='failure') {
 						alert('오늘은 이미 출석체크를 하셨습니다. 12시에 초기화됩니다.');
 					} else {
-						alert(data.exp+" 경험치를 획득하였습니다.");
+						alert(data.exp+" 경험치와 "+data.point+" 포인트를 획득하였습니다.");
 					}
 					
 					$.ajax({
@@ -145,6 +153,50 @@
 <ul class="list-group">
 	<li class="list-group-item"> <!-- 박스 시작 -->
 		<c:choose>
+			<c:when test="${sessionScope.member!=null && sessionScope.member.exp>=10000000}">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>
+								관리자 권한 획득
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>
+							<font id="levelInfo" color="#0489B1">
+							<b>Lv.${sessionScope.member.levelInfo.level}</b><br>
+							${sessionScope.member.exp}/${sessionScope.member.levelInfo.nextLevelExp}
+							(${sessionScope.member.levelInfo.expPercentage}%)
+							</font>
+							<div class="progress">
+								<div id="progress"
+									class="progress-bar progress-bar-info progress-bar-striped active"
+									role="progressbar" aria-valuenow="60" aria-valuemin="0"
+									aria-valuemax="100"
+									style="width: ${sessionScope.member.levelInfo.expPercentage}%">
+								</div>
+							</div>
+							<center><h4><b>${sessionScope.member.name}(${sessionScope.member.id})</b></h4></center>
+						</td>
+					</tr>
+					<tr>
+						<td align="center">
+							<img class="img-responsive" src="${initParam.root}${sessionScope.member.profileImg}" style="width: 180px; height: 180px">
+						</td>
+					</tr>
+					<tr>
+						<td>포인트 : ${sessionScope.member.point}P</td>
+					</tr>
+					</tbody>
+				</table>
+				<div style="width: 100%; padding: 5px" align="center">
+					<input type="button" id="logoutBtn" class="btn btn-primary btn-block" value="로그아웃">
+					<input type="button" id="memberAdminBtn" class="btn btn-info btn-block" value="회원 관리">
+					<input type="button" id="reportAdminBtn" class="btn btn-danger btn-block" value="신고 처리">
+				</div>
+			</c:when>
 			<c:when test="${sessionScope.member!=null}">
 				<table class="table">
 					<thead>
@@ -193,7 +245,7 @@
 						<span style="padding-right: 10px" class="glyphicon glyphicon-th" aria-hidden="true"></span>내 인벤토리
 					</button>
 					<button id="dailyCheckBtn" class="btn btn-default btn-block">
-						<span style="padding-right: 10px" class="glyphicon glyphicon-ok" aria-hidden="true"></span>출석체크<br>(1~100EXP 획득)
+						<span style="padding-right: 10px" class="glyphicon glyphicon-ok" aria-hidden="true"></span>출석체크<br>(1~100EXP,Point 랜덤획득)
 					</button>
 				</div>
 			</c:when>

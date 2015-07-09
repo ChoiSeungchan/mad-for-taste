@@ -42,4 +42,28 @@ public class RestaurantDaoImpl implements RestaurantDao {
 		return sqlSessionTemplate.selectOne("tastyPlace.SelectRestaurantByAddress",map);
 	}
 
+	@Override
+	public void upGood(int resNo) {
+		sqlSessionTemplate.update("tastyPlace.upGood", resNo);
+	}
+
+	@Override
+	public void upBad(int resNo) {
+		sqlSessionTemplate.update("tastyPlace.upBad", resNo);
+	}
+
+	@Override
+	public List<Restaurant> selectRestaurantNearByAddress(Map<String, String> map) {
+		return sqlSessionTemplate.selectList("tastyPlace.selectRestaurantNearByAddress",map);
+	}
+
+	@Override
+	public int selectRestaurantTotalCnt(Map<String, String> map) {
+		return sqlSessionTemplate.selectOne("tastyPlace.selectRestaurantTotalCnt",map);
+	}
+
+	@Override
+	public Restaurant selectRestaurantByResNo(String string) {
+		return sqlSessionTemplate.selectOne("tastyPlace.selectRestaurantByResNo",string);
+	}
 }

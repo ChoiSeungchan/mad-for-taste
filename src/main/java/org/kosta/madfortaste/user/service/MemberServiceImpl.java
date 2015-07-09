@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
+import org.kosta.madfortaste.common.domain.ListContainer;
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.user.dao.MemberDao;
 import org.kosta.madfortaste.user.domain.Member;
@@ -32,7 +33,7 @@ public class MemberServiceImpl implements MemberService{
 	public Member registerMemberImg(Member member, HttpServletRequest req) throws IllegalStateException, IOException {
 		String realPath = new HttpServletRequestWrapper(req).getRealPath("/") + path;
 		MultipartFile imgFile = member.getImgFile();
-		if(imgFile.getSize()!=0) {
+		if(imgFile!=null && imgFile.getSize()!=0) {
 			// 확장자 추출
 			String extension = imgFile.getOriginalFilename().substring(imgFile.getOriginalFilename().lastIndexOf(".")+1);
 			// 파일 업로드
@@ -79,7 +80,6 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void updateMember(Member member, HttpServletRequest req) throws IllegalStateException, IOException {
 		registerMemberImg(member, req);
-		System.out.println(member);
 		memberDao.updateMember(member);
 	}
 	
@@ -95,12 +95,14 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public List<Member> selectMemberList(int currentPage) {
+	public ListContainer selectMemberList(int currentPage) {
 		Page page = new Page(memberDao.selectTotalCount());
 		page.setCurrentPage(currentPage);
 		page.setPageSize(10);
 		page.setPageGroupSize(5);
-		return memberDao.selectMemberList(page);
+		List<Member> memberList = memberDao.selectMemberList(page);
+		ListContainer container = new ListContainer(memberList, page);
+		return container;
 	}
 
 	@Override

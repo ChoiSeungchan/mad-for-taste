@@ -115,6 +115,7 @@ public class TasteBoardServiceImpl implements TasteBoardService {
 			}
 			res.addCookie(cookie);
 		} else {
+			tasteBoardDao.upHits(articleNo);
 			getArticleLog = "|"+articleNo+"|";
 			cookie = new Cookie("getArticleLog", getArticleLog);
 			cookie.setMaxAge(60*60*24);
@@ -124,7 +125,7 @@ public class TasteBoardServiceImpl implements TasteBoardService {
 	
 	@Transactional
 	@Override
-	public boolean upGood(int articleNo, String id) {
+	public boolean upGood(int articleNo, String id, int resNo) {
 		List<String> votedMemberList = tasteBoardDao.selectVotedList(articleNo);
 		boolean isThisMemberVoted = false;;
 		if (votedMemberList != null && votedMemberList.size() != 0) {
@@ -137,6 +138,7 @@ public class TasteBoardServiceImpl implements TasteBoardService {
 		}
 		if(isThisMemberVoted==false) {
 			tasteBoardDao.upGood(articleNo);
+			restaurantDao.upGood(resNo);
 			tasteBoardDao.insertVote(articleNo, id);
 			memberDao.upExp(id.trim(), ExpConfig.GOOD_BAD);
 		}
@@ -145,7 +147,7 @@ public class TasteBoardServiceImpl implements TasteBoardService {
 	
 	@Transactional
 	@Override
-	public boolean upBad(int articleNo, String id) {
+	public boolean upBad(int articleNo, String id, int resNo) {
 		List<String> votedMemberList = tasteBoardDao.selectVotedList(articleNo);
 		boolean isThisMemberVoted = false;;
 		if (votedMemberList != null && votedMemberList.size() != 0) {
@@ -158,6 +160,7 @@ public class TasteBoardServiceImpl implements TasteBoardService {
 		}
 		if(isThisMemberVoted==false) {
 			tasteBoardDao.upBad(articleNo);
+			restaurantDao.upBad(resNo);
 			tasteBoardDao.insertVote(articleNo, id);
 			memberDao.upExp(id.trim(), ExpConfig.GOOD_BAD);
 		}
@@ -180,6 +183,16 @@ public class TasteBoardServiceImpl implements TasteBoardService {
 			article.setReply(replyDao.getReplyCount(article.getArticleNo()));
 		}
 		return articles;
+	}
+
+	@Override
+	public List<Article> selectBoardByResNo(Map<String, String> map) {
+		return tasteBoardDao.selectBoardByResNo(map);
+	}
+
+	@Override
+	public int selectTotalCntBoardByResNo(String string) {
+		return tasteBoardDao.selectTotalCntBoardByResNo(string);
 	}
 
 }
