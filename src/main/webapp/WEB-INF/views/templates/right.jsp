@@ -6,6 +6,19 @@
 <script type="text/javascript">
 var htmlVal="";
 	$(function() {
+		$.ajax({
+			type: "post",
+			url: "restaurantRankAjax",
+			dateType: "json",
+			success: function(data){
+				htmlVal="";
+				$.each(data,function(index,val){
+					if(index<5)
+						htmlVal+="<tr><td>"+val.rank+"위&nbsp&nbsp"+val.name+"</td></tr>";
+				})
+				$("#bestRestaurantTable").html(htmlVal);
+			}
+		})
 		setInterval(function() {
 				$.ajax({
 					type: "post",

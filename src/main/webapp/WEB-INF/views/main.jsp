@@ -64,8 +64,7 @@
 				</div>
 			</div>
 			<div class="item">
-				<!-- <a href="blog_tastyPlaceBlogSecond?id=owner2345"> -->
-				<a href="memberAddressNearByRestaurantService">
+			 <a href="blog_tastyPlaceBlogSecond?id=owner2345">
 				<img alt="" src="${initParam.root}resources/images/test2.jpg" /></a>
 				<div class="carousel-caption">
 					<h4>Second Thumbnail label</h4>
@@ -75,8 +74,7 @@
 				</div>
 			</div>
 			<div class="item">
-					<!-- <a href="blog_tastyPlaceBlogThree?id=owner3456"> -->
-					<a href="market">
+					<a href="blog_tastyPlaceBlogThree?id=owner3456">
 					<img alt="" src="${initParam.root}resources/images/test3.jpg" /></a>
 				<div class="carousel-caption">
 					<h4>Third Thumbnail label</h4>
