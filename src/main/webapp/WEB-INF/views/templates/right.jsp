@@ -8,7 +8,7 @@ var htmlVal="";
 	$(function() {
 		$.ajax({
 			type: "post",
-			url: "restaurantRankAjax",
+			url: "${initParam.root}restaurantRankAjax",
 			dateType: "json",
 			success: function(data){
 				htmlVal="";
@@ -22,7 +22,7 @@ var htmlVal="";
 		setInterval(function() {
 				$.ajax({
 					type: "post",
-					url: "restaurantRankAjax",
+					url: "${initParam.root}restaurantRankAjax",
 					dateType: "json",
 					success: function(data){
 						htmlVal="";
@@ -209,6 +209,22 @@ var htmlVal="";
 	font-size: 17px;
 	border: 3px solid #d9230f;
 }
+
+.rightTable {
+	width: 270px;
+	height: auto;
+}
+
+.rightTable td{
+	padding-bottom: 10px;
+}
+
+#bestRestaurantTable {
+	font-size:14px;
+	text-align: center;
+}
+
+
 </style>
 <ul class="list-group">
 	<li class="list-group-item"> <!-- 박스 시작 -->
@@ -390,10 +406,10 @@ var htmlVal="";
 
 <div class="panel panel-primary">
 	<div class="panel-heading">
-		<h3 class="panel-title">실시간 핫이슈 맛집</h3>
+		<h3 class="panel-title">실시간 인기검색 맛집</h3>
 	</div>
 	<div class="panel-body"><br>
-		<table class="table" id="bestRestaurantTable">
+		<table class="rightTable" id="bestRestaurantTable">
 		</table>		
 	</div>
 </div>
@@ -403,7 +419,7 @@ var htmlVal="";
 		<h3 class="panel-title">회원 랭킹</h3>
 	</div>
 	<div class="panel-body"><br>
-		<table id="memberRankTable" class="table table-hover">
+		<table id="memberRankTable" class="rightTable">
 			<tbody id="memberRankTableBody"> 
 			</tbody>
 		</table>
