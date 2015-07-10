@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.taste.domain.Article;
+import org.kosta.madfortaste.taste.domain.MostSearched;
 import org.kosta.madfortaste.taste.domain.Restaurant;
 
 public interface TasteBoardDao {
@@ -54,5 +55,17 @@ public interface TasteBoardDao {
 	public List<Article> selectByWriterApplicationPaging(Map<String, Object> map);
 
 	public List<Article> selectByTitleApplicationPaging(Map<String, Object> map);
+
+	public List<String> selectRestaurantByWriter(String string);
+
+	public List<String> selectRestaurantByTitle(String string);
+
+	public int insertSearchValue(String string);
+
+	public void updateSearchValue(String string);
+
+	public String selectSearchValue(String string);
+
+	public List<MostSearched> selectSearchValRank();
 
 }

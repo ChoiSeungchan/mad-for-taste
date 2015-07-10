@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.taste.domain.Article;
+import org.kosta.madfortaste.taste.domain.MostSearched;
 
 public interface TasteBoardService {
 	
@@ -50,5 +51,17 @@ public interface TasteBoardService {
 	public List<Article> selectByWriterApplicationPaging(Map<String, Object> map);
 
 	public List<Article> selectByTitleApplicationPaging(Map<String, Object> map);
+
+	public List<String> selectRestaurantByWriter(String string);
+
+	public List<String> selectRestaurantByTitle(String string);
+
+	public void insertSearchValue(String string);
+
+	public void updateSearchValue(String string);
+
+	public String selectSearchValue(String string);
+
+	public List<MostSearched> selectSearchValRank();
 
 }

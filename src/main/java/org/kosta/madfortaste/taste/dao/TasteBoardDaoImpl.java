@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.taste.domain.Article;
+import org.kosta.madfortaste.taste.domain.MostSearched;
 import org.kosta.madfortaste.taste.domain.Restaurant;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -141,6 +142,36 @@ public class TasteBoardDaoImpl implements TasteBoardDao {
 	@Override
 	public List<Article> selectByTitleApplicationPaging(Map<String, Object> map) {
 		return sqlSessionTemplate.selectList("selectByTitleApplicationPaging",map);
+	}
+
+	@Override
+	public List<String> selectRestaurantByWriter(String string) {
+		return sqlSessionTemplate.selectList("selectRestaurantByWriter",string);
+	}
+
+	@Override
+	public List<String> selectRestaurantByTitle(String string) {
+		return sqlSessionTemplate.selectList("selectRestaurantByTitle",string);
+	}
+
+	@Override
+	public int insertSearchValue(String string) {
+		return sqlSessionTemplate.insert("insertSearchValue",string);
+	}
+
+	@Override
+	public void updateSearchValue(String string) {
+		sqlSessionTemplate.update("updateSearchValue",string);
+	}
+
+	@Override
+	public String selectSearchValue(String string) {
+		return sqlSessionTemplate.selectOne("selectSearchValue",string);
+	}
+
+	@Override
+	public List<MostSearched> selectSearchValRank() {
+		return sqlSessionTemplate.selectList("selectSearchValRank");
 	}
 
 }

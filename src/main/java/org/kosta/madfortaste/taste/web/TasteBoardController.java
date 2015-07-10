@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import org.kosta.madfortaste.common.config.ExpConfig;
 import org.kosta.madfortaste.common.lib.Page;
 import org.kosta.madfortaste.taste.domain.Article;
+import org.kosta.madfortaste.taste.domain.MostSearched;
 import org.kosta.madfortaste.taste.domain.Reply;
 import org.kosta.madfortaste.taste.domain.Restaurant;
 import org.kosta.madfortaste.taste.domain.TasteBoardImg;
@@ -315,5 +316,11 @@ public class TasteBoardController {
 		objectMap.put("list", list);
 		objectMap.put("resultPage", page);
 		return objectMap;
+	}
+	
+	@RequestMapping(value="restaurantRankAjax",method=RequestMethod.POST)
+	@ResponseBody
+	public List<MostSearched> restaurantRank(){
+		return tasteBoardService.selectSearchValRank();
 	}
 }

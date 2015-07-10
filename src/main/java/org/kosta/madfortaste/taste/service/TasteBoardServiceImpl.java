@@ -12,6 +12,7 @@ import org.kosta.madfortaste.taste.dao.ReplyDao;
 import org.kosta.madfortaste.taste.dao.RestaurantDao;
 import org.kosta.madfortaste.taste.dao.TasteBoardDao;
 import org.kosta.madfortaste.taste.domain.Article;
+import org.kosta.madfortaste.taste.domain.MostSearched;
 import org.kosta.madfortaste.taste.domain.Restaurant;
 import org.kosta.madfortaste.user.dao.MemberDao;
 import org.kosta.madfortaste.user.service.MemberService;
@@ -213,6 +214,36 @@ public class TasteBoardServiceImpl implements TasteBoardService {
 	@Override
 	public List<Article> selectByTitleApplicationPaging(Map<String, Object> map) {
 		return tasteBoardDao.selectByTitleApplicationPaging(map);
+	}
+
+	@Override
+	public List<String> selectRestaurantByWriter(String string) {
+		return tasteBoardDao.selectRestaurantByWriter(string);
+	}
+
+	@Override
+	public List<String> selectRestaurantByTitle(String string) {
+		return tasteBoardDao.selectRestaurantByTitle(string);
+	}
+
+	@Override
+	public void insertSearchValue(String string) {
+		tasteBoardDao.insertSearchValue(string);
+	}
+
+	@Override
+	public void updateSearchValue(String string) {
+		tasteBoardDao.updateSearchValue(string);
+	}
+
+	@Override
+	public String selectSearchValue(String string) {
+		return tasteBoardDao.selectSearchValue(string);
+	}
+
+	@Override
+	public List<MostSearched> selectSearchValRank() {
+		return tasteBoardDao.selectSearchValRank();
 	}
 
 }

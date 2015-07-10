@@ -174,6 +174,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			where t.writer=m.id and title like upper('%'|| #{title} ||'%')
 		)  where rnum between #{beginRow} and #{endRow}
 	</select>
+	
+	<select id="selectRestaurantByWriter" resultType="string">
+	    select r.res_name from taste_board t,member m,restaurant r  where m.id=t.writer and r.res_no=t.res_no and name like '%' || #{value} || '%'
+	</select>
+	
+	<select id="selectRestaurantByTitle" resultType="string">
+	    select r.res_name from taste_board t,member m,restaurant r  where m.id=t.writer and r.res_no=t.res_no and title like '%' || #{value} || '%'
+	</select>
+	
+	<insert id="insertSearchValue">
+	    insert into mostSearched(name) values(#{value})
+	</insert>
+	
+	<update id="updateSearchValue">
+	    update mostSearched set cnt=cnt+1 where name=#{value}
+	</update>
+	
+	<select id="selectSearchValue" resultType="string">
+	    select name from mostSearched where name=#{value}
+	</select>
+	
+	<select id="selectSearchValRank" resultType="mostSearched">
+	      select  RANK() OVER(order by cnt desc) rank,name from mostSearched
+	</select>
 </mapper>
  
  
