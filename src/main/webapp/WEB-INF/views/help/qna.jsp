@@ -21,6 +21,14 @@
 		$("#insert").click(function() {
 			location.href = "insertQnaView"
 		});
+		
+		$("#qnaSearchBtn").click(function(){
+			var inputText=$("#input").text();
+			alert(inputText);
+			
+		})
+		
+		
 		$("#t1 tbody tr").click(function() {
 			var articleNo =$(this).children("td:eq(0)").text();
 			location.href="qnaShowContentView?no="+articleNo;
@@ -130,7 +138,7 @@
             <div class="input-group">
                <input type="text" class="form-control" placeholder="검색어입력"
                   name="input" id="input"> <span class="input-group-btn">
-                  <input type="submit" class="btn btn-primary" value="검색">
+                  <input type="submit" id="qnaSearchBtn" class="btn btn-primary" value="검색">
                </span>
             </div>
          </div>
