@@ -64,8 +64,7 @@
 				</div>
 			</div>
 			<div class="item">
-				<!-- <a href="blog_tastyPlaceBlogSecond?id=owner2345"> -->
-				<a href="memberAddressNearByRestaurantService">
+			 <a href="blog_tastyPlaceBlogSecond?id=owner2345">
 				<img alt="" src="${initParam.root}resources/images/test2.jpg" /></a>
 				<div class="carousel-caption">
 					<h4>Second Thumbnail label</h4>
@@ -75,8 +74,7 @@
 				</div>
 			</div>
 			<div class="item">
-					<!-- <a href="blog_tastyPlaceBlogThree?id=owner3456"> -->
-					<a href="market">
+					<a href="blog_tastyPlaceBlogThree?id=owner3456">
 					<img alt="" src="${initParam.root}resources/images/test3.jpg" /></a>
 				<div class="carousel-caption">
 					<h4>Third Thumbnail label</h4>
@@ -110,7 +108,7 @@
 				<span class="col-md-1">
 					<img style="width:50px;height: 50px;" src="${initParam.root}resources/images/taste/${status.count}.png">
 				</span>
-				<span class="col-md-4">
+				<span class="col-md-3">
 					<img style="width:50px;height: 50px;" src="${initParam.root}resources/images/user/member/${top3.member.profileImg}">
 					<img src="${initParam.root}resources/images/user/member/level/${top3.member.levelInfo.level}.gif">
 					${top3.member.name}(${top3.writer})
@@ -118,7 +116,7 @@
 				<span class="col-md-3" style="margin-top : 12px;">
 					<b>${top3.title}</b>
 				</span>
-				<span class="col-md-4" style="margin-top : 12px;">
+				<span class="col-md-5" style="margin-top : 12px;">
 					<span class="glyphicon glyphicon glyphicon-comment" style="color:#045FB4"></span> ${top3.reply} &nbsp&nbsp&nbsp&nbsp
 					<span class="glyphicon glyphicon-eye-open"></span> ${top3.hits} &nbsp&nbsp&nbsp&nbsp
 					<span class="glyphicon glyphicon-thumbs-up" style="color:#045FB4"></span> ${top3.good} &nbsp&nbsp&nbsp&nbsp
@@ -146,7 +144,7 @@
 						<span class="col-md-1" style="margin-top : 12px;">
 							#${article.articleNo}<br>
 						</span>
-						<span class="col-md-4">
+						<span class="col-md-3">
 							<img style="width:50px;height: 50px;" src="${initParam.root}resources/images/user/member/${article.member.profileImg}">
 							<img src="${initParam.root}resources/images/user/member/level/${article.member.levelInfo.level}.gif">
 							${article.member.name}(${article.writer})
@@ -154,7 +152,7 @@
 						<span class="col-md-3" style="margin-top : 12px;">
 							<b>${article.title}</b>
 						</span>
-						<span class="col-md-4" style="margin-top : 12px;">
+						<span class="col-md-5" style="margin-top : 12px;">
 							<span class="glyphicon glyphicon glyphicon-comment" style="color:#045FB4"></span> ${article.reply} &nbsp&nbsp&nbsp&nbsp
 							<span class="glyphicon glyphicon-eye-open"></span> ${article.hits} &nbsp&nbsp&nbsp&nbsp
 							<span class="glyphicon glyphicon-thumbs-up" style="color:#045FB4"></span> ${article.good} &nbsp&nbsp&nbsp&nbsp

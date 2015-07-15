@@ -36,3 +36,5 @@ create table inventory(
 )
 
 select * from inventory
+
+	    select r.res_name from taste_board t,member m,restaurant r  where m.id=t.writer and r.res_no=t.res_no and name like '%현승%'

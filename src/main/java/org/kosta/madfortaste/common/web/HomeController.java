@@ -1,6 +1,9 @@
 package org.kosta.madfortaste.common.web;
 
+import java.util.List;
+
 import org.kosta.madfortaste.common.lib.Page;
+import org.kosta.madfortaste.taste.domain.MostSearched;
 import org.kosta.madfortaste.taste.service.TasteBoardService;
 import org.kosta.madfortaste.user.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;

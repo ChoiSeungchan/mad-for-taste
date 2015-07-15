@@ -96,4 +96,12 @@ create table Restaurant(
 create sequence res_seq nocache
 drop sequence res_seq
 
-select *from taste_board
+drop table mostSearched
+create table mostSearched(	--에이오피 적용 테이블(실시간 인기 맛집)
+	name varchar2(20) primary key,
+	cnt number default 1
+)
+ insert into mostSearched(name) values('ddd')
+ select *from mostSearched
+ delete from mostSearched
+ select  RANK() OVER(order by cnt desc) rank,name from mostSearched

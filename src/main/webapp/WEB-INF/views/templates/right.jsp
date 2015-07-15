@@ -4,7 +4,36 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
+var htmlVal="";
 	$(function() {
+		$.ajax({
+			type: "post",
+			url: "${initParam.root}restaurantRankAjax",
+			dateType: "json",
+			success: function(data){
+				htmlVal="";
+				$.each(data,function(index,val){
+					if(index<5)
+						htmlVal+="<tr><td>"+val.rank+"위&nbsp&nbsp"+val.name+"</td></tr>";
+				})
+				$("#bestRestaurantTable").html(htmlVal);
+			}
+		})
+		setInterval(function() {
+				$.ajax({
+					type: "post",
+					url: "${initParam.root}restaurantRankAjax",
+					dateType: "json",
+					success: function(data){
+						htmlVal="";
+						$.each(data,function(index,val){
+							if(index<5)
+								htmlVal+="<tr><td>"+val.rank+"위&nbsp&nbsp"+val.name+"</td></tr>";
+						})
+						$("#bestRestaurantTable").html(htmlVal);
+					}
+				})
+			}, 3000); 
 		$("#writerSearch").click(function(){
 			if($("#searchVal").val().trim().length<=1){
 				alert("검색어를 2자이상 입력해 주세요");
@@ -15,7 +44,7 @@
 			location.href="${initParam.root}searchGetArticles?searchVal="+$("#searchVal").val()+"&event="+$(this).val();
 		})
 		
-		$('#searchForm').submit(function(){
+		$('#mainSearchForm').submit(function(){
 			if($("#searchVal").val().trim().length<=1){
 				alert("검색어를 2자이상 입력해 주세요");
 				$("#searchVal").val("");
@@ -180,6 +209,22 @@
 	font-size: 17px;
 	border: 3px solid #d9230f;
 }
+
+.rightTable {
+	width: 270px;
+	height: auto;
+}
+
+.rightTable td{
+	padding-bottom: 10px;
+}
+
+#bestRestaurantTable {
+	font-size:14px;
+	text-align: center;
+}
+
+
 </style>
 <ul class="list-group">
 	<li class="list-group-item"> <!-- 박스 시작 -->
@@ -350,7 +395,7 @@
 	</div>
 	<div class="panel-body">
 		<div class="btn-group-horizontal">
-		  <form id="searchForm">
+		  <form id="mainSearchForm">
 		  <input type="text" id="searchVal">
 		  <button type="submit" class="btn btn-primary" id="titleSearch" value="title" style="width: 49%">제목으로 검색</button>
 		  <button type="button" class="btn btn-primary" id="writerSearch" value="writer" style="width: 49%">작성자로 검색</button>
@@ -361,29 +406,11 @@
 
 <div class="panel panel-primary">
 	<div class="panel-heading">
-		<h3 class="panel-title">실시간 검색어</h3>
+		<h3 class="panel-title">실시간 인기검색 맛집</h3>
 	</div>
 	<div class="panel-body"><br>
-		<table class="table">
-			<tr>
-				<td>asdf</td>
-			</tr>
-			<tr>
-				<td>asdf</td>
-			</tr>
-			<tr>
-				<td>asdf</td>
-			</tr>
-			<tr>
-				<td>asdf</td>
-			</tr>
-			<tr>
-				<td>asdf</td>
-			</tr>
-			<tr>
-				<td>asdf</td>
-			</tr>
-		</table>
+		<table class="rightTable" id="bestRestaurantTable">
+		</table>		
 	</div>
 </div>
 
@@ -392,7 +419,7 @@
 		<h3 class="panel-title">회원 랭킹</h3>
 	</div>
 	<div class="panel-body"><br>
-		<table id="memberRankTable" class="table table-hover">
+		<table id="memberRankTable" class="rightTable">
 			<tbody id="memberRankTableBody"> 
 			</tbody>
 		</table>
